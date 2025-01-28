@@ -104,7 +104,6 @@ class TMLDParser:
         self.groups = groups
 
     def parse_file(self, file_path):
-        ''''''
         self.lines = self._read_file(file_path)
         self._parse_tables()
         return self.groups
@@ -117,5 +116,36 @@ class TMLDParser:
             self.tables[table_name] = result
         return self.tables
     
+    def _tmdl_to_dict(self, tmdl):
+        """
+        Recursively converts a TMDL object (and its nested TMDL objects in 'properties') 
+        into a dictionary suitable for JSON serialization.
+        """
+        return {
+            "description": tmdl.description,
+            "element": tmdl.element,
+            "calculation": tmdl.calculation,
+            "properties": [
+                self._tmdl_to_dict(prop) if isinstance(prop, TMDL) else prop
+                for prop in tmdl.properties
+            ],
+        }
+
+    def save_to_json(self, output_path):
+        """
+        Saves the parsed TMDL structure into a JSON file at the given output path.
+        If tables were not previously parsed, it will parse them before saving.
+        """
+        if not self.tables:
+            self.parse_all_tables()
+
+        data = {}
+        for table_name, tmdls in self.tables.items():
+            data[table_name] = [self._tmdl_to_dict(t) for t in tmdls]
+
+        with open(output_path, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=4)
+        print(f"Data successfully saved to {output_path}")
+
     def __str__(self):
         return "\n\n".join(str(group) for group in self.groups)

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Power BI Model Documentation</title>
+    <style>
+        body {
+            display: flex;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        nav {
+            width: 250px;
+            background-color: #f2f2f2;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        nav li {
+            margin-bottom: 10px;
+        }
+        nav li a {
+            text-decoration: none;
+            color: #333;
+            transition: color 0.2s;
+        }
+        nav li a:hover {
+            color: #007bff;
+        }
+        main {
+            flex: 1;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+        section {
+            margin-bottom: 50px;
+        }
+        h2 {
+            margin-top: 0;
+        }
+        .column-info {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            {% for table in tables %}
+            <li>
+                <a href="#{{ table.name | replace(' ', '_') }}">{{ table.name }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </nav>
+    <main>
+        {% for table in tables %}
+        <section id="{{ table.name | replace(' ', '_') }}">
+            <h2>{{ table.name }}</h2>
+            {% if table.description %}
+                <p><strong>Description:</strong> {{ table.description }}</p>
+            {% else %}
+                <p><em>No description provided.</em></p>
+            {% endif %}
+
+            {% if table.columns %}
+            <h3>Columns</h3>
+            <ul>
+                {% for column in table.columns %}
+                <li class="column-info">
+                    <strong>{{ column.name }}</strong><br>
+                    <em>Type: {{ column.dataType or 'N/A' }}</em><br>
+                    Summarize By: {{ column.summarizeBy or 'N/A' }}<br>
+                    Description: {{ column.description or 'N/A' }}
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p><em>No columns found for this table.</em></p>
+            {% endif %}
+        </section>
+        {% endfor %}
+    </main>
+</body>
+</html>
