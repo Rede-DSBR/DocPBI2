@@ -1,0 +1,418 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.2.0/schema.json",
+  "name": "d6c3cd355a5fcef9ef34",
+  "position": {
+    "x": 576,
+    "y": 112,
+    "z": 5000,
+    "height": 608,
+    "width": 608,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "CardBrowser8D7CFFDA2E7E400C9474F41B9EDBBA58",
+    "query": {
+      "queryState": {
+        "id": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fInstagram"
+                    }
+                  },
+                  "Property": "id"
+                }
+              },
+              "queryRef": "fInstagram.id"
+            }
+          ]
+        },
+        "imageUrl": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fInstagram"
+                    }
+                  },
+                  "Property": "media_url"
+                }
+              },
+              "queryRef": "fInstagram.media_url"
+            }
+          ]
+        },
+        "metadata": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dimUsernameInstagram"
+                    }
+                  },
+                  "Property": "Saiba mais em 👉"
+                }
+              },
+              "queryRef": "dimUsernameInstagram.Saiba mais em 👉"
+            }
+          ]
+        },
+        "sourceImage": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dimUsernameInstagram"
+                    }
+                  },
+                  "Property": "profile_picture_url"
+                }
+              },
+              "queryRef": "dimUsernameInstagram.profile_picture_url"
+            }
+          ]
+        },
+        "subtitle": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fInstagram"
+                    }
+                  },
+                  "Property": "timestamp"
+                }
+              },
+              "queryRef": "fInstagram.timestamp"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "d_IES"
+                    }
+                  },
+                  "Property": "Sigla"
+                }
+              },
+              "queryRef": "d_IES.Sigla"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fInstagram"
+                    }
+                  },
+                  "Property": "caption"
+                }
+              },
+              "queryRef": "fInstagram.caption"
+            }
+          ]
+        },
+        "title": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fInstagram"
+                    }
+                  },
+                  "Property": "Comentários"
+                }
+              },
+              "queryRef": "fInstagram.Comentários"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fInstagram"
+                    }
+                  },
+                  "Property": "Curtidas"
+                }
+              },
+              "queryRef": "fInstagram.Curtidas"
+            }
+          ]
+        },
+        "topBarColor": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_UFColor"
+                    }
+                  },
+                  "Property": "Cor"
+                }
+              },
+              "queryRef": "_UFColor.Cor"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "fInstagram"
+                  }
+                },
+                "Property": "timestamp"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "flipState": [
+        {
+          "properties": {
+            "cardFaceDefault": {
+              "expr": {
+                "Literal": {
+                  "Value": "'preview'"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "loadMoreData": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "metadata": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            },
+            "titleFontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'''Segoe UI'', wf_segoe-ui_normal, helvetica, arial, sans-serif'"
+                }
+              }
+            },
+            "valueFontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'''Segoe UI'', wf_segoe-ui_normal, helvetica, arial, sans-serif'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "presentation": [
+        {
+          "properties": {
+            "showImageOnBack": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "cropImages": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fade": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "shadow": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "cardWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "190D"
+                }
+              }
+            },
+            "cardHeight": {
+              "expr": {
+                "Literal": {
+                  "Value": "280D"
+                }
+              }
+            },
+            "dateFormat": {
+              "expr": {
+                "Literal": {
+                  "Value": "'DD/MM/YYYY'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "reader": [
+        {
+          "properties": {
+            "headerBackgroundColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            },
+            "width": {
+              "expr": {
+                "Literal": {
+                  "Value": "520D"
+                }
+              }
+            },
+            "height": {
+              "expr": {
+                "Literal": {
+                  "Value": "500D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "Filter105099e0e851eb1f020d",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "fInstagram"
+              }
+            },
+            "Property": "media_type"
+          }
+        },
+        "howCreated": "User",
+        "objects": {
+          "general": [
+            {
+              "properties": {
+                "isInvertedSelectionMode": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "true"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

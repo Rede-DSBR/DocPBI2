@@ -1,0 +1,61 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.2.0/schema.json",
+  "name": "2099384de45f160ca24f",
+  "position": {
+    "x": 104,
+    "y": 40,
+    "z": 3000,
+    "height": 48,
+    "width": 479.99999999999994,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Tamires Pereira Alves",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "8pt",
+                      "color": "#dae5e4"
+                    }
+                  },
+                  {
+                    "value": " | Mestranda em Engenharia de Sistemas e Produtos no IFBA/PPGESP. Engenheira Mecânica e Técnica em Mecânica pela Rede Federal EPCT",
+                    "textStyle": {
+                      "fontSize": "8pt",
+                      "color": "#dae5e4"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "100D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "isHidden": true
+}

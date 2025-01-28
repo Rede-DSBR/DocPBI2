@@ -1,0 +1,90 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmarksMetadata/1.0.0/schema.json",
+  "items": [
+    {
+      "name": "Bookmarkab9b0cf7a7e0ba07e429",
+      "displayName": "ContextoFiltros| Microdados",
+      "children": [
+        "Bookmarkbb185dc9e7411eee0a13",
+        "Bookmark04da1b396fb1f03a5d23",
+        "Bookmarka2479526a9081559dc23",
+        "Bookmark3aec0fe7003d3781d9a3",
+        "Bookmark0e7b901ca7a932863003",
+        "Bookmark42a2e46ab0b7b378d3a7",
+        "Bookmark069fe89690b5a02090e1",
+        "Bookmark01bc6f2012c90089d8dd",
+        "Bookmark181da671715c034c8cb5"
+      ]
+    },
+    {
+      "name": "Bookmark6b12d85d03bd50ac8e55",
+      "displayName": "ContextoFiltros | Orçamento",
+      "children": [
+        "Bookmarka7bf71055391e8a61406",
+        "Bookmark56838457c55463533040",
+        "Bookmark46d4128a317185ea5e60",
+        "Bookmarkabb667b1882607d4a5d5",
+        "Bookmark95aba49d476bbe380459",
+        "Bookmark0ce479596620e375946b",
+        "Bookmark151ed5649da18daed659",
+        "Bookmarkf2ca409172925192730c",
+        "Bookmark14a4a6035008b7de0094"
+      ]
+    },
+    {
+      "name": "Bookmarka33413e8d4846800baab"
+    },
+    {
+      "name": "Bookmark5d394e87940312373dc4"
+    },
+    {
+      "name": "Bookmarkd962adce04f50e94b8d7",
+      "displayName": "Dados Acadêmicos",
+      "children": [
+        "Bookmark205d2d73f19ea7e12d81",
+        "Bookmark7f6c5b7ec677a33cbec9",
+        "Bookmark680f385b0658c1ddcc0c",
+        "Bookmarka0d2300fafe1763f0b71",
+        "Bookmark2ec47f2e3030aeb17744"
+      ]
+    },
+    {
+      "name": "Bookmark5e451d3a5b1e9373f83d",
+      "displayName": "Percentuais Legais",
+      "children": [
+        "Bookmark5c4f3a2e8354d3df49b4",
+        "Bookmarka67328c781e5a379a3c0",
+        "Bookmark9ee8aa894183bb5f5f34",
+        "Bookmark260b6628860c36fc8557"
+      ]
+    },
+    {
+      "name": "Bookmark8c06930e6985477eb587",
+      "displayName": "Indicadores Acadêmicos",
+      "children": [
+        "Bookmarka41b7586573ce49ab49d",
+        "Bookmark941f7d94202f1619e788",
+        "Bookmark38b26bc974d700fa9335",
+        "Bookmarkbb4a7e75af70a32cdaa9",
+        "Bookmark9ae7e84444ffa23ff6dd"
+      ]
+    },
+    {
+      "name": "Bookmarkd044eb6729ab870df464",
+      "displayName": "Indicadores de Pessoal",
+      "children": [
+        "Bookmark22d1bd874bf61854ab7d",
+        "Bookmarke0a90f5a99abfc149c8c",
+        "Bookmark63e6547634b7cdf4c61d"
+      ]
+    },
+    {
+      "name": "Bookmarke2bf2dc3d66e420430f9",
+      "displayName": "BotõesPersonalização",
+      "children": [
+        "Bookmark323a334eb690a3a61c80",
+        "Bookmarkafd0d883ac3b4c203b9b"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.2.0/schema.json",
+  "name": "dec456f65a1e2e35d280",
+  "position": {
+    "x": 0,
+    "y": 0,
+    "z": 0,
+    "height": 719.8018166804294,
+    "width": 1280,
+    "tabOrder": 3000
+  },
+  "visualGroup": {
+    "displayName": "EstruturaDesign",
+    "groupMode": "ScaleMode"
+  },
+  "parentGroupName": "b95bb644922d6500831c"
+}

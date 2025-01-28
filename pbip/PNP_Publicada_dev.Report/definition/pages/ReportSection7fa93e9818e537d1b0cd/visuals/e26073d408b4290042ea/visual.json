@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.2.0/schema.json",
+  "name": "e26073d408b4290042ea",
+  "position": {
+    "x": 676.97102627267975,
+    "y": 135.10840450674621,
+    "z": 6000,
+    "height": 64,
+    "width": 104,
+    "tabOrder": 13000
+  },
+  "visualGroup": {
+    "displayName": "Slicer Variação",
+    "groupMode": "ScaleMode"
+  }
+}

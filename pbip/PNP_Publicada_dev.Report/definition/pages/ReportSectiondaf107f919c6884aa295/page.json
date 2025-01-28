@@ -1,0 +1,176 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/1.2.0/schema.json",
+  "name": "ReportSectiondaf107f919c6884aa295",
+  "displayName": "2. Microdados PNP | 5.6 Matrículas por Professor",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "Filter4c90725b650960962c12",
+        "ordinal": 0,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "d_IES"
+              }
+            },
+            "Property": "Org. Administrativa"
+          }
+        },
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "d",
+              "Entity": "d_IES",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "d"
+                          }
+                        },
+                        "Property": "Org. Administrativa"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Cefet'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Colégio'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Institutos'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Universidades'"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User"
+      }
+    ],
+    "filterSortOrder": "Custom"
+  },
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "image": {
+            "image": {
+              "name": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'POSIÇÃO 3 C 5 ABAS.png'"
+                  }
+                }
+              },
+              "url": {
+                "expr": {
+                  "ResourcePackageItem": {
+                    "PackageName": "RegisteredResources",
+                    "PackageType": 1,
+                    "ItemName": "POSI__O_3_C_5_ABAS3080519587669379.png"
+                  }
+                }
+              },
+              "scaling": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'Fill'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "width": {
+            "expr": {
+              "Literal": {
+                "Value": "350L"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visibility": "HiddenInViewMode",
+  "visualInteractions": [
+    {
+      "source": "cc8798d99cde0e2bee3c",
+      "target": "7f86bd3ff5bfba1152da",
+      "type": "NoFilter"
+    },
+    {
+      "source": "cc8798d99cde0e2bee3c",
+      "target": "27a43c1143ae98408540",
+      "type": "NoFilter"
+    },
+    {
+      "source": "27a43c1143ae98408540",
+      "target": "cc8798d99cde0e2bee3c",
+      "type": "NoFilter"
+    },
+    {
+      "source": "27a43c1143ae98408540",
+      "target": "7b3373f2d396c72a25c4",
+      "type": "NoFilter"
+    },
+    {
+      "source": "9e6d012b998b2683218b",
+      "target": "7b3373f2d396c72a25c4",
+      "type": "NoFilter"
+    },
+    {
+      "source": "9e6d012b998b2683218b",
+      "target": "a72d06be271f8ea7f5bb",
+      "type": "DataFilter"
+    }
+  ]
+}

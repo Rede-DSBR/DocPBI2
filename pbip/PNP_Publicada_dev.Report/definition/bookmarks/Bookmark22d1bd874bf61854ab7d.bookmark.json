@@ -1,0 +1,1188 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmark/1.2.0/schema.json",
+  "displayName": "Titulação Docente",
+  "name": "Bookmark22d1bd874bf61854ab7d",
+  "options": {
+    "targetVisualNames": [],
+    "suppressData": true,
+    "suppressDisplay": true
+  },
+  "explorationState": {
+    "version": "1.11",
+    "activeSection": "ReportSection31c8547d585662657bfa",
+    "sections": {
+      "ReportSection31c8547d585662657bfa": {
+        "visualContainers": {
+          "8c78ace2408410078305": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "Filter08c403fb83e89b027402",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "_",
+                        "Entity": "_fEficiênciaAcadêmica",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "_"
+                                    }
+                                  },
+                                  "Property": "Valor"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'Valor Absoluto'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_fEficiênciaAcadêmica"
+                        }
+                      },
+                      "Property": "Valor"
+                    }
+                  },
+                  "howCreated": 1
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "PBI_CV_7B952816_A48F_49B4_9E13_15E3BB2C0337",
+              "objects": {}
+            }
+          },
+          "3ac0f1da6c290a3f12fc": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "Filter57a20ce8b23c0593d373",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "d",
+                        "Entity": "d_IES",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "Not": {
+                            "Expression": {
+                              "In": {
+                                "Expressions": [
+                                  {
+                                    "Column": {
+                                      "Expression": {
+                                        "SourceRef": {
+                                          "Source": "d"
+                                        }
+                                      },
+                                      "Property": "Organização Acadêmica Sigla PNP"
+                                    }
+                                  }
+                                ],
+                                "Values": [
+                                  [
+                                    {
+                                      "Literal": {
+                                        "Value": "null"
+                                      }
+                                    }
+                                  ]
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "d_IES"
+                        }
+                      },
+                      "Property": "Organização Acadêmica Sigla PNP"
+                    }
+                  },
+                  "howCreated": 1
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "pivotTable",
+              "objects": {},
+              "activeProjections": {
+                "Rows": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dimUnidade"
+                        }
+                      },
+                      "Property": "Instituicao"
+                    }
+                  }
+                ]
+              },
+              "targetType": "pivotTable",
+              "projections": {
+                "Rows": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dimUnidade"
+                        }
+                      },
+                      "Property": "Instituicao"
+                    }
+                  }
+                ]
+              },
+              "parameters": {
+                "Rows": [
+                  {
+                    "expr": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "_dInstituições"
+                          }
+                        },
+                        "Property": "DetalhaInstuições"
+                      }
+                    },
+                    "index": 0,
+                    "length": 1
+                  }
+                ]
+              }
+            }
+          },
+          "13de781427657aa73a74": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "Filter7c4ee290f1b4e792f491",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "d",
+                        "Entity": "dCalendário",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "d"
+                                    }
+                                  },
+                                  "Property": "Ano"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "2018L"
+                                  }
+                                }
+                              ],
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "2019L"
+                                  }
+                                }
+                              ],
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "2020L"
+                                  }
+                                }
+                              ],
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "2021L"
+                                  }
+                                }
+                              ],
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "2017L"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dCalendário"
+                        }
+                      },
+                      "Property": "Ano"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "clusteredColumnChart",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "ScopedEval": {
+                      "Expression": {
+                        "Measure": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "fServidores | Microdados"
+                            }
+                          },
+                          "Property": "Servidores | ITCD"
+                        }
+                      },
+                      "Scope": [
+                        {
+                          "RoleRef": {
+                            "Role": "Rows"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ],
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dCalendário"
+                        }
+                      },
+                      "Property": "Ano"
+                    }
+                  }
+                ]
+              },
+              "targetType": "clusteredColumnChart",
+              "parameters": {
+                "Rows": [
+                  {
+                    "expr": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "_dServidores | Microdados"
+                          }
+                        },
+                        "Property": "_dServidores"
+                      }
+                    },
+                    "index": 0,
+                    "length": 0
+                  }
+                ]
+              }
+            }
+          },
+          "689e44ca8631153018f7": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "Filter267675379432395c9cd9",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "_",
+                        "Entity": "_dMicrodados",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "_"
+                                    }
+                                  },
+                                  "Property": "Ação Afirmativa Campos"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'''dimUnidade''[Instituicao]'"
+                                  }
+                                }
+                              ],
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'''dimUnidade''[nomeUnidadeRecente]'"
+                                  }
+                                }
+                              ],
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'''dimUnidade''[Regiao]'"
+                                  }
+                                }
+                              ],
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'''dimUnidade''[UF]'"
+                                  }
+                                }
+                              ],
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'''dimUnidade''[Município]'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_dMicrodados"
+                        }
+                      },
+                      "Property": "DetalhaMicrodados"
+                    }
+                  },
+                  "howCreated": 1,
+                  "cachedDisplayNames": [
+                    {
+                      "id": {
+                        "scopeId": {
+                          "Comparison": {
+                            "ComparisonKind": 0,
+                            "Left": {
+                              "Column": {
+                                "Expression": {
+                                  "SourceRef": {
+                                    "Entity": "_dMicrodados"
+                                  }
+                                },
+                                "Property": "Ação Afirmativa Campos"
+                              }
+                            },
+                            "Right": {
+                              "Literal": {
+                                "Value": "'''dimUnidade''[Instituicao]'"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "displayName": "Instituição"
+                    },
+                    {
+                      "id": {
+                        "scopeId": {
+                          "Comparison": {
+                            "ComparisonKind": 0,
+                            "Left": {
+                              "Column": {
+                                "Expression": {
+                                  "SourceRef": {
+                                    "Entity": "_dMicrodados"
+                                  }
+                                },
+                                "Property": "Ação Afirmativa Campos"
+                              }
+                            },
+                            "Right": {
+                              "Literal": {
+                                "Value": "'''dimUnidade''[nomeUnidadeRecente]'"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "displayName": "Unidade"
+                    },
+                    {
+                      "id": {
+                        "scopeId": {
+                          "Comparison": {
+                            "ComparisonKind": 0,
+                            "Left": {
+                              "Column": {
+                                "Expression": {
+                                  "SourceRef": {
+                                    "Entity": "_dMicrodados"
+                                  }
+                                },
+                                "Property": "Ação Afirmativa Campos"
+                              }
+                            },
+                            "Right": {
+                              "Literal": {
+                                "Value": "'''dimUnidade''[Regiao]'"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "displayName": "Região"
+                    },
+                    {
+                      "id": {
+                        "scopeId": {
+                          "Comparison": {
+                            "ComparisonKind": 0,
+                            "Left": {
+                              "Column": {
+                                "Expression": {
+                                  "SourceRef": {
+                                    "Entity": "_dMicrodados"
+                                  }
+                                },
+                                "Property": "Ação Afirmativa Campos"
+                              }
+                            },
+                            "Right": {
+                              "Literal": {
+                                "Value": "'''dimUnidade''[UF]'"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "displayName": "Estado"
+                    },
+                    {
+                      "id": {
+                        "scopeId": {
+                          "Comparison": {
+                            "ComparisonKind": 0,
+                            "Left": {
+                              "Column": {
+                                "Expression": {
+                                  "SourceRef": {
+                                    "Entity": "_dMicrodados"
+                                  }
+                                },
+                                "Property": "Ação Afirmativa Campos"
+                              }
+                            },
+                            "Right": {
+                              "Literal": {
+                                "Value": "'''dimUnidade''[Município]'"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "displayName": "Município"
+                    }
+                  ]
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "general": [
+                    {
+                      "properties": {
+                        "filter": {
+                          "filter": {
+                            "Version": 2,
+                            "From": [
+                              {
+                                "Name": "_",
+                                "Entity": "_dInstituições",
+                                "Type": 0
+                              }
+                            ],
+                            "Where": [
+                              {
+                                "Condition": {
+                                  "In": {
+                                    "Expressions": [
+                                      {
+                                        "Column": {
+                                          "Expression": {
+                                            "SourceRef": {
+                                              "Source": "_"
+                                            }
+                                          },
+                                          "Property": "Contexto Instituições Campos"
+                                        }
+                                      }
+                                    ],
+                                    "Values": [
+                                      [
+                                        {
+                                          "Literal": {
+                                            "Value": "'''dimUnidade''[Instituicao]'"
+                                          }
+                                        }
+                                      ]
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "selection": [
+                    {
+                      "properties": {
+                        "strictSingleSelect": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "false"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_dInstituições"
+                        }
+                      },
+                      "Property": "DetalhaInstuições"
+                    }
+                  }
+                ]
+              },
+              "cachedFilterDisplayItems": [
+                {
+                  "id": {
+                    "scopeId": {
+                      "Comparison": {
+                        "ComparisonKind": 0,
+                        "Left": {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Entity": "_dInstituições"
+                              }
+                            },
+                            "Property": "Contexto Instituições Campos"
+                          }
+                        },
+                        "Right": {
+                          "Literal": {
+                            "Value": "'''dimUnidade''[Instituicao]'"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "displayName": "Instituição"
+                }
+              ]
+            }
+          },
+          "b120218b27fe45cafcfc": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "95d53636fcc1b18a9368": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "Filter267675379432395c9cd9",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "_",
+                        "Entity": "_dMicrodados",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "_"
+                                    }
+                                  },
+                                  "Property": "Ação Afirmativa Campos"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'''dimCurso''[tipoOferta]'"
+                                  }
+                                }
+                              ],
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'''dimCurso''[tipoCurso]'"
+                                  }
+                                }
+                              ],
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'''dimCurso''[ModalidadeEnsino]'"
+                                  }
+                                }
+                              ],
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'''_Exp_Títulos''[EmBranco]'"
+                                  }
+                                }
+                              ],
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'''d_IES''[Organização Acadêmica Sigla PNP]'"
+                                  }
+                                }
+                              ],
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'''dimCurso''[tipoEixoTecnologico]'"
+                                  }
+                                }
+                              ],
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'''dimCurso''[turnoCurso]'"
+                                  }
+                                }
+                              ],
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'''dimCurso''[nomeCurso]'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_dMicrodados"
+                        }
+                      },
+                      "Property": "DetalhaMicrodados"
+                    }
+                  },
+                  "howCreated": 1,
+                  "cachedDisplayNames": [
+                    {
+                      "id": {
+                        "scopeId": {
+                          "Comparison": {
+                            "ComparisonKind": 0,
+                            "Left": {
+                              "Column": {
+                                "Expression": {
+                                  "SourceRef": {
+                                    "Entity": "_dMicrodados"
+                                  }
+                                },
+                                "Property": "Ação Afirmativa Campos"
+                              }
+                            },
+                            "Right": {
+                              "Literal": {
+                                "Value": "'''dimCurso''[tipoOferta]'"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "displayName": "Tipo de Oferta"
+                    },
+                    {
+                      "id": {
+                        "scopeId": {
+                          "Comparison": {
+                            "ComparisonKind": 0,
+                            "Left": {
+                              "Column": {
+                                "Expression": {
+                                  "SourceRef": {
+                                    "Entity": "_dMicrodados"
+                                  }
+                                },
+                                "Property": "Ação Afirmativa Campos"
+                              }
+                            },
+                            "Right": {
+                              "Literal": {
+                                "Value": "'''dimCurso''[tipoCurso]'"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "displayName": "Tipo de Curso"
+                    },
+                    {
+                      "id": {
+                        "scopeId": {
+                          "Comparison": {
+                            "ComparisonKind": 0,
+                            "Left": {
+                              "Column": {
+                                "Expression": {
+                                  "SourceRef": {
+                                    "Entity": "_dMicrodados"
+                                  }
+                                },
+                                "Property": "Ação Afirmativa Campos"
+                              }
+                            },
+                            "Right": {
+                              "Literal": {
+                                "Value": "'''dimCurso''[ModalidadeEnsino]'"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "displayName": "Modalidade de Ensino"
+                    },
+                    {
+                      "id": {
+                        "scopeId": {
+                          "Comparison": {
+                            "ComparisonKind": 0,
+                            "Left": {
+                              "Column": {
+                                "Expression": {
+                                  "SourceRef": {
+                                    "Entity": "_dMicrodados"
+                                  }
+                                },
+                                "Property": "Ação Afirmativa Campos"
+                              }
+                            },
+                            "Right": {
+                              "Literal": {
+                                "Value": "'''_Exp_Títulos''[EmBranco]'"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "displayName": "Sem detalhe"
+                    },
+                    {
+                      "id": {
+                        "scopeId": {
+                          "Comparison": {
+                            "ComparisonKind": 0,
+                            "Left": {
+                              "Column": {
+                                "Expression": {
+                                  "SourceRef": {
+                                    "Entity": "_dMicrodados"
+                                  }
+                                },
+                                "Property": "Ação Afirmativa Campos"
+                              }
+                            },
+                            "Right": {
+                              "Literal": {
+                                "Value": "'''d_IES''[Organização Acadêmica Sigla PNP]'"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "displayName": "Organização Acadêmica"
+                    },
+                    {
+                      "id": {
+                        "scopeId": {
+                          "Comparison": {
+                            "ComparisonKind": 0,
+                            "Left": {
+                              "Column": {
+                                "Expression": {
+                                  "SourceRef": {
+                                    "Entity": "_dMicrodados"
+                                  }
+                                },
+                                "Property": "Ação Afirmativa Campos"
+                              }
+                            },
+                            "Right": {
+                              "Literal": {
+                                "Value": "'''dimCurso''[tipoEixoTecnologico]'"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "displayName": "Eixo Tecnológico"
+                    },
+                    {
+                      "id": {
+                        "scopeId": {
+                          "Comparison": {
+                            "ComparisonKind": 0,
+                            "Left": {
+                              "Column": {
+                                "Expression": {
+                                  "SourceRef": {
+                                    "Entity": "_dMicrodados"
+                                  }
+                                },
+                                "Property": "Ação Afirmativa Campos"
+                              }
+                            },
+                            "Right": {
+                              "Literal": {
+                                "Value": "'''dimCurso''[turnoCurso]'"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "displayName": "Turno do Curso"
+                    },
+                    {
+                      "id": {
+                        "scopeId": {
+                          "Comparison": {
+                            "ComparisonKind": 0,
+                            "Left": {
+                              "Column": {
+                                "Expression": {
+                                  "SourceRef": {
+                                    "Entity": "_dMicrodados"
+                                  }
+                                },
+                                "Property": "Ação Afirmativa Campos"
+                              }
+                            },
+                            "Right": {
+                              "Literal": {
+                                "Value": "'''dimCurso''[nomeCurso]'"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "displayName": "Nome do Curso"
+                    }
+                  ]
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "general": [
+                    {
+                      "properties": {
+                        "filter": {
+                          "filter": {
+                            "Version": 2,
+                            "From": [
+                              {
+                                "Name": "_",
+                                "Entity": "_dServidores | Microdados",
+                                "Type": 0
+                              }
+                            ],
+                            "Where": [
+                              {
+                                "Condition": {
+                                  "In": {
+                                    "Expressions": [
+                                      {
+                                        "Column": {
+                                          "Expression": {
+                                            "SourceRef": {
+                                              "Source": "_"
+                                            }
+                                          },
+                                          "Property": "_dServidores Campos"
+                                        }
+                                      }
+                                    ],
+                                    "Values": [
+                                      [
+                                        {
+                                          "Literal": {
+                                            "Value": "'''_Exp_Títulos''[EmBranco]'"
+                                          }
+                                        }
+                                      ]
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "selection": [
+                    {
+                      "properties": {
+                        "strictSingleSelect": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "false"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_dServidores | Microdados"
+                        }
+                      },
+                      "Property": "_dServidores"
+                    }
+                  }
+                ]
+              },
+              "cachedFilterDisplayItems": [
+                {
+                  "id": {
+                    "scopeId": {
+                      "Comparison": {
+                        "ComparisonKind": 0,
+                        "Left": {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Entity": "_dServidores | Microdados"
+                              }
+                            },
+                            "Property": "_dServidores Campos"
+                          }
+                        },
+                        "Right": {
+                          "Literal": {
+                            "Value": "'''_Exp_Títulos''[EmBranco]'"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "displayName": "Sem detalhe"
+                }
+              ]
+            }
+          },
+          "ea06a9f7dce19065e979": {
+            "singleVisual": {
+              "visualType": "kpi",
+              "objects": {}
+            }
+          },
+          "3b7255573535b97492f5": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "a1d0c2b7d039196c90a4": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "4aa5946200758ddd4d2c": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "e6c316e1fffb4b48ccfb": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "1ab2fe6ab6784bf3b21d": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "59b9f479ad5a5967fecb": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          }
+        },
+        "visualContainerGroups": {
+          "277f58f04d1b42b6e79d": {
+            "isHidden": true
+          }
+        }
+      }
+    },
+    "objects": {
+      "merge": {
+        "outspacePane": [
+          {
+            "properties": {
+              "expanded": {
+                "expr": {
+                  "Literal": {
+                    "Value": "false"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

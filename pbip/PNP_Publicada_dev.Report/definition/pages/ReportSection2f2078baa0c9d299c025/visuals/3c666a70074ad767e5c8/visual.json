@@ -1,0 +1,106 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.2.0/schema.json",
+  "name": "3c666a70074ad767e5c8",
+  "position": {
+    "x": 829.74874371859289,
+    "y": 153.16582914572862,
+    "z": 2000,
+    "height": 445.0251256281407,
+    "width": 400.40201005025125,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "A ",
+                    "textStyle": {
+                      "fontSize": "16pt",
+                      "color": "#666666"
+                    }
+                  },
+                  {
+                    "value": "Plataforma Nilo Peçanha",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "16pt",
+                      "color": "#666666"
+                    }
+                  },
+                  {
+                    "value": " dolor sit amet, consectetur adipiscing elit. Integer convallis malesuada consectetur. Quisque eget velit in arcu rhoncus efficitur. Nam tellus nibh, congue eget metus eget, eleifend rutrum augue. Suspendisse sit amet dignissim nibh. Curabitur non dui sit amet sapien hendrerit scelerisque. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent sagittis, dui sit amet tempor rhoncus, quam risus egestas arcu, eget egestas arcu risus ac nibh. Nam pellentesque lorem a erat volutpat dignissim. Integer sed tellus pharetra, tempus orci sagittis, sodales ligula. Ut nisi tortor, facilisis sed placerat sed, pharetra vel ligula. Praesent elementum, mauris aliquet malesuada sodales, ante augue dapibus magna, auctor faucibus orci nisl quis nunc. Sed tincidunt, justo eu laoreet congue, nulla nisi feugiat nisi, ac pulvinar nunc massa a nisi. Pellentesque consectetur est nunc, vitae rutrum felis congue ac. Nullam dignissim ante nec pretium ornare.",
+                    "textStyle": {
+                      "fontSize": "16pt",
+                      "color": "#666666"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "100D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "isHidden": true
+}

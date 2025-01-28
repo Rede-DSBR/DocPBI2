@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.2.0/schema.json",
+  "name": "2a9141ad12fd7ef8d1be",
+  "position": {
+    "x": 1072,
+    "y": 155,
+    "z": 14000,
+    "height": 32,
+    "width": 144,
+    "tabOrder": 5000
+  },
+  "visualGroup": {
+    "displayName": "Pesquisar",
+    "groupMode": "ScaleMode"
+  }
+}

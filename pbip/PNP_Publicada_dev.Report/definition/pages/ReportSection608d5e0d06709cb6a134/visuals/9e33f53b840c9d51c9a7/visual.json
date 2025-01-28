@@ -1,0 +1,3535 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.5.0/schema.json",
+  "name": "9e33f53b840c9d51c9a7",
+  "position": {
+    "x": 96,
+    "y": 208,
+    "z": 1000,
+    "height": 472,
+    "width": 944,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "d_IES"
+                    }
+                  },
+                  "Property": "Sigla"
+                }
+              },
+              "queryRef": "d_IES.Sigla",
+              "active": true,
+              "displayName": "Instituição"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "UnidadeOrgao"
+                    }
+                  },
+                  "Property": "Cód_UO"
+                }
+              },
+              "queryRef": "UnidadeOrgao.Cód_UO",
+              "active": true,
+              "displayName": "Unidade Orçamentária"
+            }
+          ],
+          "fieldParameters": [
+            {
+              "parameterExpr": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_dimOrçamento"
+                    }
+                  },
+                  "Property": "_ContextoOrçamentário"
+                }
+              },
+              "index": 0,
+              "length": 2
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ItemDespesa"
+                    }
+                  },
+                  "Property": "Dotação atualizada"
+                }
+              },
+              "queryRef": "ItemDespesa.Dotação atualizada",
+              "displayName": "Dotação Atualizada"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Controle Empenho"
+                    }
+                  },
+                  "Property": "Despesa empenhada"
+                }
+              },
+              "queryRef": "Controle Empenho.Despesa empenhada",
+              "displayName": "Despesa Empenhada"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Controle Empenho"
+                    }
+                  },
+                  "Property": "Despesa liquidada"
+                }
+              },
+              "queryRef": "Controle Empenho.Despesa liquidada",
+              "displayName": "Despesa Liquidada"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Controle Empenho"
+                    }
+                  },
+                  "Property": "Despesa paga"
+                }
+              },
+              "queryRef": "Controle Empenho.Despesa paga",
+              "displayName": "Despesa Paga"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Controle Empenho"
+                    }
+                  },
+                  "Property": "Despesa empenhada a liquidar"
+                }
+              },
+              "queryRef": "Controle Empenho.Despesa empenhada a liquidar",
+              "displayName": "Empenhado a liquidar"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ItemDespesa"
+                    }
+                  },
+                  "Property": "Crédito Disponível"
+                }
+              },
+              "queryRef": "ItemDespesa.Crédito Disponível",
+              "displayName": "Crédito Disponível"
+            }
+          ],
+          "fieldParameters": [
+            {
+              "parameterExpr": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_fOrçamento"
+                    }
+                  },
+                  "Property": "Descrição"
+                }
+              },
+              "index": 0,
+              "length": 6
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "125.10820994092526D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Indicador do Orçamento"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Cancelado e/ou Remanejado'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "126D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Indicador do Orçamento"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Projeto de Lei'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "134.00429597035927D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Indicador do Orçamento"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Orçamento Atualizado'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "133.5770388313881D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Indicador do Orçamento"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Empenhado a liquidar'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "134.83513176246055D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Indicador do Orçamento"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Despesa Empenhada'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "136.68105409968436D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Indicador do Orçamento"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Despesa Liquidada'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "134.44454231813845D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Indicador do Orçamento"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Despesa Paga'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "135.36210819936872D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Indicador do Orçamento"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Liquidação Total'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "134.69184467444762D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Indicador do Orçamento"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Pagamento Total'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "136.4838141378551D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Indicador do Orçamento"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'RAP Inscrito e Reinscrito'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "130.62710122586802D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Indicador do Orçamento"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Não processados a liquidar'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "133.03237172428982D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Indicador do Orçamento"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'RAP Cancelado'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "137.19723996182927D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Indicador do Orçamento"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'RAP Pago'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "133.52697643690817D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Indicador do Orçamento"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'RAP a Pagar'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "126D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Indicador do Orçamento"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Orçamento Inicial'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "125.82813036930345D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Indicador do Orçamento"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Crédito Adicional'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "156082D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Brasao.Base64_Brasao"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "103D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Indicador do Orçamento"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'RAP Bloqueado'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "120D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Indicador do Orçamento"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Crédito Disponível'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "134D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Descrição"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Despesa Empenhada'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "122D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Descrição"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Despesa Liquidada'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "118D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Descrição"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Despesa Paga'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "118D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Descrição"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Liquidação Total'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "118D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Descrição"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Pagamento Total'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "124.64742584120609D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Descrição"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Empenhado a liquidar'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "126D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Descrição"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Projeto de Lei'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "126D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Descrição"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Orçamento Inicial'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "124.96553093939569D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Descrição"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Crédito Disponível'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "122.9310618787914D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Descrição"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Crédito Adicional'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "124.72398268684879D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Descrição"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Cancelado e/ou Remanejado'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "139.68964604040286D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Descrição"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Orçamento Atualizado'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "126.10320856057534D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Descrição"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Restos a pagar inscrito e reinscrito'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "150.585907823194D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Descrição"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Restos a pagar não processados a liquidar'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "127.79305322221578D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Descrição"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Restos a pagar a pagar'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "132D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Descrição"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Restos a pagar pago'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "105.58604023735236D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Descrição"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Restos a pagar bloqueado'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "117.79298701513659D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Descrição"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Restos a pagar cancelado'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "126D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Descrição"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Destaque Recebido'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "114.13787624241722D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "IndicadorOrcamento"
+                          }
+                        },
+                        "Property": "Descrição"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Destaque Concedido'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "168.86026995936538D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "PTRES.CódigoAção"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "139D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "_fOrçamento"
+                          }
+                        },
+                        "Property": "Contexto"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Execução do Exercício'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "113D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "_fOrçamento"
+                          }
+                        },
+                        "Property": "Contexto"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Execução do Exercício'"
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "metadata": "_Exp_Títulos.EmBranco"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "134D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "_fOrçamento"
+                          }
+                        },
+                        "Property": "Contexto"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Execução do Exercício'"
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "metadata": "Controle Empenho.Despesa empenhada"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "122D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "_fOrçamento"
+                          }
+                        },
+                        "Property": "Contexto"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Execução do Exercício'"
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "metadata": "Controle Empenho.Despesa liquidada"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "118D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "_fOrçamento"
+                          }
+                        },
+                        "Property": "Contexto"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Execução do Exercício'"
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "metadata": "Controle Empenho.Despesa paga"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "118D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "_fOrçamento"
+                          }
+                        },
+                        "Property": "Contexto"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Execução do Exercício'"
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "metadata": "Controle Empenho.Despesa liq&RP"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "118D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "_fOrçamento"
+                          }
+                        },
+                        "Property": "Contexto"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Execução do Exercício'"
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "metadata": "Controle Empenho.Pagamento Total"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "141D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "_fOrçamento"
+                          }
+                        },
+                        "Property": "Contexto"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Execução do Exercício'"
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "metadata": "Controle Empenho.Despesa empenhada a liquidar"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "120D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "_fOrçamento"
+                          }
+                        },
+                        "Property": "Contexto"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Execução do Exercício'"
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "metadata": "ItemDespesa.Projeto de Lei"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "120D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "_fOrçamento"
+                          }
+                        },
+                        "Property": "Contexto"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Execução do Exercício'"
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "metadata": "ItemDespesa.Dotação inicial"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "144D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "_fOrçamento"
+                          }
+                        },
+                        "Property": "Contexto"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Execução do Exercício'"
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "metadata": "ItemDespesa.Dotação atualizada"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "120D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "_fOrçamento"
+                          }
+                        },
+                        "Property": "Contexto"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Execução do Exercício'"
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "metadata": "ItemDespesa.Crédito Disponível"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "120D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "_fOrçamento"
+                          }
+                        },
+                        "Property": "Contexto"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Execução do Exercício'"
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "metadata": "ItemDespesa.Dotação adicional"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "181D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "_fOrçamento"
+                          }
+                        },
+                        "Property": "Contexto"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Execução do Exercício'"
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "metadata": "ItemDespesa.Dotação Cancelada e Remanejada"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "154D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "_fOrçamento"
+                          }
+                        },
+                        "Property": "Contexto"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Execução do Exercício'"
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "metadata": "Controle Empenho.RAP Inscrito e Reinscrito"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "171D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "_fOrçamento"
+                          }
+                        },
+                        "Property": "Contexto"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Execução do Exercício'"
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "metadata": "Controle Empenho.RAP não processados a liquidar"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "107D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "_fOrçamento"
+                          }
+                        },
+                        "Property": "Contexto"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Execução do Exercício'"
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "metadata": "Controle Empenho.RAP a pagar"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "107D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "_fOrçamento"
+                          }
+                        },
+                        "Property": "Contexto"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Execução do Exercício'"
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "metadata": "Controle Empenho.RAP Pago"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "103D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "_fOrçamento"
+                          }
+                        },
+                        "Property": "Contexto"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Execução do Exercício'"
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "metadata": "Controle Empenho.RAP Bloqueado"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "107D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "_fOrçamento"
+                          }
+                        },
+                        "Property": "Contexto"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Execução do Exercício'"
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "metadata": "Controle Empenho.RAP Cancelado"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "127D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "_fOrçamento"
+                          }
+                        },
+                        "Property": "Contexto"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Execução do Exercício'"
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "metadata": "ItemDespesa.Destaque Recebido"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "134D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "_fOrçamento"
+                          }
+                        },
+                        "Property": "Contexto"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Execução do Exercício'"
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "metadata": "ItemDespesa.Destaque Concedido"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "123.27588489899283D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "ItemDespesa.Dotação atualizada"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "122D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Controle Empenho.Despesa empenhada"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "119D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "ItemDespesa.Crédito Disponível"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "126.86137056946966D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "ItemDespesa.Destaque Recebido"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "113D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Exp_Títulos.EmBranco"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "111D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Controle Empenho.Despesa liquidada"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "115D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Controle Empenho.Despesa paga"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "127.65517697979857D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Controle Empenho.Despesa liq&RP"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "118D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Controle Empenho.Pagamento Total"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "103.08282653032974D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Controle Empenho.Despesa empenhada a liquidar"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "126D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "ItemDespesa.Projeto de Lei"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "126D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "ItemDespesa.Dotação inicial"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "113D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "ItemDespesa.Dotação adicional"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "123.06880570705023D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "ItemDespesa.Dotação Cancelada e Remanejada"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "137.90236510762196D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Controle Empenho.RAP Inscrito e Reinscrito"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "127.9653985252373D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Controle Empenho.RAP não processados a liquidar"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "118D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Controle Empenho.RAP a pagar"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "118D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Controle Empenho.RAP Pago"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "103D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Controle Empenho.RAP Bloqueado"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "107D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Controle Empenho.RAP Cancelado"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "114.52076872778585D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "ItemDespesa.Destaque Concedido"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "140D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_ComparaOrçamento.Contexto"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "160D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "NaturezaDespesa.GrupoNatDespesa"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "162.96277320026832D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "ResultadoPrimario.Resultado Primário (Cidadã)"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "183.99303418086214D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "UnidadeOrgao.NomeUnidadeOrcamentaria"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "163.63067809492017D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "PTRES.CódigoPrograma"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "165.95988750473236D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Fonte.CódigoFonte"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "172.4660440967027D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "NaturezaDespesa.ItemDespesa"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "159.62070791919427D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "d_IES.Organização Acadêmica Sigla PNP"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "975D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "PTRES.CódigoPlanoOrçamentário"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "225.11869406585393D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "d_IES.Sigla"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "124.93112808587058D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "d_IES.Região"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "134D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "d_IES.Estado"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "126.43204381450195D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "ItemDespesa.Crédito Indisponível"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "93D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "ItemDespesa.% de Projeto de Lei"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "115D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "ItemDespesa.% de Dotação inicial"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "134.73075367399218D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "ItemDespesa.% de Dotação atualizada"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "113D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "ItemDespesa.% de Dotação adicional"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "137.1817446406903D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "ItemDespesa.% de Dotação Cancelada e Remanejada"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "126D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "ItemDespesa.% de Destaque Recebido"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "134D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "ItemDespesa.% de Destaque Concedido"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "134D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Controle Empenho.% de Despesa empenhada"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "122D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Controle Empenho.% de Despesa liquidada"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "93D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Controle Empenho.% de Despesa paga"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "107D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Controle Empenho.% de Despesa liq&RP"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "141D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Controle Empenho.% de Despesa empenhada a liquidar"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "119D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "ItemDespesa.% de Crédito Disponível"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "125D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_fOrçamento.IndOrcamento"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "223.56526862078167D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "UnidadeOrgao.Cód_UO"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "231.30683641256542D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "PTRES.Cód_Ação"
+          }
+        }
+      ],
+      "subTotals": [
+        {
+          "properties": {
+            "columnSubtotals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "perRowLevel": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "values": [
+        {
+          "properties": {
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'''Segoe UI'', wf_segoe-ui_normal, helvetica, arial, sans-serif'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "9D"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {},
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "ItemDespesa.Projeto de Lei"
+          }
+        },
+        {
+          "properties": {},
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "ItemDespesa.Destaque Recebido"
+          }
+        }
+      ],
+      "rowTotal": [
+        {
+          "properties": {
+            "applyToHeaders": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 1,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "grid": [
+        {
+          "properties": {
+            "outlineColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 8,
+                      "Percent": 0.6
+                    }
+                  }
+                }
+              }
+            },
+            "imageHeight": {
+              "expr": {
+                "Literal": {
+                  "Value": "72D"
+                }
+              }
+            },
+            "rowPadding": {
+              "expr": {
+                "Literal": {
+                  "Value": "5D"
+                }
+              }
+            },
+            "textSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            },
+            "gridHorizontal": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "gridHorizontalColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 8,
+                      "Percent": 0.6
+                    }
+                  }
+                }
+              }
+            },
+            "gridVertical": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Center'"
+                }
+              }
+            },
+            "titleAlignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Center'"
+                }
+              }
+            },
+            "autoSizeColumnWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "9D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnFormatting": [
+        {
+          "properties": {},
+          "selector": {
+            "metadata": "ItemDespesa.Projeto de Lei"
+          }
+        },
+        {
+          "properties": {},
+          "selector": {
+            "metadata": "ItemDespesa.Dotação atualizada"
+          }
+        },
+        {
+          "properties": {},
+          "selector": {
+            "metadata": "ItemDespesa.Destaque Recebido"
+          }
+        },
+        {
+          "properties": {},
+          "selector": {
+            "metadata": "Controle Empenho.Despesa empenhada"
+          }
+        }
+      ],
+      "rowHeaders": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "9D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "showDrillToggleButton": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "showDrillDownLevelButton": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "showFocusModeButton": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "showSeeDataLayoutToggleButton": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "showFilterRestatementButton": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "showOptionsMenu": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "background": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 2,
+                      "Percent": 0.6
+                    }
+                  }
+                }
+              }
+            },
+            "border": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 2,
+                      "Percent": 0.6
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "foreground": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 5,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_ExpTítulos"
+                    }
+                  },
+                  "Property": "Filtro | TítuloOrçamento"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "9D"
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'''Segoe UI Light'', wf_segoe-ui_light, helvetica, arial, sans-serif'"
+                }
+              }
+            },
+            "heading": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Normal'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

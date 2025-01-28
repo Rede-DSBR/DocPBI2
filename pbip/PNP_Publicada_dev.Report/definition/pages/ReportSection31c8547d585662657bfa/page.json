@@ -1,0 +1,208 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/1.2.0/schema.json",
+  "name": "ReportSection31c8547d585662657bfa",
+  "displayName": "2. Microdados PNP | 5.5 Titulação Docente",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "Filter865eefa9de700c9a1793",
+        "ordinal": 0,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "d_IES"
+              }
+            },
+            "Property": "Org. Administrativa"
+          }
+        },
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "d",
+              "Entity": "d_IES",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Not": {
+                  "Expression": {
+                    "In": {
+                      "Expressions": [
+                        {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Source": "d"
+                              }
+                            },
+                            "Property": "Org. Administrativa"
+                          }
+                        }
+                      ],
+                      "Values": [
+                        [
+                          {
+                            "Literal": {
+                              "Value": "null"
+                            }
+                          }
+                        ]
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User",
+        "objects": {
+          "general": [
+            {
+              "properties": {
+                "isInvertedSelectionMode": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "true"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "filterSortOrder": "Custom"
+  },
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "image": {
+            "image": {
+              "name": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'FRAME 1 ABA 1.png'"
+                  }
+                }
+              },
+              "url": {
+                "expr": {
+                  "ResourcePackageItem": {
+                    "PackageName": "RegisteredResources",
+                    "PackageType": 1,
+                    "ItemName": "FRAME_1_ABA_17656324635663538.png"
+                  }
+                }
+              },
+              "scaling": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'Fill'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "width": {
+            "expr": {
+              "Literal": {
+                "Value": "348L"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspace": [
+      {
+        "properties": {
+          "image": {
+            "image": {
+              "name": {
+                "expr": {
+                  "Literal": {
+                    "Value": "''"
+                  }
+                }
+              },
+              "url": {
+                "expr": {
+                  "Literal": {
+                    "Value": "''"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visibility": "HiddenInViewMode",
+  "visualInteractions": [
+    {
+      "source": "95d53636fcc1b18a9368",
+      "target": "689e44ca8631153018f7",
+      "type": "NoFilter"
+    },
+    {
+      "source": "689e44ca8631153018f7",
+      "target": "95d53636fcc1b18a9368",
+      "type": "NoFilter"
+    },
+    {
+      "source": "95d53636fcc1b18a9368",
+      "target": "3ac0f1da6c290a3f12fc",
+      "type": "NoFilter"
+    },
+    {
+      "source": "95d53636fcc1b18a9368",
+      "target": "8c78ace2408410078305",
+      "type": "NoFilter"
+    },
+    {
+      "source": "689e44ca8631153018f7",
+      "target": "8c78ace2408410078305",
+      "type": "NoFilter"
+    },
+    {
+      "source": "689e44ca8631153018f7",
+      "target": "13de781427657aa73a74",
+      "type": "NoFilter"
+    },
+    {
+      "source": "ea06a9f7dce19065e979",
+      "target": "13de781427657aa73a74",
+      "type": "NoFilter"
+    },
+    {
+      "source": "c299be0f6b0e20e7e0b1",
+      "target": "13de781427657aa73a74",
+      "type": "NoFilter"
+    }
+  ]
+}

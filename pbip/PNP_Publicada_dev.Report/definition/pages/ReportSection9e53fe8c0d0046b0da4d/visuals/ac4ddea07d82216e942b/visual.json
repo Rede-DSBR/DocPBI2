@@ -1,0 +1,266 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.2.0/schema.json",
+  "name": "ac4ddea07d82216e942b",
+  "position": {
+    "x": 0,
+    "y": 80,
+    "z": 0,
+    "height": 56,
+    "width": 80,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "advancedtoggleswitch",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "RelacaoOrgao"
+                    }
+                  },
+                  "Property": "Relação do Órgão"
+                }
+              },
+              "queryRef": "RelacaoOrgao.Relação do Órgão"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "filter": {
+              "filter": {
+                "Version": 2,
+                "From": [
+                  {
+                    "Name": "r",
+                    "Entity": "RelacaoOrgao",
+                    "Type": 0
+                  }
+                ],
+                "Where": [
+                  {
+                    "Condition": {
+                      "In": {
+                        "Expressions": [
+                          {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Source": "r"
+                                }
+                              },
+                              "Property": "Relação do Órgão"
+                            }
+                          }
+                        ],
+                        "Values": [
+                          [
+                            {
+                              "Literal": {
+                                "Value": "'Órgão da UO'"
+                              }
+                            }
+                          ]
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ],
+      "switch": [
+        {
+          "properties": {
+            "turnOnValue": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Órgão da UO'"
+                }
+              }
+            },
+            "turnOffValue": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Órgão da UGE'"
+                }
+              }
+            },
+            "switchShape": {
+              "expr": {
+                "Literal": {
+                  "Value": "'round'"
+                }
+              }
+            },
+            "onColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#F9B200'"
+                    }
+                  }
+                }
+              }
+            },
+            "offColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#ABC234'"
+                    }
+                  }
+                }
+              }
+            },
+            "manageSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "size": {
+              "expr": {
+                "Literal": {
+                  "Value": "40D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "headerSettings": [
+        {
+          "properties": {
+            "showHeaderText": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "onTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Órgão da UO'"
+                }
+              }
+            },
+            "offTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Órgão da UGE'"
+                }
+              }
+            },
+            "location": {
+              "expr": {
+                "Literal": {
+                  "Value": "'top'"
+                }
+              }
+            },
+            "unselectedTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "''"
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'''Segoe UI'', wf_segoe-ui_normal, helvetica, arial, sans-serif'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "pro": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "licenseKey": {
+              "expr": {
+                "Literal": {
+                  "Value": "'75A7-49E4-A41D-9A53-9E7E-AE58-3F20'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'UO ou UGE'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "parentGroupName": "dfd3d040083bdbb0575b"
+}

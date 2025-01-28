@@ -1,0 +1,186 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/1.2.0/schema.json",
+  "name": "ReportSectionbaaa86e1c754d2a3858b",
+  "displayName": "2. Microdados PNP | 5.2 Relação Inscritos/Vagas",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "Filterce1926c0ed3bb77d5434",
+        "ordinal": 0,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "d_IES"
+              }
+            },
+            "Property": "Org. Administrativa"
+          }
+        },
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "d",
+              "Entity": "d_IES",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "d"
+                          }
+                        },
+                        "Property": "Org. Administrativa"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Cefet'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Colégio'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Institutos'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Universidades'"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User"
+      }
+    ],
+    "filterSortOrder": "Custom"
+  },
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "image": {
+            "image": {
+              "name": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'POSIÇÃO 4 C 4 ABAS.png'"
+                  }
+                }
+              },
+              "url": {
+                "expr": {
+                  "ResourcePackageItem": {
+                    "PackageName": "RegisteredResources",
+                    "PackageType": 1,
+                    "ItemName": "POSI__O_4_C_4_ABAS301935288006298.png"
+                  }
+                }
+              },
+              "scaling": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'Fill'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "width": {
+            "expr": {
+              "Literal": {
+                "Value": "348L"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visibility": "HiddenInViewMode",
+  "visualInteractions": [
+    {
+      "source": "2b92b90e37934cb2e229",
+      "target": "78b8cd02540457477444",
+      "type": "NoFilter"
+    },
+    {
+      "source": "78b8cd02540457477444",
+      "target": "2b92b90e37934cb2e229",
+      "type": "NoFilter"
+    },
+    {
+      "source": "2b92b90e37934cb2e229",
+      "target": "ac062625eca9ce2e18dc",
+      "type": "NoFilter"
+    },
+    {
+      "source": "78b8cd02540457477444",
+      "target": "ac062625eca9ce2e18dc",
+      "type": "DataFilter"
+    },
+    {
+      "source": "2b92b90e37934cb2e229",
+      "target": "4113ba73ee141c98d8d5",
+      "type": "DataFilter"
+    },
+    {
+      "source": "985f76b198d5a887dce6",
+      "target": "4113ba73ee141c98d8d5",
+      "type": "NoFilter"
+    },
+    {
+      "source": "78b8cd02540457477444",
+      "target": "4113ba73ee141c98d8d5",
+      "type": "NoFilter"
+    },
+    {
+      "source": "d11d6048776b71f37e37",
+      "target": "4113ba73ee141c98d8d5",
+      "type": "NoFilter"
+    }
+  ]
+}

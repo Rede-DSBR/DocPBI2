@@ -1,0 +1,343 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/1.2.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "CY21SU11",
+      "reportVersionAtImport": "5.29",
+      "type": "SharedResources"
+    },
+    "customTheme": {
+      "name": "Escala_PNP026715206858861196.json",
+      "reportVersionAtImport": "5.32",
+      "type": "RegisteredResources"
+    }
+  },
+  "layoutOptimization": "None",
+  "objects": {
+    "section": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Top'"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "expanded": {
+            "expr": {
+              "Literal": {
+                "Value": "true"
+              }
+            }
+          },
+          "visible": {
+            "expr": {
+              "Literal": {
+                "Value": "false"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "publicCustomVisuals": [
+    "advanceCardE03760C5AB684758B56AA29F9E6C257B",
+    "advancedtoggleswitch",
+    "CardBrowser8D7CFFDA2E7E400C9474F41B9EDBBA58",
+    "PBI_CV_7B952816_A48F_49B4_9E13_15E3BB2C0337",
+    "PBI_CV_EB3A4088_75C5_4746_9D8B_255A7B7ECD6C",
+    "simpleImageEBC4593F96F1425FB3D84C5BF02B5075",
+    "SmartFilterProByOKViz00000000000000000000000000000000",
+    "TextEnhancerByMAQ46ASG0293G65JY43S89DKJ9"
+  ],
+  "resourcePackages": [
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "BG_GERAL_INTERNO_PNP_v10_ICONE14989792673607005.png",
+          "path": "BG_GERAL_INTERNO_PNP_v10_ICONE14989792673607005.png",
+          "type": "Image"
+        },
+        {
+          "name": "BG_GERAL_INTERNO_PNP_v10_ICONE15414197140619423.png",
+          "path": "BG_GERAL_INTERNO_PNP_v10_ICONE15414197140619423.png",
+          "type": "Image"
+        },
+        {
+          "name": "BG_GERAL_INTERNO_PNP_v10_ICONE192643453366923.png",
+          "path": "BG_GERAL_INTERNO_PNP_v10_ICONE192643453366923.png",
+          "type": "Image"
+        },
+        {
+          "name": "BG_GERAL_INTERNO_PNP_v10_ICONE34033772033831866.png",
+          "path": "BG_GERAL_INTERNO_PNP_v10_ICONE34033772033831866.png",
+          "type": "Image"
+        },
+        {
+          "name": "BG_GERAL_INTERNO_PNP_v10_ICONE34701757760748575.png",
+          "path": "BG_GERAL_INTERNO_PNP_v10_ICONE34701757760748575.png",
+          "type": "Image"
+        },
+        {
+          "name": "BG_GERAL_INTERNO_PNP_v10_ICONE5549112499292179.png",
+          "path": "BG_GERAL_INTERNO_PNP_v10_ICONE5549112499292179.png",
+          "type": "Image"
+        },
+        {
+          "name": "BG_GERAL_INTERNO_PNP_v10_ICONE792554559498563.png",
+          "path": "BG_GERAL_INTERNO_PNP_v10_ICONE792554559498563.png",
+          "type": "Image"
+        },
+        {
+          "name": "BG_GERAL_INTERNO_PNP_v10_ICONE8302573083267561.png",
+          "path": "BG_GERAL_INTERNO_PNP_v10_ICONE8302573083267561.png",
+          "type": "Image"
+        },
+        {
+          "name": "BG_GERAL_INTERNO_PNP_v10_ICONE958616190217251.png",
+          "path": "BG_GERAL_INTERNO_PNP_v10_ICONE958616190217251.png",
+          "type": "Image"
+        },
+        {
+          "name": "BG_GERAL_INTERNO_PNP_v7_ICONES899689070738912.png",
+          "path": "BG_GERAL_INTERNO_PNP_v7_ICONES899689070738912.png",
+          "type": "Image"
+        },
+        {
+          "name": "CheckAzul11575559306351257.png",
+          "path": "CheckAzul11575559306351257.png",
+          "type": "Image"
+        },
+        {
+          "name": "CheckBranco04298048056624926.png",
+          "path": "CheckBranco04298048056624926.png",
+          "type": "Image"
+        },
+        {
+          "name": "CheckVerde3045283326963071.png",
+          "path": "CheckVerde3045283326963071.png",
+          "type": "Image"
+        },
+        {
+          "name": "Escala_PNP026715206858861196.json",
+          "path": "Escala_PNP026715206858861196.json",
+          "type": "Image"
+        },
+        {
+          "name": "FIO_GREEN9487651873275187.png",
+          "path": "FIO_GREEN9487651873275187.png",
+          "type": "Image"
+        },
+        {
+          "name": "FRAME_1_ABA_16589653840126994.png",
+          "path": "FRAME_1_ABA_16589653840126994.png",
+          "type": "Image"
+        },
+        {
+          "name": "FRAME_1_ABA_17656324635663538.png",
+          "path": "FRAME_1_ABA_17656324635663538.png",
+          "type": "Image"
+        },
+        {
+          "name": "FRAME_1_ABA_208212853082674254.png",
+          "path": "FRAME_1_ABA_208212853082674254.png",
+          "type": "Image"
+        },
+        {
+          "name": "FRAME_1_ABA_264927989523014.png",
+          "path": "FRAME_1_ABA_264927989523014.png",
+          "type": "Image"
+        },
+        {
+          "name": "FRAME_1_ABA_37477626438000011.png",
+          "path": "FRAME_1_ABA_37477626438000011.png",
+          "type": "Image"
+        },
+        {
+          "name": "FRONT_PAGE_PNP_R10_COM_ICONES_8776176584725655.png",
+          "path": "FRONT_PAGE_PNP_R10_COM_ICONES_8776176584725655.png",
+          "type": "Image"
+        },
+        {
+          "name": "ICONE_TRANSI__O_BRANCO7227261904664719.png",
+          "path": "ICONE_TRANSI__O_BRANCO7227261904664719.png",
+          "type": "Image"
+        },
+        {
+          "name": "MARCA_ASSINATURA_MIN._EDUCA__O7593349638588185.png",
+          "path": "MARCA_ASSINATURA_MIN._EDUCA__O7593349638588185.png",
+          "type": "Image"
+        },
+        {
+          "name": "MARCA_REDE_DSBR_POSITIVA5457538979885979.png",
+          "path": "MARCA_REDE_DSBR_POSITIVA5457538979885979.png",
+          "type": "Image"
+        },
+        {
+          "name": "PG_ABERTURA_MAPA_ANALYTICS_1601991868224924762.png",
+          "path": "PG_ABERTURA_MAPA_ANALYTICS_1601991868224924762.png",
+          "type": "Image"
+        },
+        {
+          "name": "PG_ABERTURA_TEXTO_ANALYTICS_16157458383595533.png",
+          "path": "PG_ABERTURA_TEXTO_ANALYTICS_16157458383595533.png",
+          "type": "Image"
+        },
+        {
+          "name": "PG_ABERTURA_TEXTO_APRESENTA__O4952170669673641.png",
+          "path": "PG_ABERTURA_TEXTO_APRESENTA__O4952170669673641.png",
+          "type": "Image"
+        },
+        {
+          "name": "POIS__O_4_C_5_ABAS7608185216781007.png",
+          "path": "POIS__O_4_C_5_ABAS7608185216781007.png",
+          "type": "Image"
+        },
+        {
+          "name": "POIS__O_4_C_5_ABAS9297887770436115.png",
+          "path": "POIS__O_4_C_5_ABAS9297887770436115.png",
+          "type": "Image"
+        },
+        {
+          "name": "POSI__O_1_C4_ABAS2646102083383972.png",
+          "path": "POSI__O_1_C4_ABAS2646102083383972.png",
+          "type": "Image"
+        },
+        {
+          "name": "POSI__O_1_C_5_ABAS3886672266192701.png",
+          "path": "POSI__O_1_C_5_ABAS3886672266192701.png",
+          "type": "Image"
+        },
+        {
+          "name": "POSI__O_1_C_5_ABAS5583453677869283.png",
+          "path": "POSI__O_1_C_5_ABAS5583453677869283.png",
+          "type": "Image"
+        },
+        {
+          "name": "POSI__O_2_C_4_ABAS37974985359024505.png",
+          "path": "POSI__O_2_C_4_ABAS37974985359024505.png",
+          "type": "Image"
+        },
+        {
+          "name": "POSI__O_2_C_5_ABAS08673124903182883.png",
+          "path": "POSI__O_2_C_5_ABAS08673124903182883.png",
+          "type": "Image"
+        },
+        {
+          "name": "POSI__O_2_C_5_ABAS2998708294136727.png",
+          "path": "POSI__O_2_C_5_ABAS2998708294136727.png",
+          "type": "Image"
+        },
+        {
+          "name": "POSI__O_3_COM_5_ABAS5616083817377899.png",
+          "path": "POSI__O_3_COM_5_ABAS5616083817377899.png",
+          "type": "Image"
+        },
+        {
+          "name": "POSI__O_3_C_4_ABAS788960347434138.png",
+          "path": "POSI__O_3_C_4_ABAS788960347434138.png",
+          "type": "Image"
+        },
+        {
+          "name": "POSI__O_3_C_5_ABAS2341747134834158.png",
+          "path": "POSI__O_3_C_5_ABAS2341747134834158.png",
+          "type": "Image"
+        },
+        {
+          "name": "POSI__O_3_C_5_ABAS3080519587669379.png",
+          "path": "POSI__O_3_C_5_ABAS3080519587669379.png",
+          "type": "Image"
+        },
+        {
+          "name": "POSI__O_4_C_4_ABAS301935288006298.png",
+          "path": "POSI__O_4_C_4_ABAS301935288006298.png",
+          "type": "Image"
+        },
+        {
+          "name": "POSI__O_5_C_5_ABAS08857645320422325.png",
+          "path": "POSI__O_5_C_5_ABAS08857645320422325.png",
+          "type": "Image"
+        },
+        {
+          "name": "POSI__O_5_C_5_ABAS7824622472567719.png",
+          "path": "POSI__O_5_C_5_ABAS7824622472567719.png",
+          "type": "Image"
+        },
+        {
+          "name": "Pesquisar_Contextos10775620687236986.svg",
+          "path": "Pesquisar_Contextos10775620687236986.svg",
+          "type": "Image"
+        },
+        {
+          "name": "Pesquisar_Contextos23448051742513054.svg",
+          "path": "Pesquisar_Contextos23448051742513054.svg",
+          "type": "Image"
+        },
+        {
+          "name": "Vassoura6119969911695622.png",
+          "path": "Vassoura6119969911695622.png",
+          "type": "Image"
+        },
+        {
+          "name": "Vassoura8018243816341495.png",
+          "path": "Vassoura8018243816341495.png",
+          "type": "Image"
+        },
+        {
+          "name": "Vassoura_Branca6546522580771916.svg",
+          "path": "Vassoura_Branca6546522580771916.svg",
+          "type": "Image"
+        },
+        {
+          "name": "leaderboard_FILL0_wght400_GRAD8481433293063152.png",
+          "path": "leaderboard_FILL0_wght400_GRAD8481433293063152.png",
+          "type": "Image"
+        },
+        {
+          "name": "percent_FILL0_wght400_GRAD0_op961731183822585.png",
+          "path": "percent_FILL0_wght400_GRAD0_op961731183822585.png",
+          "type": "Image"
+        },
+        {
+          "name": "table_chart_FILL0_wght400_GRAD9287216206366697.png",
+          "path": "table_chart_FILL0_wght400_GRAD9287216206366697.png",
+          "type": "Image"
+        }
+      ]
+    },
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "CY21SU11",
+          "path": "BaseThemes/CY21SU11.json",
+          "type": "BaseTheme"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "defaultDrillFilterOtherVisuals": true,
+    "allowChangeFilterTypes": true,
+    "useEnhancedTooltips": true
+  },
+  "slowDataSourceSettings": {
+    "isCrossHighlightingDisabled": false,
+    "isSlicerSelectionsButtonEnabled": false,
+    "isFilterSelectionsButtonEnabled": false,
+    "isFieldWellButtonEnabled": false,
+    "isApplyAllButtonEnabled": false
+  }
+}

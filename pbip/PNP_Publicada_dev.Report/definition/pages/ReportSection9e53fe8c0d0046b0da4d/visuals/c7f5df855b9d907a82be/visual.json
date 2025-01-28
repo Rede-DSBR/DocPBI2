@@ -1,0 +1,266 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.2.0/schema.json",
+  "name": "c7f5df855b9d907a82be",
+  "position": {
+    "x": 0,
+    "y": 136,
+    "z": 1000,
+    "height": 64,
+    "width": 96,
+    "tabOrder": -1
+  },
+  "visual": {
+    "visualType": "advancedtoggleswitch",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FuncFinanceiras"
+                    }
+                  },
+                  "Property": "Funcoes"
+                }
+              },
+              "queryRef": "FuncFinanceiras.Funcoes"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "filter": {
+              "filter": {
+                "Version": 2,
+                "From": [
+                  {
+                    "Name": "f",
+                    "Entity": "FuncFinanceiras",
+                    "Type": 0
+                  }
+                ],
+                "Where": [
+                  {
+                    "Condition": {
+                      "In": {
+                        "Expressions": [
+                          {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Source": "f"
+                                }
+                              },
+                              "Property": "Funcoes"
+                            }
+                          }
+                        ],
+                        "Values": [
+                          [
+                            {
+                              "Literal": {
+                                "Value": "'Valor Acumulado'"
+                              }
+                            }
+                          ]
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ],
+      "switch": [
+        {
+          "properties": {
+            "turnOnValue": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Valor Acumulado'"
+                }
+              }
+            },
+            "turnOffValue": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Valor Nominal'"
+                }
+              }
+            },
+            "switchShape": {
+              "expr": {
+                "Literal": {
+                  "Value": "'round'"
+                }
+              }
+            },
+            "onColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#F9B200'"
+                    }
+                  }
+                }
+              }
+            },
+            "offColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#ABC234'"
+                    }
+                  }
+                }
+              }
+            },
+            "manageSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "size": {
+              "expr": {
+                "Literal": {
+                  "Value": "40D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "headerSettings": [
+        {
+          "properties": {
+            "showHeaderText": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "onTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Valor Acumulado'"
+                }
+              }
+            },
+            "offTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Valor Nominal'"
+                }
+              }
+            },
+            "location": {
+              "expr": {
+                "Literal": {
+                  "Value": "'top'"
+                }
+              }
+            },
+            "unselectedTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "''"
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'''Segoe UI'', wf_segoe-ui_normal, helvetica, arial, sans-serif'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "8D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "pro": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "licenseKey": {
+              "expr": {
+                "Literal": {
+                  "Value": "'75A7-49E4-A41D-9A53-9E7E-AE58-3F20'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Acumulado ou Nominal'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "parentGroupName": "dfd3d040083bdbb0575b"
+}
