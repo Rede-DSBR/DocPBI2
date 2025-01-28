@@ -1,0 +1,129 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmark/1.2.0/schema.json",
+  "displayName": "Identificador de Resultado (RP)",
+  "name": "Bookmark46d4128a317185ea5e60",
+  "options": {
+    "applyOnlyToTargetVisuals": true,
+    "targetVisualNames": [
+      "0c1d414fb6837e03b0b9",
+      "1933e46c8baeb4c62b55",
+      "2f74d265151e586ce451",
+      "aad6bd80806a3b9dc5c3",
+      "910ee686048d4cbe5b6c",
+      "69648503eb8b703a1862",
+      "27e1b287caa1673ed20a",
+      "12b2389d8e6608902a7a",
+      "72c2bd6a23e268bc21dc",
+      "4c0d013fd09d0d4cac3a"
+    ],
+    "suppressData": true
+  },
+  "explorationState": {
+    "version": "1.3",
+    "activeSection": "ReportSection97bf4e53177bd912c87d",
+    "sections": {
+      "ReportSection97bf4e53177bd912c87d": {
+        "filters": {
+          "byExpr": [
+            {
+              "name": "Filterf7d5ef00eac43768d210",
+              "type": "Categorical",
+              "filter": {
+                "Version": 2,
+                "From": [
+                  {
+                    "Name": "d",
+                    "Entity": "d_IES",
+                    "Type": 0
+                  }
+                ],
+                "Where": [
+                  {
+                    "Condition": {
+                      "In": {
+                        "Expressions": [
+                          {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Source": "d"
+                                }
+                              },
+                              "Property": "Org. Administrativa"
+                            }
+                          }
+                        ],
+                        "Values": [
+                          [
+                            {
+                              "Literal": {
+                                "Value": "'Cefet'"
+                              }
+                            }
+                          ],
+                          [
+                            {
+                              "Literal": {
+                                "Value": "'Colégio'"
+                              }
+                            }
+                          ],
+                          [
+                            {
+                              "Literal": {
+                                "Value": "'Institutos'"
+                              }
+                            }
+                          ]
+                        ]
+                      }
+                    }
+                  }
+                ]
+              },
+              "expression": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "d_IES"
+                    }
+                  },
+                  "Property": "Org. Administrativa"
+                }
+              },
+              "howCreated": 1
+            }
+          ]
+        },
+        "visualContainers": {},
+        "visualContainerGroups": {
+          "15b36a18ae8cfcb54b00": {
+            "isHidden": false,
+            "children": {
+              "0c1d414fb6837e03b0b9": {
+                "isHidden": false
+              }
+            }
+          }
+        }
+      }
+    },
+    "objects": {
+      "merge": {
+        "outspacePane": [
+          {
+            "properties": {
+              "expanded": {
+                "expr": {
+                  "Literal": {
+                    "Value": "false"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

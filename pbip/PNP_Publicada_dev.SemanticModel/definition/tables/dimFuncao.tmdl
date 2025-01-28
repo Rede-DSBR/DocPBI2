@@ -1,0 +1,102 @@
+/// @description Essa tabela é utilizada para armazenar informações sobre as funções existentes na IES, incluindo o nível hierárquico, as atividades e responsabilidades, e o cargo associado.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table dimFuncao
+	lineageTag: 5d032735-791e-42a7-bcb6-e68d59280cd2
+
+	/// @description Código numeral da função
+	column skFuncao
+		dataType: int64
+		formatString: 0
+		lineageTag: 09269285-7c76-4a2a-86e1-e4a637833143
+		summarizeBy: none
+		sourceColumn: skFuncao
+
+		annotation SummarizationSetBy = Automatic
+
+	column NivelFuncao
+		dataType: string
+		lineageTag: 1f734a03-f118-47ec-8046-fe6450f3ec54
+		summarizeBy: none
+		sourceColumn: NivelFuncao
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código do cargo/função desempenhado pelo servidor.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Cargos e funções gratificadas; Professores por Instituição
+	column FuncaoCompleto
+		dataType: string
+		lineageTag: ec42c0da-6be1-4ddb-98d5-24c8e2361392
+		summarizeBy: none
+		sourceColumn: FuncaoCompleto
+		sortByColumn: skFuncao
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column lkFuncao
+		dataType: string
+		lineageTag: 9aac8e95-ffe1-48a6-9d56-ec62ff80384a
+		summarizeBy: none
+		sourceColumn: lkFuncao
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Descrição do cargo/função desempenhado pelo servidor
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Cargos e funções gratificadas
+	column DescricaoFuncao
+		dataType: string
+		lineageTag: d8c5f182-9754-4c39-9e38-d94221d1aa2e
+		summarizeBy: none
+		sourceColumn: DescricaoFuncao
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Classificação do cargo/função desempenhado pelo servidor.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Cargos e funções gratificadas
+	column CargoFuncao
+		dataType: string
+		lineageTag: 15c26617-d588-4e15-978c-728707a4a9b0
+		summarizeBy: none
+		sourceColumn: CargoFuncao
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Cargo/função desempenhado pelo servidor
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Cargos e funções gratificadas
+	column 'Nome do Cargo'
+		dataType: string
+		lineageTag: 9fc96b8c-2931-4070-9fd6-2c87bb6bcebe
+		summarizeBy: none
+		sourceColumn: Nome do Cargo
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dimFuncao-7b48a07d-8892-4be1-9cc4-efbe03aee100 = m
+		mode: import
+		queryGroup: 'Modelo Gestão de Pessoas\Dimensões'
+		source =
+				let
+				    Fonte = Csv.Document(Binary.Decompress(Web.Contents(AWS&"dimFuncao.csv.gz"),Compression.GZip),[Delimiter=",", Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Coluna Mesclada Inserida" = Table.AddColumn(#"Cabeçalhos Promovidos", "FuncaoCompleto", each Text.Combine({[DescricaoFuncao], [NivelFuncao]}, "-"), type text),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Coluna Mesclada Inserida",{{"skFuncao", Int64.Type}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_ResultType = Table
+

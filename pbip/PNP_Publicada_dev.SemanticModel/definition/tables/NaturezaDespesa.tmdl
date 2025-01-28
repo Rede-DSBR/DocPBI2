@@ -1,0 +1,184 @@
+/// @description Essa tabela é utilizada para classificar as despesas realizadas por um órgão público, de forma a permitir a análise e o controle dos gastos. As informações contidas nas colunas permitem identificar a natureza da despesa, a categoria econômica, o grupo da natureza da despesa, a modalidade de aplicação, o elemento da despesa e o item da despesa. Além disso, a coluna "Mão de obra Terceirizada" permite identificar se a despesa é referente a mão de obra terceirizada ou não.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table NaturezaDespesa
+	lineageTag: f69b8135-4c31-4590-a8de-54e7dba2809d
+
+	/// Comentário de teste
+	/// @description Código da natureza da despesa detalhada
+	column CodNaturezaDespesa
+		dataType: string
+		lineageTag: cd12768b-f45f-4a4d-bba0-bf22e30dd295
+		summarizeBy: none
+		sourceColumn: CodNaturezaDespesa
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Classificação de natureza de despesa detalhada
+	column NDD
+		dataType: string
+		lineageTag: 96fe8224-4981-450a-b902-afb21947d7e4
+		summarizeBy: none
+		sourceColumn: NDD
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código da Classificação de natureza de despesa detalhada
+	column CodND
+		dataType: string
+		lineageTag: 0943d0ea-3d65-49a4-acac-dc9ec2ff4589
+		summarizeBy: none
+		sourceColumn: CodND
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código da categoria econômica
+	column CodCategoriaEconomica
+		dataType: string
+		lineageTag: 6d507be0-ef52-42ab-a547-1e14bf3589c4
+		summarizeBy: none
+		sourceColumn: CodCategoriaEconomica
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código do elemento da despesa
+	column CategoriaEconomica
+		dataType: string
+		lineageTag: 7d08349d-dee5-40ff-8ece-75b93227eb5b
+		summarizeBy: none
+		sourceColumn: CategoriaEconomica
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código da Classificação de Grupo de Natureza de Despesa
+	column CodGrupoNatDespesa
+		dataType: string
+		lineageTag: c531cb40-660b-4621-8dcd-b4203b0c8905
+		summarizeBy: none
+		sourceColumn: CodGrupoNatDespesa
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Classificação de Grupo de Natureza de Despesa. Classificação da despesa agregando elementos de despesa com as mesmas características quanto ao objeto de gasto, conforme discriminado a seguir: 1 - Pessoal e Encargos Sociais; 2 - Juros e Encargos da Dívida; 3 - Outras Despesas Correntes; 4 - Investimentos; 5 - Inversões Financeiras; 6 - Amortização da Dívida; e 9 - Reserva de Contingência.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Panorama Orçamentário; Explorar Dados; Serie Histórica; Ind Orçamentário
+	column GrupoNatDespesa
+		dataType: string
+		lineageTag: 86c9dcfe-8179-4c2b-ac71-0862dd9a87d2
+		summarizeBy: none
+		sourceColumn: GrupoNatDespesa
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código da modalidade de aplicação
+	column CodModalidadeAplicacao
+		dataType: string
+		lineageTag: 25e73732-6f9a-4170-8d95-07cb4febac59
+		summarizeBy: none
+		sourceColumn: CodModalidadeAplicacao
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Classificação de despesa que indica de que forma os recursos serão aplicados: diretamente, pela unidade detentora do crédito orçamentário; indiretamente mediante transferência, por outras esferas de governo, seus órgãos, fundos ou entidades, ou por entidades privadas; ou indiretamente mediante delegação, por outros entes federativos ou consórcios públicos. Compõe o campo da natureza da despesa (são os 3º e 4º dígitos deste campo do código) e possibilita a eliminação da dupla contagem dos recursos transferidos ou descentralizados.
+	column ModalidadeAplicacao
+		dataType: string
+		lineageTag: 47cebad5-a556-46d9-b2b0-968e5018ff7f
+		summarizeBy: none
+		sourceColumn: ModalidadeAplicacao
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código do elemento da despesa
+	column CodElementoDespesa
+		dataType: string
+		lineageTag: 3ea0e046-d886-49f5-9e34-4e3e645c18be
+		summarizeBy: none
+		sourceColumn: CodElementoDespesa
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Classificação que tem por finalidade identificar os objetos de gastos no âmbito de cada GND, tais como vencimentos e vantagens fixas, juros, diárias, material de consumo, serviços de terceiros prestados sob qualquer forma, subvenções sociais, obras e instalações, equipamentos e material permanente, auxílios, amortização e outros que a Administração Pública utiliza para a consecução de seus fins.
+	column ElementoDespesa
+		dataType: string
+		lineageTag: 026ec30c-c06b-472e-a3d1-a99b7a0a7b36
+		summarizeBy: none
+		sourceColumn: ElementoDespesa
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Classificação de natureza de despesa detalhada agrupada, conforme convenção da equipe DSBR.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Panorama Orçamentário; Explorar Dados; Serie Histórica; Ind Orçamentário
+	column ItemDespesa
+		dataType: string
+		lineageTag: 21eb0fed-fc0d-4d23-9ff8-1e7aa05470f0
+		summarizeBy: none
+		sourceColumn: ItemDespesa
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Informa se a classificação de natureza de despesa refere-se a mão de obra terceirizada
+	column 'Măo de obra Terceirizada(Sim=1)'
+		dataType: string
+		lineageTag: 319bdd1c-0381-410a-910c-c9cb3fa728e1
+		summarizeBy: none
+		sourceColumn: Măo de obra Terceirizada(Sim=1)
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código da natureza da despesa detalhada
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Panorama Orçamentário; Explorar Dados; Serie Histórica; Ind Orçamentário
+	column Cód_NaturezaDespesaDetalhada = NaturezaDespesa[CodND]&" - "&NaturezaDespesa[NDD]
+		lineageTag: 88ac9230-c93b-4919-847d-053b8a894672
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código do elemento da despesa
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Panorama Orçamentário; Explorar Dados; Serie Histórica; Ind Orçamentário
+	column Cód_ElementoDespesa = NaturezaDespesa[CodElementoDespesa]&" - "&NaturezaDespesa[ElementoDespesa]
+		lineageTag: fe987ccc-3bed-41df-8322-808da78d9d3a
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código da Classificação de Grupo de Natureza de Despesa
+	column Cód_GrupoNatDespesa = NaturezaDespesa[CodGrupoNatDespesa]&" - "&NaturezaDespesa[GrupoNatDespesa]
+		lineageTag: be092596-994a-45d7-b5c2-0034a618f83b
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition NaturezaDespesa-c6dc8e60-8b60-4132-bef8-cde84ebd7805 = m
+		mode: import
+		queryGroup: 'Modelo Orçamentário\Orçamento TG'
+		source =
+				let
+				    Fonte = Csv.Document(Binary.Decompress(Web.Contents(
+				        EndTG&TG&"/NaturezaDespesa.csv.gz"
+				        ),Compression.GZip),[Delimiter="	", Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Colunas Renomeadas1" = Table.RenameColumns(#"Cabeçalhos Promovidos",{{"CodNDD", "CodNaturezaDespesa"}}),
+				    #"Primeiros Caracteres Inseridos" = Table.AddColumn(#"Colunas Renomeadas1", "CodND", each Text.Start([CodNaturezaDespesa], 6), type text),
+				    #"Consultas Mescladas" = Table.NestedJoin(#"Primeiros Caracteres Inseridos", {"CodND"}, SiopNaturezaDespesa, {"NaturezaDespesa"}, "SiopNaturezaDespesa", JoinKind.LeftOuter),
+				    #"SiopNaturezaDespesa Expandido" = Table.ExpandTableColumn(#"Consultas Mescladas", "SiopNaturezaDespesa", {"CodCategoriaEconomica", "CategoriaEconomica", "CodGrupoNatDespesa", "GrupoNatDespesa", "CodModalidadeAplicacao", "ModalidadeAplicacao", "CodElementoDespesa", "ElementoDespesa"}, {"CodCategoriaEconomica", "CategoriaEconomica", "CodGrupoNatDespesa", "GrupoNatDespesa", "CodModalidadeAplicacao", "ModalidadeAplicacao", "CodElementoDespesa", "ElementoDespesa"}),
+				    #"Consultas Mescladas2" = Table.NestedJoin(#"SiopNaturezaDespesa Expandido", {"CodNaturezaDespesa"}, #"LISTAGEM (Pessoal+Custeio)", {"CodNaturezaDespesa"}, "LISTAGEM (Pessoal+Custeio).1", JoinKind.LeftOuter),
+				    #"LISTAGEM (Pessoal+Custeio).1 Expandido1" = Table.ExpandTableColumn(#"Consultas Mescladas2", "LISTAGEM (Pessoal+Custeio).1", {"ItemDespesa", "Măo de obra Terceirizada(Sim=1)"}, {"ItemDespesa", "Măo de obra Terceirizada(Sim=1)"}),
+				    #"Valor Substituído" = Table.ReplaceValue(#"LISTAGEM (Pessoal+Custeio).1 Expandido1",null,"A Classificar",Replacer.ReplaceValue,{"ItemDespesa"}),
+				    #"Valor Substituído1" = Table.ReplaceValue(#"Valor Substituído",null,"[A Classificar]",Replacer.ReplaceValue,{"Măo de obra Terceirizada(Sim=1)"})
+				in
+				    #"Valor Substituído1"
+
+	annotation PBI_ResultType = Table
+

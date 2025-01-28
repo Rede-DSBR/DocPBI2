@@ -1,0 +1,161 @@
+/// @description Tabela de calendário da plataforma Nilo Peçanha. Esta tabela é utilizada como referência de data para todo os dados disponíveis.
+/// @author Poty Lucena
+/// @version 2
+/// @date 15/05/2023
+table dCalendário
+	lineageTag: 3ad42f62-d41f-4197-aeed-06dc79ccd60c
+	dataCategory: Time
+
+	/// @description Data de referência
+	/// @author dsbr;
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Titulação Docente; Técnicos-administrativos por Nível; Professores por Instituição
+	column Data
+		dataType: dateTime
+		isKey
+		formatString: Long Date
+		lineageTag: 249fa661-e700-49e2-abd0-e398546b5487
+		summarizeBy: none
+		sourceColumn: Data
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// @description Ano de referência
+	/// @author dsbr;
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Dados Gerais; Classificação Racial, Renda e Sexo; Percentuais Legais; Titulação Docente; Técnicos-administrativos por Nível; Professores por Instituição
+	column Ano
+		dataType: int64
+		formatString: 0
+		lineageTag: 8e79713f-6170-46e6-b0c4-2ff9c1bebd87
+		summarizeBy: sum
+		sourceColumn: Ano
+
+		annotation SummarizationSetBy = Automatic
+
+	column Trimestre
+		dataType: string
+		lineageTag: 75c4a1c2-c39f-4fba-8745-2964dec61a4b
+		summarizeBy: none
+		sourceColumn: Trimestre
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Número Semana'
+		dataType: int64
+		formatString: 0
+		lineageTag: 5be1687a-cd11-4c9e-8f35-48d04ddb39c9
+		summarizeBy: sum
+		sourceColumn: Número Semana
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Número Mês'
+		dataType: int64
+		formatString: 0
+		lineageTag: 88601d4a-f396-42b2-b1ec-b3a29bedd2fd
+		summarizeBy: sum
+		sourceColumn: Número Mês
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateInt
+		dataType: int64
+		formatString: 0
+		lineageTag: 2800a9b0-beba-4ebb-a370-17ed8496aaf1
+		summarizeBy: sum
+		sourceColumn: DateInt
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Mês de referência
+	/// @author dsbr;
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Serie Histórica
+	column Mês
+		dataType: string
+		lineageTag: b57bf286-b37f-4520-ba8f-91b5184491ae
+		summarizeBy: none
+		sourceColumn: Mês
+		sortByColumn: 'Número Mês'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dia da Semana'
+		dataType: string
+		lineageTag: 579f9b19-d20b-40bd-bece-beb96aab15e6
+		summarizeBy: none
+		sourceColumn: Dia da Semana
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mês Ano'
+		dataType: string
+		lineageTag: 0f4cbaf7-9966-4ec7-8285-3a86923189d2
+		summarizeBy: none
+		sourceColumn: Mês Ano
+		sortByColumn: DateInt
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ano Base'
+		dataType: string
+		lineageTag: 364f5bd1-c107-48d6-bb78-d0a3d573db0e
+		summarizeBy: none
+		sourceColumn: Ano Base
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ano_Publicacao =
+			
+			
+			/*
+			@description Coluna de ano de edição da publicação da Plataforma Nilo Peçanha;
+			@author Poty Rodrigues de Lucena;
+			@version 1
+			@date 22/08/2022
+			@dimension [dCalendário]
+			*/
+			
+			'dCalendário'[Ano Base]+1
+		lineageTag: c9230a58-fceb-4456-9e21-cee35c8f915d
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	hierarchy 'Ano Base Hierarquia'
+		lineageTag: 0cb0ae8d-6214-4f5c-b224-fed0eac5c9f7
+
+		level Ano
+			lineageTag: e081e27c-d6fd-49b6-9a98-c35d1fff7420
+			column: 'Ano Base'
+
+		level Mês
+			lineageTag: b8417185-488d-4f20-8f0f-4438a65208bf
+			column: Mês
+
+	partition dCalendário-bb5b5d0a-c0b8-41eb-b091-5aaa4c125175 = m
+		mode: import
+		queryGroup: 'Modelo PNP\Dimensões'
+		source =
+				let
+				    Fonte = geradCalendario(Date.StartOfYear(Date.From("01/01/2013")), Date.EndOfYear(Date.From(List.Max(ItemDespesa[DiaEmissao])))),
+				    #"Coluna Duplicada" = Table.DuplicateColumn(Fonte, "Ano", "Ano Base"),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Coluna Duplicada",{{"Ano Base", type text}}),
+				    #"Colunas Reordenadas" = Table.ReorderColumns(#"Tipo Alterado",{"Data", "Ano", "Ano Base", "Trimestre", "Número Semana", "Número Mês", "DateInt", "Mês", "Dia da Semana", "Mês Ano"})
+				in
+				    #"Colunas Reordenadas"
+
+	annotation PBI_ResultType = Table
+

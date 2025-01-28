@@ -1,0 +1,187 @@
+/// @description A tabela fServidoresSiape é uma tabela de fatos que contém informações sobre os servidores públicos federais do Brasil. Ademais, é utilizada para analisar e entender as características dos servidores públicos federais do Brasil, como sua escolaridade, titulação, órgão de trabalho, cargo, situação funcional, jornada de trabalho, número de vínculos, tempo de serviço e dimensão da carreira.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table fServidoresSiape
+	lineageTag: 38b5f871-b7ca-453a-8c7d-ff53fcac5b53
+
+	/// @description Soma do Número de vínculos de servidores no último mês com dados disponíveis no ano de referência
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Cargos da carreira
+	measure 'Número de servidores (Siafi)' =
+			
+			/*
+			@description Soma do Número de vínculos de servidores no último mês com dados disponíveis no ano de referência
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Cargos da carreira
+			*/
+			VAR anomes = MAX(fFuncoes[AnoMes])
+			RETURN
+			CALCULATE(SUM(fServidoresSiape[numVinculos]),'dCalendário'[Data]=anomes)
+		formatString: #,0
+		lineageTag: f59e1255-5828-447b-b03a-df25909143a5
+
+		changedProperty = FormatString
+
+	/// @description Número de servidores do sexo feminino
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Cargos da carreira
+	measure 'Número de Servidores | Feminino' =
+			/*
+			@description Número de servidores do sexo feminino
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Cargos da carreira
+			*/
+			CALCULATE([Número de servidores (Siafi)], dimSexoIdadeSiape[Sexo] = "Feminino")
+		formatString: #,0
+		lineageTag: 60229e4b-bff5-4fe9-90b4-f3c9f17c1a0a
+
+		changedProperty = FormatString
+
+	/// @description Número de servidores do sexo masculino
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Cargos da carreira
+	measure 'Número de Servidores | Masculino' =
+			/*
+			@description Número de servidores do sexo masculino
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Cargos da carreira
+			*/
+			CALCULATE([Número de servidores (Siafi)], dimSexoIdadeSiape[Sexo] = "Masculino")
+		formatString: #,0
+		lineageTag: 7ed1eef4-f129-43a0-8cba-dc0291879962
+
+		changedProperty = FormatString
+
+	column AnoMes
+		dataType: dateTime
+		formatString: mmmm" de "yyyy
+		lineageTag: 588a3611-e5a2-4cef-9156-fbf8c364eefb
+		summarizeBy: none
+		sourceColumn: AnoMes
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column codEscolaridade
+		dataType: int64
+		formatString: 0
+		lineageTag: 7aa8a074-b376-410d-8f1a-5bbfa1616bc7
+		summarizeBy: none
+		sourceColumn: codEscolaridade
+
+		annotation SummarizationSetBy = Automatic
+
+	column codTitulacao
+		dataType: int64
+		formatString: 0
+		lineageTag: 580325e9-ce5c-4c16-84ad-60a75b753f35
+		summarizeBy: sum
+		sourceColumn: codTitulacao
+
+		annotation SummarizationSetBy = Automatic
+
+	column skCargo
+		dataType: int64
+		formatString: 0
+		lineageTag: 108080e1-951d-4564-9e94-eb5dd9a19e30
+		summarizeBy: none
+		sourceColumn: skCargo
+
+		annotation SummarizationSetBy = Automatic
+
+	column skSituacaoFuncional
+		dataType: int64
+		formatString: 0
+		lineageTag: fd46c5eb-121b-43bb-97df-0a3f722b069f
+		summarizeBy: none
+		sourceColumn: skSituacaoFuncional
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código de Sexo e Idade
+	column codSexoIdade
+		dataType: int64
+		formatString: 0
+		lineageTag: 3bfccd60-6b1a-469f-a326-c1da3b16f386
+		summarizeBy: none
+		sourceColumn: codSexoIdade
+
+		annotation SummarizationSetBy = Automatic
+
+	column skJornada
+		dataType: int64
+		formatString: 0
+		lineageTag: 09687be6-9ffa-4ed6-852a-83368d463e2a
+		summarizeBy: none
+		sourceColumn: skJornada
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Número de vínculos
+	column numVinculos
+		dataType: int64
+		formatString: 0
+		lineageTag: 3daa2ceb-41a9-4ad1-8051-7870271c26df
+		summarizeBy: sum
+		sourceColumn: numVinculos
+
+		annotation SummarizationSetBy = Automatic
+
+	column skTempoServico
+		dataType: string
+		lineageTag: 479e1a51-e39c-41df-ab54-88ec34b83273
+		summarizeBy: none
+		sourceColumn: skTempoServico
+
+		annotation SummarizationSetBy = Automatic
+
+	column skDimCarreira
+		dataType: string
+		lineageTag: 26d61ef8-5ab0-4f61-9180-db103c6f5059
+		summarizeBy: none
+		sourceColumn: skDimCarreira
+
+		annotation SummarizationSetBy = Automatic
+
+	column skOrgao
+		dataType: int64
+		formatString: 0
+		lineageTag: 77f6d9e6-cb37-4648-9218-c68861202eb0
+		summarizeBy: none
+		sourceColumn: skOrgao
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fServidoresSiape-7c3a2661-4cae-44a2-aad5-1b5b747b999a = m
+		mode: import
+		queryGroup: 'Modelo Gestão de Pessoas\Fatos'
+		source =
+				let
+				    Fonte = Csv.Document(Binary.Decompress(Web.Contents(AWS&"fServidoresSiape.csv.gz"),Compression.GZip),[Delimiter=",", Columns=11, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"AnoMes", type date}, {"codEscolaridade", Int64.Type}, {"codTitulacao", Int64.Type}, {"numVinculos", Int64.Type}, {"skJornada", Int64.Type}, {"codSexoIdade", Int64.Type}, {"skSituacaoFuncional", Int64.Type}, {"skCargo", Int64.Type}}),
+				    #"Linhas Filtradas" = Table.SelectRows(#"Tipo Alterado", each true),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Linhas Filtradas",{{"skOrgao", Int64.Type}})
+				in
+				    #"Tipo Alterado1"
+
+	annotation PBI_ResultType = Table
+

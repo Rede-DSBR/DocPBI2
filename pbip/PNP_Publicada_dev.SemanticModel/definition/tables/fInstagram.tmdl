@@ -1,0 +1,128 @@
+/// @description Essa tabela exibe informações sobre as publicações das instituições de ensino superior no Instagram.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table fInstagram
+	lineageTag: 732261b8-c371-44d7-bdcb-cf57ac0aad95
+
+	/// @description Número de comentários
+	column comments_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 7c5faf8a-a68b-4b61-866f-b8a4f26fa0c4
+		summarizeBy: sum
+		sourceColumn: comments_count
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Número de likes
+	column like_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 84690d15-d0d7-4642-be76-a2383dd13111
+		summarizeBy: sum
+		sourceColumn: like_count
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Legenda
+	column caption
+		dataType: string
+		lineageTag: 3a8de397-b501-4fa6-8f29-138d1efe9b8a
+		summarizeBy: none
+		sourceColumn: caption
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Se é imagem ou vídeo
+	column media_type
+		dataType: string
+		lineageTag: ea79f849-1170-4419-95d8-67893c0fa0bb
+		summarizeBy: none
+		sourceColumn: media_type
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description URL permanente do POST
+	column URLpermalink
+		dataType: string
+		lineageTag: 619706c6-5ea2-4d79-aa1a-d0d586e6e4ba
+		dataCategory: WebUrl
+		summarizeBy: none
+		sourceColumn: URLpermalink
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Horário do post
+	column timestamp
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: ec2f2b40-464f-4c66-abeb-0d0ea88c3734
+		summarizeBy: none
+		sourceColumn: timestamp
+
+		variation Variation
+			isDefault
+			relationship: fa4d9cb9-f327-426f-a536-1df587a75cea
+			defaultHierarchy: LocalDateTable_031d51da-ffa4-4d99-9903-68ebf2059f1b.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Nome do usuário do Instagram
+	column username
+		dataType: string
+		lineageTag: 9b8eb4c8-9fb8-4911-b0f2-d7b046bbdb0f
+		summarizeBy: none
+		sourceColumn: username
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Identificação
+	column id
+		dataType: string
+		lineageTag: 26b2eb43-0847-4967-9fc6-0ec9b1f0320c
+		summarizeBy: none
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Endereço da imagem do post no Instagram
+	column media_url
+		dataType: string
+		lineageTag: 770bcf2b-f7c4-4f05-886f-07ed2d8cbbd4
+		summarizeBy: none
+		sourceColumn: media_url
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Número de comentários com o balão
+	column Comentários = "🗨️ " & fInstagram[comments_count]
+		lineageTag: bab5972e-b4f8-4356-98b7-3b3bcac33d2a
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Número de curtidas com o coração
+	column Curtidas = "❤️ "&fInstagram[like_count]
+		lineageTag: 5c64c83a-cdbe-4a14-8355-b54a3c5db3b5
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fInstagram-ffeeaa1a-a1ac-44b5-8d8b-3feb8a3c3a1c = m
+		mode: import
+		queryGroup: Instagram
+		source =
+				let
+				    Source = Csv.Document(Web.Contents(GCS&"instagram/pnp_instagram_media_data.csv"),[Delimiter=";", Columns=9, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"comments_count", Int64.Type}, {"like_count", Int64.Type}, {"timestamp", type datetime}}),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Changed Type",{{"permalink", "URLpermalink"}}),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Colunas Renomeadas",{"media_url"}),
+				    #"Personalização Adicionada" = Table.AddColumn(#"Colunas Removidas", "media_url", each GCS&"instagram/images/"&[id]&".jpg"),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Personalização Adicionada",{{"media_url", type text}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,196 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/1.2.0/schema.json",
+  "name": "ReportSectionc8d3c61867be02fbc4a0",
+  "displayName": "2. Microdados PNP | 5.4 Índice de Eficiência Acadêmica",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "Filterc14832efe622bcc79d6a",
+        "ordinal": 0,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "d_IES"
+              }
+            },
+            "Property": "Org. Administrativa"
+          }
+        },
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "d",
+              "Entity": "d_IES",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "d"
+                          }
+                        },
+                        "Property": "Org. Administrativa"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Cefet'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Colégio'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Institutos'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Universidades'"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User"
+      }
+    ],
+    "filterSortOrder": "Custom"
+  },
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "image": {
+            "image": {
+              "name": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'POSIÇÃO 2 C 5 ABAS.png'"
+                  }
+                }
+              },
+              "url": {
+                "expr": {
+                  "ResourcePackageItem": {
+                    "PackageName": "RegisteredResources",
+                    "PackageType": 1,
+                    "ItemName": "POSI__O_2_C_5_ABAS08673124903182883.png"
+                  }
+                }
+              },
+              "scaling": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'Fill'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "width": {
+            "expr": {
+              "Literal": {
+                "Value": "348L"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visibility": "HiddenInViewMode",
+  "visualInteractions": [
+    {
+      "source": "e81391cb182f81b16cc4",
+      "target": "88d3abee4ef2305e136d",
+      "type": "NoFilter"
+    },
+    {
+      "source": "e81391cb182f81b16cc4",
+      "target": "207f04cdbb94464744e4",
+      "type": "NoFilter"
+    },
+    {
+      "source": "7cde4a3283c6c02509c4",
+      "target": "e81391cb182f81b16cc4",
+      "type": "NoFilter"
+    },
+    {
+      "source": "7cde4a3283c6c02509c4",
+      "target": "b3cdf7a6c92ee53e2751",
+      "type": "NoFilter"
+    },
+    {
+      "source": "7cde4a3283c6c02509c4",
+      "target": "207f04cdbb94464744e4",
+      "type": "DataFilter"
+    },
+    {
+      "source": "e81391cb182f81b16cc4",
+      "target": "7cde4a3283c6c02509c4",
+      "type": "NoFilter"
+    },
+    {
+      "source": "23e58be15b1e05d15636",
+      "target": "e108130b74ad20026d90",
+      "type": "NoFilter"
+    },
+    {
+      "source": "207f04cdbb94464744e4",
+      "target": "abb60c4e2559955c9d6f",
+      "type": "NoFilter"
+    },
+    {
+      "source": "abb60c4e2559955c9d6f",
+      "target": "207f04cdbb94464744e4",
+      "type": "NoFilter"
+    },
+    {
+      "source": "207f04cdbb94464744e4",
+      "target": "b9fd31386b02f4abc9c0",
+      "type": "NoFilter"
+    }
+  ]
+}

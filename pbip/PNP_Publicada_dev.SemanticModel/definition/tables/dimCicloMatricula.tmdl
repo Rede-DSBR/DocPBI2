@@ -1,0 +1,111 @@
+/// @description Essa tabela é utilizada para armazenar informações sobre os ciclos de matrícula de uma instituição de ensino, como as datas de início e término, o número de alunos inscritos e os anos de início e término do ciclo. A chave de substituição skCicloMatricula é utilizada para relacionar esta tabela com outras tabelas do banco de dados, permitindo a realização de consultas e análises mais complexas.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table dimCicloMatricula
+	lineageTag: 10b2d7b0-6cdc-4642-8f26-e85586ed1627
+
+	/// @description Código gerado no SISTEC que identifica de maneira única cada ciclo de matrícula.
+	column codCicloMatricula
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 2fb5af8d-0f65-4f9f-b2bc-8d0391720dfc
+		summarizeBy: sum
+		sourceColumn: codCicloMatricula
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Data de início do ciclo de matrícula validado/atualizado pela instituição na PNP
+	column dataInicioCiclo
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 517a0f0d-3609-4b50-8181-89df89686436
+		summarizeBy: none
+		sourceColumn: dataInicioCiclo
+
+		variation Variation
+			isDefault
+			relationship: 49f7f05a-c1ef-4908-b74e-e6ad7552615c
+			defaultHierarchy: LocalDateTable_0c25ac4f-c7de-4f80-adac-562b0c6cd747.'Hierarquia de datas'
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// @description Data prevista para o final do ciclo de matrícula validado/atualizado pela instituição na PNP
+	column dataFimCiclo
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: bea41100-bc6b-46f9-87ae-1605903493eb
+		summarizeBy: none
+		sourceColumn: dataFimCiclo
+
+		variation Variation
+			isDefault
+			relationship: ed370222-4237-400e-9082-07da8482572d
+			defaultHierarchy: LocalDateTable_a9687e7a-fbed-418f-800c-f88c7842a2a9.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// @description Ano da data de início do ciclo de matrícula validado/atualizado pela instituição na PNP
+	column skCicloMatricula
+		dataType: int64
+		formatString: 0
+		lineageTag: 863d7a63-7cc9-4cf2-a00b-43a461c9f12b
+		summarizeBy: none
+		sourceColumn: skCicloMatricula
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Ano da data de início do ciclo de matrícula validado/atualizado pela instituição na PNP
+	column anoInicioCiclo
+		dataType: int64
+		formatString: 0
+		lineageTag: 85ec65f8-7317-4e1c-8931-766e49778441
+		summarizeBy: sum
+		sourceColumn: anoInicioCiclo
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Corresponde aos candidatos participantes dos processos seletivos que concorreram às vagas disponibilizadas para a fase inicial de um ciclo de matricula em determinado curso, em suas diversas formas de seleção.
+	column Inscritos
+		dataType: int64
+		formatString: 0
+		lineageTag: 70dd8bf6-a329-4536-9642-8f9aa06b6ba1
+		summarizeBy: sum
+		sourceColumn: Inscritos
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Ano da data prevista para o final do ciclo de matrícula validado/atualizado pela instituição na PNP
+	column anoFimCiclo
+		dataType: int64
+		formatString: 0
+		lineageTag: f64362d9-78de-4f9d-a8e2-5d58985fd8e0
+		summarizeBy: sum
+		sourceColumn: anoFimCiclo
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dimCicloMatricula-c5d420db-de07-4463-8691-63b6beb31589 = m
+		mode: import
+		queryGroup: 'Modelo PNP\Dimensões'
+		source =
+				let
+				    Fonte = Csv.Document(Binary.Decompress(Web.Contents(AWS&"dimCicloMatricula.csv.gz"),Compression.GZip),[Delimiter=";", Columns=5, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"codCicloMatricula", Int64.Type}, {"dataInicioCiclo", type date}, {"dataFimCiclo", type date}, {"skCicloMatricula", Int64.Type}, {"Inscritos", Int64.Type}}),
+				    #"Ano Inserido" = Table.AddColumn(#"Tipo Alterado", "anoInicioCiclo", each Date.Year([dataInicioCiclo]), Int64.Type),
+				    #"Ano Inserido1" = Table.AddColumn(#"Ano Inserido", "anoFimCiclo", each Date.Year([dataFimCiclo]), Int64.Type)
+				in
+				    #"Ano Inserido1"
+
+	annotation PBI_ResultType = Table
+

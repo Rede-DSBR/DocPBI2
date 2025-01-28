@@ -1,0 +1,57 @@
+/// @description A tabela contém informações sobre as instituições, seus campos de dados e pedidos.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table _dInstituições
+	lineageTag: 877c2097-f4fe-411d-bea5-4aa020fbd202
+
+	column DetalhaInstuições
+		lineageTag: 75977b07-1b35-4d84-b562-fd11b901eef0
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Contexto Instituições Pedido'
+
+		relatedColumnDetails
+			groupByColumn: 'Contexto Instituições Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Contexto Instituições Campos'
+		isHidden
+		lineageTag: b4cebb06-a7fe-474e-b420-e51fb0a9c6fc
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Contexto Instituições Pedido'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "kind": 2,
+				  "version": 3
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Contexto Instituições Pedido'
+		isHidden
+		formatString: 0
+		lineageTag: 4f5c6288-30ec-40d5-bfe4-da797a664de6
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _dInstituições-d33235f5-6a47-4a40-9ae3-4a50290f2f57 = calculated
+		mode: import
+		source =
+				{
+				    ("Sem detalhamento", Nameof('_ExpTítulos'[EmBranco]), 0),
+				    ("Instituição", NAMEOF('dimUnidade'[Instituicao]), 1),
+				    ("Sigla | Unidade", NAMEOF('dimUnidade'[Instituição | Unidade]), 2),
+				    ("Unidade", NAMEOF('dimUnidade'[nomeUnidadeRecente]), 3),
+				    ("Região", NAMEOF(d_IES[Região]), 4),
+				    ("Estado", NAMEOF(d_IES[Estado]), 5),
+				    ("Município", NAMEOF('dimUnidade'[Município]), 6)
+				}
+
+	annotation PBI_Id = 522d56ef2941462f9d177b3f0d5e06fd
+

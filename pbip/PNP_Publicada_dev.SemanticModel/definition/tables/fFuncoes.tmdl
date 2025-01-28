@@ -1,0 +1,181 @@
+/// @description Essa tabela fornece dados referentes aos servidores investidos em funções, como a escolaridade, titulação, sexo, idade e o tempo de serviço
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table fFuncoes
+	lineageTag: 616e71dc-fd0b-4c6c-b65e-a959935b0539
+
+	/// @description Soma do Número de vínculos de funções no último mês com dados disponíveis no ano de referência
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Cargos e funções gratificadas
+	measure 'Número de funções' =
+			/*
+			@description Soma do Número de vínculos de funções no último mês com dados disponíveis no ano de referência
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Cargos e funções gratificadas
+			*/
+			VAR anomes = MAX(fFuncoes[AnoMes])
+			RETURN
+			CALCULATE(SUM(fFuncoes[numVinculos]),'dCalendário'[Data]=anomes)
+		formatString: #,0
+		lineageTag: 5b15e2eb-d16e-4215-aa51-2c8b5f64847d
+
+		changedProperty = FormatString
+
+	/// @description Número de funções ocupadas por pessoas do sexo masculino
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Cargos e funções gratificadas
+	measure 'Número de Funções | Masculino' =
+			/*
+			@description Número de funções ocupadas por pessoas do sexo masculino
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Cargos e funções gratificadas
+			*/
+			CALCULATE([Número de funções], dimSexoIdade[Sexo] = "Masculino")
+		formatString: #,0
+		lineageTag: 6c6b356b-51e3-4680-8bc5-f5a9e951daac
+
+		changedProperty = FormatString
+
+	/// @description Número de funções ocupadas por pessoas do sexo feminino
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Cargos e funções gratificadas
+	measure 'Número de Funções | Feminino' =
+			/*
+			@description Número de funções ocupadas por pessoas do sexo feminino
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Cargos e funções gratificadas
+			*/
+			CALCULATE([Número de funções], dimSexoIdade[Sexo] = "Feminino")
+		formatString: #,0
+		lineageTag: 44107f29-5b3c-46aa-a8c3-9fc755d4409c
+
+		changedProperty = FormatString
+
+	column AnoMes
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 567d6740-1169-4065-b55d-e47b94539e57
+		summarizeBy: none
+		sourceColumn: AnoMes
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column codEscolaridade
+		dataType: int64
+		formatString: 0
+		lineageTag: 5d13737f-8fed-4429-bef7-b905d1d18e55
+		summarizeBy: none
+		sourceColumn: codEscolaridade
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código de Sexo e Idade
+	column codSexoIdade
+		dataType: int64
+		formatString: 0
+		lineageTag: 297e537f-e7b3-4e27-98c1-bf3d09b051b7
+		summarizeBy: none
+		sourceColumn: codSexoIdade
+
+		annotation SummarizationSetBy = Automatic
+
+	column codTitulacao
+		dataType: int64
+		formatString: 0
+		lineageTag: d1a6a97e-9362-4f29-bb5e-72aa6b9455e4
+		summarizeBy: sum
+		sourceColumn: codTitulacao
+
+		annotation SummarizationSetBy = Automatic
+
+	column skCargo
+		dataType: int64
+		formatString: 0
+		lineageTag: 566ae1c7-2e34-4db2-9287-32573a1f281d
+		summarizeBy: none
+		sourceColumn: skCargo
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código numeral da função
+	column skFuncao
+		dataType: int64
+		formatString: 0
+		lineageTag: 4ffdbe23-3fd4-4d4b-b3c5-60c70af390f7
+		summarizeBy: none
+		sourceColumn: skFuncao
+
+		annotation SummarizationSetBy = Automatic
+
+	column skSituacaoFuncional
+		dataType: int64
+		formatString: 0
+		lineageTag: 72e15e28-b434-4da1-847d-54314e28a474
+		summarizeBy: sum
+		sourceColumn: skSituacaoFuncional
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Número de vínculos
+	column numVinculos
+		dataType: int64
+		formatString: 0
+		lineageTag: b9bab2bd-87a9-421e-8f74-87bc66e71a06
+		summarizeBy: sum
+		sourceColumn: numVinculos
+
+		annotation SummarizationSetBy = Automatic
+
+	column skTempoServico
+		dataType: string
+		lineageTag: 8af47022-ecc9-4498-ad32-048eb3e4836a
+		summarizeBy: none
+		sourceColumn: skTempoServico
+
+		annotation SummarizationSetBy = Automatic
+
+	column skDimCarreira
+		dataType: string
+		lineageTag: 6e0d6f23-d9b3-4dfc-934b-4bdc3699cd7c
+		summarizeBy: none
+		sourceColumn: skDimCarreira
+
+		annotation SummarizationSetBy = Automatic
+
+	column skOrgao
+		dataType: int64
+		formatString: 0
+		lineageTag: 83e92213-5948-44c0-a307-5f6070a7bf10
+		summarizeBy: none
+		sourceColumn: skOrgao
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fFuncoes-b504e2b4-61a3-4663-b9e6-b554e235c843 = m
+		mode: import
+		queryGroup: 'Modelo Gestão de Pessoas\Fatos'
+		source =
+				let
+				    Fonte = Csv.Document(Binary.Decompress(Web.Contents(AWS&"fFuncoes.csv.gz"),Compression.GZip),[Delimiter=",", Columns=11, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"numVinculos", Int64.Type}, {"skSituacaoFuncional", Int64.Type}, {"skFuncao", Int64.Type}, {"skCargo", Int64.Type}, {"codTitulacao", Int64.Type}, {"codSexoIdade", Int64.Type}, {"codEscolaridade", Int64.Type}, {"AnoMes", type date}, {"skOrgao", Int64.Type}})
+				in
+				    #"Tipo Alterado1"
+
+	annotation PBI_ResultType = Table
+

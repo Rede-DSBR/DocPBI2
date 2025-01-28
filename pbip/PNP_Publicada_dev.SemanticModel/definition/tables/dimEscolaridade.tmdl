@@ -1,0 +1,54 @@
+/// @description Essa tabela é usada para armazenar informações sobre os diferentes níveis de escolaridade que os servidores podem ter. O codEscolaridade é usado como uma chave primária para identificar cada nível de escolaridade de forma única. A coluna Escolaridade armazena o nome do nível de escolaridade, enquanto a coluna NivelEscolaridade armazena o nível real de escolaridade.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table dimEscolaridade
+	lineageTag: aae48b6f-4dd8-4645-8ba2-d2822c6e51b8
+
+	column codEscolaridade
+		dataType: int64
+		formatString: 0
+		lineageTag: a0e34062-d701-418a-a2af-5ff00da97474
+		summarizeBy: none
+		sourceColumn: codEscolaridade
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Nome da Escolaridade, mestrado, por exemplo
+	column Escolaridade
+		dataType: string
+		lineageTag: fb9bd9b3-b743-4b37-a2b1-8b1ce374e07c
+		summarizeBy: none
+		sourceColumn: Escolaridade
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Nível de escolaridade do servidor.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Cargos da carreira; Cargos e funções gratificadas; Professores por Instituição
+	column NivelEscolaridade
+		dataType: string
+		lineageTag: 70e6f20f-bfd3-4839-9481-c4f981e498a9
+		summarizeBy: none
+		sourceColumn: NivelEscolaridade
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dimEscolaridade-e35b2b8f-4e2b-47d0-b324-c2369aff4dfa = m
+		mode: import
+		queryGroup: 'Modelo Gestão de Pessoas\Dimensões'
+		source =
+				let
+				    Fonte = Csv.Document(Binary.Decompress(Web.Contents(AWS&"dimEscolaridade.csv.gz"),Compression.GZip),[Delimiter=",", Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"codEscolaridade", Int64.Type}, {"Escolaridade", type text}, {"NivelEscolaridade", type text}}),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Tipo Alterado",{"NivelEscolaridade"}),
+				    #"Consultas Mescladas" = Table.NestedJoin(#"Colunas Removidas", {"codEscolaridade"}, EscolaridadeNivel, {"codEscolaridade"}, "EscolaridadeNivel", JoinKind.LeftOuter),
+				    #"EscolaridadeNivel Expandido" = Table.ExpandTableColumn(#"Consultas Mescladas", "EscolaridadeNivel", {"NivelEscolaridade"}, {"NivelEscolaridade"})
+				in
+				    #"EscolaridadeNivel Expandido"
+
+	annotation PBI_ResultType = Table
+

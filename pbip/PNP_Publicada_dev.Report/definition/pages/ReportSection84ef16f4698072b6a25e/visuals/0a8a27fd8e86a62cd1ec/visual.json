@@ -1,0 +1,17 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.2.0/schema.json",
+  "name": "0a8a27fd8e86a62cd1ec",
+  "position": {
+    "x": 123,
+    "y": 90,
+    "z": 11000,
+    "height": 482,
+    "width": 1035,
+    "tabOrder": 1000
+  },
+  "visualGroup": {
+    "displayName": "FiltrosPNP",
+    "groupMode": "ScaleMode"
+  },
+  "isHidden": true
+}

@@ -1,0 +1,198 @@
+/// @description Essa tabela é utilizada para armazenar informações sobre a eficiência acadêmica dos alunos, incluindo dados demográficos, de matrícula e de desempenho acadêmico. As colunas codSexoIdade, codRendaRaca, codFinanciamento e codSituacao são códigos que representam informações sobre o aluno, como sexo, idade, renda, raça, financiamento e situação acadêmica. A coluna numMatriculas indica o número de matrículas que o aluno possui.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table fEficienciaAcademica
+	lineageTag: 141b88b7-7308-4f39-8841-00c5518e2a89
+
+	/// @description Soma do número de matrículas para cálculo do indicador de eficiência acadêmica
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Eficiência Acadêmica
+	measure 'Eficiência Acadêmica | Número de Matrículas' =
+			/*
+			@description Soma do número de matrículas para cálculo do indicador de eficiência acadêmica
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Eficiência Acadêmica
+			*/
+			sum(fEficienciaAcademica[numMatriculas])
+		formatString: #,0
+		lineageTag: 0b4ea9ed-1cbf-4db3-aaed-c06123241bf0
+
+		changedProperty = FormatString
+
+	/// @description Métrica para funcionamento de componente visual
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'BotaoSliderEF_Aca | Valor Absoluto' =
+			
+			/*
+			@description Métrica para funcionamento de componente visual
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			IF((VALUES('_fEficiênciaAcadêmica'[Valor])= "Valor Absoluto"), "Valor Absoluto", "Valor Absoluto")
+		lineageTag: c8c39144-511c-4c85-8a9c-6405a8e66d1e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Métrica para funcionamento de componente visual
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'BotaoSliderEF_Aca | Valor %' = ```
+			
+			 /*
+			@description Métrica para funcionamento de componente visual
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			 IF((VALUES('_fEficiênciaAcadêmica'[Valor])= "Valor %"), "Valor %", "Valor %")
+			```
+		lineageTag: ffb1c36f-894a-4a7b-8c67-d8f2fb6258ff
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Métrica para funcionamento de componente visual
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'Indicador BotaoSliderEF_Acad' =
+			
+			/*
+			@description Métrica para funcionamento de componente visual
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			SWITCH(VALUES('_fEficiênciaAcadêmica'[Valor]), "Valor Absoluto", 1, "Valor %", -1)
+		lineageTag: 38f78150-bdb6-413f-bdbc-97a48ede71f1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Ano
+	column Ano
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: d91913de-fd0a-4908-ac10-ca2cd3f1f5b8
+		summarizeBy: none
+		sourceColumn: Ano
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// @description Código UO
+	column UO
+		dataType: int64
+		formatString: 0
+		lineageTag: fd2049dd-77b2-4e79-b5b8-39c74396d781
+		summarizeBy: sum
+		sourceColumn: UO
+
+		annotation SummarizationSetBy = Automatic
+
+	column skCursoMatricula
+		dataType: int64
+		formatString: 0
+		lineageTag: cb261737-bb05-4484-986f-7eba4edcd5ce
+		summarizeBy: none
+		sourceColumn: skCursoMatricula
+
+		annotation SummarizationSetBy = Automatic
+
+	column codCurso
+		dataType: int64
+		formatString: 0
+		lineageTag: 067ce1a8-b99b-40ab-bf1b-977412bd863c
+		summarizeBy: sum
+		sourceColumn: codCurso
+
+		annotation SummarizationSetBy = Automatic
+
+	column skUnidade
+		dataType: int64
+		formatString: 0
+		lineageTag: 2728c77b-d303-46dc-843c-658ac8342c66
+		summarizeBy: none
+		sourceColumn: skUnidade
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código da unidade utilizado internamente na disseminação
+	column codUnidade
+		dataType: int64
+		formatString: 0
+		lineageTag: 7a70e61d-57db-4325-9751-ab62cf98fbf4
+		summarizeBy: sum
+		sourceColumn: codUnidade
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código de Sexo e Idade
+	column codSexoIdade
+		dataType: int64
+		formatString: 0
+		lineageTag: ece3fe56-27c7-4041-9c19-ad84de0b5f65
+		summarizeBy: none
+		sourceColumn: codSexoIdade
+
+		annotation SummarizationSetBy = Automatic
+
+	column codRendaRaca
+		dataType: int64
+		formatString: 0
+		lineageTag: b263e327-0d7e-4c31-8161-d627898e991b
+		summarizeBy: none
+		sourceColumn: codRendaRaca
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código do Financiamento
+	column codFinanciamento
+		dataType: int64
+		formatString: 0
+		lineageTag: ef139ba1-22e0-4334-b68c-76ac4157bf92
+		summarizeBy: none
+		sourceColumn: codFinanciamento
+
+		annotation SummarizationSetBy = Automatic
+
+	column codSituacao
+		dataType: int64
+		formatString: 0
+		lineageTag: ea6e4217-7eb4-459c-9b93-744324c5cdd4
+		summarizeBy: none
+		sourceColumn: codSituacao
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Número de matrículas
+	column numMatriculas
+		dataType: int64
+		formatString: 0
+		lineageTag: 15f4ce13-b1a8-43ef-adf7-b8169cc43f92
+		summarizeBy: sum
+		sourceColumn: numMatriculas
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fEficienciaAcademica-63434f32-a7e4-4a03-9a85-67bcecdd06ac = m
+		mode: import
+		queryGroup: 'Modelo PNP\Fatos'
+		source =
+				let
+				    Fonte = Csv.Document(Binary.Decompress(Web.Contents(AWS&"fEficienciaAcademica.csv.gz"),Compression.GZip),[Delimiter=";", Columns=11, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Ano", type date}, {"UO", Int64.Type}, {"skCursoMatricula", Int64.Type}, {"codCurso", Int64.Type}, {"skUnidade", Int64.Type}, {"codUnidade", Int64.Type}, {"codSexoIdade", Int64.Type}, {"codRendaRaca", Int64.Type}, {"codFinanciamento", Int64.Type}, {"codSituacao", Int64.Type}, {"numMatriculas", Int64.Type}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_ResultType = Table
+

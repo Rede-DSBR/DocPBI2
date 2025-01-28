@@ -1,0 +1,51 @@
+/// @description Essa tabela é utilizada em um modelo de dados dimensional para armazenar informações sobre as jornadas de trabalho de uma IES. A coluna skJornada é uma chave primária que é usada para relacionar essa tabela com outras tabelas do modelo. A coluna codJornada é usada para armazenar o código da jornada de trabalho, que pode ser utilizado em outras tabelas para referenciar essa jornada. A coluna DescricaoJornada é usada para armazenar uma descrição da jornada de trabalho, que pode ser utilizada para facilitar a compreensão dos dados por parte dos usuários.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table dimJornada
+	lineageTag: eac8b311-c8d0-4563-95b2-c072961cb504
+
+	column skJornada
+		dataType: int64
+		formatString: 0
+		lineageTag: dfcdaddd-2b45-4264-b1e0-851a3359097b
+		summarizeBy: none
+		sourceColumn: skJornada
+
+		annotation SummarizationSetBy = Automatic
+
+	column codJornada
+		dataType: int64
+		formatString: 0
+		lineageTag: 9dcbb5e1-aa7f-43a2-a6f1-91f4c12a2549
+		summarizeBy: none
+		sourceColumn: codJornada
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Descrição da jornada de trabalho em horas semanais ou regime de dedicação exclusiva.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Cargos da carreira; Professores por Instituição
+	column DescricaoJornada
+		dataType: string
+		lineageTag: 39fb8f73-6314-4c08-8d6e-dd593fedb190
+		summarizeBy: none
+		sourceColumn: DescricaoJornada
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dimJornada-2b5693a6-a94f-4680-a4ee-4d14ccf32ddc = m
+		mode: import
+		queryGroup: 'Modelo Gestão de Pessoas\Dimensões'
+		source =
+				let
+				    Fonte = Csv.Document(Binary.Decompress(Web.Contents(AWS&"dimJornada.csv.gz"),Compression.GZip),[Delimiter=",", Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"skJornada", Int64.Type}, {"codJornada", Int64.Type}, {"DescricaoJornada", type text}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_ResultType = Table
+

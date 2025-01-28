@@ -1,0 +1,88 @@
+/// @description Essa tabela é utilizada para armazenar informações sobre as situações que podem ocorrer em um determinado processo ou fluxo de trabalho. O código da situação é uma identificação única para cada situação, enquanto a categoria e o nome da situação fornecem informações adicionais sobre o tipo de situação. A coluna FluxoRetido indica se a situação retém o fluxo ou não, o que pode ser útil para determinar o impacto que a situação tem no processo. As colunas ordemcategoriaSituacao e ordemnomeSituacao são utilizadas para ordenar as situações de acordo com a categoria e o nome, respectivamente.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table dimSituacao
+	lineageTag: 2ea6b960-a347-40dd-aa34-5bcfe110d511
+
+	column codSituacao
+		dataType: string
+		isHidden
+		lineageTag: 9092a06e-8ec8-4fd5-bfb9-ec865eb097a0
+		summarizeBy: none
+		sourceColumn: codSituacao
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description campo que representa a categoria da situação da matrícula do aluno.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Situação de matrícula
+	column categoriaSituacao
+		dataType: string
+		lineageTag: 7fab1bd4-58dc-4841-8cf1-a201e929f2d9
+		summarizeBy: none
+		sourceColumn: categoriaSituacao
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description campo que representa as variações das categorias de situação das matrículas dos alunos "em curso situação (em fluxo e retidos)" , "concluintes (concluído e integralizado)" e "evadidos (abandonado, cancelado, desligado, reprovado, transferência interna e transferência externa)".
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Situação de matrícula
+	column nomeSituacao
+		dataType: string
+		lineageTag: c45121f4-423e-4203-be43-8083af244678
+		summarizeBy: none
+		sourceColumn: nomeSituacao
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description campo que agrupa as categorias de situação das matrículas que representam situações de retenção.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Situação de matrícula
+	column FluxoRetido
+		dataType: string
+		lineageTag: 758490eb-e71b-4c96-88db-b33a71d8946d
+		summarizeBy: none
+		sourceColumn: FluxoRetido
+
+		annotation SummarizationSetBy = Automatic
+
+	column ordemcategoriaSituacao
+		dataType: int64
+		formatString: 0
+		lineageTag: 75b1cf50-6c61-4b2e-be76-de397cb3c4b9
+		summarizeBy: sum
+		sourceColumn: ordemcategoriaSituacao
+
+		annotation SummarizationSetBy = Automatic
+
+	column ordemnomeSituacao
+		dataType: int64
+		formatString: 0
+		lineageTag: 9e43f8f9-2849-4458-bae5-71fd40fa0d75
+		summarizeBy: sum
+		sourceColumn: ordemnomeSituacao
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dimSituacao-8a930d35-39bb-472a-91dc-16abd609c6a0 = m
+		mode: import
+		queryGroup: 'Modelo PNP\Dimensões'
+		source =
+				let
+				    Fonte = Csv.Document(Binary.Decompress(Web.Contents(AWS&"dimSituacao.csv.gz"),Compression.GZip),[Delimiter=";", Columns=6, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"ordemcategoriaSituacao", Int64.Type}, {"ordemnomeSituacao", Int64.Type}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_ResultType = Table
+

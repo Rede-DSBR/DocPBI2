@@ -1,0 +1,255 @@
+/// @description A tabela d_IES é uma tabela que contém informações sobre as Instituições de Ensino Superior (IES) do Brasil.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table d_IES
+	lineageTag: 2e31b0d9-5cf5-4ae5-b28f-6dbdba56aafd
+
+	/// @description Total de matrículas equivalentes, que Corresponde à matrícula ponderada pelos fatores de: - Fator de Equiparação de carga horária; - Fator de Esforço de curso.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'Matrículas equivalentes' =
+			
+			/*
+			@description Total de matrículas equivalentes, que Corresponde à matrícula ponderada pelos fatores de: - Fator de Equiparação de carga horária; - Fator de Esforço de curso.
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			
+			*/
+			VAR tabela = CALCULATETABLE (
+			    SUMMARIZE (
+			        dimCurso,
+			        dimCurso[tipoCurso],
+			        dimCurso[CHMinimaCurso],
+			        dimCurso[fatorEsforcoCurso],
+			        "FECH",
+			            IF (
+			                dimCurso[tipoCurso] = "Qualificação Profissional (FIC)",
+			                dimCurso[CHMinimaCurso] / 800,
+			                1
+			            ),
+			        "Matrículas", [Número de Matrículas],
+			        "Matrículas equivalentes",
+			            [Número de Matrículas] * [fatorEsforcoCurso]
+			                * ROUND (
+			                    IF (
+			                        dimCurso[tipoCurso] = "Qualificação Profissional (FIC)",
+			                        dimCurso[CHMinimaCurso] / 800,
+			                        1
+			                    ),
+			                    2
+			                )
+			    ),
+			    dimFinanciamento[nomeFonteFinanciamento] = "Sem Programa Associado"
+			)
+			RETURN
+			SUMX(tabela,[Matrículas equivalentes])
+		lineageTag: ac4a9619-6f47-47cc-8b92-39c21c7bbd8e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Nome da Instituição de Ensino Superior
+	column 'Instituição (Nome)'
+		dataType: string
+		lineageTag: c97aa2fc-b310-4c27-b279-88f04f86000e
+		summarizeBy: none
+		sourceColumn: Instituição (Nome)
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código da Unidade Orçamentária da Instituição
+	column UO
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: ef4e9475-6d72-4075-92d3-19802ba9130d
+		summarizeBy: none
+		sourceColumn: UO
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Unidade Federativa (UF) da Instituição
+	column UF
+		dataType: string
+		lineageTag: 2092fbec-ac02-4d55-a2ee-717b9f8085bb
+		summarizeBy: none
+		sourceColumn: UF
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Sigla da Instituição
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Cargos da carreira; Cargos e funções gratificadas; Panorama Orçamentário; Explorar Dados; Serie Histórica; Ind Orçamentário; Técnicos-administrativos por Nível; Professores por Instituição; Titulação Docente
+	/// 
+	column Sigla
+		dataType: string
+		lineageTag: 4c0db815-1754-446a-bc80-6a6a87a272b9
+		summarizeBy: none
+		sourceColumn: Sigla
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Nome da cidade Sede
+	column Sede
+		dataType: string
+		lineageTag: 898b0a7d-8a4f-4bcc-bbcd-4d7a461b536e
+		summarizeBy: none
+		sourceColumn: Sede
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código IBGE do município sede da Instituição
+	column 'Cód. IBGE'
+		dataType: string
+		isHidden
+		lineageTag: f3056c6c-766d-40cc-b161-8b3521c2b2ca
+		summarizeBy: none
+		sourceColumn: Cód. IBGE
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Nome da região do Brasil em que a Instituição está situada
+	/// @author Poty Lucena
+	/// @version 1
+	/// @date 26/05/2023
+	/// @panel Faixa Etária; Panorama Orçamentário; Explorar Dados; Serie Histórica; Ind Orçamentário; Técnicos-administrativos por Nível; Professores por Instituição; Titulação Docente; Dados Gerais; Curso, matrícula e oferta; Situação de matrícula; Classificação Racial, Renda e Sexo; Percentuais Legais;  Oferta de vagas noturnas; Relação inscritos/vagas; Taxa de evasão; Eficiência Acadêmica
+	column Região
+		dataType: string
+		lineageTag: 51a5830c-95a6-4a87-aefe-c1c9130b12fc
+		summarizeBy: none
+		sourceColumn: Região
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Nome do estado do Brasil em que a Instituição está situada
+	/// @author Poty Lucena
+	/// @version 1
+	/// @date 26/05/2023
+	/// @panel Faixa Etária; Panorama Orçamentário; Explorar Dados; Serie Histórica; Ind Orçamentário; Técnicos-administrativos por Nível; Professores por Instituição; Titulação Docente; Dados Gerais; Curso, matrícula e oferta; Situação de matrícula; Classificação Racial, Renda e Sexo; Percentuais Legais;  Oferta de vagas noturnas; Relação inscritos/vagas; Taxa de evasão; Eficiência Acadêmica
+	column Estado
+		dataType: string
+		lineageTag: 8f5813ee-1c09-49a7-8ea6-5cd1fbc536ba
+		summarizeBy: none
+		sourceColumn: Estado
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código único de identificação da Instituição
+	column CO_IES
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b8b5fdd5-04cb-4803-9e33-96b7ebd38ae5
+		summarizeBy: none
+		sourceColumn: CO_IES
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Designação da organização administrativa das instituições, que podem ser classificadas como Cefet, Colégio, Institutos ou Universidades
+	/// @author Poty Lucena
+	/// @version 1
+	/// @date 26/05/2023
+	/// @panel Situação de matrícula; Classificação Racial, Renda e Sexo; Faixa Etária; Percentuais Legais; Titulação Docente; Técnicos-administrativos por Nível ; Professores por Instituição
+	column 'Org. Administrativa'
+		dataType: string
+		lineageTag: 56c33192-9fce-4add-8943-3ad8fd751f8e
+		summarizeBy: none
+		sourceColumn: Org. Administrativa
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Nome do Município e Unidade Federativa (UF) em que a Instituição está situada
+	column 'Município, UF'
+		dataType: string
+		lineageTag: 0624d7cc-4749-4273-a1b1-b5beb4c56227
+		summarizeBy: none
+		sourceColumn: Município, UF
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Atributo de classificação da organização acadêmica das instituições, se Universidades Federalis ou Instituto Federal, Cefet's e Colégio Pedro II
+	column 'Organização Acadêmica'
+		dataType: string
+		lineageTag: a9c734eb-0c4d-4b55-958c-a245645c1787
+		summarizeBy: none
+		sourceColumn: Organização Acadêmica
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Endereço eletrônico para acesso ao cadastro da instituição no E-MEC
+	column UrlIESE-MEC
+		dataType: string
+		lineageTag: 1ee557e2-b63f-4170-a15d-a51793edb9d5
+		summarizeBy: none
+		sourceColumn: UrlIESE-MEC
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Designação da organização acadêmica das instituições no âmbito da PNP, que podem ser classificadas como Instituto Federal (IF), Centro Federal de Educação Tecnológica (Cefet), Escola técnica vinculada (ETV) ou Colégio Pedro II (CPII)
+	/// @author Poty Lucena
+	/// @version 1
+	/// @date 26/05/2023
+	/// @panel Faixa Etária; Dados Gerais; Curso, matrícula e oferta; Situação de matrícula; Classificação Racial, Renda e Sexo; Percentuais Legais;  Oferta de vagas noturnas; Relação inscritos/vagas; Taxa de evasão; Eficiência Acadêmica; Titulação Docente
+	column 'Organização Acadêmica PNP'
+		dataType: string
+		lineageTag: 43ffbc4b-a192-49cf-956c-3d5708428a56
+		summarizeBy: none
+		sourceColumn: Organização Acadêmica PNP
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Designação da sigla da organização acadêmica das instituições no âmbito da PNP, que podem ser classificadas como Institutos Federais (IFs), Centro Federal de Educação Tecnológica (Cefet), Escola técnica vinculada (ETV) ou Colégio Pedro II (CPII)
+	/// @author Poty Lucena
+	/// @version 1
+	/// @date 26/05/2023
+	/// @panel Faixa Etária; Panorama Orçamentário; Explorar Dados; Serie Histórica; Ind Orçamentário; Dados Gerais; Curso, matrícula e oferta; Situação de matrícula; Classificação Racial, Renda e Sexo; Percentuais Legais;  Oferta de vagas noturnas; Relação inscritos/vagas; Taxa de evasão; Eficiência Acadêmica; Titulação Docente
+	column 'Organização Acadêmica Sigla PNP'
+		dataType: string
+		lineageTag: 8b622beb-8748-409c-ace1-d27848e671d3
+		summarizeBy: none
+		sourceColumn: Organização Acadêmica Sigla PNP
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Agrupamento da sigla e nome da organização acadêmica das instituições no âmbito da PNP
+	column OrgAcadPNP = d_IES[Organização Acadêmica Sigla PNP]&" • "&d_IES[Organização Acadêmica PNP]
+		lineageTag: 14fb4851-f7f7-4579-8ffd-3b89ec3a4596
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Agrupamento da sigla e nome da instituição
+	column SiglaNome = d_IES[Sigla]&" - "&(d_IES[Instituição (Nome)])
+		lineageTag: 19a9ec7f-4941-4a44-9074-1808564b3eed
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition d_IES-696903f9-3e47-470f-804a-668a00e5919a = m
+		mode: import
+		queryGroup: 'Modelo PNP\Dimensões'
+		source =
+				let
+				    Fonte = Excel.Workbook(Web.Contents(AWS&"../360/d_IES.xlsx"), null, true),
+				    d_IES_Sheet = Fonte{[Item="d_IES",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(d_IES_Sheet, [PromoteAllScalars=true]),
+				    #"Texto Aparado" = Table.TransformColumns(#"Cabeçalhos Promovidos",{{"Instituição (Nome)", Text.Trim, type text}}),
+				    #"Valor Substituído" = Table.ReplaceValue(#"Texto Aparado","Fundação ","",Replacer.ReplaceText,{"Instituição (Nome)"}),
+				    #"Personalização Adicionada" = Table.AddColumn(#"Valor Substituído", "URL_e-MEC", each "https://emec.mec.gov.br/emec/consulta-cadastro/detalhamento/d96957f455f6405d14c6542552b0f6eb/"&Binary.ToText(Text.ToBinary(Text.From([CO_IES])), 0)),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Personalização Adicionada",{{"URL_e-MEC", "UrlIESE-MEC"}}),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Colunas Renomeadas",{{"UO", Int64.Type}, {"Instituição (Nome)", type text}, {"UF", type text}, {"Sigla", type text}, {"Sede", type text}, {"Cód. IBGE", type text}, {"Região", type text}, {"Estado", type text}, {"CO_IES", Int64.Type}, {"Org. Administrativa", type text}, {"Município, UF", type text}, {"Organização Acadêmica", type text}, {"UrlIESE-MEC", type text}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_ResultType = Table
+

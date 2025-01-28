@@ -1,0 +1,300 @@
+/// @description A tabela dimUnidade possui informações geográficas e da evolução dos nomes sobre as unidades de ensino superior no Brasil.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table dimUnidade
+	lineageTag: 781d3cd9-c728-4c43-bea9-88d21b71ba0e
+
+	/// @description Total de unidades
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Dados Gerais; Curso, matrícula e oferta; Classificação Racial, Renda e Sexo; Faixa Etária; Situação de matrícula
+	measure 'Número de Unidades' =
+			
+			/*
+			@description Total de unidades
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Dados Gerais; Curso, matrícula e oferta; Classificação Racial, Renda e Sexo; Faixa Etária; Situação de matrícula
+			*/
+			DISTINCTCOUNT('fSituaçãoMatrícula'[codUnidade])
+		formatString: 0
+		lineageTag: d3a5a6c9-490e-46f0-a1f7-16fbd5a27b90
+
+	/// % [Número de Unidades]
+	measure '% de Número de Unidades' = ```
+			/*
+			@description Percentual do total de unidades
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Curso, matrícula e oferta; Situação de matrícula; Classificação Racial, Renda e Sexo; Faixa Etária
+			*/
+			DIVIDE([Número de Unidades],CALCULATE([Número de Unidades],ALLSELECTED()))
+			
+			```
+		formatString: 0.00%
+		lineageTag: 0e8f9b1b-a2d4-4dd5-91d3-fa05049cb4ec
+
+	/// @description Total de instituições
+	/// @author dsbr
+	/// @version 1
+	/// @data 03/11/2022
+	measure 'Número de instituições' =
+			/*
+			@description Total de instituições
+			@author dsbr
+			@version 1
+			*/
+			DISTINCTCOUNT(dimUnidade[UO])
+		lineageTag: 4bea669a-3531-4aa3-aeed-1291954ba0c5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Unidade Federativa
+	/// @author Mariana Farias
+	/// @version 1
+	/// @date 24/05/2023
+	column UF
+		dataType: string
+		lineageTag: 5765c4ba-94f9-49d6-a579-5813d3049763
+		summarizeBy: none
+		sourceColumn: UF
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código UO
+	/// @author Mariana Farias
+	/// @version 1
+	/// @date 24/05/2023
+	column UO
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c1317c37-3617-4969-9bd7-fa6b5cfe57de
+		summarizeBy: none
+		sourceColumn: UO
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código da unidade utilizado internamente na disseminação
+	column codUnidade
+		dataType: int64
+		formatString: 0
+		lineageTag: 46bc5ff9-6048-480f-b79f-142409c26058
+		summarizeBy: sum
+		sourceColumn: codUnidade
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código gerado no SISTEC que identifica de maneira única cada unidade de ensino.
+	column codSistec
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: ae328a39-6a3e-4f12-9285-c5a9f9f24e98
+		summarizeBy: sum
+		sourceColumn: codSistec
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Região onde está localizada a Instituição
+	column Regiao
+		dataType: string
+		lineageTag: 3a40652c-8b18-46d3-b118-020f3b23cddf
+		summarizeBy: none
+		sourceColumn: Regiao
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Sigla que representa a Instituição de Ensino integrante da Rede Federal de EPCT. Para efeito desta Plataforma, cada escola técnica vinculada à universidade federal será compreendida como uma Instituição.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Dados Gerais; Curso, matrícula e oferta; Situação de matrícula; Faixa Etária; Percentuais Legais; Classificação Racial, Renda e Sexo;  Oferta de vagas noturnas; Relação inscritos/vagas; Taxa de evasão; Eficiência Acadêmica; Titulação Docente; Professores por Instituição
+	column Instituicao
+		dataType: string
+		lineageTag: 70de41cf-a01c-42cb-89cf-7a15e2923bcf
+		summarizeBy: none
+		sourceColumn: Instituicao
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Tipo de unidade de ensino superior (por exemplo, universidade, faculdade, instituto federal).
+	/// @author Mariana Farias
+	/// @version 1
+	/// @date 24/05/2023
+	column tipoUnidade
+		dataType: string
+		lineageTag: cd194fe8-7674-4121-80cf-b1141a7bc520
+		summarizeBy: none
+		sourceColumn: tipoUnidade
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código IBGE do município da sede da IES
+	column codIBGE
+		dataType: int64
+		formatString: 0
+		lineageTag: bbc99a58-5c2f-4999-aa1b-80d08dbe6741
+		summarizeBy: sum
+		sourceColumn: codIBGE
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Nome da unidade de ensino
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Dados Gerais
+	column nomeUnidade
+		dataType: string
+		lineageTag: 6fb75e12-dff2-48e6-ab1c-9ccbe317fefa
+		summarizeBy: none
+		sourceColumn: nomeUnidade
+
+		annotation SummarizationSetBy = Automatic
+
+	column skUnidade
+		dataType: int64
+		formatString: 0
+		lineageTag: 9fd76e5b-a6eb-4c8a-8d78-dd14cbbacdec
+		summarizeBy: none
+		sourceColumn: skUnidade
+
+		annotation SummarizationSetBy = Automatic
+
+	column AnoNomeUnidade
+		dataType: int64
+		formatString: 0
+		lineageTag: ae67015e-d774-4531-bf1a-f9ea2653937f
+		summarizeBy: sum
+		sourceColumn: AnoNomeUnidade
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Nome da unidade de ensino, conforme última edição disponível
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Curso, matrícula e oferta; Situação de matrícula; Faixa Etária; Percentuais Legais; Técnicos-administrativos por Nível; Professores por Instituição; Titulação Docente; Dados Gerais; Classificação Racial, Renda e Sexo; Oferta de vagas noturnas; Relação inscritos/vagas; Taxa de evasão; Eficiência Acadêmica
+	column nomeUnidadeRecente
+		dataType: string
+		lineageTag: 021cb2c5-4303-44a4-a451-7a04fecdae02
+		summarizeBy: none
+		sourceColumn: nomeUnidadeRecente
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Coordenada de latitude
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Dados Gerais
+	column Latitude
+		dataType: double
+		lineageTag: d2632cdc-e4de-4bc2-8d6d-8de486cb742b
+		summarizeBy: sum
+		sourceColumn: Latitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Coordenada de longitude
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Dados Gerais
+	column Longitude
+		dataType: double
+		lineageTag: 117bd9e6-5632-4250-bf09-0d4fbf70b2b1
+		summarizeBy: sum
+		sourceColumn: Longitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Nome do município
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Dados Gerais; Faixa Etária
+	column Município
+		dataType: string
+		lineageTag: aeef53ec-b82b-41f3-8e56-a4347c553504
+		summarizeBy: none
+		sourceColumn: Município
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Nome mais recente da unidade, reduzido.
+	/// @author Mariana Farias
+	/// @version 1
+	/// @date 24/05/2023
+	column nomeUnidadeRecenteRed
+		dataType: string
+		lineageTag: b75e4b97-95fc-457f-8c58-c172349c9fd4
+		summarizeBy: none
+		sourceColumn: nomeUnidadeRecenteRed
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Nome da unidade de ensino, conforme última edição disponível, atrelado ao nome da instituição
+	column 'Instituição | Unidade' = dimUnidade[Instituicao]&" • "&dimUnidade[nomeUnidadeRecenteRed]
+		lineageTag: 46189293-4c6f-4071-9d77-562fc169e5a2
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Nome da Instituição de Ensino Superior
+	column 'Instituição (Nome)'
+		dataType: string
+		lineageTag: 88e792e0-6ad3-45a2-aea1-a134a1d77bce
+		summarizeBy: none
+		sourceColumn: Instituição (Nome)
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Sigla que representa a Instituição de Ensino Superior
+	column 'Sigla | Instituição' = dimUnidade[Instituicao]&" - "&dimUnidade[Instituição (Nome)]
+		lineageTag: c5b2fcb8-5c12-41d1-8cfa-3c8564fd7ae9
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dimUnidade-30f48140-f8c5-4545-a0b7-62c75b680989 = m
+		mode: import
+		queryGroup: 'Modelo PNP\Dimensões'
+		source =
+				let
+				    Fonte = Csv.Document(Binary.Decompress(Web.Contents(AWS&"dimUnidade.csv.gz"),Compression.GZip),[Delimiter=";", Columns=16, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"codSistec", Int64.Type}, {"Regiao", type text}, {"UF", type text}, {"UO", Int64.Type}, {"Instituicao", type text}, {"tipoUnidade", type text}, {"codIBGE", Int64.Type}, {"nomeUnidade", type text}, {"skUnidade", Int64.Type}, {"codUnidade", Int64.Type}, {"AnoNomeUnidade", Int64.Type}, {"nomeUnidadeRecente", type text}, {"Latitude", type number}, {"Longitude", type number}}),
+				    #"Duplicatas Removidas" = Table.Distinct(#"Tipo Alterado", {"skUnidade"}),
+				    #"Coluna Duplicada" = Table.DuplicateColumn(#"Duplicatas Removidas", "nomeUnidadeRecente", "nomeUnidadeRecente - Copiar"),
+				    #"Colunas Reordenadas" = Table.ReorderColumns(#"Coluna Duplicada",{"skUnidade", "codUnidade", "codSistec", "UO", "Instituicao", "nomeUnidade", "AnoNomeUnidade", "nomeUnidadeRecente", "nomeUnidadeRecente - Copiar", "tipoUnidade", "Regiao", "UF", "codIBGE", "Latitude", "Longitude", "Município"}),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Colunas Reordenadas",{{"nomeUnidadeRecente - Copiar", "nomeUnidadeRecenteRed"}}),
+				    #"Valor Substituído" = Table.ReplaceValue(#"Colunas Renomeadas","Campus ","",Replacer.ReplaceText,{"nomeUnidadeRecenteRed"}),
+				    #"Valor Substituído1" = Table.ReplaceValue(#"Valor Substituído","Uned ","",Replacer.ReplaceText,{"nomeUnidadeRecenteRed"}),
+				    #"Valor Substituído2" = Table.ReplaceValue(#"Valor Substituído1","Avançado","",Replacer.ReplaceText,{"nomeUnidadeRecenteRed"}),
+				    #"Valor Substituído3" = Table.ReplaceValue(#"Valor Substituído2","Unidade","",Replacer.ReplaceText,{"nomeUnidadeRecenteRed"}),
+				    #"Texto Limpo" = Table.TransformColumns(#"Valor Substituído3",{{"nomeUnidadeRecenteRed", Text.Clean, type text}}),
+				    #"Texto Aparado" = Table.TransformColumns(#"Texto Limpo",{{"nomeUnidadeRecenteRed", Text.Trim, type text}}),
+				    Personalizar1 = #"Texto Aparado"
+				in
+				    Personalizar1
+
+	annotation PBI_ResultType = Table
+

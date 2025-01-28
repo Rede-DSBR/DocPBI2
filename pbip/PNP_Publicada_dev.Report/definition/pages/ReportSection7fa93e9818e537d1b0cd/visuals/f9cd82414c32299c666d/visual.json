@@ -1,0 +1,17 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.2.0/schema.json",
+  "name": "f9cd82414c32299c666d",
+  "position": {
+    "x": 749.17145620013275,
+    "y": 171.56235777044611,
+    "z": 13000,
+    "height": 30,
+    "width": 267.680805176132,
+    "tabOrder": 7000
+  },
+  "visualGroup": {
+    "displayName": "BotõesPersonalização",
+    "groupMode": "ScaleMode"
+  },
+  "isHidden": true
+}

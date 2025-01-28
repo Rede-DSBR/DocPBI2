@@ -1,0 +1,284 @@
+/// @description Tabela de referência de atributos e métricas relacionadas ao cálculo de indicadores da PNP
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table MedidasIndicadores
+	lineageTag: a287c2e6-3ec3-4062-925a-91ad8271efcf
+
+	measure 'Matrícula Equivalente | Fórmula' =
+			
+			VAR ano =
+			    VALUE ( MAX ( 'dCalendário'[Ano] ) )
+			VAR tabela =
+			    SUMMARIZE (
+			        dimCurso,
+			        dimCurso[FECH],
+			        dimCurso[fatorEsforcoCurso],
+			        "matr_atend",'fSituaçãoMatrícula'[Matrícula atendida]
+			    )
+			RETURN
+			    SUMX ( tabela, [FECH] * [fatorEsforcoCurso] * [matr_atend])
+		formatString: #,0.00
+		displayFolder: Percentuais Legais
+		lineageTag: d9c0b54c-fe54-4776-8744-93e3a2caa665
+
+		changedProperty = FormatString
+
+	measure 'Matrícula Equivalente | Proeja %' =
+			
+			DIVIDE(
+			    ROUND([Matrícula Equivalente | Proeja],2),
+			    ROUND([Matrícula Equivalente | Geral],2)
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Percentuais Legais
+		lineageTag: c2d16905-8253-4a49-a271-46ea0c1ae387
+
+		changedProperty = FormatString
+
+	measure 'Matrícula Equivalente | Técnicos %' =
+			
+			DIVIDE (
+			    ROUND ( [Matrícula Equivalente | Técnicos], 2 ),
+			    ROUND ( [Matrícula Equivalente | Geral], 2 )
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Percentuais Legais
+		lineageTag: 1ba2ed63-754d-4654-9ad6-444f047f7dcf
+
+		changedProperty = FormatString
+
+	/// @description Matrícula Equivalente (Geral). A matrícula equivalente corresponde à matrícula ponderada pelos fatores de: - Fator de Equiparação de carga horária; - Fator de Esforço de curso.
+	/// @author dsbr
+	/// @version 1
+	/// @date 29/05/2023
+	/// @panel Percentuais Legais; Professores por Instituição; Curso, matrícula e oferta; Situação de matrícula; Classificação Racial, Renda e Sexo; Faixa Etária
+	measure 'Matrícula Equivalente | Geral' = ```
+			
+			
+			/*
+			@description Matrícula Equivalente (Geral). A matrícula equivalente corresponde à matrícula ponderada pelos fatores de: - Fator de Equiparação de carga horária; - Fator de Esforço de curso.
+			@author dsbr
+			@version 1
+			@date 29/05/2023
+			@panel Percentuais Legais; Professores por Instituição; Curso, matrícula e oferta; Situação de matrícula; Classificação Racial, Renda e Sexo; Faixa Etária
+			*/
+			VAR ANO =
+			    SELECTEDVALUE ( 'dCalendário'[Ano] )
+			RETURN
+			    IF (
+			        ANO == 2020,
+			        CALCULATE (
+			            [Matrícula Equivalente | Fórmula],
+			            dimFinanciamento[nomeFonteFinanciamentoCorrigido]
+			                IN { "Sem Programa Associado", "MedioTec" }
+			        ),
+			        IF (
+			            ANO <= 2019,
+			            CALCULATE (
+			                [Matrícula Equivalente | Fórmula],
+			              /*   d_IES[Org. Administrativa] = "Institutos", */
+			                dimFinanciamento[nomeFonteFinanciamentoCorrigido]
+			                    IN { "Sem Programa Associado", "MedioTec" }
+			            ),
+			            CALCULATE (
+			                [Matrícula Equivalente | Fórmula]/* ,
+			                d_IES[Org. Administrativa] = "Institutos" */
+			            )
+			        )
+			    )
+			
+			```
+		formatString: #,0.00
+		displayFolder: Percentuais Legais
+		lineageTag: 4e6f5caa-040e-47c0-9853-6e8734f93044
+
+		changedProperty = FormatString
+
+	/// @description Matrícula Equivalente dos Cursos Técnicos
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'Matrícula Equivalente | Técnicos' = ```
+			
+			/*
+			@description Matrícula Equivalente dos Cursos Técnicos
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			
+			CALCULATE(
+			    [Matrícula Equivalente | Geral], 
+			    TipoCurso[Nível Curso] = "Técnico"
+			)
+			
+			```
+		formatString: #,0.00
+		displayFolder: Percentuais Legais
+		lineageTag: 8cbf458b-bc3e-41a6-8831-150a32231be9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Matrícula Equivalente dos cursos de Formação de Professores
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Percentuais Legais; Professores por Instituição
+	measure 'Matrícula Equivalente | Formação de Professores' =
+			
+			/*
+			@description Matrícula Equivalente dos cursos de Formação de Professores
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Percentuais Legais; Professores por Instituição
+			*/
+			
+			CALCULATE (
+			    [Matrícula Equivalente | Geral],
+			    dimCurso[tipoEixoTecnologico] = "Desenvolvimento Educacional e Social",
+			    /* d_IES[Org. Administrativa] = "Institutos", */
+			    dimFinanciamento[nomeFonteFinanciamentoCorrigido] = "Sem Programa Associado"
+			)
+		formatString: #,0.00
+		displayFolder: Percentuais Legais
+		lineageTag: d0b1d367-bcde-45c1-afae-4f80f4cd6ad9
+
+		changedProperty = FormatString
+
+	/// @description Matrícula Equivalente do Proeja
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Percentuais Legais; Professores por Instituição
+	measure 'Matrícula Equivalente | Proeja' =
+			
+			
+			/*
+			@description Matrícula Equivalente do Proeja
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Percentuais Legais; Professores por Instituição
+			*/
+			CALCULATE (
+			    [Matrícula Equivalente | Geral] ,
+			            OR (
+			            dimCurso[tipoOferta] = "PROEJA - Concomitante",
+			            dimCurso[tipoOferta] = "PROEJA - Integrado"
+			        )
+			    )
+		formatString: #,0.00
+		displayFolder: Percentuais Legais
+		lineageTag: 3e2b5c23-c7fc-413b-865e-afedf7bac4aa
+
+		changedProperty = FormatString
+
+	measure 'Matrícula Equivalente | Formação de Professores %' =
+			
+			DIVIDE (
+			    ROUND ( [Matrícula Equivalente | Formação de Professores], 2 ),
+			    ROUND ( [Matrícula Equivalente | Geral], 2 )
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Percentuais Legais
+		lineageTag: efddc409-3e27-4f24-9e67-b3cc734a09a7
+
+		changedProperty = FormatString
+
+	/// @description Matrícula Equivalente | Técnicos Ref.
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Percentuais Legais
+	measure 'Meta | Matrícula Equivalente | Técnicos Ref.' = ```
+			
+			 /*
+			@description Matrícula Equivalente | Técnicos Ref.
+			@version 1
+			@date 03/11/2022
+			@panel Percentuais Legais
+			*/
+			 0.5
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Percentuais Legais
+		lineageTag: 84e0cf87-a999-4ae4-9d1f-4f6eeae5187a
+
+		changedProperty = FormatString
+
+	/// @description Matrícula Equivalente | Formação de Professores Ref.
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'Meta | Matrícula Equivalente | Formação de Professores Ref.' = ```
+			
+			 /*
+			@description Matrícula Equivalente | Formação de Professores Ref.
+			@version 1
+			@date 03/11/2022
+			@panel Percentuais Legais
+			*/
+			0.2
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Percentuais Legais
+		lineageTag: dff57a88-4882-4f6a-b920-67d678e5c60c
+
+		changedProperty = FormatString
+
+	/// @description Matrícula Equivalente | Proeja Ref.
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'Meta | Matrícula Equivalente | Proeja Ref.' =
+			
+			/*
+			@description Matrícula Equivalente | Proeja Ref.
+			@version 1
+			@date 03/11/2022
+			@panel Percentuais Legais
+			*/
+			
+			
+			0.1
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Percentuais Legais
+		lineageTag: 8f9cf3fb-e280-4c27-a3d6-2e61ce528053
+
+		changedProperty = FormatString
+
+	measure '% de Matrícula Equivalente | Geral' =
+			
+			/*
+			@description % de Matrícula Equivalente | Geral
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			DIVIDE([Matrícula Equivalente | Geral],CALCULATE([Matrícula Equivalente | Geral],ALLSELECTED()))
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		displayFolder: Percentuais Legais
+		lineageTag: 6e47c33d-2094-4202-81c2-13b073613905
+
+		changedProperty = FormatString
+
+	column 'Coluna 1'
+		dataType: string
+		isHidden
+		lineageTag: 1de3dd77-1f93-449e-9c54-b00759363c76
+		summarizeBy: none
+		sourceColumn: Coluna 1
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition MedidasIndicadores-c20c9b12-9b65-4795-a180-e1789f69c47b = m
+		mode: import
+		source =
+				let
+				    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Coluna 1" = _t])
+				in
+				    Fonte
+
+	annotation PBI_ResultType = Table
+

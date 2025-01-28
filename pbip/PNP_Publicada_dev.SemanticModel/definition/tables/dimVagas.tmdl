@@ -1,0 +1,109 @@
+/// @description Essa tabela é utilizada para classificar as vagas dos cursos.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table dimVagas
+	lineageTag: 20ef24c6-119b-4e13-a2b6-cc7dc53689e0
+
+	column nomeVaga
+		dataType: string
+		lineageTag: c105b988-9085-4a6e-b992-8423f165725f
+		summarizeBy: none
+		sourceColumn: nomeVaga
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column tipoVaga
+		dataType: string
+		lineageTag: 4996004b-595c-4ccb-a7a9-880e1b0605f9
+		summarizeBy: none
+		sourceColumn: tipoVaga
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column categoriaVaga
+		dataType: string
+		lineageTag: e473dd65-9a1d-464d-bb09-a5944354d7d6
+		summarizeBy: none
+		sourceColumn: categoriaVaga
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column codVaga
+		dataType: string
+		lineageTag: f30a91c0-d491-4bc9-a71d-3bcd6dadaed7
+		summarizeBy: none
+		sourceColumn: codVaga
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Tipo de reserva de vagas, conforme tipificações previstas na Lei nº 12.711, de 29 de agosto de 2012.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Reserva de Vagas
+	column tipoReservaVaga
+		dataType: string
+		lineageTag: d4b69adc-3fd6-4f72-911f-25e5bb851846
+		summarizeBy: none
+		sourceColumn: tipoReservaVaga
+
+		annotation SummarizationSetBy = Automatic
+
+	column nomeVagaAlternativo
+		dataType: string
+		lineageTag: 8e4a58bf-7ba2-4639-bd64-1f96ac0fb052
+		summarizeBy: none
+		sourceColumn: nomeVagaAlternativo
+
+		annotation SummarizationSetBy = Automatic
+
+	column ordemtipoReserva
+		dataType: int64
+		formatString: 0
+		lineageTag: e17b8bd8-99b6-4d54-8bc2-f7d2135783fb
+		summarizeBy: none
+		sourceColumn: ordemtipoReserva
+
+		annotation SummarizationSetBy = Automatic
+
+	column ordemtipoVaga
+		dataType: int64
+		formatString: 0
+		lineageTag: 9f67a370-78d3-4734-8982-0f1d6a3b7ab4
+		summarizeBy: none
+		sourceColumn: ordemtipoVaga
+
+		annotation SummarizationSetBy = Automatic
+
+	column ordemCategoria
+		dataType: string
+		lineageTag: b7850d95-6e9f-49a4-89c6-644565ef553b
+		summarizeBy: none
+		sourceColumn: ordemCategoria
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dimVagas-42d4829c-5e47-4ef0-a705-5bff20df05a8 = m
+		mode: import
+		queryGroup: 'Modelo PNP\Dimensões'
+		source =
+				let
+				    Fonte = Csv.Document(Binary.Decompress(Web.Contents(AWS&"dimVagas.csv.gz"),Compression.GZip),[Delimiter=";", Columns=9, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"codVaga", type text}, {"nomeVaga", type text}, {"tipoVaga", type text}, {"categoriaVaga", type text}, {"ordemtipoReserva", Int64.Type}, {"ordemtipoVaga", Int64.Type}})
+				in
+				    #"Tipo Alterado"
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+

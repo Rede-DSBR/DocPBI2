@@ -1,0 +1,322 @@
+/// @description As informações da tabela são importantes para a gestão de recursos humanos e planejamento estratégico das instituições de ensino, permitindo a análise de dados sobre o perfil dos servidores e a distribuição de recursos.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table 'fServidores | Microdados'
+	lineageTag: cecd5527-617e-4d79-8646-14f28e74528b
+
+	/// @description Soma do fator titulação do corpo docente efetivo validado
+	/// @author dsbr
+	/// @version 1
+	measure 'Servidores | Fator Titulação' =
+			/*
+			@description Soma do fator titulação do corpo docente efetivo validado
+			@author dsbr
+			@version 1
+			*/
+			CALCULATE(SUM('fServidores | Microdados'[fatorTitulacao]),'fServidores | Microdados'[Vinculo_Contrato]="Efetivo",'fServidores | Microdados'[Vinculo_Professor]="Sim",'fServidores | Microdados'[Validação_SETEC]="Deferido")
+		formatString: #,0
+		lineageTag: cbbb492b-719f-424f-a24a-840133e1e3e3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Número de docentes
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Titulação Docente; Professores por Instituição
+	measure 'Servidores | Número de Docentes' =
+			
+			/*
+			@description Número de docentes
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Titulação Docente; Professores por Instituição
+			*/
+			calculate(COUNTROWS('fServidores | Microdados'),'fServidores | Microdados'[Vinculo_Professor]="Sim")
+		formatString: #,0
+		lineageTag: 798e7323-9a36-4a70-9e7c-7b4f55908650
+
+		changedProperty = FormatString
+
+	/// @description Número do total de servidores
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Titulação Docente
+	measure 'Servidores | Número de Servidores' =
+			
+			/*
+			@description Número do total de servidores
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Titulação Docente
+			*/
+			calculate(COUNTROWS('fServidores | Microdados'))
+		formatString: #,0
+		lineageTag: 4313ee2c-f59f-42ac-98b2-c7689d11b6d7
+
+	/// @description Número de docentes efetivos
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Titulação Docente
+	measure 'Servidores | Docente Efetivo' =
+			
+			/*
+			@description Número de docentes efetivos
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Titulação Docente
+			*/
+			calculate([Servidores | Número de Docentes], 'fServidores | Microdados'[Vinculo_Contrato]="Efetivo",'fServidores | Microdados'[Vinculo_Professor]="Sim",'fServidores | Microdados'[Validação_SETEC]="Deferido")
+		formatString: #,0
+		lineageTag: 945961b2-3505-41e1-9e56-ea818b837748
+
+	/// @description Índice de Titulação do Corpo Docente
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Titulação Docente
+	measure 'Servidores | ITCD' =
+			
+			/*
+			@description Índice de Titulação do Corpo Docente
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Titulação Docente
+			*/
+			
+			
+			DIVIDE([Servidores | Fator Titulação], [Servidores | Docente Efetivo])
+		formatString: 0.0
+		lineageTag: d7146ee2-f740-4d47-8d88-9dc643341f93
+
+		changedProperty = FormatString
+
+	/// @description Referece-se ao número de técnicos administrativos da rede Federal de EPCT.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Técnicos-administrativos por Nível
+	measure 'Servidores | Número de TAE' =
+			
+			/*
+			@description Referece-se ao número de técnicos administrativos da rede Federal de EPCT.
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Técnicos-administrativos por Nível
+			*/
+			
+			calculate(COUNTROWS('fServidores | Microdados'),'fServidores | Microdados'[Vinculo_Professor]<>"Sim")
+		formatString: #,0
+		lineageTag: 6e9a0be0-5cc0-428f-afba-56f2107d4b4f
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	/// @description Ano
+	column Ano
+		dataType: int64
+		formatString: 0
+		lineageTag: df0df123-e1ee-4015-959d-58c157b46d92
+		summarizeBy: sum
+		sourceColumn: Ano
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código UO
+	column UO
+		dataType: int64
+		formatString: 0
+		lineageTag: 3b58feac-8cb7-46e6-ad33-d4ffdeee49a5
+		summarizeBy: sum
+		sourceColumn: UO
+
+		annotation SummarizationSetBy = Automatic
+
+	column skUnidade
+		dataType: int64
+		formatString: 0
+		lineageTag: bcb7d4de-b39a-4e15-9dad-c13321a4a7e3
+		summarizeBy: none
+		sourceColumn: skUnidade
+
+		annotation SummarizationSetBy = Automatic
+
+	column codUnidade_new
+		dataType: int64
+		formatString: 0
+		lineageTag: c15c86bc-0cc8-4cd8-8c2b-3110685f2933
+		summarizeBy: sum
+		sourceColumn: codUnidade_new
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Jornada semanal de trabalho cumpridas pelos servidores da Rede Federal de EPCT, incluindo o regime de Dedicação Exclusiva (DE).
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Professores por Instituição; Titulação Docente; Técnicos-administrativos por Nível
+	column Jornada_de_Trabalho
+		dataType: string
+		lineageTag: e82c57c6-8868-4927-b0ed-d9b10ee2b947
+		summarizeBy: none
+		sourceColumn: Jornada_de_Trabalho
+
+		annotation SummarizationSetBy = Automatic
+
+	column Número_de_registros
+		dataType: int64
+		formatString: 0
+		lineageTag: bff34466-71c3-4a6d-ad48-f6f168b3bf2c
+		summarizeBy: sum
+		sourceColumn: Número_de_registros
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Reconhecimento de saberes e competências atribuídos aos professores da Carreira de Educação Básica, Técnica e Tecnológica (EBTT), visando a equivalência de titulação para fins de percepção de Retribuição de Titulação (RT).
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Titulação Docente; Técnicos-administrativos por Nível
+	column Rsc
+		dataType: string
+		lineageTag: 41009445-2118-4aa3-a299-4a1897bdebde
+		summarizeBy: none
+		sourceColumn: Rsc
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description apresenta a maior escolaridade dos servidores da Rede, podendo ser: - Ensino Fundamental; - Ensino Médio, Técnico; - Graduação; - Aperfeiçoamento; - Especialização; - Mestrado; - Doutorado.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Técnicos-administrativos por Nível; Professores por Instituição; Titulação Docente
+	column Titulação
+		dataType: string
+		lineageTag: 94524387-3258-44f0-b3ae-76daa26962bd
+		summarizeBy: none
+		sourceColumn: Titulação
+
+		annotation SummarizationSetBy = Automatic
+
+	column Validação_SETEC
+		dataType: string
+		lineageTag: 3d9032e8-940a-4917-818b-61280ec99319
+		summarizeBy: none
+		sourceColumn: Validação_SETEC
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Carreira relativa ao cargo ocupado pelo servidor (Microdados PNP)
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Titulação Docente; Técnicos-administrativos por Nível
+	column Vinculo_Carreira
+		dataType: string
+		lineageTag: a8338034-3031-48a8-aac9-2c0188f08985
+		summarizeBy: none
+		sourceColumn: Vinculo_Carreira
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código da classe do cargo ocupado pelo servidor (Microdados PNP)
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Titulação Docente; Técnicos-administrativos por Nível
+	column Vinculo_Classe
+		dataType: string
+		lineageTag: 5fd6f564-7120-4061-8d61-c6506f8184ee
+		summarizeBy: none
+		sourceColumn: Vinculo_Classe
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Classificação do contrato do vínculo do servidor, se efetivo ou temporário (Microdados PNP)
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Titulação Docente; Técnicos-administrativos por Nível
+	column Vinculo_Contrato
+		dataType: string
+		lineageTag: ac1df32b-f899-4ce7-a467-0337b197b474
+		summarizeBy: none
+		sourceColumn: Vinculo_Contrato
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Identificador se é vínculo de docente (Microdados PNP)
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Titulação Docente; Técnicos-administrativos por Nível
+	column Vinculo_Professor
+		dataType: string
+		lineageTag: 68fe376e-647e-4517-93ce-680426ad6d4f
+		summarizeBy: none
+		sourceColumn: Vinculo_Professor
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Peso da titulação do docente.  Graduação - 1; Aperfeiçoamento - 2; Especialização - 3; Mestrado - 4; Doutorado - 5.
+	column fatorTitulacao
+		dataType: int64
+		formatString: 0
+		lineageTag: d8e44207-6d8b-4c5f-9d93-507d0918274c
+		summarizeBy: sum
+		sourceColumn: fatorTitulacao
+
+		annotation SummarizationSetBy = Automatic
+
+	column fatorProfEquivalente
+		dataType: double
+		lineageTag: 5ec70c17-4c60-45a5-acca-09abae40a806
+		summarizeBy: sum
+		sourceColumn: fatorProfEquivalente
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Data
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 3059828b-46c3-4883-a412-3967201da162
+		summarizeBy: none
+		sourceColumn: Data
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column tipoProfTecnico
+		dataType: string
+		lineageTag: 249389b0-f217-44b2-9c45-0bbe254d8b94
+		summarizeBy: none
+		sourceColumn: tipoProfTecnico
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'fServidores | Microdados-803fff20-9a2e-471d-86f9-54591da3151d' = m
+		mode: import
+		queryGroup: 'Modelo PNP\Fatos'
+		source =
+				let
+				    Fonte = Csv.Document(Binary.Decompress(Web.Contents(AWS&"fServidores.csv.gz"),Compression.GZip),[Delimiter=";", Columns=16, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Valor Substituído" = Table.ReplaceValue(#"Cabeçalhos Promovidos","Não Informado","0",Replacer.ReplaceText,{"Número_de_registros"}),
+				    #"Tipo Alterado com Localidade" = Table.TransformColumnTypes(#"Valor Substituído", {{"fatorProfEquivalente", type number}}, "en-US"),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Tipo Alterado com Localidade",{{"UO", Int64.Type}, {"skUnidade", Int64.Type}, {"Ano", Int64.Type}, {"codUnidade_new", Int64.Type}, {"Número_de_registros", Int64.Type}, {"fatorTitulacao", Int64.Type}}),
+				    #"Data Inserida" = Table.AddColumn(#"Tipo Alterado", "Data", each Date.From(Text.From([Ano], "pt-BR")), type date)
+				in
+				    #"Data Inserida"
+
+	annotation PBI_ResultType = Table
+

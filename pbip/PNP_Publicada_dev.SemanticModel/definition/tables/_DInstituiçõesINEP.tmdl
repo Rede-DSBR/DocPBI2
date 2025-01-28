@@ -1,0 +1,56 @@
+/// @description Essa tabela é utilizada para armazenar informações sobre as instituições de ensino cadastradas no INEP, bem como os pedidos de informações realizados pelo órgão.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table _DInstituiçõesINEP
+	lineageTag: c6d3a6b8-6a24-4cf9-a7a2-0d2610178c62
+
+	column _DInstituiçõesINEP
+		lineageTag: 9e79fc03-30f4-4c4b-b190-0cbebd7054e8
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: '_DInstituiçõesINEP Pedido'
+
+		relatedColumnDetails
+			groupByColumn: '_DInstituiçõesINEP Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column '_DInstituiçõesINEP Campos'
+		isHidden
+		lineageTag: 63bcb308-7d58-40c7-9f49-9f368a1230ca
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: '_DInstituiçõesINEP Pedido'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "kind": 2,
+				  "version": 3
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column '_DInstituiçõesINEP Pedido'
+		isHidden
+		formatString: 0
+		lineageTag: 127392ce-9bb0-4038-8f61-f06d1f348634
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _DInstituiçõesINEP-214ff331-6132-4e9f-b72a-12a12cf1d7f3 = calculated
+		mode: import
+		source =
+				{
+				    ("Sem detalhe", NAMEOF('_ExpTítulos'[EmBranco]), 0),
+				    ("Instituicao", NAMEOF('d_IES'[Sigla]), 1),
+				    ("Unidade", NAMEOF(dimUnidade[nomeUnidadeRecente]), 2),
+				    ("Região", NAMEOF('d_IES'[Região]), 3),
+				    ("Estado", NAMEOF('d_IES'[Estado]), 4),
+				    (" Área de Avaliação", NAMEOF('fCPC'[nomeArea]), 5)
+				}
+
+	annotation PBI_Id = af8ddcd5343045b3ae9665d5683293bd
+

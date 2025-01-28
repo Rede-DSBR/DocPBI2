@@ -1,0 +1,36 @@
+/// @description Essa tabela é utilizada para representar visualmente as regiões do Brasil em um mapa.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table _UFColor
+	lineageTag: 5b512866-45a9-4cef-86f0-6cdfcd0221df
+
+	/// @description Nome da região do Brasil
+	column Região
+		dataType: string
+		lineageTag: 10868588-00a5-4e45-bd27-3579dddebd15
+		summarizeBy: none
+		sourceColumn: Região
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código hexadecimal da cor
+	column Cor
+		dataType: string
+		lineageTag: d35693e7-a912-499f-a2f9-1bc94ec07d53
+		summarizeBy: none
+		sourceColumn: Cor
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _UFColor-0f1e9df6-8a2f-4087-99f6-ec5a62531776 = m
+		mode: import
+		queryGroup: Instagram
+		source =
+				let
+				    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45W8ssvKklV0lFSNjRxdHMxVorVAYulpBZDhI2NXNwsncDCwaU5YBFzZwtjC6gIXJ2jo4ubIUSdc2peSVG+rj9Mys3NxdXAUik2FgA=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type text) meta [Serialized.Text = true]) in type table [Região = _t, Cor = _t])
+				in
+				    Fonte
+
+	annotation PBI_ResultType = Table
+

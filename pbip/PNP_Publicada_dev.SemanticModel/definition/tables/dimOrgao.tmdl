@@ -1,0 +1,90 @@
+/// @description Dimensão Órgão
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table dimOrgao
+	lineageTag: c6f81161-b2ef-4b84-9e6e-4cfb5df4d1b2
+
+	column codOrgao
+		dataType: int64
+		formatString: 0
+		lineageTag: 48c312ec-fd07-4d8b-b636-2db02272661c
+		summarizeBy: sum
+		sourceColumn: codOrgao
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código UO
+	column CodUO
+		dataType: int64
+		formatString: 0
+		lineageTag: e8d65eac-a1c3-4379-88e0-ac2fc9395f23
+		summarizeBy: none
+		sourceColumn: CodUO
+
+		annotation SummarizationSetBy = Automatic
+
+	column skOrgao
+		dataType: string
+		lineageTag: 2b8fc24c-8a1c-4801-b54d-96e636200b86
+		summarizeBy: none
+		sourceColumn: skOrgao
+
+		annotation SummarizationSetBy = Automatic
+
+	column nomeOrgao
+		dataType: string
+		lineageTag: 3fdcbfd0-f946-4d0b-8331-20e18b8ded97
+		summarizeBy: none
+		sourceColumn: nomeOrgao
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_UORG
+		dataType: string
+		lineageTag: 248166ee-36a3-4c9e-9cef-b0080edc6a26
+		summarizeBy: none
+		sourceColumn: COD_UORG
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnidadeOrganizacional
+		dataType: string
+		lineageTag: 9e25f70e-c490-4430-940f-c0c5d5e1a87c
+		summarizeBy: none
+		sourceColumn: UnidadeOrganizacional
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_ORGSUP
+		dataType: string
+		lineageTag: d5098702-118b-471c-af1d-912b7f72a2d8
+		summarizeBy: none
+		sourceColumn: COD_ORGSUP
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrgaoSuperior
+		dataType: string
+		lineageTag: 3b1c9baf-558e-49ad-865d-e3702f90b0d2
+		summarizeBy: none
+		sourceColumn: OrgaoSuperior
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dimOrgao-360fec29-a3a4-4b77-b0fc-03146fe07495 = m
+		mode: import
+		queryGroup: 'Modelo Gestão de Pessoas\Dimensões'
+		source =
+				let
+				    Fonte = Csv.Document(Binary.Decompress(Web.Contents(AWS&"dimOrgao.csv.gz"),Compression.GZip),[Delimiter=",", Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Cabeçalhos Promovidos",{{"COD_ORG", "codOrgao"}, {"Orgao", "nomeOrgao"}}),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Colunas Renomeadas",{{"codOrgao", Int64.Type}}),
+				    #"Consultas Mescladas" = Table.NestedJoin(#"Tipo Alterado", {"codOrgao"}, OrgaoUO, {"Cod_Orgão_(Servidores)"}, "OrgaoUO", JoinKind.LeftOuter),
+				    #"OrgaoUO Expandido" = Table.ExpandTableColumn(#"Consultas Mescladas", "OrgaoUO", {"CodUO"}, {"CodUO"})
+				in
+				    #"OrgaoUO Expandido"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,798 @@
+/// @description Tabela de medidas de execução orçamentária
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table 'Controle Empenho'
+	lineageTag: 7b55eed7-6767-4f21-a9ed-d16c32109619
+
+	/// @description Despesa decorrente de ato emanado de autoridade que criou para o Estado uma obrigação de pagamento, pendente ou não de implemento de condições.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Classificação Racial, Renda e Sexo; Faixa Etária; Panorama Orçamentário; Explorar Dados; Serie Histórica
+	measure 'Despesa empenhada' = ```
+			
+			 /*
+			 @description Despesa decorrente de ato emanado de autoridade que criou para o Estado uma obrigação de pagamento, pendente ou não de implemento de condições.
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Classificação Racial, Renda e Sexo; Faixa Etária; Panorama Orçamentário; Explorar Dados; Serie Histórica
+			*/
+			SUM ( 'ItemDespesa'[Empenhado] )
+			```
+		lineageTag: ba845b28-ed2d-4951-835a-b043b369597f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Despesa empenhada, mas ainda pendente da verlficação do direito adquirido pelo credor, ou seja, corresponde ao total de despesa empenhada diminuido do total de despesas liquidadas.
+	/// @author dsbr
+	/// @version 1
+	/// @date 01/11/2022
+	/// @panel Panorama Orçamentário; Explorar Dados
+	measure 'Despesa empenhada a liquidar' =
+			
+			/*
+			@description Despesa empenhada, mas ainda pendente da verlficação do direito adquirido pelo credor, ou seja, corresponde ao total de despesa empenhada diminuido do total de despesas liquidadas.
+			@author dsbr
+			@version 1
+			@date 01/11/2022
+			@panel Panorama Orçamentário; Explorar Dados
+			*/
+			sum('ItemDespesa'[EmpenhadoaLiquidar])
+		formatString: #,0.00
+		lineageTag: dc090ef1-79bb-4ff4-ac46-801732ce1914
+
+	/// @description Despesas decorrente da verificação do direito adquirido pelo credor tendo por base os títulos e documentos comprobatórios do respectivo crédito.
+	/// @author dsbr
+	/// @version 1
+	/// @date 01/11/2022
+	/// @panel Panorama Orçamentário; Explorar Dados
+	measure 'Despesa liquidada' =
+			
+			/*
+			@description Despesas decorrente da verificação do direito adquirido pelo credor tendo por base os títulos e documentos comprobatórios do respectivo crédito.
+			@author dsbr
+			@version 1
+			@date 01/11/2022
+			@panel Panorama Orçamentário; Explorar Dados
+			*/
+			sum('ItemDespesa'[Liquidado])
+		formatString: #,0.00
+		lineageTag: f95e90f3-d9c3-4499-ba95-04bea539ba6a
+
+	/// @description Despesa decorrente do pagamento de despacho exarado por autoridade competente determinando que a despesa seja paga.
+	/// @author dsbr
+	/// @version 1
+	/// @date 01/11/2022
+	/// @panel Panorama Orçamentário; Explorar Dados
+	measure 'Despesa paga' =
+			
+			/*
+			@description Despesa decorrente do pagamento de despacho exarado por autoridade competente determinando que a despesa seja paga.
+			@author dsbr
+			@version 1
+			@date 01/11/2022
+			@panel Panorama Orçamentário; Explorar Dados
+			*/
+			sum('ItemDespesa'[Pago])
+		formatString: #,0.00
+		lineageTag: 6b6105b5-1d9d-4ab7-ae4a-32188d11999a
+
+	/// @description Despesas empenhadas mas não liquidadas até o dia 31 de dezembro do exercício anterior e ainda não liquidada no exercício corrente selecionado.
+	/// @author dsbr/thiago
+	/// @version 2
+	/// @date 29/05/2023
+	/// @panel Panorama Orçamentário; Explorar Dados
+	measure 'RAP não processados a liquidar' = ```
+			
+			 
+			 /*
+			@description Despesas empenhadas mas não liquidadas até o dia 31 de dezembro do exercício anterior e ainda não liquidada no exercício corrente selecionado.
+			@author dsbr/thiago
+			@version 2
+			@date 29/05/2023
+			@panel Panorama Orçamentário; Explorar Dados
+			
+			*/
+			 sum('ItemDespesa'[RAPNProcaLiquidar])
+			```
+		formatString: #,0.00
+		lineageTag: b451083f-da9d-4b9c-8958-e1fa514f4124
+
+	/// @description Despesas empenhadas mas não liquidadas até o dia 31 de dezembro do exercício anterior e liquidada no exercício corrente selecionado.
+	/// @author dsbr/thiago
+	/// @version 2
+	/// @date 29/05/2023
+	/// @panel Panorama Orçamentário; Explorar Dados
+	measure 'RAP não processados liquidado' = sum('ItemDespesa'[RAPNProcLiquidado])
+		formatString: #,0.00
+		lineageTag: b1048098-dcaf-4f98-a9c2-c6ddee52bf7b
+
+	/// @description Despesas empenhadas mas não liquidadas até o dia 31 de dezembro do exercício anterior, acrescida das despesas empenhadas em exercícios anteriores que foram pagas no exercício corrente selecionado.
+	/// @author dsbr/thiago
+	/// @version 2
+	/// @date 29/05/2023
+	measure 'RAP não processados pago' = ```
+			
+			
+			 /*
+			@description Despesas empenhadas mas não liquidadas até o dia 31 de dezembro do exercício anterior, acrescida das despesas empenhadas em exercícios anteriores que foram pagas no exercício corrente selecionado.
+			@author dsbr/thiago
+			@version 2
+			@date 29/05/2023
+			*/
+			sum('ItemDespesa'[RAPNProcPago])
+			```
+		formatString: #,0.00
+		lineageTag: cefaeb87-ce76-46e9-9ff9-6328dc4b718c
+
+	/// @description Despesas empenhadas e liquidadas mas não pagas até o dia 31 de dezembro do exercício anterior e ainda não pago no exercício corrente selecionado.
+	/// @author dsbr/thiago
+	/// @version 2
+	/// @date 29/05/2023
+	measure 'RAP processados a pagar' = ```
+			
+			 /*
+			@description Despesas empenhadas e liquidadas mas não pagas até o dia 31 de dezembro do exercício anterior e ainda não pago no exercício corrente selecionado.
+			@author dsbr/thiago
+			@version 2
+			@date 29/05/2023
+			*/
+			sum('ItemDespesa'[RAPProcAPagar])
+			```
+		formatString: #,0.00
+		lineageTag: fc04449d-5b24-4511-ba61-3c52d671f5f7
+
+	/// @description Despesas empenhadas mas não pagas até o dia 31 de dezembro do exercício anterior, acrescida das despesas empenhadas e não pagas em exercícios anteriores, que foram pagas no exercício corrente selecionado.
+	/// @author dsbr/thiago
+	/// @version 2
+	/// @date 29/05/2023
+	measure 'RAP processados pago' = ```
+			
+			 /*
+			@description Despesas empenhadas mas não pagas até o dia 31 de dezembro do exercício anterior, acrescida das despesas empenhadas e não pagas em exercícios anteriores, que foram pagas no exercício corrente selecionado.
+			@author dsbr/thiago
+			@version 2
+			@date 29/05/2023
+			*/
+			sum('ItemDespesa'[RAPProcPago])
+			```
+		formatString: #,0.00
+		lineageTag: f1b7b1cb-22db-4152-a084-b300d963e08f
+
+	/// @description Despesa decorrente do pagamento de despacho exarado por autoridade competente determinando que a despesa do exercício corrente e dos exercícios anteriores inscritas em restos a pagar  sejam pagas.
+	/// @author dsbr/thiago
+	/// @version 2
+	/// @date 29/05/2023
+	measure 'Despesa paga&RP' = ```
+			
+			 /*
+			@description Despesa decorrente do pagamento de despacho exarado por autoridade competente determinando que a despesa do exercício corrente e dos exercícios anteriores inscritas em restos a pagar  sejam pagas.  
+			@author dsbr/thiago
+			@version 2
+			@date 29/05/2023
+			*/
+			
+			[Despesa paga] + [RAP processados pago] + [RAP não processados pago]
+			```
+		formatString: #,0.00
+		lineageTag: 50b872fd-9ad8-4aa3-8efa-aa6653359388
+
+	/// @description Despesas decorrente da verificação do direito adquirido pelo credor tendo por base os títulos e documentos comprobatórios do respectivo crédito no exercício corrente e de exercícios anteriores inscritos em restos a pagar.
+	/// @author dsbr
+	/// @version 1
+	/// @date 01/11/2022
+	/// @panel Panorama Orçamentário; Explorar Dados
+	measure 'Despesa liq&RP' =
+			
+			/*
+			@description Despesas decorrente da verificação do direito adquirido pelo credor tendo por base os títulos e documentos comprobatórios do respectivo crédito no exercício corrente e de exercícios anteriores inscritos em restos a pagar.
+			@author dsbr
+			@version 1
+			@date 01/11/2022
+			@panel Panorama Orçamentário; Explorar Dados
+			*/
+			[Despesa liquidada]+[RAP não processados liquidado]
+		formatString: #,0.00
+		lineageTag: 1d301941-53f4-4d62-a96d-e1c2bcc8f520
+
+	/// @description Despesas decorrente da verificação do direito adquirido pelo credor tendo por base os títulos e documentos comprobatórios do respectivo crédito no exercício corrente e de exercícios anteriores inscritos em restos a pagar. (variação percentual com base no período do ano anterior).
+	/// @author dsbr
+	/// @version 1
+	/// @date 01/11/2022
+	measure 'Liq&RP (YOY)' = ```
+			
+			VAR LiqRP_Ano_Anterior =
+			    CALCULATE ( ( [Despesa liq&RP] ), SAMEPERIODLASTYEAR ( 'dCalendário'[Data] ) )
+			RETURN
+			    IF ( LiqRP_Ano_Anterior = BLANK (), BLANK (), ( LiqRP_Ano_Anterior ) )
+			   
+			```
+		formatString: #,0.00
+		lineageTag: 7bb30f51-cbc3-4354-8ea3-43143f8cff83
+
+	/// @description Despesas decorrente da verificação do direito adquirido pelo credor tendo por base os títulos e documentos comprobatórios do respectivo crédito no exercício corrente e de exercícios anteriores inscritos em restos a pagar. (com base no período do ano anterior).
+	/// @author dsbr
+	/// @version 1
+	/// @date 01/11/2022
+	measure 'Despesa liq&RP SPLY' =
+			
+			VAR __lastDate =
+			    CALCULATE ( MAX ( ItemDespesa[DiaEmissao] ), ALL ( ItemDespesa ) )
+			VAR __currentPeriodAdjusted =
+			    FILTER ( VALUES ( 'dCalendário'[Data] ), 'dCalendário'[Data] <= __lastDate )
+			VAR __result =
+			    CALCULATE (
+			        [Despesa liq&RP],
+			        DATESYTD ( DATEADD ( __currentPeriodAdjusted, -1, YEAR ) )
+			    )
+			RETURN
+			    __result
+		formatString: #,0.00
+		lineageTag: 1cc994ec-475a-44f0-bdc6-76df488fa144
+
+	/// @description Despesa decorrente de ato emanado de autoridade que criou para o Estado uma obrigação de pagamento, pendente ou não de implemento de condições. (com base no mesmo período do ano anterior)
+	/// @author dsbr/thiago
+	/// @version 2
+	/// @date 29/05/2023
+	measure 'Despesa empenhada SPLY' = ```
+			
+			 /*
+			@description Despesa decorrente de ato emanado de autoridade que criou para o Estado uma obrigação de pagamento, pendente ou não de implemento de condições. (com base no mesmo período do ano anterior) 
+			@author dsbr/thiago
+			@version 2
+			@date 29/05/2023
+			*/
+			
+			VAR __lastDate =
+			    CALCULATE ( MAX ( ItemDespesa[DiaEmissao] ), ALL ( ItemDespesa ) )
+			VAR __currentPeriodAdjusted =
+			    FILTER ( VALUES ( 'dCalendário'[Data] ), 'dCalendário'[Data] <= __lastDate )
+			VAR __result =
+			    CALCULATE (
+			        [Despesa empenhada],
+			        DATESYTD ( DATEADD ( __currentPeriodAdjusted, -1, YEAR ) )
+			    )
+			RETURN
+			    __result
+			```
+		formatString: #,0.00
+		lineageTag: 6a679302-04a4-495e-8860-6dbe8955a1e1
+
+	/// @description Despesa empenhada, mas ainda pendente da verlficação do direito adquirido pelo credor, ou seja, corresponde ao total de despesa empenhada diminuido do total de despesas liquidadas. (com base no mesmo período do ano anterior)
+	/// @author dsbr/thiago
+	/// @version 2
+	/// @date 29/05/2023
+	measure 'Despesa empenhada a liquidar SPLY' = ```
+			
+			
+			 /*
+			@description Despesa empenhada, mas ainda pendente da verlficação do direito adquirido pelo credor, ou seja, corresponde ao total de despesa empenhada diminuido do total de despesas liquidadas. (com base no mesmo período do ano anterior)
+			@author dsbr/thiago
+			@version 2
+			@date 29/05/2023
+			*/
+			
+			VAR __lastDate =
+			    CALCULATE ( MAX ( ItemDespesa[DiaEmissao] ), ALL ( ItemDespesa ) )
+			VAR __currentPeriodAdjusted =
+			    FILTER ( VALUES ( 'dCalendário'[Data] ), 'dCalendário'[Data] <= __lastDate )
+			VAR __result =
+			    CALCULATE (
+			        [Despesa empenhada a liquidar],
+			        DATESYTD ( DATEADD ( __currentPeriodAdjusted, -1, YEAR ) )
+			    )
+			RETURN
+			    __result
+			   
+			```
+		formatString: #,0.00
+		lineageTag: 88f5b94e-ff1e-49b0-9d88-72faa361d3ce
+
+	/// @description Despesas decorrente da verificação do direito adquirido pelo credor tendo por base os títulos e documentos comprobatórios do respectivo crédito.(com base no mesmo período do ano anterior)
+	/// @author dsbr/thiago
+	/// @version 2
+	/// @date 29/05/2023
+	measure 'Despesa liquidada SPLY' = ```
+			
+			 /*
+			@description Despesas decorrente da verificação do direito adquirido pelo credor tendo por base os títulos e documentos comprobatórios do respectivo crédito.(com base no mesmo período do ano anterior)
+			@author dsbr/thiago
+			@version 2
+			@date 29/05/2023
+			*/
+			
+			
+			VAR __lastDate =
+			    CALCULATE ( MAX ( ItemDespesa[DiaEmissao] ), ALL ( ItemDespesa ) )
+			VAR __currentPeriodAdjusted =
+			    FILTER ( VALUES ( 'dCalendário'[Data] ), 'dCalendário'[Data] <= __lastDate )
+			VAR __result =
+			    CALCULATE (
+			        [Despesa liquidada],
+			        DATESYTD ( DATEADD ( __currentPeriodAdjusted, -1, YEAR ) )
+			    )
+			RETURN
+			    __result
+			   
+			```
+		formatString: #,0.00
+		lineageTag: 1e03cc80-caf6-47b8-b9b4-813e21c1d388
+
+	/// @description Despesa decorrente do pagamento de despacho exarado por autoridade competente determinando que a despesa seja paga. (com base no mesmo período do ano anterior)
+	/// @author dsbr/thiago
+	/// @version 2
+	/// @date 29/05/2023
+	measure 'Despesa paga SPLY' = ```
+			
+			
+			 /*
+			@description Despesa decorrente do pagamento de despacho exarado por autoridade competente determinando que a despesa seja paga. (com base no mesmo período do ano anterior)
+			@author dsbr/thiago
+			@version 2
+			@date 29/05/2023
+			*/
+			
+			
+			VAR __lastDate =
+			    CALCULATE ( MAX ( ItemDespesa[DiaEmissao] ), ALL ( ItemDespesa ) )
+			VAR __currentPeriodAdjusted =
+			    FILTER ( VALUES ( 'dCalendário'[Data] ), 'dCalendário'[Data] <= __lastDate )
+			VAR __result =
+			    CALCULATE (
+			        [Despesa paga],
+			        DATESYTD ( DATEADD ( __currentPeriodAdjusted, -1, YEAR ) )
+			    )
+			RETURN
+			    __result
+			```
+		formatString: #,0.00
+		lineageTag: 5d9d8885-4d7d-4804-bc76-68e630d3873f
+
+	/// @description Despesas pagas com créditos do exercício somadas às despesas pagas com créditos de exercícios anteriores (restos a pagar).
+	/// @author dsbr
+	/// @version 1
+	/// @date 01/11/2022
+	/// @panel Panorama Orçamentário; Explorar Dados
+	measure 'Pagamento Total' = ```
+			
+			 
+			 /*
+			@description Despesas pagas com créditos do exercício somadas às despesas pagas com créditos de exercícios anteriores (restos a pagar).
+			@author dsbr
+			@version 1
+			@date 01/11/2022
+			@panel Panorama Orçamentário; Explorar Dados
+			*/
+			 [Despesa paga]+[RAP não processados pago]+[RAP processados pago]
+			```
+		formatString: #,0.00
+		lineageTag: 81ed503c-1343-4437-aa57-4c0766e47242
+
+	/// @description Despesas empenhadas mas não pagas até o dia 31 de dezembro do exercício anterior, acrescida das despesas empenhadas e não pagas em exercícios anteriores, que foram canceladas no exercício corrente selecionado.
+	/// @author dsbr/thiago
+	/// @version 2
+	/// @date 29/05/2023
+	/// @panel Panorama Orçamentário; Explorar Dados
+	measure 'RAP Cancelado' = ```
+			
+			
+			 /*
+			@description Despesas empenhadas mas não pagas até o dia 31 de dezembro do exercício anterior, acrescida das despesas empenhadas e não pagas em exercícios anteriores, que foram canceladas no exercício corrente selecionado.
+			@author dsbr/thiago
+			@version 2
+			@date 29/05/2023
+			@panel Panorama Orçamentário; Explorar Dados
+			
+			*/
+			
+			
+			SUM(ItemDespesa[RAPNProcCancelado])+SUM(ItemDespesa[RAPProcCancelado])
+			```
+		formatString: #,0.00
+		lineageTag: 9adaa8af-6cd8-4ebf-aafc-fd393b83e6e0
+
+	/// @description Despesas empenhadas mas não pagas até o dia 31 de dezembro do exercício anterior, acrescida das despesas empenhadas e não pagas em exercícios anteriores, que foram pagas no exercício corrente selecionado.
+	/// @author dsbr/thiago
+	/// @version 2
+	/// @date 29/05/2023
+	/// @panel Panorama Orçamentário; Explorar Dados
+	measure 'RAP Pago' = ```
+			
+			 /*
+			@description Despesas empenhadas mas não pagas até o dia 31 de dezembro do exercício anterior, acrescida das despesas empenhadas e não pagas em exercícios anteriores, que foram pagas no exercício corrente selecionado.
+			@author dsbr/thiago
+			@version 2
+			@date 29/05/2023
+			@panel Panorama Orçamentário; Explorar Dados
+			
+			*/
+			
+			
+			[RAP não processados pago]+[RAP processados pago]
+			```
+		formatString: #,0.00
+		lineageTag: bcf93ed4-b930-441a-93ae-5a4e0a53d5bb
+
+	/// @description Despesas empenhadas mas não pagas até o dia 31 de dezembro do exercício anterior, acrescida das despesas empenhadas e não pagas em exercícios anteriores, e ainda não pagas.
+	/// @author dsbr/thiago
+	/// @version 2
+	/// @date 29/05/2023
+	/// @panel Panorama Orçamentário; Explorar Dados
+	measure 'RAP Inscrito e Reinscrito' = ```
+			
+			
+			 /*
+			@description Despesas empenhadas mas não pagas até o dia 31 de dezembro do exercício anterior, acrescida das despesas empenhadas e não pagas em exercícios anteriores, e ainda não pagas. 
+			@author dsbr/thiago
+			@version 2
+			@date 29/05/2023
+			@panel Panorama Orçamentário; Explorar Dados
+			*/
+			
+			
+			
+			SUM(ItemDespesa[RAPNProcInscrito])+SUM(ItemDespesa[RAPNProcReinscrito])+SUM(ItemDespesa[RAPProcInscrito])+sum(ItemDespesa[RAPProcReinscrito])
+			
+			```
+		formatString: #,0.00
+		lineageTag: 20ce4517-344b-43c0-a172-79a564fa009c
+
+	/// @description Despesas empenhadas mas não pagas até o dia 31 de dezembro do exercício anterior e ainda não pago no exercício corrente selecionado.
+	/// @author dsbr/thiago
+	/// @version 2
+	/// @date 29/05/2023
+	/// @panel Panorama Orçamentário; Explorar Dados
+	measure 'RAP a pagar' = ```
+			
+			
+			 /*
+			@description Despesas empenhadas mas não pagas até o dia 31 de dezembro do exercício anterior e ainda não pago no exercício corrente selecionado.
+			@author dsbr/thiago
+			@version 2
+			@date 29/05/2023
+			@panel Panorama Orçamentário; Explorar Dados
+			
+			*/
+			
+			
+			[RAP processados a pagar]+[RAP não processado a pagar]
+			```
+		formatString: #,0.00
+		lineageTag: 3deb609d-4bb9-433f-8996-8ed0fe949f81
+
+	/// @description Despesas empenhadas mas não liquidada e não pagas até o dia 31 de dezembro do exercício anterior, acrescida das despesas empenhadas não liquidada e não pagas em exercícios anteriores, e ainda não liquidada e não pagas.
+	/// @author dsbr/thiago
+	/// @version 2
+	/// @date 29/05/2023
+	measure 'RAP não processado a pagar' = ```
+			
+			
+			 /*
+			@description Despesas empenhadas mas não liquidada e não pagas até o dia 31 de dezembro do exercício anterior, acrescida das despesas empenhadas não liquidada e não pagas em exercícios anteriores, e ainda não liquidada e não pagas. 
+			@author dsbr/thiago
+			@version 2
+			@date 29/05/2023
+			*/
+			
+			SUM(ItemDespesa[RAPNProcaPagar])
+			```
+		formatString: #,0.00
+		lineageTag: aa45db0c-1a4e-4d47-bd15-a1486728713c
+
+	/// @description Despesas empenhadas mas não pagas até o dia 31 de dezembro do exercício anterior, acrescida das despesas empenhadas e não pagas em exercícios anteriores, que foram bloqueadas no exercício corrente selecionado.
+	/// @author dsbr/thiago
+	/// @version 2
+	/// @date 29/05/2023
+	/// @panel Panorama Orçamentário; Explorar Dados
+	measure 'RAP Bloqueado' = ```
+			
+			 
+			  /*
+			@description Despesas empenhadas mas não pagas até o dia 31 de dezembro do exercício anterior, acrescida das despesas empenhadas e não pagas em exercícios anteriores, que foram bloqueadas no exercício corrente selecionado.
+			@author dsbr/thiago
+			@version 2
+			@date 29/05/2023
+			@panel Panorama Orçamentário; Explorar Dados
+			*/
+			
+			 SUM(ItemDespesa[RAPNProcBloqueado])
+			```
+		formatString: #,0.00
+		lineageTag: 7f3db32e-7b6a-4ef8-be73-02846c5bf60f
+
+	/// @description Despesas empenhadas mas não liquidada e não pagas até o dia 31 de dezembro do exercício anterior, acrescida das despesas empenhadas não liquidada e não pagas em exercícios anteriores, e ainda não liquidada e não pagas que foram canceladas no exercício selecionado.
+	/// @author dsbr/thiago
+	/// @version 2
+	/// @date 29/05/2023
+	measure 'RAP não processado cancelado' = ```
+			
+			   /*
+			@description Despesas empenhadas mas não liquidada e não pagas até o dia 31 de dezembro do exercício anterior, acrescida das despesas empenhadas não liquidada e não pagas em exercícios anteriores, e ainda não liquidada e não pagas que foram canceladas no exercício selecionado.
+			@author dsbr/thiago
+			@version 2
+			@date 29/05/2023
+			*/
+			 
+			 SUM(ItemDespesa[RAPNProcCancelado])
+			```
+		formatString: #,0.00
+		lineageTag: 91796615-6b18-412f-8680-36d8331e5f10
+
+	/// @description Despesas empenhadas, liquidada e não pagas até o dia 31 de dezembro do exercício anterior, acrescida das despesas empenhadas, liquidada e não pagas em exercícios anteriores, e ainda  não pagas que foram canceladas no exercício selecionado.
+	/// @author dsbr/thiago
+	/// @version 2
+	/// @date 29/05/2023
+	measure 'RAP Processado Cancelado' = ```
+			
+			
+			/*
+			@description Despesas empenhadas, liquidada e não pagas até o dia 31 de dezembro do exercício anterior, acrescida das despesas empenhadas, liquidada e não pagas em exercícios anteriores, e ainda  não pagas que foram canceladas no exercício selecionado.
+			@author dsbr/thiago
+			@version 2
+			@date 29/05/2023
+			*/
+			 
+			SUM(ItemDespesa[RAPProcCancelado])
+			```
+		formatString: #,0.00
+		lineageTag: 1696c8bd-6520-4c79-bb1f-95da2cebdd48
+
+	/// % [Despesa empenhada]
+	measure '% de Despesa empenhada' =
+			
+			/*
+			@description Percentual do Total de Despesa empenhada
+			@author dsbr
+			@version 1
+			*/
+			
+			DIVIDE([Despesa empenhada],CALCULATE([Despesa empenhada],ALLSELECTED()))
+		formatString: 0.00%
+		lineageTag: 4b9b1d6a-f674-467c-b0dd-af57c5eabfe5
+
+	/// % [Despesa empenhada a liquidar]
+	measure '% de Despesa empenhada a liquidar' =
+			
+			/*
+			@description Percentual do Total de Despesa empenhada a liquidar
+			@author dsbr
+			@version 1
+			*/
+			
+			DIVIDE([Despesa empenhada a liquidar],CALCULATE([Despesa empenhada a liquidar],ALLSELECTED()))
+		formatString: 0.00%
+		lineageTag: c415afaa-0054-433a-b672-2c694ccd2e72
+
+	/// % [Despesa liquidada]
+	measure '% de Despesa liquidada' =
+			
+			/*
+			@description Percentual do Total de Despesa liquidada
+			@author dsbr
+			@version 1
+			*/
+			
+			DIVIDE([Despesa liquidada],CALCULATE([Despesa liquidada],ALLSELECTED()))
+		formatString: 0.00%
+		lineageTag: d9deef95-3e60-43fe-b912-90c2de69ce72
+
+	/// % [Despesa paga]
+	measure '% de Despesa paga' =
+			/*
+			@description Percentual do Total de Despesa paga
+			@author dsbr
+			@version 1
+			*/
+			
+			DIVIDE([Despesa paga],CALCULATE([Despesa paga],ALLSELECTED()))
+		formatString: 0.00%
+		lineageTag: eed3363f-0507-4962-8bfc-17284aad6612
+
+	/// % [RAP não processados a liquidar]
+	measure '% de RAP não processados a liquidar' =
+			/*
+			@description Percentual do Total de RAP não processados a liquidar
+			@author dsbr
+			@version 1
+			*/
+			
+			DIVIDE([RAP não processados a liquidar],CALCULATE([RAP não processados a liquidar],ALLSELECTED()))
+		formatString: 0.00%
+		lineageTag: 09cb5a6a-e873-45ad-bc15-20a79db1f6fe
+
+	/// % [RAP não processados liquidado]
+	measure '% de RAP não processados liquidado' =
+			/*
+			@description Percentual do Total de RAP não processados liquidado
+			@author dsbr
+			@version 1
+			*/
+			DIVIDE([RAP não processados liquidado],CALCULATE([RAP não processados liquidado],ALLSELECTED()))
+		formatString: 0.00%
+		lineageTag: 662ae86b-1698-4a8b-89e4-2303a0988fa1
+
+	/// % [RAP não processados pago]
+	measure '% de RAP não processados pago' =
+			/*
+			@description Percentual do Total de RAP não processados pago
+			@author dsbr
+			@version 1
+			*/
+			DIVIDE([RAP não processados pago],CALCULATE([RAP não processados pago],ALLSELECTED()))
+		formatString: 0.00%
+		lineageTag: a2a39801-d529-4483-8c0b-b535d7fe5841
+
+	/// % [RAP processados a pagar]
+	measure '% de RAP processados a pagar' = ```
+			/*
+			@description Percentual do Total de RAP processados a pagar
+			@author dsbr
+			@version 1
+			*/
+			DIVIDE([RAP processados a pagar],CALCULATE([RAP processados a pagar],ALLSELECTED()))
+			
+			```
+		formatString: 0.00%
+		lineageTag: ed9694cd-9bd2-4e0d-8238-9c8ab71d0b6d
+
+	/// % [RAP processados pago]
+	measure '% de RAP processados pago' =
+			/*
+			@description Percentual do Total de RAP processados pago
+			@author dsbr
+			@version 1
+			*/
+			DIVIDE([RAP processados pago],CALCULATE([RAP processados pago],ALLSELECTED()))
+		formatString: 0.00%
+		lineageTag: b2331d26-d657-48c0-9845-dfd4582e2bf9
+
+	/// % [Despesa paga&RP]
+	measure '% de Despesa paga&RP' =
+			/*
+			@description Percentual do Total de Despesa paga&RP
+			@author dsbr
+			@version 1
+			*/
+			
+			DIVIDE([Despesa paga&RP],CALCULATE([Despesa paga&RP],ALLSELECTED()))
+		formatString: 0.00%
+		lineageTag: 464408e8-28fd-40a5-a34b-166e06d19cbe
+
+	/// % [Despesa liq&RP]
+	measure '% de Despesa liq&RP' =
+			
+			
+			/*
+			@description Percentual do Total de Despesa liq&RP
+			@author dsbr
+			@version 1
+			*/
+			
+			DIVIDE([Despesa liq&RP],CALCULATE([Despesa liq&RP],ALLSELECTED()))
+		formatString: 0.00%
+		lineageTag: bdb8e389-32ed-4fc3-afcf-e9c01afff5fa
+
+	/// % [Pagamento Total]
+	measure '% de Pagamento Total' =
+			/*
+			@description Percentual do Total de Pagamento Total
+			@author dsbr
+			@version 1
+			*/
+			DIVIDE([Pagamento Total],CALCULATE([Pagamento Total],ALLSELECTED()))
+		formatString: 0.00%
+		lineageTag: 600250cf-6a1a-401a-af83-299cf4549d7b
+
+	/// % [RAP Cancelado]
+	measure '% de RAP Cancelado' = ```
+			/*
+			@description Percentual do Total de RAP Cancelado
+			@author dsbr
+			@version 1
+			*/
+			DIVIDE([RAP Cancelado],CALCULATE([RAP Cancelado],ALLSELECTED()))
+			
+			```
+		formatString: 0.00%
+		lineageTag: f77a0af4-d6fa-45ec-9ffb-4245f0b47aa9
+
+	/// @description Percentual do Total de RAP Pago
+	/// @author dsbr
+	/// @version 1
+	measure '% RAP Pago' =
+			/*
+			@description Percentual do Total de RAP Pago
+			@author dsbr
+			@version 1
+			*/
+			DIVIDE([RAP Pago],CALCULATE([RAP Pago],ALLSELECTED()))
+		formatString: 0.00%
+		lineageTag: 44f6f550-f4d6-4cae-9e23-2ddb6460c8a6
+
+	/// % [RAP Inscrito e Reinscrito]
+	measure '% de RAP Inscrito e Reinscrito' =
+			/*
+			@description Percentual do Total de RAP Inscrito e Reinscrito
+			@author dsbr
+			@version 1
+			*/
+			DIVIDE([RAP Inscrito e Reinscrito],CALCULATE([RAP Inscrito e Reinscrito],ALLSELECTED()))
+		formatString: 0.00%
+		lineageTag: e7e8657b-9cde-4086-81d2-1843b3b2932e
+
+	/// % [RAP a pagar]
+	measure '% de RAP a pagar' =
+			/*
+			@description Percentual do Total de RAP a pagar
+			@author dsbr
+			@version 1
+			*/
+			DIVIDE([RAP a pagar],CALCULATE([RAP a pagar],ALLSELECTED()))
+		formatString: 0.00%
+		lineageTag: 9e82a48d-11c2-4f55-af4b-81ac4bc4fc65
+
+	/// % [RAP não processado a pagar]
+	measure '% de RAP não processado a pagar' =
+			/*
+			@description Percentual do Total de RAP não processados a pagar
+			@author dsbr
+			@version 1
+			*/
+			DIVIDE([RAP não processado a pagar],CALCULATE([RAP não processado a pagar],ALLSELECTED()))
+		formatString: 0.00%
+		lineageTag: 76bab91e-9275-4065-ab8c-e3d4d99e4554
+
+	/// % [RAP Bloqueado]
+	measure '% de RAP Bloqueado' =
+			/*
+			@description Percentual do Total de RAP Bloqueado
+			@author dsbr
+			@version 1
+			*/
+			DIVIDE([RAP Bloqueado],CALCULATE([RAP Bloqueado],ALLSELECTED()))
+		formatString: 0.00%
+		lineageTag: cb954a09-cf71-45e8-8785-776a41114e91
+
+	/// % [RAP não processado cancelado]
+	measure '% de RAP não processado cancelado' = ```
+			/*
+			@description Percentual do Total de RAP não processado cancelado
+			@author dsbr
+			@version 1
+			*/
+			DIVIDE([RAP não processado cancelado],CALCULATE([RAP não processado cancelado],ALLSELECTED()))
+			
+			```
+		formatString: 0.00%
+		lineageTag: 9b916959-5d02-40e2-ab8d-ed172e86613a
+
+	/// % [RAP Processado Cancelado]
+	measure '% de RAP Processado Cancelado' =
+			/*
+			@description Percentual do Total de RAP Processado Cancelado
+			@author dsbr
+			@version 1
+			*/
+			DIVIDE([RAP Processado Cancelado],CALCULATE([RAP Processado Cancelado],ALLSELECTED()))
+		formatString: 0.00%
+		lineageTag: 13a1d638-3c3c-4578-acd1-32473379b6c4
+
+	column Value
+		isHidden
+		lineageTag: ead38343-51ec-410b-b5c5-aa91aba72712
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value]
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Controle Empenho-b923f85a-6057-4967-a11b-f23656ad0c0b' = calculated
+		mode: import
+		source = {"."}
+
+	annotation PBI_Id = ce90cf8b4a814b7084efa7100bd5b62a
+

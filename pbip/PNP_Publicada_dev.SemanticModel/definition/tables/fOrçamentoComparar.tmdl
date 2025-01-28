@@ -1,0 +1,112 @@
+/// @description Essa tabela é utilizada para armazenar informações sobre a comparação de orçamentos em diferentes contextos e com diferentes campos. As colunas '_fOrçamentoComparar' e '_fOrçamentoComparar Campos' indicam qual orçamento está sendo comparado e quais campos estão sendo considerados na comparação. A coluna '_fOrçamentoComparar Pedido' relaciona o orçamento com o número do pedido correspondente. As colunas 'Contexto' e 'OrdemContexto' indicam em que contexto a comparação está sendo feita e em que ordem esse contexto está sendo considerado.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table fOrçamentoComparar
+	lineageTag: b7bf7eca-3456-4604-a707-d45a58e914f6
+
+	/// @description Retorna o nome de medidas do contexto do orçamento (excluindo execução do exercício e restos a pagar).
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Serie Histórica
+	column _fOrçamentoComparar
+		lineageTag: 04977dda-20fa-42fa-8dd4-e1ef60cabec4
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: '_fOrçamentoComparar Pedido'
+
+		relatedColumnDetails
+			groupByColumn: '_fOrçamentoComparar Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column '_fOrçamentoComparar Campos'
+		isHidden
+		lineageTag: f47b9864-a0ee-4fe6-b2fa-50ff91546e4b
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: '_fOrçamentoComparar Pedido'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "kind": 2,
+				  "version": 3
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column '_fOrçamentoComparar Pedido'
+		isHidden
+		formatString: 0
+		lineageTag: 0e31898b-c62c-4606-83c6-880d083e42a1
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Contexto
+		lineageTag: ebf6f6f8-bef9-4f2b-b79b-d9d79e43f9ee
+		summarizeBy: none
+		sourceColumn: [Value4]
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrdemContexto
+		formatString: 0
+		lineageTag: d118a5e1-a8d5-4aea-8b58-ab460e396453
+		summarizeBy: sum
+		sourceColumn: [Value5]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fOrçamentoComparar-62f4f617-78f7-4f69-b1d5-8752f2626918 = calculated
+		mode: import
+		source = ```
+				{
+				    /*%%%%% Sem Detalhamento %%%%%*/
+					
+					("Sem Detalhamento", NAMEOF([EmBranco]), 0, "Sem Detalhamento", 0),
+					
+					/*%%%%% Programação Orçamentária %%%%%*/
+					
+					("Projeto de Lei", NAMEOF([Projeto de Lei]), 1, "Programação Orçamentária", 1),
+					("Orçamento Inicial", NAMEOF([Dotação inicial]), 2, "Programação Orçamentária", 1),
+					("Orçamento Atualizado", NAMEOF([Dotação atualizada]), 3, "Programação Orçamentária", 1),
+					("Crédito Adicional", NAMEOF([Dotação adicional]), 4, "Programação Orçamentária", 1),
+					("Cancelado e/ou Remanejado", NAMEOF([Dotação Cancelada e Remanejada]), 5, "Programação Orçamentária", 1),
+					("Destaque Recebido", NAMEOF([Destaque Recebido]), 6, "Programação Orçamentária", 1),
+					("Destaque Concedido", NAMEOF([Destaque Concedido]), 7, "Programação Orçamentária", 1),
+					
+					/* %%%%% Execução do Exercício %%%%% */
+					
+					("Despesa Empenhada", NAMEOF([Despesa empenhada]), 8, "Execução do Exercício", 2),
+					("Despesa Liquidada", NAMEOF([Despesa liquidada]), 9, "Execução do Exercício", 2),
+					("Despesa Paga", NAMEOF([Despesa paga]), 10, "Execução do Exercício", 2),
+					("Liquidação Total", NAMEOF([Despesa liq&RP]), 11, "Execução do Exercício", 2),
+					("Empenhado a liquidar", NAMEOF([Despesa empenhada a liquidar]), 12, "Execução do Exercício", 2),
+					("Pagamento Total", NAMEOF([Pagamento Total]), 13, "Execução do Exercício", 2),
+					("Crédito Disponível", NAMEOF([Crédito Disponível]), 14, "Execução do Exercício", 2),
+					
+					/*%%%%% Restos a pagar %%%%%*/
+					
+					("RAP Inscrito e Reinscrito", NAMEOF([RAP Inscrito e Reinscrito]), 15, "Restos a Pagar", 3),
+					("Não processados a liquidar", NAMEOF([RAP não processados a liquidar]), 16, "Restos a Pagar", 3),
+					("RAP a Pagar", NAMEOF([RAP a pagar]), 17, "Restos a Pagar", 3),
+					("RAP Pago", NAMEOF([RAP Pago]), 18, "Restos a Pagar", 3),
+					("RAP Bloqueado", NAMEOF([RAP Bloqueado]), 19, "Restos a Pagar", 3),
+					("RAP Cancelado", NAMEOF([RAP Cancelado]), 20, "Restos a Pagar", 3),
+					
+					/*%%%%% Descentralizações %%%%%*/
+					
+					("Destaque Recebido", NAMEOF([Destaque Recebido]), 21, "Descentralizações", 4),
+					("Crédito Disponível", NAMEOF([Crédito Disponível]), 22,  "Descentralizações", 4),
+					("Despesa Empenhada", NAMEOF([Despesa empenhada]), 23, "Descentralizações", 4),
+					("Despesa Liquidada", NAMEOF([Despesa liquidada]), 24, "Descentralizações", 4),
+					("Despesa Paga", NAMEOF([Despesa paga]), 25, "Descentralizações", 4),
+					("Empenhado a liquidar", NAMEOF([Despesa empenhada a liquidar]), 26, "Descentralizações", 4)
+				}
+				```
+
+	annotation PBI_Id = 9e1cfd06f72d464bbc6ffe2eb63e1114
+

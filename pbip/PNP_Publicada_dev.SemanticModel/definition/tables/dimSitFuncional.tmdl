@@ -1,0 +1,88 @@
+/// @description A tabela dimSitFuncional é uma tabela de dimensão que contém informações sobre as situações funcionais dos funcionários de uma IES. Assim, é útil para análises e relatórios que envolvam as situações funcionais dos funcionários, permitindo agrupar e filtrar os dados de acordo com as diferentes colunas.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table dimSitFuncional
+	lineageTag: c30074ac-33c5-4c37-9e89-087e24c24b84
+
+	column skSituacaoFuncional
+		dataType: string
+		lineageTag: 626d8905-c02f-42e8-a9a1-20d48c6b7e3c
+		summarizeBy: none
+		sourceColumn: skSituacaoFuncional
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Situação funcional do servidor com o órgão de lotação e/ou de exercício.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Professores por Instituição
+	column Situacao
+		dataType: string
+		lineageTag: 9255e431-3978-4af8-a884-178afb0b0ac8
+		summarizeBy: none
+		sourceColumn: Situacao
+
+		annotation SummarizationSetBy = Automatic
+
+	column SituacaoFuncional
+		dataType: string
+		lineageTag: 65229c69-f161-4caa-ac31-08437e8d50d7
+		summarizeBy: none
+		sourceColumn: SituacaoFuncional
+
+		annotation SummarizationSetBy = Automatic
+
+	column Regime
+		dataType: string
+		lineageTag: fe3d8f8e-e110-4559-aac8-cb419f24693e
+		summarizeBy: none
+		sourceColumn: Regime
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tipo de Situação'
+		dataType: string
+		lineageTag: e9559831-bad2-496d-aec9-387d9b85a5cf
+		summarizeBy: none
+		sourceColumn: Tipo de Situação
+
+		annotation SummarizationSetBy = Automatic
+
+	column codGrupoSituacao
+		dataType: string
+		lineageTag: a4ac7b57-2fe6-4872-9b92-9a3cb90ea263
+		summarizeBy: none
+		sourceColumn: codGrupoSituacao
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Grupo de Situação funcional do servidor com o órgão de lotação e/ou de exercício. Exemplo: Ativo; Aposentado; etc.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Cargos da carreira
+	column GrupoSituacao
+		dataType: string
+		lineageTag: 41245614-f208-45b6-be1d-6967937d97db
+		summarizeBy: none
+		sourceColumn: GrupoSituacao
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dimSitFuncional-a6775bbc-f408-4a5e-8b5e-15a4db8470c5 = m
+		mode: import
+		queryGroup: 'Modelo Gestão de Pessoas\Dimensões'
+		source =
+				let
+				    Fonte = Csv.Document(Binary.Decompress(Web.Contents(AWS&"dimSitFuncional.csv.gz"),Compression.GZip),[Delimiter=",", Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Primeiros caracteres extraídos" = Table.TransformColumns(#"Cabeçalhos Promovidos", {{"codSituacao", each Text.PadStart(_, 2,"0"), type text}}),
+				    #"Colunas Mescladas" = Table.CombineColumns(#"Primeiros caracteres extraídos",{"codRegime", "codSituacao"},Combiner.CombineTextByDelimiter("-", QuoteStyle.None),"SituacaoFuncional"),
+				    #"Coluna Condicional Adicionada" = Table.AddColumn(#"Colunas Mescladas", "Tipo de Situação", each if [SituacaoFuncional] = "EST-02" then "Inativo" else "Ativo")
+				in
+				    #"Coluna Condicional Adicionada"
+
+	annotation PBI_ResultType = Table
+

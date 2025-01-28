@@ -20,11 +20,9 @@
                     "element": "column project",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: cc2b2ebd-19a4-4a44-b40a-0361648a49aa\n",
                         "summarizeBy: none\n",
                         "isNameInferred\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [project]\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
@@ -383,12 +381,10 @@
                     "element": "column Ordem",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "formatString: 0\n",
                         "lineageTag: 8f619184-80f0-4c82-9208-5a5c71151041\n",
                         "summarizeBy: sum\n",
                         "isNameInferred\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Ordem]\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
@@ -398,11 +394,9 @@
                     "element": "column Contexto",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: 3a7bcc85-d28d-4b25-94e6-b4cfff8f6e75\n",
                         "summarizeBy: none\n",
                         "isNameInferred\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Contexto]\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
@@ -1474,12 +1468,10 @@
                     "element": "column Value",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: ead38343-51ec-410b-b5c5-aa91aba72712\n",
                         "summarizeBy: none\n",
                         "isNameInferred\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value]\n",
                         "changedProperty = IsHidden\n",
                         "annotation SummarizationSetBy = Automatic\n"
@@ -1532,13 +1524,11 @@
                     "element": "column Date",
                     "calculation": [],
                     "properties": [
-                        "dataType: dateTime\n",
                         "isHidden\n",
                         "lineageTag: e48590df-b638-44ad-9433-2e9a752397bc\n",
                         "dataCategory: PaddedDateTableDates\n",
                         "summarizeBy: none\n",
                         "isNameInferred\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Date]\n",
                         "annotation SummarizationSetBy = User\n"
                     ]
@@ -1548,12 +1538,10 @@
                     "element": "column Ano = YEAR([Date])",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "lineageTag: ccfa5e52-0809-4424-8ac7-8ab52fa1324e\n",
                         "dataCategory: Years\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = Year\n"
                     ]
@@ -1563,12 +1551,10 @@
                     "element": "column MonthNo = MONTH([Date])",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "lineageTag: c4ab6180-8442-4a6a-be94-b5a2e261379a\n",
                         "dataCategory: MonthOfYear\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = MonthNumber\n"
                     ]
@@ -1578,12 +1564,10 @@
                     "element": "column Mês = FORMAT([Date], \"MMMM\")",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: 94490237-5f91-4de9-80f0-8e7843628f7c\n",
                         "dataCategory: Months\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sortByColumn: MonthNo\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = Month\n"
@@ -1594,12 +1578,10 @@
                     "element": "column QuarterNo = INT(([MonthNo] + 2) / 3)",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "lineageTag: ed37d716-10cf-45a7-83c9-323895464feb\n",
                         "dataCategory: QuarterOfYear\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = QuarterNumber\n"
                     ]
@@ -1609,12 +1591,10 @@
                     "element": "column Trimestre = \"Trim \" & [QuarterNo]",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: 69ce0ef0-18d5-4ff0-a6ee-60973b0694a9\n",
                         "dataCategory: Quarters\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sortByColumn: QuarterNo\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = Quarter\n"
@@ -1625,12 +1605,10 @@
                     "element": "column Dia = DAY([Date])",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "lineageTag: 80f2d974-ce66-43ae-9a53-0b365c5f0caf\n",
                         "dataCategory: DayOfMonth\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = Day\n"
                     ]
@@ -1928,10 +1906,8 @@
                         "'dCalendário'[Ano Base]+1\n"
                     ],
                     "properties": [
-                        "dataType: double\n",
                         "lineageTag: c9230a58-fceb-4456-9e21-cee35c8f915d\n",
                         "summarizeBy: sum\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = Automatic\n",
                         "annotation PBI_FormatHint = {\"isGeneralNumber\":true}\n"
                     ]
@@ -2456,15 +2432,14 @@
                         "@version 1",
                         "@date 03/11/2022"
                     ],
-                    "element": "measure 'Matrícula Equivalente' = ```",
+                    "element": "measure 'Matrícula Equivalente' =",
                     "calculation": [
                         "/*@description Corresponde à matrícula ponderada pelos fatores de: - Fator de Equiparação de carga horária; - Fator de Esforço de curso.\n",
                         "@author dsbr\n",
                         "@version 1\n",
                         "@date 03/11/2022*/\n",
                         "CALCULATE\n",
-                        "([Matrícula Equivalente Apresentada Geral], dimFinanciamento[nomeFonteFinanciamentoCorrigido] IN {\"Sem Programa Associado\", \"MedioTec\"})\n",
-                        "```\n"
+                        "([Matrícula Equivalente Apresentada Geral], dimFinanciamento[nomeFonteFinanciamentoCorrigido] IN {\"Sem Programa Associado\", \"MedioTec\"})\n"
                     ],
                     "properties": [
                         "formatString: 0.000\n",
@@ -2725,12 +2700,10 @@
                         ")\n"
                     ],
                     "properties": [
-                        "dataType: int64\n",
                         "formatString: 0\n",
                         "displayFolder: Percentuais Legais\n",
                         "lineageTag: 8a1b00fc-d957-43cd-b399-4457e986c04a\n",
                         "summarizeBy: sum\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
                 },
@@ -2747,11 +2720,9 @@
                         ")\n"
                     ],
                     "properties": [
-                        "dataType: double\n",
                         "displayFolder: Percentuais Legais\n",
                         "lineageTag: 39fc567a-4807-4331-b8a7-2c19b90914f0\n",
                         "summarizeBy: sum\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = Automatic\n",
                         "annotation PBI_FormatHint = {\"isGeneralNumber\":true}\n"
                     ]
@@ -4682,10 +4653,8 @@
                     "element": "column 'Instituição | Unidade' = dimUnidade[Instituicao]&\" • \"&dimUnidade[nomeUnidadeRecenteRed]",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: 46189293-4c6f-4071-9d77-562fc169e5a2\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
                 },
@@ -4710,10 +4679,8 @@
                     "element": "column 'Sigla | Instituição' = dimUnidade[Instituicao]&\" - \"&dimUnidade[Instituição (Nome)]",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: c5b2fcb8-5c12-41d1-8cfa-3c8564fd7ae9\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
                 },
@@ -5466,10 +5433,8 @@
                     "element": "column OrgAcadPNP = d_IES[Organização Acadêmica Sigla PNP]&\" • \"&d_IES[Organização Acadêmica PNP]",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: 14fb4851-f7f7-4579-8ffd-3b89ec3a4596\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
                 },
@@ -5480,10 +5445,8 @@
                     "element": "column SiglaNome = d_IES[Sigla]&\" - \"&(d_IES[Instituição (Nome)])",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: 19a9ec7f-4941-4a44-9074-1808564b3eed\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
                 },
@@ -6539,12 +6502,10 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: double\n",
                         "formatString: #,0.00\n",
                         "displayFolder: _Grupos\n",
                         "lineageTag: ff1a68d1-744a-4026-82b8-0c1cbbbb67a8\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "extendedProperty GroupingMetadata =\n",
                         "changedProperty = FormatString\n",
                         "annotation GroupingDesignState = {\"Version\":0,\"Sources\":[{\"Name\":\"f\",\"Entity\":\"fCPC\"}],\"GroupedColumns\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"CPCContinuo\"}}],\"BinItem\":{\"Expression\":{\"Floor\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"CPCContinuo\"}},\"Size\":0.1}}}}\n",
@@ -6587,11 +6548,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: double\n",
                         "displayFolder: _Grupos\n",
                         "lineageTag: 9db4d494-b590-4e1e-b29e-9f28dcef5a25\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "extendedProperty GroupingMetadata =\n",
                         "changedProperty = FormatString\n",
                         "annotation GroupingDesignState = {\"Version\":0,\"Sources\":[{\"Name\":\"f\",\"Entity\":\"fCPC\"}],\"GroupedColumns\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"NP-Enade\"}}],\"BinItem\":{\"Expression\":{\"Floor\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"NP-Enade\"}},\"Size\":0.1}}}}\n",
@@ -6635,11 +6594,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: double\n",
                         "displayFolder: _Grupos\n",
                         "lineageTag: 1caab959-f94f-416b-9f01-12c751d5ab36\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "extendedProperty GroupingMetadata =\n",
                         "annotation GroupingDesignState = {\"Version\":0,\"Sources\":[{\"Name\":\"f\",\"Entity\":\"fCPC\"}],\"GroupedColumns\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"NP-Doutores\"}}],\"BinItem\":{\"Expression\":{\"Floor\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"NP-Doutores\"}},\"Size\":0.2}}}}\n",
                         "annotation SummarizationSetBy = Automatic\n",
@@ -6682,11 +6639,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: double\n",
                         "displayFolder: _Grupos\n",
                         "lineageTag: 9fb551ab-ca68-4a9f-8bda-34e3381cfeda\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "extendedProperty GroupingMetadata =\n",
                         "annotation GroupingDesignState = {\"Version\":0,\"Sources\":[{\"Name\":\"f\",\"Entity\":\"fCPC\"}],\"GroupedColumns\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"NP-Mestres\"}}],\"BinItem\":{\"Expression\":{\"Floor\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"NP-Mestres\"}},\"Size\":0.2}}}}\n",
                         "annotation SummarizationSetBy = Automatic\n",
@@ -6729,11 +6684,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: double\n",
                         "displayFolder: _Grupos\n",
                         "lineageTag: e3173b52-b043-4116-9c14-dc5f91bae2e3\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "extendedProperty GroupingMetadata =\n",
                         "annotation GroupingDesignState = {\"Version\":0,\"Sources\":[{\"Name\":\"f\",\"Entity\":\"fCPC\"}],\"GroupedColumns\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"NP-IDD\"}}],\"BinItem\":{\"Expression\":{\"Floor\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"NP-IDD\"}},\"Size\":0.1}}}}\n",
                         "annotation SummarizationSetBy = Automatic\n",
@@ -6776,11 +6729,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: double\n",
                         "displayFolder: _Grupos\n",
                         "lineageTag: df9abe3a-fbd6-4b1f-b36a-89331b341fb9\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "extendedProperty GroupingMetadata =\n",
                         "annotation GroupingDesignState = {\"Version\":0,\"Sources\":[{\"Name\":\"f\",\"Entity\":\"fCPC\"}],\"GroupedColumns\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"NP-Infraestrutura\"}}],\"BinItem\":{\"Expression\":{\"Floor\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"NP-Infraestrutura\"}},\"Size\":0.2}}}}\n",
                         "annotation SummarizationSetBy = Automatic\n",
@@ -6823,11 +6774,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: double\n",
                         "displayFolder: _Grupos\n",
                         "lineageTag: 192a1a84-bd70-41b8-8940-47cf1f5d0c63\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "extendedProperty GroupingMetadata =\n",
                         "annotation GroupingDesignState = {\"Version\":0,\"Sources\":[{\"Name\":\"f\",\"Entity\":\"fCPC\"}],\"GroupedColumns\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"NP-OrgDidaticoPedagogica\"}}],\"BinItem\":{\"Expression\":{\"Floor\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"NP-OrgDidaticoPedagogica\"}},\"Size\":0.1}}}}\n",
                         "annotation SummarizationSetBy = Automatic\n",
@@ -6870,11 +6819,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: double\n",
                         "displayFolder: _Grupos\n",
                         "lineageTag: eba3c273-39e3-4fd8-bbfa-68f0f3a3c8bb\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "extendedProperty GroupingMetadata =\n",
                         "annotation GroupingDesignState = {\"Version\":0,\"Sources\":[{\"Name\":\"f\",\"Entity\":\"fCPC\"}],\"GroupedColumns\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"NP-OportunidadesAmpliacaoFormacao\"}}],\"BinItem\":{\"Expression\":{\"Floor\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"NP-OportunidadesAmpliacaoFormacao\"}},\"Size\":0.1}}}}\n",
                         "annotation SummarizationSetBy = Automatic\n",
@@ -6917,11 +6864,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: double\n",
                         "displayFolder: _Grupos\n",
                         "lineageTag: 79ac831c-aa03-484d-ae01-277583cd8bed\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "extendedProperty GroupingMetadata =\n",
                         "annotation GroupingDesignState = {\"Version\":0,\"Sources\":[{\"Name\":\"f\",\"Entity\":\"fCPC\"}],\"GroupedColumns\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"NP-RegimeTrabalho\"}}],\"BinItem\":{\"Expression\":{\"Floor\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"NP-RegimeTrabalho\"}},\"Size\":0.1}}}}\n",
                         "annotation SummarizationSetBy = Automatic\n",
@@ -6964,12 +6909,10 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: double\n",
                         "formatString: 0.00%;-0.00%;0.00%\n",
                         "displayFolder: _Grupos\n",
                         "lineageTag: 698887fe-bce8-4710-9609-d01671fc9c24\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "extendedProperty GroupingMetadata =\n",
                         "changedProperty = FormatString\n",
                         "annotation GroupingDesignState = {\"Version\":0,\"Sources\":[{\"Name\":\"f\",\"Entity\":\"fCPC\"}],\"GroupedColumns\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"NB-Doutores\"}}],\"BinItem\":{\"Expression\":{\"Floor\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"NB-Doutores\"}},\"Size\":0.05}}}}\n",
@@ -7012,12 +6955,10 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: double\n",
                         "formatString: 0.00%;-0.00%;0.00%\n",
                         "displayFolder: _Grupos\n",
                         "lineageTag: c32b24f3-7dab-4567-abd8-b216a763cd05\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "extendedProperty GroupingMetadata =\n",
                         "changedProperty = FormatString\n",
                         "annotation GroupingDesignState = {\"Version\":0,\"Sources\":[{\"Name\":\"f\",\"Entity\":\"fCPC\"}],\"GroupedColumns\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"NB-Mestres\"}}],\"BinItem\":{\"Expression\":{\"Floor\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"NB-Mestres\"}},\"Size\":0.02}}}}\n",
@@ -7060,11 +7001,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: double\n",
                         "displayFolder: _Grupos\n",
                         "lineageTag: 2db8a10e-ce65-4634-837b-177de8c9abe2\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "extendedProperty GroupingMetadata =\n",
                         "annotation GroupingDesignState = {\"Version\":0,\"Sources\":[{\"Name\":\"f\",\"Entity\":\"fCPC\"}],\"GroupedColumns\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"NB-IDD\"}}],\"BinItem\":{\"Expression\":{\"Floor\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"NB-IDD\"}},\"Size\":0.5}}}}\n",
                         "annotation SummarizationSetBy = Automatic\n",
@@ -7107,11 +7046,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: double\n",
                         "displayFolder: _Grupos\n",
                         "lineageTag: 27431770-262c-446b-8e05-34227ed2fbf8\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "extendedProperty GroupingMetadata =\n",
                         "annotation GroupingDesignState = {\"Version\":0,\"Sources\":[{\"Name\":\"f\",\"Entity\":\"fCPC\"}],\"GroupedColumns\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"NB-Infraestrutura\"}}],\"BinItem\":{\"Expression\":{\"Floor\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"NB-Infraestrutura\"}},\"Size\":0.1}}}}\n",
                         "annotation SummarizationSetBy = Automatic\n",
@@ -7154,11 +7091,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: double\n",
                         "displayFolder: _Grupos\n",
                         "lineageTag: 70aec87d-df51-4ce9-afaf-4854b4617994\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "extendedProperty GroupingMetadata =\n",
                         "annotation GroupingDesignState = {\"Version\":0,\"Sources\":[{\"Name\":\"f\",\"Entity\":\"fCPC\"}],\"GroupedColumns\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"NB-OrgDidaticoPedagogica\"}}],\"BinItem\":{\"Expression\":{\"Floor\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"NB-OrgDidaticoPedagogica\"}},\"Size\":0.2}}}}\n",
                         "annotation SummarizationSetBy = Automatic\n",
@@ -7201,11 +7136,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: double\n",
                         "displayFolder: _Grupos\n",
                         "lineageTag: d97b502e-3af9-4fba-9db9-2cf42be2d5c4\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "extendedProperty GroupingMetadata =\n",
                         "annotation GroupingDesignState = {\"Version\":0,\"Sources\":[{\"Name\":\"f\",\"Entity\":\"fCPC\"}],\"GroupedColumns\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"NB-OportunidadesAmpliacaoFormacao\"}}],\"BinItem\":{\"Expression\":{\"Floor\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"NB-OportunidadesAmpliacaoFormacao\"}},\"Size\":0.2}}}}\n",
                         "annotation SummarizationSetBy = Automatic\n",
@@ -7248,11 +7181,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: double\n",
                         "displayFolder: _Grupos\n",
                         "lineageTag: e85ef109-6c49-4bd9-a3d8-d32e28efc9d0\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "extendedProperty GroupingMetadata =\n",
                         "annotation GroupingDesignState = {\"Version\":0,\"Sources\":[{\"Name\":\"f\",\"Entity\":\"fCPC\"}],\"GroupedColumns\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"NB-RegimeTrabalho\"}}],\"BinItem\":{\"Expression\":{\"Floor\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"NB-RegimeTrabalho\"}},\"Size\":0.1}}}}\n",
                         "annotation SummarizationSetBy = Automatic\n",
@@ -8615,11 +8546,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: double\n",
                         "displayFolder: _Grupos\n",
                         "lineageTag: 0989f4ec-f958-4975-92fd-45890a8e4c93\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "extendedProperty GroupingMetadata =\n",
                         "annotation GroupingDesignState = {\"Version\":0,\"Sources\":[{\"Name\":\"f\",\"Entity\":\"fIGC\"}],\"GroupedColumns\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Alfa (Proporção de Graduação)\"}}],\"BinItem\":{\"Expression\":{\"Floor\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Alfa (Proporção de Graduação)\"}},\"Size\":0.05}}}}\n",
                         "annotation SummarizationSetBy = Automatic\n",
@@ -8667,11 +8596,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: double\n",
                         "displayFolder: _Grupos\n",
                         "lineageTag: 971ef6b8-4188-4ffc-a1e6-94c988dd106c\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "extendedProperty GroupingMetadata =\n",
                         "annotation GroupingDesignState = {\"Version\":0,\"Sources\":[{\"Name\":\"f\",\"Entity\":\"fIGC\"}],\"GroupedColumns\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Beta (Proporção de Mestrado - Equivalente)\"}}],\"BinItem\":{\"Expression\":{\"Floor\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Beta (Proporção de Mestrado - Equivalente)\"}},\"Size\":0.05}}}}\n",
                         "annotation SummarizationSetBy = Automatic\n",
@@ -8719,11 +8646,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: double\n",
                         "displayFolder: _Grupos\n",
                         "lineageTag: 2682e576-73c3-4258-b251-e3562a7deacb\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "extendedProperty GroupingMetadata =\n",
                         "annotation GroupingDesignState = {\"Version\":0,\"Sources\":[{\"Name\":\"f\",\"Entity\":\"fIGC\"}],\"GroupedColumns\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Gama (Proporção de Doutorandos – Equivalente)\"}}],\"BinItem\":{\"Expression\":{\"Floor\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Gama (Proporção de Doutorandos – Equivalente)\"}},\"Size\":0.05}}}}\n",
                         "annotation SummarizationSetBy = Automatic\n",
@@ -8771,11 +8696,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: double\n",
                         "displayFolder: _Grupos\n",
                         "lineageTag: 61e906e8-82e3-4740-9bc8-ccd4f531d5ac\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "extendedProperty GroupingMetadata =\n",
                         "annotation GroupingDesignState = {\"Version\":0,\"Sources\":[{\"Name\":\"f\",\"Entity\":\"fIGC\"}],\"GroupedColumns\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Conceito Médio de Graduação\"}}],\"BinItem\":{\"Expression\":{\"Floor\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Conceito Médio de Graduação\"}},\"Size\":0.25}}}}\n",
                         "annotation SummarizationSetBy = Automatic\n",
@@ -8823,11 +8746,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: double\n",
                         "displayFolder: _Grupos\n",
                         "lineageTag: 359207e5-c356-4686-aed0-71ddc0010f63\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "extendedProperty GroupingMetadata =\n",
                         "annotation GroupingDesignState = {\"Version\":0,\"Sources\":[{\"Name\":\"f\",\"Entity\":\"fIGC\"}],\"GroupedColumns\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Conceito Médio de Mestrado\"}}],\"BinItem\":{\"Expression\":{\"Floor\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Conceito Médio de Mestrado\"}},\"Size\":0.1}}}}\n",
                         "annotation SummarizationSetBy = Automatic\n",
@@ -8875,11 +8796,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: double\n",
                         "displayFolder: _Grupos\n",
                         "lineageTag: 1ea74cee-8033-491e-b375-07a1b4c6433b\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "extendedProperty GroupingMetadata =\n",
                         "annotation GroupingDesignState = {\"Version\":0,\"Sources\":[{\"Name\":\"f\",\"Entity\":\"fIGC\"}],\"GroupedColumns\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Conceito Médio do Doutorado\"}}],\"BinItem\":{\"Expression\":{\"Floor\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Conceito Médio do Doutorado\"}},\"Size\":0.25}}}}\n",
                         "annotation SummarizationSetBy = Automatic\n",
@@ -8922,11 +8841,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: double\n",
                         "displayFolder: _Grupos\n",
                         "lineageTag: 788f376c-1891-43aa-8dd2-a09cdf6d7260\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "extendedProperty GroupingMetadata =\n",
                         "annotation GroupingDesignState = {\"Version\":0,\"Sources\":[{\"Name\":\"f\",\"Entity\":\"fIGC\"}],\"GroupedColumns\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"IGC (Contínuo)\"}}],\"BinItem\":{\"Expression\":{\"Floor\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"IGC (Contínuo)\"}},\"Size\":0.25}}}}\n",
                         "annotation SummarizationSetBy = Automatic\n",
@@ -8970,12 +8887,10 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: int64\n",
                         "formatString: 0\n",
                         "displayFolder: _Grupos\n",
                         "lineageTag: fd39ca81-6bea-4ffc-8c01-647ce7834f02\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "extendedProperty GroupingMetadata =\n",
                         "annotation GroupingDesignState = {\"Version\":0,\"Sources\":[{\"Name\":\"f\",\"Entity\":\"fIGC\"}],\"GroupedColumns\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"IGC (Faixa)\"}}],\"BinItem\":{\"Expression\":{\"Floor\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"IGC (Faixa)\"}},\"Size\":1.0}}}}\n",
                         "annotation SummarizationSetBy = Automatic\n"
@@ -9018,12 +8933,10 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: int64\n",
                         "formatString: 0\n",
                         "displayFolder: _Grupos\n",
                         "lineageTag: 3790c977-38c8-4254-a353-aad54dbcfc18\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "extendedProperty GroupingMetadata =\n",
                         "annotation GroupingDesignState = {\"Version\":0,\"Sources\":[{\"Name\":\"f\",\"Entity\":\"fIGC\"}],\"GroupedColumns\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Nº de Cursos com CPC no triênio\"}}],\"BinItem\":{\"Expression\":{\"Floor\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Nº de Cursos com CPC no triênio\"}},\"Size\":10.0}}}}\n",
                         "annotation SummarizationSetBy = Automatic\n"
@@ -9220,10 +9133,8 @@
                     "element": "column Comentários = \"🗨️ \" & fInstagram[comments_count]",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: bab5972e-b4f8-4356-98b7-3b3bcac33d2a\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
                 },
@@ -9234,10 +9145,8 @@
                     "element": "column Curtidas = \"❤️ \"&fInstagram[like_count]",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: 5c64c83a-cdbe-4a14-8355-b54a3c5db3b5\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
                 },
@@ -9403,10 +9312,8 @@
                     "element": "column Cód_Fonte = Fonte[CodFonteRecursos]&\" - \"&Fonte[FonteRecursos]",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: c89d1235-1583-47a3-a770-66b429dd4fa9\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
                 },
@@ -9471,10 +9378,8 @@
                         "groupByColumn: '_fOrçamentoComparar Campos'\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: 04977dda-20fa-42fa-8dd4-e1ef60cabec4\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value1]\n",
                         "sortByColumn: '_fOrçamentoComparar Pedido'\n",
                         "relatedColumnDetails\n",
@@ -9491,11 +9396,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: f47b9864-a0ee-4fe6-b2fa-50ff91546e4b\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value2]\n",
                         "sortByColumn: '_fOrçamentoComparar Pedido'\n",
                         "extendedProperty ParameterMetadata =\n",
@@ -9507,12 +9410,10 @@
                     "element": "column '_fOrçamentoComparar Pedido'",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "formatString: 0\n",
                         "lineageTag: 0e31898b-c62c-4606-83c6-880d083e42a1\n",
                         "summarizeBy: sum\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value3]\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
@@ -9522,10 +9423,8 @@
                     "element": "column Contexto",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: ebf6f6f8-bef9-4f2b-b79b-d9d79e43f9ee\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value4]\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
@@ -9535,11 +9434,9 @@
                     "element": "column OrdemContexto",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "formatString: 0\n",
                         "lineageTag: d118a5e1-a8d5-4aea-8b58-ab460e396453\n",
                         "summarizeBy: sum\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value5]\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
@@ -13035,12 +12932,10 @@
                     "element": "column Ordem",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "formatString: 0\n",
                         "lineageTag: c3c69b47-6feb-4598-b493-818c1f8e65fc\n",
                         "summarizeBy: sum\n",
                         "isNameInferred\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Ordem]\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
@@ -13056,11 +12951,9 @@
                     "element": "column Ind",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: 4fad58a7-794a-44cf-bb36-774eb0070212\n",
                         "summarizeBy: none\n",
                         "isNameInferred\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Ind]\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
@@ -14716,13 +14609,11 @@
                     "element": "column Date",
                     "calculation": [],
                     "properties": [
-                        "dataType: dateTime\n",
                         "isHidden\n",
                         "lineageTag: 8ad2a8e5-f6fb-44aa-84fa-b644749ae9f5\n",
                         "dataCategory: PaddedDateTableDates\n",
                         "summarizeBy: none\n",
                         "isNameInferred\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Date]\n",
                         "annotation SummarizationSetBy = User\n"
                     ]
@@ -14732,12 +14623,10 @@
                     "element": "column Ano = YEAR([Date])",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "lineageTag: 751d7209-ecf8-416c-bb46-581130ec5070\n",
                         "dataCategory: Years\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = Year\n"
                     ]
@@ -14747,12 +14636,10 @@
                     "element": "column MonthNo = MONTH([Date])",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "lineageTag: e11e7f41-a2d2-4ebe-916a-3c67abc20b5a\n",
                         "dataCategory: MonthOfYear\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = MonthNumber\n"
                     ]
@@ -14762,12 +14649,10 @@
                     "element": "column Mês = FORMAT([Date], \"MMMM\")",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: 3a964aae-6270-4e10-a1b8-2e3b9d219dad\n",
                         "dataCategory: Months\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sortByColumn: MonthNo\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = Month\n"
@@ -14778,12 +14663,10 @@
                     "element": "column QuarterNo = INT(([MonthNo] + 2) / 3)",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "lineageTag: 74204ce0-0035-4532-bdeb-c4a3656a7166\n",
                         "dataCategory: QuarterOfYear\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = QuarterNumber\n"
                     ]
@@ -14793,12 +14676,10 @@
                     "element": "column Trimestre = \"Trim \" & [QuarterNo]",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: 0f93dbad-932c-47c1-9bcc-7ba51c6b584b\n",
                         "dataCategory: Quarters\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sortByColumn: QuarterNo\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = Quarter\n"
@@ -14809,12 +14690,10 @@
                     "element": "column Dia = DAY([Date])",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "lineageTag: ed24b320-90d9-4bf3-a4be-d6f463c7e7d4\n",
                         "dataCategory: DayOfMonth\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = Day\n"
                     ]
@@ -14888,13 +14767,11 @@
                     "element": "column Date",
                     "calculation": [],
                     "properties": [
-                        "dataType: dateTime\n",
                         "isHidden\n",
                         "lineageTag: f34b1b15-4481-42a5-9905-3fa1589a8a7d\n",
                         "dataCategory: PaddedDateTableDates\n",
                         "summarizeBy: none\n",
                         "isNameInferred\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Date]\n",
                         "annotation SummarizationSetBy = User\n"
                     ]
@@ -14904,12 +14781,10 @@
                     "element": "column Ano = YEAR([Date])",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "lineageTag: fae08ac4-5ff3-4026-b5df-903fa5c2e437\n",
                         "dataCategory: Years\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = Year\n"
                     ]
@@ -14919,12 +14794,10 @@
                     "element": "column MonthNo = MONTH([Date])",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "lineageTag: 60141d75-1aad-49f8-9758-a1bfd4f896e6\n",
                         "dataCategory: MonthOfYear\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = MonthNumber\n"
                     ]
@@ -14934,12 +14807,10 @@
                     "element": "column Mês = FORMAT([Date], \"MMMM\")",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: 8bb8d47a-6761-4ded-afa1-53aa55c548d5\n",
                         "dataCategory: Months\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sortByColumn: MonthNo\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = Month\n"
@@ -14950,12 +14821,10 @@
                     "element": "column QuarterNo = INT(([MonthNo] + 2) / 3)",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "lineageTag: 657e6080-ae9f-47a5-9c90-a77b9e2c8a92\n",
                         "dataCategory: QuarterOfYear\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = QuarterNumber\n"
                     ]
@@ -14965,12 +14834,10 @@
                     "element": "column Trimestre = \"Trim \" & [QuarterNo]",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: 29877a3a-c6f4-4edf-9275-e58b0a2fa4d2\n",
                         "dataCategory: Quarters\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sortByColumn: QuarterNo\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = Quarter\n"
@@ -14981,12 +14848,10 @@
                     "element": "column Dia = DAY([Date])",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "lineageTag: 8791d685-4858-4110-ad65-78db4bb0e7f8\n",
                         "dataCategory: DayOfMonth\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = Day\n"
                     ]
@@ -15060,13 +14925,11 @@
                     "element": "column Date",
                     "calculation": [],
                     "properties": [
-                        "dataType: dateTime\n",
                         "isHidden\n",
                         "lineageTag: 7118f258-f1fd-4e2f-b5e2-0ac8eae5c363\n",
                         "dataCategory: PaddedDateTableDates\n",
                         "summarizeBy: none\n",
                         "isNameInferred\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Date]\n",
                         "annotation SummarizationSetBy = User\n"
                     ]
@@ -15076,12 +14939,10 @@
                     "element": "column Ano = YEAR([Date])",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "lineageTag: 1ab5706a-728d-418f-b45b-446d28486651\n",
                         "dataCategory: Years\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = Year\n"
                     ]
@@ -15091,12 +14952,10 @@
                     "element": "column MonthNo = MONTH([Date])",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "lineageTag: 592fcd3b-a4a0-43f5-abf4-5e594fc77c10\n",
                         "dataCategory: MonthOfYear\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = MonthNumber\n"
                     ]
@@ -15106,12 +14965,10 @@
                     "element": "column Mês = FORMAT([Date], \"MMMM\")",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: c399897b-caa5-4165-b7fa-f60942733be6\n",
                         "dataCategory: Months\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sortByColumn: MonthNo\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = Month\n"
@@ -15122,12 +14979,10 @@
                     "element": "column QuarterNo = INT(([MonthNo] + 2) / 3)",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "lineageTag: edb22697-12ad-4372-beb7-32fe56c43f74\n",
                         "dataCategory: QuarterOfYear\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = QuarterNumber\n"
                     ]
@@ -15137,12 +14992,10 @@
                     "element": "column Trimestre = \"Trim \" & [QuarterNo]",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: cba64ff0-b6be-4209-b10e-b76591254ce8\n",
                         "dataCategory: Quarters\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sortByColumn: QuarterNo\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = Quarter\n"
@@ -15153,12 +15006,10 @@
                     "element": "column Dia = DAY([Date])",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "lineageTag: 115c694e-45ad-44e8-a9e7-11cbc3b51bea\n",
                         "dataCategory: DayOfMonth\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = Day\n"
                     ]
@@ -15232,13 +15083,11 @@
                     "element": "column Date",
                     "calculation": [],
                     "properties": [
-                        "dataType: dateTime\n",
                         "isHidden\n",
                         "lineageTag: 4da1c46e-12c6-4003-a03f-c81d8d977e70\n",
                         "dataCategory: PaddedDateTableDates\n",
                         "summarizeBy: none\n",
                         "isNameInferred\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Date]\n",
                         "annotation SummarizationSetBy = User\n"
                     ]
@@ -15248,12 +15097,10 @@
                     "element": "column Ano = YEAR([Date])",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "lineageTag: 5d2b6683-ea18-4b52-a544-d14bd3b16c90\n",
                         "dataCategory: Years\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = Year\n"
                     ]
@@ -15263,12 +15110,10 @@
                     "element": "column MonthNo = MONTH([Date])",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "lineageTag: 6a8fea6b-da23-4918-9515-7de6982d9269\n",
                         "dataCategory: MonthOfYear\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = MonthNumber\n"
                     ]
@@ -15278,12 +15123,10 @@
                     "element": "column Mês = FORMAT([Date], \"MMMM\")",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: d88c25ce-37fe-4e64-b0e2-190da2782c78\n",
                         "dataCategory: Months\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sortByColumn: MonthNo\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = Month\n"
@@ -15294,12 +15137,10 @@
                     "element": "column QuarterNo = INT(([MonthNo] + 2) / 3)",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "lineageTag: e2154262-9b0c-4161-a736-787ae5f147ca\n",
                         "dataCategory: QuarterOfYear\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = QuarterNumber\n"
                     ]
@@ -15309,12 +15150,10 @@
                     "element": "column Trimestre = \"Trim \" & [QuarterNo]",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: 7e458af9-e767-49ac-8f6a-11c061692b7c\n",
                         "dataCategory: Quarters\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sortByColumn: QuarterNo\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = Quarter\n"
@@ -15325,12 +15164,10 @@
                     "element": "column Dia = DAY([Date])",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "lineageTag: 7ca4e38e-f7c3-4176-ae3c-d6f80e46888f\n",
                         "dataCategory: DayOfMonth\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = Day\n"
                     ]
@@ -15404,13 +15241,11 @@
                     "element": "column Date",
                     "calculation": [],
                     "properties": [
-                        "dataType: dateTime\n",
                         "isHidden\n",
                         "lineageTag: 8fd79204-797f-4b0b-a7d7-95ea47165c20\n",
                         "dataCategory: PaddedDateTableDates\n",
                         "summarizeBy: none\n",
                         "isNameInferred\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Date]\n",
                         "annotation SummarizationSetBy = User\n"
                     ]
@@ -15420,12 +15255,10 @@
                     "element": "column Ano = YEAR([Date])",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "lineageTag: cb077914-e669-4758-a0a1-e84790c0e75c\n",
                         "dataCategory: Years\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = Year\n"
                     ]
@@ -15435,12 +15268,10 @@
                     "element": "column MonthNo = MONTH([Date])",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "lineageTag: 692eda07-8416-4343-99c0-3513195d0b09\n",
                         "dataCategory: MonthOfYear\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = MonthNumber\n"
                     ]
@@ -15450,12 +15281,10 @@
                     "element": "column Mês = FORMAT([Date], \"MMMM\")",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: d264f362-8a48-49f2-83e5-56b5778c951d\n",
                         "dataCategory: Months\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sortByColumn: MonthNo\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = Month\n"
@@ -15466,12 +15295,10 @@
                     "element": "column QuarterNo = INT(([MonthNo] + 2) / 3)",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "lineageTag: 505c51ca-4957-4fbb-aa5a-2991c149196f\n",
                         "dataCategory: QuarterOfYear\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = QuarterNumber\n"
                     ]
@@ -15481,12 +15308,10 @@
                     "element": "column Trimestre = \"Trim \" & [QuarterNo]",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: b8bbf7ab-fa01-4d48-8b0d-5f2ca31228cb\n",
                         "dataCategory: Quarters\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sortByColumn: QuarterNo\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = Quarter\n"
@@ -15497,12 +15322,10 @@
                     "element": "column Dia = DAY([Date])",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "lineageTag: ae7f4620-7945-485f-92ea-a8b4ccb34d14\n",
                         "dataCategory: DayOfMonth\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = Day\n"
                     ]
@@ -15576,13 +15399,11 @@
                     "element": "column Date",
                     "calculation": [],
                     "properties": [
-                        "dataType: dateTime\n",
                         "isHidden\n",
                         "lineageTag: d08290f3-fc34-4557-a1c0-de8e35de7f30\n",
                         "dataCategory: PaddedDateTableDates\n",
                         "summarizeBy: none\n",
                         "isNameInferred\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Date]\n",
                         "annotation SummarizationSetBy = User\n"
                     ]
@@ -15592,12 +15413,10 @@
                     "element": "column Ano = YEAR([Date])",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "lineageTag: 44e89d61-7916-4317-8d00-60b68e10cf8b\n",
                         "dataCategory: Years\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = Year\n"
                     ]
@@ -15607,12 +15426,10 @@
                     "element": "column MonthNo = MONTH([Date])",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "lineageTag: 91b1c92c-46b9-45b8-8e4b-a3f27e77c8d9\n",
                         "dataCategory: MonthOfYear\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = MonthNumber\n"
                     ]
@@ -15622,12 +15439,10 @@
                     "element": "column Mês = FORMAT([Date], \"MMMM\")",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: b88e92c3-a2de-4bc3-b377-b07a678ac469\n",
                         "dataCategory: Months\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sortByColumn: MonthNo\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = Month\n"
@@ -15638,12 +15453,10 @@
                     "element": "column QuarterNo = INT(([MonthNo] + 2) / 3)",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "lineageTag: aae77d4f-879f-4ac4-8f62-5bf0057c1017\n",
                         "dataCategory: QuarterOfYear\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = QuarterNumber\n"
                     ]
@@ -15653,12 +15466,10 @@
                     "element": "column Trimestre = \"Trim \" & [QuarterNo]",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: a51f46a7-9b20-42a5-85c5-c4a1623ca980\n",
                         "dataCategory: Quarters\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sortByColumn: QuarterNo\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = Quarter\n"
@@ -15669,12 +15480,10 @@
                     "element": "column Dia = DAY([Date])",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "lineageTag: e1a8b12c-b721-46e3-8520-62eff4ea5659\n",
                         "dataCategory: DayOfMonth\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = Day\n"
                     ]
@@ -15748,13 +15557,11 @@
                     "element": "column Date",
                     "calculation": [],
                     "properties": [
-                        "dataType: dateTime\n",
                         "isHidden\n",
                         "lineageTag: 1a91d960-7850-46b1-ab74-1af96b847b04\n",
                         "dataCategory: PaddedDateTableDates\n",
                         "summarizeBy: none\n",
                         "isNameInferred\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Date]\n",
                         "annotation SummarizationSetBy = User\n"
                     ]
@@ -15764,12 +15571,10 @@
                     "element": "column Ano = YEAR([Date])",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "lineageTag: 5489cd2e-8b13-4fe2-bdd7-261c8921ee18\n",
                         "dataCategory: Years\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = Year\n"
                     ]
@@ -15779,12 +15584,10 @@
                     "element": "column MonthNo = MONTH([Date])",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "lineageTag: abaf0ffe-116a-4b06-a216-403579709751\n",
                         "dataCategory: MonthOfYear\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = MonthNumber\n"
                     ]
@@ -15794,12 +15597,10 @@
                     "element": "column Mês = FORMAT([Date], \"MMMM\")",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: d5fecd70-8f3a-45a1-b95a-dee5bfb03cdd\n",
                         "dataCategory: Months\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sortByColumn: MonthNo\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = Month\n"
@@ -15810,12 +15611,10 @@
                     "element": "column QuarterNo = INT(([MonthNo] + 2) / 3)",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "lineageTag: 4ca5b01c-be08-4e24-b5e1-7e14e09d98f8\n",
                         "dataCategory: QuarterOfYear\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = QuarterNumber\n"
                     ]
@@ -15825,12 +15624,10 @@
                     "element": "column Trimestre = \"Trim \" & [QuarterNo]",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: 67c086e3-a871-4b41-8987-29f60e9f44a2\n",
                         "dataCategory: Quarters\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sortByColumn: QuarterNo\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = Quarter\n"
@@ -15841,12 +15638,10 @@
                     "element": "column Dia = DAY([Date])",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "lineageTag: 0f29edd8-729d-4252-8698-71ff12bd708d\n",
                         "dataCategory: DayOfMonth\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = Day\n"
                     ]
@@ -15920,13 +15715,11 @@
                     "element": "column Date",
                     "calculation": [],
                     "properties": [
-                        "dataType: dateTime\n",
                         "isHidden\n",
                         "lineageTag: 83fabd76-f311-4e70-8890-3a2e30e76ae9\n",
                         "dataCategory: PaddedDateTableDates\n",
                         "summarizeBy: none\n",
                         "isNameInferred\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Date]\n",
                         "annotation SummarizationSetBy = User\n"
                     ]
@@ -15936,12 +15729,10 @@
                     "element": "column Ano = YEAR([Date])",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "lineageTag: 72289445-97e1-4fd0-86b6-29673820dc21\n",
                         "dataCategory: Years\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = Year\n"
                     ]
@@ -15951,12 +15742,10 @@
                     "element": "column MonthNo = MONTH([Date])",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "lineageTag: eeb98928-ba71-4ce1-8ce2-d9d9e0747a9c\n",
                         "dataCategory: MonthOfYear\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = MonthNumber\n"
                     ]
@@ -15966,12 +15755,10 @@
                     "element": "column Mês = FORMAT([Date], \"MMMM\")",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: c0779b54-eb0a-4689-ba9e-7f6abf69fff3\n",
                         "dataCategory: Months\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sortByColumn: MonthNo\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = Month\n"
@@ -15982,12 +15769,10 @@
                     "element": "column QuarterNo = INT(([MonthNo] + 2) / 3)",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "lineageTag: 9f3e65b4-183b-40e6-a01b-114115f027dc\n",
                         "dataCategory: QuarterOfYear\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = QuarterNumber\n"
                     ]
@@ -15997,12 +15782,10 @@
                     "element": "column Trimestre = \"Trim \" & [QuarterNo]",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: 31c5ca39-b4bc-4a79-9e35-cda6ba7084ec\n",
                         "dataCategory: Quarters\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sortByColumn: QuarterNo\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = Quarter\n"
@@ -16013,12 +15796,10 @@
                     "element": "column Dia = DAY([Date])",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "lineageTag: eac00220-80ee-47e7-bc1a-233e129b9bf8\n",
                         "dataCategory: DayOfMonth\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = User\n",
                         "annotation TemplateId = Day\n"
                     ]
@@ -16698,10 +16479,8 @@
                     "element": "column Cód_NaturezaDespesaDetalhada = NaturezaDespesa[CodND]&\" - \"&NaturezaDespesa[NDD]",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: 88ac9230-c93b-4919-847d-053b8a894672\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
                 },
@@ -16716,10 +16495,8 @@
                     "element": "column Cód_ElementoDespesa = NaturezaDespesa[CodElementoDespesa]&\" - \"&NaturezaDespesa[ElementoDespesa]",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: fe987ccc-3bed-41df-8322-808da78d9d3a\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
                 },
@@ -16730,10 +16507,8 @@
                     "element": "column Cód_GrupoNatDespesa = NaturezaDespesa[CodGrupoNatDespesa]&\" - \"&NaturezaDespesa[GrupoNatDespesa]",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: be092596-994a-45d7-b5c2-0034a618f83b\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
                 },
@@ -17018,10 +16793,8 @@
                     "element": "column Cód_Ação = PTRES[CodAcao]&\" - \"&PTRES[Acao]",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: aefeb67b-1fc0-487c-be4c-cec9e9091781\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
                 },
@@ -17030,10 +16803,8 @@
                     "element": "column Cód_PlanoOrçamentário = PTRES[CodPlanoOrcamentario]&\" - \"&PTRES[PlanoOrcamentario]",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: f3af0782-184c-411b-8fae-dedd2d5bc098\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
                 },
@@ -17048,10 +16819,8 @@
                     "element": "column Cód_Programa = PTRES[CodPrograma]&\" - \"&PTRES[Programa]",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: baea1d1f-d50a-44fa-91b7-e82730f61f19\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
                 },
@@ -17060,10 +16829,8 @@
                     "element": "column Cód_Função = PTRES[CodFuncao]&\" - \"&PTRES[Funcao]",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: 9c8d7f92-f272-4296-b7c0-fec15097b16a\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
                 },
@@ -17072,10 +16839,8 @@
                     "element": "column Cód_SubFunção = PTRES[CodSubfuncao]&\" - \"&PTRES[Subfuncao]",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: 87822bc3-6c67-49f9-81a6-c44b7432a899\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
                 },
@@ -17810,10 +17575,8 @@
                         "UnidadeOrgao[Orgao]&\" - \"&UnidadeOrgao[NomeOrgao]\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: a5a0925b-a8b2-4209-a520-606e0452e567\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
                 },
@@ -17833,10 +17596,8 @@
                         "UnidadeOrgao[CodUOResponsavel]&\" - \"&UnidadeOrgao[NomeUnidadeOrcamentaria]\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: 81718936-fc1d-4089-a21e-3704b37eecc6\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
                 },
@@ -17966,11 +17727,9 @@
                     "element": "column Value1",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: c2caa07b-1aba-4786-ab61-04cb187ea5d7\n",
                         "summarizeBy: none\n",
                         "isNameInferred\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value1]\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
@@ -17980,11 +17739,9 @@
                     "element": "column Value2",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: 99c3309c-abf7-46ed-9a02-ba213eb965da\n",
                         "summarizeBy: none\n",
                         "isNameInferred\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value2]\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
@@ -17994,12 +17751,10 @@
                     "element": "column Value3",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "formatString: 0\n",
                         "lineageTag: 3af1f86a-1a17-476f-a8f8-7f9c3e304890\n",
                         "summarizeBy: sum\n",
                         "isNameInferred\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value3]\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
@@ -18059,10 +17814,8 @@
                         "groupByColumn: '_dimCargo Campos'\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: 1879eea5-77aa-4c3b-9e7a-f572f28c0cda\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value1]\n",
                         "sortByColumn: '_dimCargo Pedido'\n",
                         "relatedColumnDetails\n",
@@ -18079,11 +17832,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: 372d26bc-f1f0-4ef5-afb7-2b6937a7d367\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value2]\n",
                         "sortByColumn: '_dimCargo Pedido'\n",
                         "extendedProperty ParameterMetadata =\n",
@@ -18095,12 +17846,10 @@
                     "element": "column '_dimCargo Pedido'",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "formatString: 0\n",
                         "lineageTag: 8e829983-ccbd-4bd4-8120-12fa7af92f12\n",
                         "summarizeBy: sum\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value3]\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
@@ -18161,10 +17910,8 @@
                         "groupByColumn: '_dimFuncao Campos'\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: 5faef99b-ae28-4a05-b9f1-8f718d476bee\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value1]\n",
                         "sortByColumn: '_dimFuncao Pedido'\n",
                         "relatedColumnDetails\n",
@@ -18181,11 +17928,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: 5f29d339-56f6-4cc2-be6f-aa10a420a687\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value2]\n",
                         "sortByColumn: '_dimFuncao Pedido'\n",
                         "extendedProperty ParameterMetadata =\n",
@@ -18197,12 +17942,10 @@
                     "element": "column '_dimFuncao Pedido'",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "formatString: 0\n",
                         "lineageTag: 092a2780-2506-46ea-8405-2ced557a9d6f\n",
                         "summarizeBy: sum\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value3]\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
@@ -18263,10 +18006,8 @@
                         "groupByColumn: '_ContextoOrçamentário Campos'\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: a8c810fa-d012-499e-9c91-1aa409d68076\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value1]\n",
                         "sortByColumn: '_ContextoOrçamentário Pedido'\n",
                         "relatedColumnDetails\n",
@@ -18283,11 +18024,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: d9706622-fb90-46b9-9bb1-63bd0a53d4ff\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value2]\n",
                         "sortByColumn: '_ContextoOrçamentário Pedido'\n",
                         "extendedProperty ParameterMetadata =\n",
@@ -18299,12 +18038,10 @@
                     "element": "column '_ContextoOrçamentário Pedido'",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "formatString: 0\n",
                         "lineageTag: de960400-5516-4d32-851f-8c3b93ad9315\n",
                         "summarizeBy: sum\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value3]\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
@@ -18369,10 +18106,8 @@
                         "groupByColumn: 'Contexto Instituições Campos'\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: 75977b07-1b35-4d84-b562-fd11b901eef0\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value1]\n",
                         "sortByColumn: 'Contexto Instituições Pedido'\n",
                         "relatedColumnDetails\n",
@@ -18389,11 +18124,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: b4cebb06-a7fe-474e-b420-e51fb0a9c6fc\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value2]\n",
                         "sortByColumn: 'Contexto Instituições Pedido'\n",
                         "extendedProperty ParameterMetadata =\n",
@@ -18405,12 +18138,10 @@
                     "element": "column 'Contexto Instituições Pedido'",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "formatString: 0\n",
                         "lineageTag: 4f5c6288-30ec-40d5-bfe4-da797a664de6\n",
                         "summarizeBy: sum\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value3]\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
@@ -18467,10 +18198,8 @@
                         "groupByColumn: '_DInstituiçõesINEP Campos'\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: 9e79fc03-30f4-4c4b-b190-0cbebd7054e8\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value1]\n",
                         "sortByColumn: '_DInstituiçõesINEP Pedido'\n",
                         "relatedColumnDetails\n",
@@ -18487,11 +18216,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: 63bcb308-7d58-40c7-9f49-9f368a1230ca\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value2]\n",
                         "sortByColumn: '_DInstituiçõesINEP Pedido'\n",
                         "extendedProperty ParameterMetadata =\n",
@@ -18503,12 +18230,10 @@
                     "element": "column '_DInstituiçõesINEP Pedido'",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "formatString: 0\n",
                         "lineageTag: 127392ce-9bb0-4038-8f61-f06d1f348634\n",
                         "summarizeBy: sum\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value3]\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
@@ -18564,10 +18289,8 @@
                         "groupByColumn: 'Ação Afirmativa Campos'\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: f687200c-8aeb-4550-bad2-fca95f1e01aa\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value1]\n",
                         "sortByColumn: 'Ação Afirmativa Pedido'\n",
                         "relatedColumnDetails\n",
@@ -18584,11 +18307,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: 5bdf8d57-bd67-4bc3-9645-bc8992bf68e9\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value2]\n",
                         "sortByColumn: 'Ação Afirmativa Pedido'\n",
                         "extendedProperty ParameterMetadata =\n",
@@ -18600,12 +18321,10 @@
                     "element": "column 'Ação Afirmativa Pedido'",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "formatString: 0\n",
                         "lineageTag: 1ee6d9d9-ee92-4b8b-9067-b1520b0f3f79\n",
                         "summarizeBy: sum\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value3]\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
@@ -18675,10 +18394,8 @@
                         "groupByColumn: '_dServidores Campos'\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: ef383be7-c899-4670-86cf-e238b802ca43\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value1]\n",
                         "sortByColumn: '_dServidores Pedido'\n",
                         "relatedColumnDetails\n",
@@ -18695,11 +18412,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: 99395587-5219-4f92-bf7e-0145315b2870\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value2]\n",
                         "sortByColumn: '_dServidores Pedido'\n",
                         "extendedProperty ParameterMetadata =\n",
@@ -18711,12 +18426,10 @@
                     "element": "column '_dServidores Pedido'",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "formatString: 0\n",
                         "lineageTag: 123a4dda-f7d1-4c22-b07e-958bcdff0927\n",
                         "summarizeBy: sum\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value3]\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
@@ -18775,10 +18488,8 @@
                         "groupByColumn: '_dServidores Campos'\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: 9c1c7dbd-04f7-4373-abc0-d60c1ef03a43\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value1]\n",
                         "sortByColumn: '_dServidores Pedido'\n",
                         "relatedColumnDetails\n",
@@ -18795,11 +18506,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: 9065a0b1-0e77-4aa8-9ad6-1a391c2c3a8e\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value2]\n",
                         "sortByColumn: '_dServidores Pedido'\n",
                         "extendedProperty ParameterMetadata =\n",
@@ -18811,12 +18520,10 @@
                     "element": "column '_dServidores Pedido'",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "formatString: 0\n",
                         "lineageTag: 93b7c9bf-d6e2-4720-8ae4-e41d31da67bf\n",
                         "summarizeBy: sum\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value3]\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
@@ -20128,10 +19835,8 @@
                         "groupByColumn: dNotaCPC\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: 1250715a-e39a-49e3-b978-90e6684c90c7\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value1]\n",
                         "sortByColumn: '_fCPC campo'\n",
                         "relatedColumnDetails\n",
@@ -20148,11 +19853,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: bbc59a53-a7c0-4e01-936b-be8c356df362\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value2]\n",
                         "sortByColumn: '_fCPC campo'\n",
                         "extendedProperty ParameterMetadata =\n",
@@ -20164,12 +19867,10 @@
                     "element": "column '_fCPC campo'",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "formatString: 0\n",
                         "lineageTag: 59f6d9a6-8f3a-494f-9de5-f4a0fa3865ba\n",
                         "summarizeBy: sum\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value3]\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
@@ -20179,10 +19880,8 @@
                     "element": "column Tipo",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: 7559fdf0-8b97-491c-8dc7-f9c40ff38f4a\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value4]\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
@@ -20253,10 +19952,8 @@
                         "groupByColumn: '_fEficiênciaAcadêmica Campos'\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: 1e547997-e292-466e-a3d7-757001da72d1\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value1]\n",
                         "sortByColumn: '_fEficiênciaAcadêmica Pedido'\n",
                         "relatedColumnDetails\n",
@@ -20273,11 +19970,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: 2c202c54-bb05-4474-8ea0-f0cfaf6d680f\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value2]\n",
                         "sortByColumn: '_fEficiênciaAcadêmica Pedido'\n",
                         "extendedProperty ParameterMetadata =\n",
@@ -20289,12 +19984,10 @@
                     "element": "column '_fEficiênciaAcadêmica Pedido'",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "formatString: 0\n",
                         "lineageTag: 38ce8cd6-081c-47ad-a53c-9543f709be02\n",
                         "summarizeBy: sum\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value3]\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
@@ -20310,10 +20003,8 @@
                     "element": "column Valor",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: 931ff097-4762-43c1-901d-63215cae4607\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value4]\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
@@ -20398,10 +20089,8 @@
                         "groupByColumn: '_fIGC Campos'\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: c49f6554-fc62-4232-b036-03aa92dbccb5\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value1]\n",
                         "sortByColumn: '_fIGC Pedido'\n",
                         "relatedColumnDetails\n",
@@ -20418,11 +20107,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: db4f65fd-5cc5-4d1d-bf98-7321af1cd65d\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value2]\n",
                         "sortByColumn: '_fIGC Pedido'\n",
                         "extendedProperty ParameterMetadata =\n",
@@ -20434,12 +20121,10 @@
                     "element": "column '_fIGC Pedido'",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "formatString: 0\n",
                         "lineageTag: c2c170fd-fdf5-41e0-842e-99f94d984789\n",
                         "summarizeBy: sum\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value3]\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
@@ -20529,10 +20214,8 @@
                         "groupByColumn: 'Indicador de Acompanhamento'\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: 577d5900-d1bb-4b31-81c2-ee190d8d26b3\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value1]\n",
                         "sortByColumn: 'fIndAcompOrc Pedido'\n",
                         "relatedColumnDetails\n",
@@ -20549,11 +20232,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: 2ae2a92f-2f1c-4389-8d0b-f2ca91210654\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value2]\n",
                         "sortByColumn: 'fIndAcompOrc Pedido'\n",
                         "extendedProperty ParameterMetadata =\n",
@@ -20565,12 +20246,10 @@
                     "element": "column 'fIndAcompOrc Pedido'",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "formatString: 0\n",
                         "lineageTag: f0f98829-89e9-42b9-aa81-df738fd55aef\n",
                         "summarizeBy: sum\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value3]\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
@@ -20583,10 +20262,8 @@
                     "element": "column 'Contexto Orçamentário'",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: fc1e081c-9896-403a-9ef2-c7722815c596\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value4]\n",
                         "sortByColumn: Ordem\n",
                         "changedProperty = SortByColumn\n",
@@ -20604,11 +20281,9 @@
                     "element": "column Ordem",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "formatString: 0\n",
                         "lineageTag: 87b6924a-1843-4b4e-a9b0-a354f9c1539e\n",
                         "summarizeBy: sum\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value5]\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
@@ -20738,10 +20413,8 @@
                         "groupByColumn: 'Indicadores Matrículas Campos'\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: 9fcc1c7e-45a1-4792-ae06-a03f159d7dd7\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value1]\n",
                         "sortByColumn: 'Indicadores Matrículas Pedido'\n",
                         "relatedColumnDetails\n",
@@ -20758,11 +20431,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: bc8c78cf-1f39-4b94-a096-7a85d84c432e\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value2]\n",
                         "sortByColumn: 'Indicadores Matrículas Pedido'\n",
                         "extendedProperty ParameterMetadata =\n",
@@ -20774,12 +20445,10 @@
                     "element": "column 'Indicadores Matrículas Pedido'",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "formatString: 0\n",
                         "lineageTag: 6d0bb923-3355-4159-9988-e763be2527db\n",
                         "summarizeBy: sum\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value3]\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
@@ -20789,10 +20458,8 @@
                     "element": "column '_fMatrícula | Valor'",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: 33811998-42e7-4136-9ca5-6b5f0e6a73e7\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value4]\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
@@ -21012,11 +20679,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: 6e61c404-87f8-4b1e-b08a-5970dfd73a4f\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value2]\n",
                         "sortByColumn: 'fOrçamento Pedido'\n",
                         "extendedProperty ParameterMetadata =\n",
@@ -21028,12 +20693,10 @@
                     "element": "column 'fOrçamento Pedido'",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "formatString: 0\n",
                         "lineageTag: cb58aa8c-a492-4659-a1dd-3d6f0a846064\n",
                         "summarizeBy: sum\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value3]\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
@@ -21043,10 +20706,8 @@
                     "element": "column Contexto",
                     "calculation": [],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: 19f9befd-3e9a-481b-8fd4-3c5358163a83\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value4]\n",
                         "sortByColumn: Valor\n",
                         "changedProperty = SortByColumn\n",
@@ -21060,11 +20721,9 @@
                     "element": "column Valor",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "formatString: 0\n",
                         "lineageTag: 66f5e160-81c7-4b8e-a72f-8d9e9ea20b6b\n",
                         "summarizeBy: sum\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value5]\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
@@ -21152,10 +20811,8 @@
                         "groupByColumn: '_GraficoIV Campos'\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: b2741d9f-475d-4c57-a43a-757ef1c39512\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value1]\n",
                         "sortByColumn: '_GraficoIV Pedido'\n",
                         "relatedColumnDetails\n",
@@ -21172,11 +20829,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: 7b4490ca-dc08-4e92-9feb-817beddee557\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value2]\n",
                         "sortByColumn: '_GraficoIV Pedido'\n",
                         "extendedProperty ParameterMetadata =\n",
@@ -21188,12 +20843,10 @@
                     "element": "column '_GraficoIV Pedido'",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "formatString: 0\n",
                         "lineageTag: 5d38fdfe-06b1-4c20-96ee-ed4efb5702de\n",
                         "summarizeBy: sum\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value3]\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
@@ -21252,10 +20905,8 @@
                         "groupByColumn: 'RealçarData Campos'\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: e997d8f7-17ee-488a-a4b4-6e1af220f1a4\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value1]\n",
                         "sortByColumn: 'RealçarData Pedido'\n",
                         "relatedColumnDetails\n",
@@ -21272,11 +20923,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: 1ec8bf1a-8ec3-4cee-9a1c-aaaa337f8c95\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value2]\n",
                         "sortByColumn: 'RealçarData Pedido'\n",
                         "extendedProperty ParameterMetadata =\n",
@@ -21288,12 +20937,10 @@
                     "element": "column 'RealçarData Pedido'",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "formatString: 0\n",
                         "lineageTag: 7a3f700b-9f29-4ca4-8a96-527c21a6913c\n",
                         "summarizeBy: sum\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value3]\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]
@@ -21344,10 +20991,8 @@
                         "groupByColumn: '_TabelaIV Campos'\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "lineageTag: 08382b40-9ec7-41a7-b835-533aafcfd4c3\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value1]\n",
                         "sortByColumn: '_TabelaIV Pedido'\n",
                         "relatedColumnDetails\n",
@@ -21364,11 +21009,9 @@
                         "\t}\n"
                     ],
                     "properties": [
-                        "dataType: string\n",
                         "isHidden\n",
                         "lineageTag: af6a16ed-bb96-4239-9f12-2dcc0c0be78f\n",
                         "summarizeBy: none\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value2]\n",
                         "sortByColumn: '_TabelaIV Pedido'\n",
                         "extendedProperty ParameterMetadata =\n",
@@ -21380,12 +21023,10 @@
                     "element": "column '_TabelaIV Pedido'",
                     "calculation": [],
                     "properties": [
-                        "dataType: int64\n",
                         "isHidden\n",
                         "formatString: 0\n",
                         "lineageTag: ebd74d41-f45c-4f6e-934f-c66fdd86a4fa\n",
                         "summarizeBy: sum\n",
-                        "isDataTypeInferred\n",
                         "sourceColumn: [Value3]\n",
                         "annotation SummarizationSetBy = Automatic\n"
                     ]

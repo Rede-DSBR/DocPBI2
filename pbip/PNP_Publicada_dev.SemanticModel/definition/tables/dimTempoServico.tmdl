@@ -1,0 +1,58 @@
+/// @description Essa tabela é utilizada para categorizar e agrupar os funcionários de acordo com o tempo de serviço na IES.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table dimTempoServico
+	lineageTag: 62d768df-7456-45b3-8d8b-c428f11c595f
+
+	column skTempoServico
+		dataType: int64
+		formatString: 0
+		lineageTag: e40f955f-cb62-4e83-9038-a6ecbbb37ca1
+		summarizeBy: none
+		sourceColumn: skTempoServico
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Faixa de tempo de serviço do servidor desde o ingresso na carreira
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Cargos da carreira; Cargos e funções gratificadas
+	column TempoServico
+		dataType: string
+		lineageTag: 5b597e00-f550-4ad3-b870-8154ad38c56e
+		summarizeBy: none
+		sourceColumn: TempoServico
+
+		annotation SummarizationSetBy = Automatic
+
+	column TempoReferencia
+		dataType: int64
+		formatString: 0
+		lineageTag: 13c7ca4c-7e3a-43d4-b4b6-51add611c1a9
+		summarizeBy: sum
+		sourceColumn: TempoReferencia
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dimTempoServico-528a3da1-9bde-43bb-b7e1-939b17c5e6d8 = m
+		mode: import
+		queryGroup: 'Modelo Gestão de Pessoas\Dimensões'
+		source =
+				let
+				    Fonte = Csv.Document(Binary.Decompress(Web.Contents(AWS&"dimTempoServico.csv.gz"),Compression.GZip),[Delimiter=",", Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"TempoReferencia", Int64.Type}, {"skTempoServico", Int64.Type}}),
+				    #"Valor Substituído" = Table.ReplaceValue(#"Tipo Alterado"," Menos que 2 anos","< 02 Anos",Replacer.ReplaceText,{"TempoServico"}),
+				    #"Valor Substituído1" = Table.ReplaceValue(#"Valor Substituído","De ","",Replacer.ReplaceText,{"TempoServico"}),
+				    #"Texto Aparado" = Table.TransformColumns(#"Valor Substituído1",{{"TempoServico", Text.Trim, type text}}),
+				    #"Valor Substituído2" = Table.ReplaceValue(#"Texto Aparado","2 a 4 anos","02 a 04 anos",Replacer.ReplaceText,{"TempoServico"}),
+				    #"Valor Substituído3" = Table.ReplaceValue(#"Valor Substituído2","4 a 6 anos","04 a 06 anos",Replacer.ReplaceText,{"TempoServico"}),
+				    #"Valor Substituído4" = Table.ReplaceValue(#"Valor Substituído3","4 a 8 anos","06 a 08 anos",Replacer.ReplaceText,{"TempoServico"}),
+				    #"Valor Substituído5" = Table.ReplaceValue(#"Valor Substituído4","8 a 10 anos","08 a 10 anos",Replacer.ReplaceText,{"TempoServico"})
+				in
+				    #"Valor Substituído5"
+
+	annotation PBI_ResultType = Table
+

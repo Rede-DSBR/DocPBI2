@@ -1,0 +1,62 @@
+/// @description A tabela "Brasao" armazena informações sobre os brasões das unidades organizacionais de uma instituição, incluindo a URL dos arquivos de imagem e uma representação em formato Base64.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table Brasao
+	lineageTag: 41d1bd5e-e637-4924-b0bf-a4aa3c783f0e
+
+	/// @description Código UO
+	column UO
+		dataType: string
+		lineageTag: 29592e41-0c99-46c4-abee-aadf2e249d7e
+		summarizeBy: none
+		sourceColumn: UO
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Endereço URL da imagem do Brasão
+	column URL_Brasao
+		dataType: string
+		lineageTag: ab754f77-2c09-441f-ab9b-216224564fdc
+		dataCategory: ImageUrl
+		summarizeBy: none
+		sourceColumn: URL_Brasao
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Endereço URL do fundo do Brasão
+	column URL_Fundo
+		dataType: string
+		lineageTag: 8a583b13-1a34-4a7b-bdb8-47089e2d4d56
+		dataCategory: ImageUrl
+		summarizeBy: none
+		sourceColumn: URL_Fundo
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Imagem do Brasão no formato Base 64
+	column Base64_Brasao
+		dataType: string
+		lineageTag: ae74f667-296d-4d0e-a5e5-b901d1a3bdd1
+		dataCategory: ImageUrl
+		summarizeBy: none
+		sourceColumn: Base64_Brasao
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Brasao-add46ae8-c58e-45ef-82a6-57e93c8e57f2 = m
+		mode: import
+		queryGroup: Instagram
+		source =
+				let
+				    Fonte = Csv.Document(Binary.Decompress(Web.Contents(#"AWS TG"&"Brasao.csv.gz"),Compression.GZip),[Delimiter=";", Columns=4, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"UO", type text}, {"URL_Brasao", type text}, {"URL_Fundo", type text}, {"Base64_Brasao", type text}}),
+				    #"Valor Substituído" = Table.ReplaceValue(#"Tipo Alterado","https://storage.googleapis.com/power-bi-static-assets-mec-dsbr/thumb/",GCS&"brasoes/",Replacer.ReplaceText,{"URL_Brasao"}),
+				    #"Valor Substituído1" = Table.ReplaceValue(#"Valor Substituído","https://storage.googleapis.com/power-bi-static-assets-mec-dsbr/thumb/",GCS&"brasoes/",Replacer.ReplaceText,{"URL_Fundo"}),
+				    #"Valor Substituído2" = Table.ReplaceValue(#"Valor Substituído1",".png",".img",Replacer.ReplaceText,{"URL_Brasao", "URL_Fundo"})
+				in
+				    #"Valor Substituído2"
+
+	annotation PBI_ResultType = Table
+

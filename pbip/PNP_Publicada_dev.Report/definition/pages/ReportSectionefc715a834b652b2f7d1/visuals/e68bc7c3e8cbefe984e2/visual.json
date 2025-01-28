@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.2.0/schema.json",
+  "name": "e68bc7c3e8cbefe984e2",
+  "position": {
+    "x": 986.5326633165829,
+    "y": 145.92964824120602,
+    "z": 8000,
+    "height": 33.768844221105525,
+    "width": 227.9396984924623,
+    "tabOrder": 7000
+  },
+  "visualGroup": {
+    "displayName": "Botão de contexto",
+    "groupMode": "ScaleMode"
+  }
+}

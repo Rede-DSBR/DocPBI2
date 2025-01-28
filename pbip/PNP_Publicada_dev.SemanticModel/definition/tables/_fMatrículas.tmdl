@@ -1,0 +1,134 @@
+/// @description Tabela para parâmetro de campos referente a Matrículas
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table _fMatrículas
+	lineageTag: 684ffd14-cb01-4884-abaf-fa61b1fac1d8
+
+	/// @description Métrica para funcionamento de componente visual
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure '_fMatrículas | Slider Valor Absoluto' =
+			
+			/*
+			@description Métrica para funcionamento de componente visual
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			IF((VALUES('_fMatrículas'[_fMatrícula | Valor])= "Valor Absoluto"), "Valor Absoluto", "Valor Absoluto")
+		displayFolder: _fMatrícula | Slider
+		lineageTag: c8c39144-511c-4c85-8a9c-6405a8e66d1e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Métrica para funcionamento de componente visual
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure '_fMatrículas | Slider Valor %' =
+			
+			/*
+			@description Métrica para funcionamento de componente visual
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			IF((VALUES('_fMatrículas'[_fMatrícula | Valor])= "Valor %"), "Valor %", "Valor %")
+		displayFolder: _fMatrícula | Slider
+		lineageTag: ffb1c36f-894a-4a7b-8c67-d8f2fb6258ff
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Métrica para funcionamento de componente visual
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure '_fMatrículas | Slider Indicador' =
+			
+			/*
+			@description Métrica para funcionamento de componente visual
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			SWITCH(VALUES('_fMatrículas'[_fMatrícula | Valor]), "Valor Absoluto", -1, "Valor %", 1)
+		displayFolder: _fMatrícula | Slider
+		lineageTag: 38f78150-bdb6-413f-bdbc-97a48ede71f1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Indicadores Matrículas'
+		lineageTag: 9fcc1c7e-45a1-4792-ae06-a03f159d7dd7
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Indicadores Matrículas Pedido'
+
+		relatedColumnDetails
+			groupByColumn: 'Indicadores Matrículas Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Indicadores Matrículas Campos'
+		isHidden
+		lineageTag: bc8c78cf-1f39-4b94-a096-7a85d84c432e
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Indicadores Matrículas Pedido'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "kind": 2,
+				  "version": 3
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Indicadores Matrículas Pedido'
+		isHidden
+		formatString: 0
+		lineageTag: 6d0bb923-3355-4159-9988-e763be2527db
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column '_fMatrícula | Valor'
+		lineageTag: 33811998-42e7-4136-9ca5-6b5f0e6a73e7
+		summarizeBy: none
+		sourceColumn: [Value4]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _fMatrículas-d0659c55-c632-44cb-91cc-d85cfb8b079e = calculated
+		mode: import
+		source = ```
+				{
+				    
+				//Valor Absoluto
+				
+				    ("Unidades", NAMEOF(dimUnidade[Número de Unidades]), 0, "Valor Absoluto"),
+				    ("Cursos", NAMEOF('fSituaçãoMatrícula'[Número de cursos]), 1, "Valor Absoluto"),
+				    ("Matrículas", NAMEOF('fSituaçãoMatrícula'[Número de Matrículas]), 2, "Valor Absoluto"),
+				    ("Matrículas Equivalentes", NAMEOF(MedidasIndicadores[Matrícula Equivalente | Geral]), 3, "Valor Absoluto"),
+				    ("Vagas", NAMEOF('fSituaçãoMatrícula'[Número de vagas]), 4, "Valor Absoluto"),
+				    ("Inscritos", NAMEOF('fSituaçãoMatrícula'[Número de inscritos]), 5, "Valor Absoluto"),
+				    ("Ingressantes", NAMEOF('fSituaçãoMatrícula'[Número de ingressantes]), 6, "Valor Absoluto"),
+				    ("Concluintes", NAMEOF('fSituaçãoMatrícula'[Número de concluintes]), 7, "Valor Absoluto"),
+				
+				//Valor %
+				
+				    ("Unidades %", NAMEOF(dimUnidade[% de Número de Unidades]), 8, "Valor %"),
+				    ("Cursos %", NAMEOF('fSituaçãoMatrícula'[% de Número de cursos]), 9, "Valor %"),
+				    ("Matrículas %", NAMEOF('fSituaçãoMatrícula'[% de Número de Matrículas]), 10, "Valor %"),
+				    ("Matrículas Equivalentes %", NAMEOF(MedidasIndicadores[% de Matrícula Equivalente | Geral]), 11, "Valor %"),
+				    ("Vagas %", NAMEOF('fSituaçãoMatrícula'[% de Número de vagas]), 12, "Valor %"),
+				    ("Inscritos %", NAMEOF('fSituaçãoMatrícula'[% de Número de inscritos]), 13, "Valor %"),
+				    ("Ingressantes %", NAMEOF('fSituaçãoMatrícula'[% de Número de ingressantes]), 14, "Valor %"),
+				    ("Concluintes %", NAMEOF('fSituaçãoMatrícula'[% de Número de concluintes]), 15, "Valor %")
+				}
+				```
+
+	annotation PBI_Id = f8d411341f7c4dea9a9b9b3035e90ccf
+

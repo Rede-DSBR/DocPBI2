@@ -1,0 +1,294 @@
+/// @description Essa tabela é utilizada para armazenar informações financeiras de uma organização, permitindo o controle e análise das ações financeiras realizadas em um determinado período. As informações contidas nas colunas permitem identificar a origem das ações financeiras, o tipo de despesa realizada e o valor total das liquidações financeiras.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table fFinanceiro
+	lineageTag: 8f916eb7-004f-48ec-9947-a176c0a727dd
+
+	/// @description Gastos correntes (liquidações totais) com Pessoal
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Indicadores de Gastos
+	measure 'Gastos Correntes | Pessoal' = ```
+			
+			/*
+			@description Gastos correntes (liquidações totais) com Pessoal
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Indicadores de Gastos
+			*/
+			CALCULATE(
+			    SUM(fFinanceiro[LiquidacoesTotais]), 
+			    fFinanceiro[GND]  IN {"1"} ||
+			    (fFinanceiro[Acao] IN {"2011", "2012", "2004", "212B", "0536", "536"} && YEAR(fFinanceiro[Ano]) >= 2019) || 
+			    (fFinanceiro[NDD] IN {33914712} && YEAR(fFinanceiro[Ano]) >= 2021) /* ||
+			    (fFinanceiro[Acao] IN {"2011", "2012", "2004", "2010"} && YEAR(fFinanceiro[Ano]) <= 2017) */
+			)
+			```
+		lineageTag: 7ced4bc8-f3fb-4e0a-82a3-dc74c4893c34
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Gastos Correntes (liquidações totais) com Inativos e Pensionistas
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Indicadores de Gastos
+	measure 'Gastos Correntes | Inativos e Pensionistas' =
+			
+			/*
+			@description Gastos Correntes (liquidações totais) com Inativos e Pensionistas
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Indicadores de Gastos
+			*/
+			CALCULATE(SUM(fFinanceiro[LiquidacoesTotais]),fFinanceiro[Acao] =  "0181" || fFinanceiro[Acao] =  "181")
+		lineageTag: a7d5b0ea-d32e-4803-b063-375a31043d5a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Aplicações Correntes (liquidações totais) com Investimentos e Inversões Financeiras
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Indicadores de Gastos
+	measure 'Gastos Correntes | Investimentos e Inversões Financeiras' =
+			
+			/*
+			@description Aplicações Correntes (liquidações totais) com Investimentos e Inversões Financeiras
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Indicadores de Gastos
+			*/
+			CALCULATE(SUM(fFinanceiro[LiquidacoesTotais]), fFinanceiro[GND] IN {"4", "5"})
+		lineageTag: be3c2e12-4e1e-4b75-b73a-d99728940e66
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Gastos Correntes (liquidações totais) com Outros Custeios
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Indicadores de Gastos
+	measure 'Gastos Correntes | Outros Custeios' =
+			
+			/*
+			@description Gastos Correntes (liquidações totais) com Outros Custeios
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Indicadores de Gastos
+			*/
+			CALCULATE (
+			    SUM ( fFinanceiro[LiquidacoesTotais] ),
+			        (
+			            NOT fFinanceiro[Acao]
+			                IN { "2011", "2012", "2004", "212B", "536", "0536"}
+			                    && YEAR ( fFinanceiro[Ano] ) >= 2019 && fFinanceiro[GND] == "3"
+			        )
+			            || (
+			                NOT fFinanceiro[Acao]
+			                    IN { "2004", "2010", "2011", "2012", "20CW", "00M1" }
+			                        && YEAR ( fFinanceiro[Ano] ) == 2018 && fFinanceiro[GND] == "3"
+			            ) || (
+			                NOT fFinanceiro[Acao]
+			                    IN { "2004", "2010", "2011", "2012", "20CW", "00M1" }
+			                        && YEAR ( fFinanceiro[Ano] ) == 2017 && fFinanceiro[GND] == "3"
+			            )
+			) //Verificar 2017
+		lineageTag: 8ff0304c-a216-4280-a04d-96a755e9405c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Gastos Correntes (liquidações totais) com Pis-Pasep
+	/// @author dsbr
+	/// @version 1
+	measure 'Gastos Correntes | Pis-Pasep' =
+			/*
+			@description Gastos Correntes (liquidações totais) com Pis-Pasep
+			@author dsbr
+			@version 1
+			*/
+			CALCULATE(SUM(fFinanceiro[LiquidacoesTotais]),fFinanceiro[NDD] =  33914712)
+		lineageTag: ef5c07a8-70ff-46f4-831a-208bd52d33c5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Gastos totais excluindo Gastos Correntes com Investimentos e Inversões Financeiras, com Precatórios e com Inativos e Pensionistas
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Indicadores de Gastos
+	measure 'Gastos Correntes | Gastos Correntes' = ```
+			/*
+			@description Gastos totais excluindo Gastos Correntes com Investimentos e Inversões Financeiras, com Precatórios e com Inativos e Pensionistas
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Indicadores de Gastos
+			*/
+			VAR ANO =
+			    SELECTEDVALUE ( 'dCalendário'[Ano] )
+			RETURN
+			    IF (
+			        ANO <= 2017,
+			        [Gastos Correntes | Gastos Totais] - [Gastos Correntes | Inativos e Pensionistas] - fFinanceiro[Gastos Correntes | Investimentos e Inversões Financeiras],
+			        [Gastos Correntes | Gastos Totais] - [Gastos Correntes | Precatórios] - [Gastos Correntes | Inativos e Pensionistas] - fFinanceiro[Gastos Correntes | Investimentos e Inversões Financeiras]
+			    )
+			
+			```
+		lineageTag: 5e67ac8e-22a8-4199-930e-db8fa297da70
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Total de liquidações totais excluindo Gastos Correntes com Pis-Pasep
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Indicadores de Gastos
+	measure 'Gastos Correntes | Gastos Totais' =
+			
+			/*
+			@description Total de liquidações totais excluindo Gastos Correntes com Pis-Pasep
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Indicadores de Gastos
+			*/
+			SUMX(fFinanceiro, fFinanceiro[LiquidacoesTotais] - IF(YEAR(fFinanceiro[Ano])<=2018,0,[Gastos Correntes | Pis-Pasep]))
+		lineageTag: 3872ff8f-15b2-4b2a-90b0-2e16e4802f98
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Gastos Correntes (liquidações totais) com Precatórios
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Indicadores de Gastos
+	measure 'Gastos Correntes | Precatórios' =
+			
+			/*
+			@description Gastos Correntes (liquidações totais) com Precatórios
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Indicadores de Gastos
+			*/
+			
+			CALCULATE(SUM(fFinanceiro[LiquidacoesTotais]),
+			    fFinanceiro[Acao] = "0005" || fFinanceiro[Acao] =  "5"
+			)
+		lineageTag: ff3a7695-6a5c-4d18-8ae8-19d5d42c0a1c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Gasto corrente por matrícula
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Indicadores de Gastos
+	measure Gastos_Correntes_matricula =
+			
+			/*
+			@description Gasto corrente por matrícula
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Indicadores de Gastos
+			*/
+			DIVIDE(
+			    fFinanceiro[Gastos Correntes | Gastos Correntes],
+			    [Matrícula Equivalente Apresentada Geral])
+		formatString: #,0.00
+		lineageTag: 2ebffead-2b53-45d2-8723-bf9b18a9d588
+
+		changedProperty = FormatString
+
+	/// @description Total de matrículas multiplicadas pelo Fator de Equiparação de Carga Horária
+	/// @author dsbr
+	/// @version 1
+	measure meq =
+			/*
+			@description Total de matrículas multiplicadas pelo Fator de Equiparação de Carga Horária
+			@author dsbr
+			@version 1
+			*/
+			CALCULATE(ROUND([Número de Matrículas] * dimCurso[FECH],2))
+		lineageTag: c6dfe8e3-feac-46f1-a780-b1df9d184ec8
+
+	/// @description Ano
+	column Ano
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c2371ec5-2e5b-4eb1-bca7-3967a5455dc3
+		summarizeBy: none
+		sourceColumn: Ano
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// @description Código UO
+	column UO
+		dataType: int64
+		formatString: 0
+		lineageTag: c22a57d8-7187-42a8-9b89-c94e69dfe1d9
+		summarizeBy: none
+		sourceColumn: UO
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Nome da Ação
+	column Acao
+		dataType: string
+		lineageTag: 1e5003b5-2921-4017-9baf-89e75b05aeab
+		summarizeBy: none
+		sourceColumn: Acao
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Classificação de natureza de despesa detalhada
+	column NDD
+		dataType: int64
+		formatString: 0
+		lineageTag: 78794eb0-aa46-4e83-9dcf-c755b04e0489
+		summarizeBy: sum
+		sourceColumn: NDD
+
+		annotation SummarizationSetBy = Automatic
+
+	column GND
+		dataType: string
+		lineageTag: ae7bdc89-5798-47a2-bd76-0dbe39ebe7c8
+		summarizeBy: none
+		sourceColumn: GND
+
+		annotation SummarizationSetBy = Automatic
+
+	column LiquidacoesTotais
+		dataType: double
+		lineageTag: e5da6031-75e8-4d89-8e69-43ef84f4193f
+		summarizeBy: sum
+		sourceColumn: LiquidacoesTotais
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fFinanceiro-77e289f3-bce0-498b-bdac-a396a517f10d = m
+		mode: import
+		queryGroup: 'Modelo PNP\Fatos'
+		source =
+				let
+				    Fonte = Csv.Document(Binary.Decompress(Web.Contents(AWS&"fFinanceiro.csv.gz"),Compression.GZip),[Delimiter=";", Columns=6, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"LiquidacoesTotais", type number}, {"NDD", Int64.Type}, {"UO", Int64.Type}, {"Ano", type date}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_ResultType = Table
+

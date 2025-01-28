@@ -1,0 +1,1231 @@
+/// @description Fato execução orçamento
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table ItemDespesa
+	lineageTag: 27b93bad-0966-4f57-a0bc-ab8f4a8d3c55
+
+	/// @description Valor inicial constante do projeto de lei orçamentária elaborado pelo Poder
+	/// Executivo e enviado ao congresso.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Panorama Orçamentário; Explorar Dados
+	measure 'Projeto de Lei' =
+			
+			/*@description Valor inicial constante do projeto de lei orçamentária elaborado pelo Poder
+			Executivo e enviado ao congresso.
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Panorama Orçamentário; Explorar Dados
+			*/
+			
+			VAR ProjetoLei=CALCULATE(
+			        SUM('ItemDespesa'[ProjetoLei]),
+			        DATESYTD('dCalendário'[Data])
+			        )
+			RETURN
+			IF(
+			    COUNTROWS('ItemDespesa')>0,
+			        IF(ProjetoLei>0,ProjetoLei,BLANK()),
+			        BLANK()
+			        )
+		formatString: #,0.00
+		lineageTag: d5b66712-81d0-4003-a89e-103b8dc64789
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// @description Valor inicial constante do projeto de lei orçamentária no mesmo período do ano anterior
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'Projeto de Lei SPLY' = ```
+			
+			 /*@description Valor inicial constante do projeto de lei orçamentária no mesmo período do ano anterior
+			@author dsbr
+			@version 1
+			@date 03/11/2022*/
+			 VAR __lastDate =
+			    CALCULATE ( MAX ( ItemDespesa[DiaEmissao] ), ALL ( ItemDespesa ) )
+			VAR __currentPeriodAdjusted =
+			    FILTER ( VALUES ( 'dCalendário'[Data] ), 'dCalendário'[Data] <= __lastDate )
+			VAR __result =
+			    CALCULATE (
+			        [Projeto de Lei],
+			        DATESYTD ( DATEADD ( __currentPeriodAdjusted, -1, YEAR ) )
+			    )
+			RETURN
+			    __result
+			   
+			```
+		formatString: #,0.00
+		lineageTag: 3ca8c28e-6cdc-4be1-b02a-0edb2a4cea5f
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// @description São as autorizações de despesa não computadas ou insuficientemente dotadas na Lei de Orçamento.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Panorama Orçamentário; Explorar Dados
+	measure 'Dotação adicional' = ```
+			
+			  /*@description São as autorizações de despesa não computadas ou insuficientemente dotadas na Lei de Orçamento.
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Panorama Orçamentário; Explorar Dados
+			*/
+			 SUM(ItemDespesa[DotacaoEspecial])+SUM(ItemDespesa[DotacaoExtraordinaria])+SUM(ItemDespesa[DotacaoSuplementar])
+			```
+		formatString: #,0.00
+		lineageTag: 626584d7-5291-4c97-8cda-bd3c21054865
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// @description Porcentagem de execução da despesa
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure '% Execução' = ```
+			
+			  /*@description Porcentagem de execução da despesa
+			@author dsbr
+			@version 1
+			@date 03/11/2022*/
+			[Despesa liquidada]/[Dotação atualizada]
+			```
+		formatString: #,0.00
+		lineageTag: 95bfb93b-5497-4c7a-8923-8299d3ccd572
+
+	/// @description Porcentagem de execução do recurso
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure '% Execução Total' = ```
+			
+			  /*@description Porcentagem de execução do recurso
+			@author dsbr
+			@version 1
+			@date 03/11/2022*/
+			[Despesa liq&RP]/[Dotação atualizada]
+			```
+		formatString: #,0.00
+		lineageTag: 5654dbba-ab5e-4d0d-888d-ab3bb2af15b3
+
+	/// @description Créditos orçamentários correspondentes ao valor da dotação inicial e da adicional de receita aprovada no orçamento geral e liberada ou antecipada pela lei de diretrizes orçamentárias deduzida das despesas empenhadas e pré-empenhadas. Em suma, corresponde ao crédito orçamentário disponível ainda não executado (pré-empenhado ou empenhado).
+	/// @author dsbr
+	/// @version 1
+	/// @date 29/05/2023
+	/// @panel Panorama Orçamentário; Explorar Dados
+	measure 'Crédito Disponível' =
+			
+			/*
+			@description Créditos orçamentários correspondentes ao valor da dotação inicial e da adicional de receita aprovada no orçamento geral e liberada ou antecipada pela lei de diretrizes orçamentárias deduzida das despesas empenhadas e pré-empenhadas. Em suma, corresponde ao crédito orçamentário disponível ainda não executado (pré-empenhado ou empenhado).
+			@author dsbr
+			@version 1
+			@date 29/05/2023
+			@panel Panorama Orçamentário; Explorar Dados
+			*/
+			VAR CredDisp=CALCULATE(
+			        SUM('ItemDespesa'[CreditoDisponivel]),
+			        DATESYTD('dCalendário'[Data])
+			        )
+			RETURN
+			IF(
+			    COUNTROWS('ItemDespesa')>0,
+			        IF(CredDisp>0,CredDisp,BLANK()),
+			        BLANK()
+			        )
+		formatString: #,0.00
+		lineageTag: 94562daf-baf7-4c70-a813-c3a5f8deb0b2
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// @description Verifica o crédito de acordo com a data de parâmetro
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'Crédito Indisponível' = ```
+			
+			  /*@description Verifica o crédito de acordo com a data de parâmetro
+			@author dsbr
+			@version 1
+			@date 03/11/2022*/
+			IF(
+			    COUNTROWS('ItemDespesa')>0,
+			    CALCULATE(
+			        SUM('ItemDespesa'[CreditoIndisponivel]),
+			        DATESYTD('dCalendário'[Data])
+			        ),
+			        BLANK()
+			        )
+			```
+		formatString: #,0.00
+		lineageTag: 995f296c-ce5d-4566-87af-522e2f2138cb
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// @description Transferência de créditos entre diferentes órgãos do orçamento federal, do órgão de referência para outro órgão.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Panorama Orçamentário; Explorar Dados
+	measure 'Destaque Concedido' = ```
+			
+			   /*@description Transferência de créditos entre diferentes órgãos do orçamento federal, do órgão de referência para outro órgão.
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Panorama Orçamentário; Explorar Dados
+			*/
+			 SUM(ItemDespesa[DestaqueConcedido])
+			```
+		formatString: #,0.00
+		lineageTag: b9f1e05c-e516-4909-84c6-a3eaa434d8bd
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// @description Transferência de créditos entre diferentes órgãos do orçamento federal, de um órgão para o órgão de referência.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Panorama Orçamentário; Explorar Dados
+	measure 'Destaque Recebido' = ```
+			
+			   /*@description Transferência de créditos entre diferentes órgãos do orçamento federal, de um órgão para o órgão de referência.
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Panorama Orçamentário; Explorar Dados
+			*/
+			SUM(ItemDespesa[DestaqueRecebido])
+			```
+		formatString: #,0.00
+		lineageTag: 080f5de9-b7bd-4466-be31-79c8f04910c5
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// @description Dotação adicional no mesmo período do ano anterior
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'Dotação atualizada SPLY' = ```
+			
+			    /*@description Dotação adicional no mesmo período do ano anterior
+			@author dsbr
+			@version 1
+			@date 03/11/2022*/
+			 VAR __lastDate =
+			    CALCULATE ( MAX ( ItemDespesa[DiaEmissao] ), ALL ( ItemDespesa ) )
+			VAR __currentPeriodAdjusted =
+			    FILTER ( VALUES ( 'dCalendário'[Data] ), 'dCalendário'[Data] <= __lastDate )
+			VAR __result =
+			    CALCULATE (
+			        [Dotação atualizada],
+			        DATESYTD ( DATEADD ( __currentPeriodAdjusted, -1, YEAR ) )
+			    )
+			RETURN
+			    __result
+			   
+			```
+		formatString: #,0.00
+		lineageTag: 52da1741-adf9-4b02-867a-5092251fc833
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// @description É o valor monetário autorizado, consignado na lei do orçamento (LOA), somado a eventuais suplementações e deduzido de eventuais cancelamentos, para atender uma determinada programação orçamentária.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Panorama Orçamentário; Explorar Dados
+	measure 'Dotação atualizada' = ```
+			
+			    /*@description É o valor monetário autorizado, consignado na lei do orçamento (LOA), somado a eventuais suplementações e deduzido de eventuais cancelamentos, para atender uma determinada programação orçamentária.
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Panorama Orçamentário; Explorar Dados
+			*/
+			VAR DotAtul=CALCULATE(
+			        SUM('ItemDespesa'[DotacaoAtualizada]),
+			        DATESYTD('dCalendário'[Data])
+			        )
+			RETURN
+			IF(
+			    COUNTROWS('ItemDespesa')>0,
+			        IF(DotAtul>0,DotAtul,BLANK()),
+			        BLANK()
+			        )
+			```
+		formatString: #,0.00
+		lineageTag: cd799857-6b26-4cd5-ac8b-0638df2d47e4
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// @description Cancelamento é a redução de dotarção orçamentária. Já o remanejamento é resultante de anulação parcial ou total de dotações orçamentárias ou de créditos adicionais, autorizados em Lei.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Panorama Orçamentário; Explorar Dados
+	measure 'Dotação Cancelada e Remanejada' = ```
+			
+			    /*@description Cancelamento é a redução de dotarção orçamentária. Já o remanejamento é resultante de anulação parcial ou total de dotações orçamentárias ou de créditos adicionais, autorizados em Lei.
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Panorama Orçamentário; Explorar Dados
+			*/
+			SUM(ItemDespesa[DotacaoCancRem])
+			```
+		formatString: #,0.00
+		lineageTag: bc3ed06d-f2a0-41e1-9958-73d40f68559a
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// @description Valor inicial constante da lei orçamentária sancionada pelo Presidente.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Panorama Orçamentário; Explorar Dados
+	measure 'Dotação inicial' = ```
+			
+			    /*@description Valor inicial constante da lei orçamentária sancionada pelo Presidente.
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Panorama Orçamentário; Explorar Dados
+			*/
+			VAR DotInicial=CALCULATE(
+			        SUM('ItemDespesa'[DotacaoInicial]),
+			        DATESYTD('dCalendário'[Data])
+			        )
+			RETURN
+			IF(
+			    COUNTROWS('ItemDespesa')>0,
+			        IF(DotInicial>0,DotInicial,BLANK()),
+			        BLANK()
+			        )
+			```
+		formatString: #,0.00
+		lineageTag: 960dfa6b-4af7-4da9-b83a-2e4b05417e4c
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// @description Valor inicial constante da lei orçamentária no mesmo periodo do ano anterior
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'Dotação Inicial SPLY' = ```
+			
+			    /*@description Valor inicial constante da lei orçamentária no mesmo periodo do ano anterior
+			@author dsbr
+			@version 1
+			@date 03/11/2022*/
+			VAR __lastDate =
+			    CALCULATE ( MAX ( ItemDespesa[DiaEmissao] ), ALL ( ItemDespesa ) )
+			VAR __currentPeriodAdjusted =
+			    FILTER ( VALUES ( 'dCalendário'[Data] ), 'dCalendário'[Data] <= __lastDate )
+			VAR __result =
+			    CALCULATE (
+			        [Dotação inicial],
+			        DATESYTD ( DATEADD ( __currentPeriodAdjusted, -1, YEAR ) )
+			    )
+			RETURN
+			    __result
+			   
+			```
+		formatString: #,0.00
+		lineageTag: 2fd99fb5-3952-4d82-8cb5-c74615d79baa
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// @description Dotação Suplementar
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'Dotação Suplementar' = ```
+			
+			    /*@description Dotação Suplementar
+			@author dsbr
+			@version 1
+			@date 03/11/2022*/
+			SUM(ItemDespesa[DotacaoSuplementar])
+			```
+		formatString: #,0.00
+		lineageTag: af172511-b223-4649-b5d6-af8261e3c884
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// @description Dotação Suplementar no mesmo período do ano anterior
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'Dotação Suplementar SPLY' = ```
+			
+			     /*@description Dotação Suplementar no mesmo período do ano anterior
+			@author dsbr
+			@version 1
+			@date 03/11/2022*/
+			 VAR __lastDate =
+			    CALCULATE ( MAX ( ItemDespesa[DiaEmissao] ), ALL ( ItemDespesa ) )
+			VAR __currentPeriodAdjusted =
+			    FILTER ( VALUES ( 'dCalendário'[Data] ), 'dCalendário'[Data] <= __lastDate )
+			VAR __result =
+			    CALCULATE (
+			        [Dotação Suplementar],
+			        DATESYTD ( DATEADD ( __currentPeriodAdjusted, -1, YEAR ) )
+			    )
+			RETURN
+			    __result
+			   
+			```
+		formatString: #,0.00
+		lineageTag: b0f9ad37-7956-4dc6-9abc-586889c5ff94
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// @description Quantidade de orçamento não liquidado do exercício
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'Orçamento não liquidado do exercício' = ```
+			
+			      /*@description Quantidade de orçamento não liquidado do exercício
+			@author dsbr
+			@version 1
+			@date 03/11/2022*/
+			 [Crédito Disponível]+[Despesa empenhada a liquidar]
+			```
+		formatString: #,0.00
+		lineageTag: 33aaf02f-c874-4123-b262-d4d3a15ee6af
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// @description  Quantidade de orçamento não liquidado total
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'Orçamento não liquidado total' = ```
+			
+			       /*@description  Quantidade de orçamento não liquidado total
+			@author dsbr
+			@version 1
+			@date 03/11/2022*/
+			 [Orçamento não liquidado do exercício]+[RAP não processados a liquidar]
+			```
+		formatString: #,0.00
+		lineageTag: 212b1b97-f53e-4361-8857-93aa93c2754a
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// @description Transferência de créditos entre diferentes unidades gestoras executoras de um mesmo órgão.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'Provisão Recebida' = ```
+			
+			       /*@description Transferência de créditos entre diferentes unidades gestoras executoras de um mesmo órgão.
+			@author dsbr
+			@version 1
+			@date 03/11/2022*/
+			SUM(ItemDespesa[ProvisaoRecebida])
+			```
+		formatString: #,0.00
+		lineageTag: 3c6cac5a-4604-4867-9dd7-982173ccbbf8
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// @description Restos a pagar não processados inscritos
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'RAP não processado inscrito' = ```
+			
+			        /*@description Restos a pagar não processados inscritos
+			@author dsbr
+			@version 1
+			@date 03/11/2022*/
+			 SUM(ItemDespesa[RAPNProcInscrito])
+			```
+		formatString: #,0.00
+		lineageTag: 604b39c5-9fe0-441c-9d57-93b29adb74f6
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// @description Restos a pagar não processados reinscritos
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'RAP não processado reinscrito' = ```
+			
+			        /*@description Restos a pagar não processados reinscritos
+			@author dsbr
+			@version 1
+			@date 03/11/2022*/
+			SUM(ItemDespesa[RAPNProcReinscrito])
+			```
+		formatString: #,0.00
+		lineageTag: 1116dc05-d372-4b8f-b4bf-57e900cd9ff2
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// @description Restos a pagar processados inscritos
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'RAP Processado Inscrito' = ```
+			
+			         /*@description Restos a pagar processados inscritos
+			@author dsbr
+			@version 1
+			@date 03/11/2022*/
+			 SUM(ItemDespesa[RAPProcInscrito])
+			```
+		formatString: #,0.00
+		lineageTag: 4488acab-617c-40c1-9f96-3ce98acacf21
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// @description Restos a pagar processados reinscritos
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'RAP Processado Reinscrito' = ```
+			
+			        /*@description Restos a pagar processados reinscritos
+			@author dsbr
+			@version 1
+			@date 03/11/2022*/
+			SUM(ItemDespesa[RAPProcReinscrito])
+			```
+		formatString: #,0.00
+		lineageTag: f386557a-baf8-44ea-bcdb-3aef28d9c8da
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// @description Data da última atualização do orçamento
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'Última atualização orçamento' = ```
+			
+			        /*@description Data da última atualização do orçamento
+			@author dsbr
+			@version 1
+			@date 03/11/2022*/
+			
+			VALUES(Atualizacao[Atualizacao_TG])
+			```
+		formatString: #,0.00
+		lineageTag: 1b4e00ee-189f-48ee-817a-3b7975146474
+
+	/// % [Projeto de Lei]
+	measure '% de Projeto de Lei' =
+			
+			/*
+			@description % de Projeto de Lei
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			DIVIDE([Projeto de Lei],CALCULATE([Projeto de Lei],ALLSELECTED()))
+		formatString: 0.00%
+		lineageTag: 3ac55e84-4b60-49ad-afbe-25c2e9643c07
+
+	/// % [Dotação adicional]
+	measure '% de Dotação adicional' =
+			
+			/*
+			@description % de Dotação adicional
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			DIVIDE([Dotação adicional],CALCULATE([Dotação adicional],ALLSELECTED()))
+		formatString: 0.00%
+		lineageTag: 954934b5-8cce-40fe-887e-fbf86869d47f
+
+	/// % [Crédito Disponível]
+	measure '% de Crédito Disponível' =
+			
+			/*
+			@description % de Crédito Disponível
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			DIVIDE([Crédito Disponível],CALCULATE([Crédito Disponível],ALLSELECTED()))
+		formatString: 0.00%
+		lineageTag: 81836d23-0a0d-4438-91e2-807e5c72b15f
+
+	/// % [Crédito Indisponível]
+	measure '% de Crédito Indisponível' =
+			
+			/*
+			@description % de Crédito Indisponível
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			DIVIDE([Crédito Indisponível],CALCULATE([Crédito Indisponível],ALLSELECTED()))
+		formatString: 0.00%
+		lineageTag: 4616f27e-a4fa-45d1-bde5-69be44fa1c9f
+
+	/// % [Destaque Concedido]
+	measure '% de Destaque Concedido' = ```
+			
+			
+			/*
+			@description % de Destaque Concedido
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			DIVIDE([Destaque Concedido],CALCULATE([Destaque Concedido],ALLSELECTED()))
+			
+			```
+		formatString: 0.00%
+		lineageTag: df74df30-9b92-4863-8f64-3b8005f05cdd
+
+	/// % [Destaque Recebido]
+	measure '% de Destaque Recebido' =
+			
+			
+			/*
+			@description % de Destaque Recebido
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			DIVIDE([Destaque Recebido],CALCULATE([Destaque Recebido],ALLSELECTED()))
+		formatString: 0.00%
+		lineageTag: 567e0d21-8ea3-4590-94ed-29173fd826e2
+
+	/// % [Dotação atualizada]
+	measure '% de Dotação atualizada' =
+			
+			
+			/*
+			@description % de Dotação atualizada
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			DIVIDE([Dotação atualizada],CALCULATE([Dotação atualizada],ALLSELECTED()))
+		formatString: 0.00%
+		lineageTag: 4d139322-1415-40b2-a725-bca49d420527
+
+	/// % [Dotação Cancelada e Remanejada]
+	measure '% de Dotação Cancelada e Remanejada' =
+			
+			
+			/*
+			@description % de Dotação Cancelada e Remanejada
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			DIVIDE([Dotação Cancelada e Remanejada],CALCULATE([Dotação Cancelada e Remanejada],ALLSELECTED()))
+		formatString: 0.00%
+		lineageTag: 81c57c78-bdc0-405c-9788-1a265a291975
+
+	/// % [Dotação inicial]
+	measure '% de Dotação inicial' =
+			
+			/*
+			@description % de Dotação inicial
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			DIVIDE([Dotação inicial],CALCULATE([Dotação inicial],ALLSELECTED()))
+		formatString: 0.00%
+		lineageTag: b44019ab-5966-4fe1-a7e1-737cd2eb5391
+
+	/// % [Dotação Suplementar]
+	measure '% de Dotação Suplementar' =
+			
+			
+			/*
+			@description % de Dotação Suplementar
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			DIVIDE([Dotação Suplementar],CALCULATE([Dotação Suplementar],ALLSELECTED()))
+		formatString: 0.00%
+		lineageTag: 01c0d49a-cb70-4b67-95d9-7209e763560a
+
+	/// % [Orçamento não liquidado do exercício]
+	measure '% de Orçamento não liquidado do exercício' =
+			
+			
+			/*
+			@description % de Orçamento não liquidado do exercício
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			DIVIDE([Orçamento não liquidado do exercício],CALCULATE([Orçamento não liquidado do exercício],ALLSELECTED()))
+		formatString: 0.00%
+		lineageTag: fdc57a4c-9c45-4823-8c2e-ac8c822e04d6
+
+	/// % [Orçamento não liquidado total]
+	measure '% de Orçamento não liquidado total' =
+			
+			/*
+			@description % de Orçamento não liquidado total
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			DIVIDE([Orçamento não liquidado total],CALCULATE([Orçamento não liquidado total],ALLSELECTED()))
+		formatString: 0.00%
+		lineageTag: 34936d89-0e1c-4745-b936-4d0df69b1878
+
+	/// % [Provisão Recebida]
+	measure '% de Provisão Recebida' = DIVIDE([Provisão Recebida],CALCULATE([Provisão Recebida],ALLSELECTED()))
+		formatString: 0.00%
+		lineageTag: 06a25b49-2bae-45c6-8c2a-42e4905521f2
+
+	/// % [RAP não processado inscrito]
+	measure '% de RAP não processado inscrito' = ```
+			
+			
+			/*
+			@description % de RAP não processado inscrito
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			DIVIDE([RAP não processado inscrito],CALCULATE([RAP não processado inscrito],ALLSELECTED()))
+			
+			```
+		formatString: 0.00%
+		lineageTag: c81d7c97-69a0-44b1-a435-b46620a53248
+
+	/// % [RAP não processado reinscrito]
+	measure '% de RAP não processado reinscrito' =
+			
+			
+			/*
+			@description % de RAP não processado reinscrito
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			DIVIDE([RAP não processado reinscrito],CALCULATE([RAP não processado reinscrito],ALLSELECTED()))
+		formatString: 0.00%
+		lineageTag: 1452a13e-5fd1-4c0e-b4b8-d77989ea6e78
+
+	/// % [RAP Processado Inscrito]
+	measure '% de RAP Processado Inscrito' =
+			
+			/*
+			@description % de RAP processado inscrito
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			DIVIDE([RAP Processado Inscrito],CALCULATE([RAP Processado Inscrito],ALLSELECTED()))
+		formatString: 0.00%
+		lineageTag: 441a8dbb-5954-42df-b02b-c713e85d3389
+
+	/// % [RAP Processado Reinscrito]
+	measure '% de RAP Processado Reinscrito' =
+			
+			
+			/*
+			@description % de RAP processado reinscrito
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			DIVIDE([RAP Processado Reinscrito],CALCULATE([RAP Processado Reinscrito],ALLSELECTED()))
+		formatString: 0.00%
+		lineageTag: d24c610c-022d-487f-8e74-09f82485af14
+
+	column DiaEmissao
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: 1ce74ff2-a92b-472d-8087-e0eedd46d46c
+		summarizeBy: none
+		sourceColumn: DiaEmissao
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column CodEsfera
+		dataType: string
+		isHidden
+		lineageTag: b51c6b62-c763-4c07-962e-0b9b4651146c
+		summarizeBy: none
+		sourceColumn: CodEsfera
+
+		annotation SummarizationSetBy = Automatic
+
+	column CodResultadoPrimario
+		dataType: string
+		isHidden
+		lineageTag: 4801af88-1f51-420c-a9d5-c4746b758d02
+		summarizeBy: none
+		sourceColumn: CodResultadoPrimario
+
+		annotation SummarizationSetBy = Automatic
+
+	column PTRES
+		dataType: string
+		isHidden
+		lineageTag: 23a2eb12-d2c5-4138-8354-d6cf84b377ee
+		summarizeBy: none
+		sourceColumn: PTRES
+
+		annotation SummarizationSetBy = Automatic
+
+	column CodFonteDetalhado
+		dataType: string
+		isHidden
+		lineageTag: 1195c7a1-ae8d-4b36-b9df-807ed529ffb0
+		summarizeBy: none
+		sourceColumn: CodFonteDetalhado
+
+		annotation SummarizationSetBy = Automatic
+
+	column CodNDD
+		dataType: string
+		isHidden
+		lineageTag: 4a1dfd41-9e6a-4ae4-b33a-b0360d3e4cdc
+		summarizeBy: none
+		sourceColumn: CodNDD
+
+		annotation SummarizationSetBy = Automatic
+
+	column CodUGExecutora
+		dataType: string
+		isHidden
+		lineageTag: 83a7c20b-c7bd-4761-8a52-5fa10313b96a
+		summarizeBy: none
+		sourceColumn: CodUGExecutora
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProjetoLei
+		dataType: decimal
+		isHidden
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: a556e26a-dfd0-4fba-b4dd-842b973b1bf1
+		summarizeBy: sum
+		sourceColumn: ProjetoLei
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column DotacaoInicial
+		dataType: decimal
+		isHidden
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: c829c75d-fdde-4eb0-bac4-2237a3256c8c
+		summarizeBy: sum
+		sourceColumn: DotacaoInicial
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column DotacaoSuplementar
+		dataType: decimal
+		isHidden
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: f1b39189-0283-43e6-aebe-73253b987fd5
+		summarizeBy: sum
+		sourceColumn: DotacaoSuplementar
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column DotacaoEspecial
+		dataType: decimal
+		isHidden
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: ba53e56e-bc76-4060-8967-4cdd66226625
+		summarizeBy: sum
+		sourceColumn: DotacaoEspecial
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column DotacaoExtraordinaria
+		dataType: decimal
+		isHidden
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: dc535178-ba0e-4d6e-87da-8c67de7d7106
+		summarizeBy: sum
+		sourceColumn: DotacaoExtraordinaria
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column DotacaoAtualizada
+		dataType: decimal
+		isHidden
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: 68667a9d-e438-424d-8110-22e5e5b1bba2
+		summarizeBy: sum
+		sourceColumn: DotacaoAtualizada
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column DotacaoCancRem
+		dataType: decimal
+		isHidden
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: ba8ff6d4-bcb9-4bf8-a35c-1d0208be2410
+		summarizeBy: sum
+		sourceColumn: DotacaoCancRem
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// @description Transferência de créditos entre diferentes unidades gestoras executoras de um mesmo órgão, recebida pela UG de referência
+	column ProvisaoRecebida
+		dataType: decimal
+		isHidden
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: 1123de8c-c5c4-4f82-bdfd-64eacd449fc8
+		summarizeBy: sum
+		sourceColumn: ProvisaoRecebida
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// @description Transferência de créditos entre diferentes unidades gestoras executoras de um mesmo órgão, concedida pela UG de referência
+	column ProvisaoConcedida
+		dataType: decimal
+		isHidden
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: 47511a64-6d50-4bdd-8547-97c43426ea96
+		summarizeBy: sum
+		sourceColumn: ProvisaoConcedida
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// @description Transferência de créditos entre diferentes órgãos do orçamento federal, de um órgão para o órgão de referência.
+	column DestaqueRecebido
+		dataType: decimal
+		isHidden
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: 458de206-d6a8-420e-ad41-521b66801a57
+		summarizeBy: sum
+		sourceColumn: DestaqueRecebido
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// @description Transferência de créditos entre diferentes órgãos do orçamento federal, do órgão de referência para outro órgão.
+	column DestaqueConcedido
+		dataType: decimal
+		isHidden
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: 64359cdf-ede5-4052-9d8c-9ad21489a24c
+		summarizeBy: sum
+		sourceColumn: DestaqueConcedido
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column CreditoDisponivel
+		dataType: decimal
+		isHidden
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: e7d39bca-f238-4cbe-8793-c1350e9db39a
+		summarizeBy: sum
+		sourceColumn: CreditoDisponivel
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column CreditoIndisponivel
+		dataType: decimal
+		isHidden
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: ed39fdcb-8725-4ae9-afd1-da8c543c2d59
+		summarizeBy: sum
+		sourceColumn: CreditoIndisponivel
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column Empenhado
+		dataType: decimal
+		isHidden
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: 7ecc157c-5707-44fa-b009-0446cc789c77
+		summarizeBy: sum
+		sourceColumn: Empenhado
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column EmpenhadoaLiquidar
+		dataType: decimal
+		isHidden
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: 82324525-5ad9-4bfc-b1e2-3fd275ab6bbe
+		summarizeBy: sum
+		sourceColumn: EmpenhadoaLiquidar
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column Liquidado
+		dataType: decimal
+		isHidden
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: fc329069-d3bb-4bbf-a15e-8bac6e12dfee
+		summarizeBy: sum
+		sourceColumn: Liquidado
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column Pago
+		dataType: decimal
+		isHidden
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: 045f9919-bd57-4b74-99ca-d6cfc8e4ae56
+		summarizeBy: sum
+		sourceColumn: Pago
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// @description Restos a pagar processados inscritos
+	column RAPProcInscrito
+		dataType: decimal
+		isHidden
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: 2d1dc634-3ed6-4efd-b51d-9cb08395e14c
+		summarizeBy: sum
+		sourceColumn: RAPProcInscrito
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// @description Restos a pagar processados reinscritos
+	column RAPProcReinscrito
+		dataType: decimal
+		isHidden
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: c25ae803-0365-4beb-9fc6-67f008ea13fe
+		summarizeBy: sum
+		sourceColumn: RAPProcReinscrito
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column RAPProcCancelado
+		dataType: decimal
+		isHidden
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: 096f163e-2e70-414e-ba9e-83fb598ae0a1
+		summarizeBy: sum
+		sourceColumn: RAPProcCancelado
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// @description Despesas empenhadas mas não pagas até o dia 31 de dezembro, acrescida das despesas empenhadas em exercícios anteriores que foram pagas no exercício corrente selecionado.
+	column RAPProcPago
+		dataType: decimal
+		isHidden
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: 6146d647-8a4f-46d1-bdf6-90f33bdb2fae
+		summarizeBy: sum
+		sourceColumn: RAPProcPago
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column RAPProcaPagar
+		dataType: decimal
+		isHidden
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: a2a84f00-06e3-4bc7-a473-bc37312c54ee
+		summarizeBy: sum
+		sourceColumn: RAPProcaPagar
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// @description Restos a pagar não processados inscritos
+	column RAPNProcInscrito
+		dataType: decimal
+		isHidden
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: 75bbcb6b-b76e-4aad-a839-fcf6a92f2534
+		summarizeBy: sum
+		sourceColumn: RAPNProcInscrito
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// @description Restos a pagar não processados reinscritos
+	column RAPNProcReinscrito
+		dataType: decimal
+		isHidden
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: 1746a8a4-6872-47c4-bb6c-e1557cefc389
+		summarizeBy: sum
+		sourceColumn: RAPNProcReinscrito
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column RAPNProcCancelado
+		dataType: decimal
+		isHidden
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: f667e29f-efc4-4c24-9ec7-5d1099e8f9e0
+		summarizeBy: sum
+		sourceColumn: RAPNProcCancelado
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column RAPNProcaLiquidar
+		dataType: decimal
+		isHidden
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: c8695b55-ab17-4c07-b205-db4e8ba421d9
+		summarizeBy: sum
+		sourceColumn: RAPNProcaLiquidar
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column RAPNProcLiquidado
+		dataType: decimal
+		isHidden
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: dd89d34d-6df4-4734-aa1c-e3178bcebe13
+		summarizeBy: sum
+		sourceColumn: RAPNProcLiquidado
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column RAPNProcLiquidaPagar
+		dataType: decimal
+		isHidden
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: 56dbaee6-da0c-4f74-83cf-e94a861290a5
+		summarizeBy: sum
+		sourceColumn: RAPNProcLiquidaPagar
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column RAPNProcPago
+		dataType: decimal
+		isHidden
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: 0cc2a769-4806-4f13-b026-0bbc645d8bb3
+		summarizeBy: sum
+		sourceColumn: RAPNProcPago
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column RAPNProcaPagar
+		dataType: decimal
+		isHidden
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: 46fa47f3-47a8-4fd3-a8cc-1a89064ad909
+		summarizeBy: sum
+		sourceColumn: RAPNProcaPagar
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// @description Despesas empenhadas mas não liquidadas até o dia 31 de dezembro do exercício anterior e bloqueada no exercício corrente selecionado.
+	column RAPNProcBloqueado
+		dataType: decimal
+		isHidden
+		formatString: "R$"\ #,0.###############;-"R$"\ #,0.###############;"R$"\ #,0.###############
+		lineageTag: 3c57eddf-cd99-4c8e-a892-521aaa467260
+		summarizeBy: sum
+		sourceColumn: RAPNProcBloqueado
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	/// @description Termo de Execução Descentralizada.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Explorar Dados
+	column TED
+		dataType: string
+		lineageTag: cafc9d46-5437-4d3f-b979-0fed7aeb8e01
+		summarizeBy: none
+		sourceColumn: TED
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition ItemDespesa-77688771-11a4-48fe-b2cc-ed92a0ce162e = m
+		mode: import
+		queryGroup: 'Modelo Orçamentário\Orçamento TG'
+		source =
+				let
+				    Fonte = Csv.Document(Binary.Decompress(Web.Contents(
+				        EndTG&TG&"/ItemDespesa.csv.gz"
+				        ),Compression.GZip),[Delimiter="	", Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Cabeçalhos Promovidos",{{"CodFonte", "CodFonteDetalhado"}}),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Colunas Renomeadas",{{"DiaEmissao", type date}, {"CodEsfera", type text}, {"CodResultadoPrimario", type text}, {"PTRES", type text}, {"CodFonteDetalhado", type text}, {"CodNDD", type text}, {"CodUGExecutora", type text}, {"ProjetoLei", Currency.Type}, {"DotacaoInicial", Currency.Type}, {"DotacaoSuplementar", Currency.Type}, {"DotacaoEspecial", Currency.Type}, {"DotacaoExtraordinaria", Currency.Type}, {"DotacaoAtualizada", Currency.Type}, {"DotacaoCancRem", Currency.Type}, {"ProvisaoRecebida", Currency.Type}, {"ProvisaoConcedida", Currency.Type}, {"DestaqueRecebido", Currency.Type}, {"DestaqueConcedido", Currency.Type}, {"CreditoDisponivel", Currency.Type}, {"CreditoIndisponivel", Currency.Type}, {"Empenhado", Currency.Type}, {"EmpenhadoaLiquidar", Currency.Type}, {"Liquidado", Currency.Type}, {"Pago", Currency.Type}, {"RAPProcCancelado", Currency.Type}, {"RAPProcPago", Currency.Type}, {"RAPProcaPagar", Currency.Type}, {"RAPNProcCancelado", Currency.Type}, {"RAPNProcaLiquidar", Currency.Type}, {"RAPNProcLiquidado", Currency.Type}, {"RAPNProcLiquidaPagar", Currency.Type}, {"RAPNProcPago", Currency.Type}, {"RAPNProcaPagar", Currency.Type}, {"RAPNProcBloqueado", Currency.Type}, {"RAPNProcInscrito", Currency.Type}, {"RAPNProcReinscrito", Currency.Type}, {"RAPProcReinscrito", Currency.Type}, {"RAPProcInscrito", Currency.Type}}),
+				    #"Linhas Filtradas" = Table.SelectRows(#"Tipo Alterado", each true)
+				in
+				    #"Linhas Filtradas"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,96 @@
+/// @description Essa tabela é útil para organizar as funções financeiras em uma ordem lógica e garantir que os cálculos sejam executados corretamente.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table FuncFinanceiras
+	lineageTag: 16a0db55-ec5c-4f9c-a1c1-ffe9f3ce2b1c
+
+	calculationGroup
+
+		calculationItem 'Valor Acumulado' =
+				IF(
+				    COUNTROWS('ItemDespesa')>0,
+				    CALCULATE(
+				        SELECTEDMEASURE (),
+				        DATESYTD('dCalendário'[Data])
+				        ),
+				        BLANK()
+				        )
+
+		calculationItem 'Valor Nominal' = SELECTEDMEASURE ()
+
+	/// @description Indicador utilizado na dinâmica dos visuais
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure BotaoSliderNominal = ```
+			
+			 /*@description Indicador utilizado na dinâmica dos visuais 
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			
+			 IF((VALUES(FuncFinanceiras[Funcoes])= "Valor Acumulado"), "Nominal", "Nominal")
+			```
+		lineageTag: d1f4fdd2-ccda-4263-9419-bf3822e2bcb5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Indicador utilizado na dinâmica dos visuais
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure BotaoSliderAcumulado = ```
+			
+			  /*@description Indicador utilizado na dinâmica dos visuais 
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			 IF((VALUES(FuncFinanceiras[Funcoes])= "Valor Nominal"), "Acumulado", "Acumulado")
+			```
+		lineageTag: 9580bac4-9fc8-4fd0-a081-492fb600a025
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Seletor de valor (nominal ou acumulado)
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure IndFuncao = ```
+			
+			  /*@description Seletor de valor (nominal ou acumulado) 
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			 SWITCH(VALUES(FuncFinanceiras[Funcoes]), "Valor Acumulado", 1, "Valor Nominal", -1)
+			```
+		lineageTag: 2935404d-e51d-4733-bccd-069fddc2b9d5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Texto das funções, por exemplo: Valor Acumulado ou Valor Nominal.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Serie Histórica
+	column Funcoes
+		dataType: string
+		lineageTag: 9e7e3584-ea0c-42f5-a3ad-6ee1e7a60f03
+		summarizeBy: none
+		sourceColumn: Name
+		sortByColumn: Ordinal
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ordinal
+		dataType: int64
+		isHidden
+		lineageTag: 8071c39b-e5e9-43c9-8cec-552c3a06daf7
+		summarizeBy: sum
+		sourceColumn: Ordinal
+
+		annotation SummarizationSetBy = Automatic
+

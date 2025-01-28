@@ -1,0 +1,89 @@
+/// @description Tabela de grupo de cálculo para identificação da relação entre o órgão e o orçamento.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table RelacaoOrgao
+	lineageTag: e7659a4a-8700-455a-bbfb-4699c705828d
+
+	calculationGroup
+		precedence: 10
+
+		calculationItem 'Órgão da UGE' =
+				CALCULATE (
+				    SELECTEDMEASURE (),
+				    USERELATIONSHIP ( UGE[CodOrgaoUGE], d_IES[UO] )
+				)
+
+		calculationItem 'Órgão da UO' =
+				CALCULATE (
+				    SELECTEDMEASURE (),
+				    USERELATIONSHIP ( UnidadeOrgao[CodUOResponsavel], d_IES[UO] )
+				)
+
+		calculationItem 'TED''s do MEC' =
+				CALCULATE (
+				    SELECTEDMEASURE (),
+				    USERELATIONSHIP ( UGE[CodOrgaoUGE], d_IES[UO] ),
+				    'UnidadeOrgao'[UnidadeOrcamentaria] = "26101"
+				)
+
+		calculationItem 'TED''s' =
+				SUMX (
+				    SUMMARIZE (
+				        d_IES,
+				        d_IES[UO],
+				        "Medida",
+				            VAR UO =
+				                Format(VALUES ( d_IES[UO] ), "General Number")
+				            RETURN
+				                CALCULATE (
+				                    SELECTEDMEASURE(),
+				                    USERELATIONSHIP ( UGE[CodOrgaoUGE], d_IES[UO] ),
+				                    FILTER ( UnidadeOrgao, UnidadeOrgao[UnidadeOrcamentaria] <> UO )
+				                )
+				    ),
+				    [Medida]
+				)
+
+	/// @description Indicador utilizado na dinâmica dos visuais
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure BotaoValueRelacaoOrgao = ```
+			
+			/*@description Indicador utilizado na dinâmica dos visuais
+			@author dsbr
+			@version 1
+			@date 03/11/2022*/
+			IF(HASONEVALUE(RelacaoOrgao[Relação do Órgão]),
+			                    IF(VALUES(RelacaoOrgao[Relação do Órgão]) = "Órgão da UGE", -1, 
+			                     IF(VALUES(RelacaoOrgao[Relação do Órgão]) = "Órgão da UO", 1)),
+			                     0)
+			```
+		lineageTag: c496f609-913f-427a-b489-00f63447edaa
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Relação do Órgão
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Explorar Dados
+	column 'Relação do Órgão'
+		dataType: string
+		lineageTag: 5def0d8e-5f5c-4183-be77-1be085304415
+		summarizeBy: none
+		sourceColumn: Name
+		sortByColumn: Ordinal
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ordinal
+		dataType: int64
+		isHidden
+		lineageTag: 84ebbebd-2022-4455-bf81-7f69436f1518
+		summarizeBy: sum
+		sourceColumn: Ordinal
+
+		annotation SummarizationSetBy = Automatic
+

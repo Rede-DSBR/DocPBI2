@@ -1,0 +1,71 @@
+/// @description Essa tabela armazena informações relacionados à eficiência acadêmica de alunos, com cada campo representando uma métrica diferente (como o número de evasão, alunos retidos e concluídos).
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table _fEficiênciaAcadêmica
+	lineageTag: 85e3b3fb-ed86-441b-8224-87bb9b25e632
+
+	column _fEficiênciaAcadêmica
+		lineageTag: 1e547997-e292-466e-a3d7-757001da72d1
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: '_fEficiênciaAcadêmica Pedido'
+
+		relatedColumnDetails
+			groupByColumn: '_fEficiênciaAcadêmica Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column '_fEficiênciaAcadêmica Campos'
+		isHidden
+		lineageTag: 2c202c54-bb05-4474-8ea0-f0cfaf6d680f
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: '_fEficiênciaAcadêmica Pedido'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "kind": 2,
+				  "version": 3
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column '_fEficiênciaAcadêmica Pedido'
+		isHidden
+		formatString: 0
+		lineageTag: 38ce8cd6-081c-47ad-a53c-9543f709be02
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Valor
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Eficiência Acadêmica
+	column Valor
+		lineageTag: 931ff097-4762-43c1-901d-63215cae4607
+		summarizeBy: none
+		sourceColumn: [Value4]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _fEficiênciaAcadêmica-7fa2d1e2-ab88-4df6-b5eb-c38e89a1c125 = calculated
+		mode: import
+		source =
+				{
+				    /* ("Eficiência Acadêmica %", NAMEOF('fSituaçãoMatrícula'[Eficiência Acadêmica | Índice de Eficiência Acadêmica %]), 0, "Valor %"), */
+				    ("Eficiência Acadêmica", NAMEOF('fSituaçãoMatrícula'[Eficiência Acadêmica | Índice de Eficiência Acadêmica %]), 0, "Valor %"),
+				    ("Eficiência Acadêmica", NAMEOF('fSituaçãoMatrícula'[Eficiência Acadêmica | Índice de Eficiência Acadêmica %]), 1, "Valor Absoluto"),
+				    ("Conclusão Ciclo %", NAMEOF('fSituaçãoMatrícula'[Eficiência Acadêmica | Concluídos %]), 2, "Valor %"),
+				    ("Evasão Ciclo %", NAMEOF('fSituaçãoMatrícula'[Eficiência Acadêmica | Taxa de Evasão %]), 3, "Valor %"),
+				    ("Retenção Ciclo %", NAMEOF('fSituaçãoMatrícula'[Eficiência Acadêmica | Retidos %]), 4, "Valor %"),
+				    ("Conclusão Ciclo", NAMEOF('fSituaçãoMatrícula'[Eficiência Acadêmica | Concluídos]), 5, "Valor Absoluto"),
+				    ("Evasão Ciclo", NAMEOF('fSituaçãoMatrícula'[Eficiência Acadêmica | Número de Evadidos]), 6, "Valor Absoluto"),
+				    ("Retenção Ciclo", NAMEOF('fSituaçãoMatrícula'[Eficiência Acadêmica | Retidos]), 7, "Valor Absoluto")
+				}
+
+	annotation PBI_Id = d033131fc7064203bfa9cfd274b8d399
+

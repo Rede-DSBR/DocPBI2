@@ -1,0 +1,59 @@
+/// @description Tabela para parâmetro de campos referente ao fato de visualização de gráficos
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table _GraficoIV
+	lineageTag: efed42de-c165-4128-93ba-8c2f98f35acb
+
+	column _GraficoIV
+		lineageTag: b2741d9f-475d-4c57-a43a-757ef1c39512
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: '_GraficoIV Pedido'
+
+		relatedColumnDetails
+			groupByColumn: '_GraficoIV Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column '_GraficoIV Campos'
+		isHidden
+		lineageTag: 7b4490ca-dc08-4e92-9feb-817beddee557
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: '_GraficoIV Pedido'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "kind": 2,
+				  "version": 3
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column '_GraficoIV Pedido'
+		isHidden
+		formatString: 0
+		lineageTag: 5d38fdfe-06b1-4c20-96ee-ed4efb5702de
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _GraficoIV-c5e0674c-44c5-4394-905f-5642858406e2 = calculated
+		mode: import
+		source =
+				{
+				    ("Sem detalhamento", NAMEOF('_ExpTítulos'[EmBranco]), 0),
+				    ("Instituição", NAMEOF('dimUnidade'[Instituicao]), 1),
+				    ("Sigla | Unidade", NAMEOF('dimUnidade'[Instituição | Unidade]), 2),
+				    ("Unidade", NAMEOF('dimUnidade'[nomeUnidadeRecente]), 3),
+				    ("Eixo Tecnológico", NAMEOF('fCiclos'[tipoEixoTecnologico]), 4),
+				    ("Tipo de Curso", NAMEOF('fCiclos'[tipoCurso]), 5),
+				    ("Tipo de Oferta", NAMEOF('fCiclos'[tipoOferta]), 6),
+				    ("Região", NAMEOF('d_IES'[Região]), 7),
+				    ("Estado", NAMEOF('d_IES'[UF]), 8)
+				}
+
+	annotation PBI_Id = bccc6900d6aa4827b5b461be12d83cd8
+

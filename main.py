@@ -14,5 +14,5 @@ for table_name, table_data in tables.items():
     for t in table_data:
         print(t)
 
-tmdl.save_to_json('pbip/tables.json')
+tmdl.save_to_json('tables.json')
 

@@ -1,0 +1,121 @@
+/// @description Tabela de grupo de cálculo de datas relativas para indicadores orçamentários
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table IndicadorVar
+	lineageTag: 21d899b4-0ec0-4e90-9a98-3de9451c9c65
+
+	/// @description Seletor de periodo de referência de visualização de medidas do orçamento
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Panorama Orçamentário; Serie Histórica
+	measure IndVarOrcamento =
+			
+			/*@description Seletor de periodo de referência de visualização de medidas do orçamento
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Panorama Orçamentário; Serie Histórica
+			*/
+			
+			
+			VAR Selection =
+			SELECTEDVALUE ( IndicadorVar[Ind], "Tudo" )
+			RETURN
+			SWITCH (
+			TRUE (),
+			Selection = "LY", [IndOrcamento (LY)],
+			Selection = "SPLY", [IndOrcamento_SPLY],
+			[IndOrcamento_SPLY]
+			)
+		lineageTag: 8e6fd9d7-3ee0-402c-b137-fc5a5def8e06
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Seletor de periodo de referência de visualização de medidas
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure IndVar =
+			
+			/*@description Seletor de periodo de referência de visualização de medidas
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			SWITCH(VALUES(IndicadorVar[Ind]), "LY", 1, "SPLY", -1)
+		lineageTag: a286b36d-bee7-4fde-a5e9-0b64e96f6945
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Indicador utilizado na dinâmica dos visuais
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure BotaoSliderLY =
+			
+			/*@description Indicador utilizado na dinâmica dos visuais
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			IF((VALUES(IndicadorVar[Ind])= "LY"), "% Período Anterior", "% Período Anterior")
+		lineageTag: d6234c43-9853-4148-84d4-5b0acc47149b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Indicador utilizado na dinâmica dos visuais
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure BotaoSliderSPLY =
+			
+			/*@description Indicador utilizado na dinâmica dos visuais
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			IF((VALUES(IndicadorVar[Ind])= "SPLY"), "% Ano Anterior", "% Ano Anterior")
+		lineageTag: 151c6dbf-619f-4e80-b4b4-6c218232968f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Número de ordem de cada campo
+	column Ordem
+		formatString: 0
+		lineageTag: c3c69b47-6feb-4598-b493-818c1f8e65fc
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Ordem]
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Referência de período de apuração (ano anterior ou mesmo período do ano anterior).
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Serie Histórica
+	column Ind
+		lineageTag: 4fad58a7-794a-44cf-bb36-774eb0070212
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Ind]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition IndicadorVar-d0f255d4-b7d9-4579-a95b-4728c893e369 = calculated
+		mode: import
+		source =
+				
+				DATATABLE (
+				    "Ordem", INTEGER,
+				    "Ind", STRING,
+				    {
+				        { 1, "LY"},
+				        { 2, "SPLY"}
+				    }
+				)
+
+	annotation PBI_Id = 638a26d2c7c045c9b373287f77a61bf1
+

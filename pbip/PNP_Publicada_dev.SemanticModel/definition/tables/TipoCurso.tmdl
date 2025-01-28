@@ -1,0 +1,47 @@
+/// @description Essa tabela é útil para organizar e classificar os diferentes tipos e níveis de cursos oferecidos por uma instituição de ensino, permitindo uma melhor gestão e planejamento acadêmico.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table TipoCurso
+	lineageTag: 28513258-9c5f-4109-af22-47341f3fed75
+
+	/// @description Categorização transversal utilizada para diferenciar os cursos da EPCT em seus diversos níveis e graus. Estão previstas as seguintes categorias: Educação Infantil, Ensino Fundamental I, Ensino Fundamental II, Ensino Médio, Qualificação Profissional (FIC), Técnico, Tecnologia, Licenciatura, Bacharelado, Especialização (Lato Sensu), Mestrado Profissional, Mestrado, Doutorado Profissional e Doutorado.
+	column 'Tipo Curso'
+		dataType: string
+		lineageTag: 80f518b7-0cbe-42fd-a46c-a0e6289fc4f5
+		summarizeBy: none
+		sourceColumn: Tipo Curso
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Nível de Curso (Básico propedêutico; Técnico; Graduação ou Pós-Graduação).
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Reserva de Vagas; Oferta de vagas noturnas
+	column 'Nível Curso'
+		dataType: string
+		lineageTag: cc2b96b6-f42c-4278-87bb-83a9fec2a1fd
+		summarizeBy: none
+		sourceColumn: Nível Curso
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ordem Nível'
+		dataType: string
+		lineageTag: d39788da-43ec-4ebd-8cd3-14ad35fec016
+		summarizeBy: none
+		sourceColumn: Ordem Nível
+
+		annotation SummarizationSetBy = Automatic
+
+	partition TipoCurso-e43a881b-6f33-4d21-855f-d6b077a25db3 = m
+		mode: import
+		source =
+				let
+				    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("nZA7bgIxEIavYm1FJFKQxwVIIFoJJFDoEMXI9pKRnJmVH01ugygQtBzBF4t3N0FQwK7oPOPv/zye5TIbqSAh7uKWRU4FkEeT9bNh3DiULErLpVbxEHyqUn+QrfopQw6JxTiQgm9NHozI7wp1Tk3jXiG30vMABgv8/9DMcoHOIVN6rDfO3x4S2YV5qm2LuJfU6M+Oz/XdEOQXWG1AVb0PCyo0wlS91MQEpSaJ4IOFK8hCS2LDa7wGjFypk8Lgz9+0vQl4Fp+aXKjmFLN4dI+Xydc6OdXO22a4dqja5mkJNxPvHDy3ek9UR/HqFw==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Tipo Curso" = _t, #"Nível Curso" = _t, #"Ordem Nível" = _t])
+				in
+				    Fonte
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,40 @@
+table urls
+	lineageTag: bbc4ca54-d86b-4f2c-a2db-4f5926e5b0ba
+
+	column tab_name
+		dataType: string
+		lineageTag: d2fe39b6-52ff-4e88-a90c-bc6147219b91
+		summarizeBy: none
+		sourceColumn: tab_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column full_image
+		dataType: string
+		lineageTag: 04029de1-cea7-4f05-801a-06140ae7b4e7
+		summarizeBy: none
+		sourceColumn: full_image
+
+		annotation SummarizationSetBy = Automatic
+
+	column slow_image
+		dataType: string
+		lineageTag: 26a5edc4-c268-4aea-86da-e3eef39ea3ae
+		summarizeBy: none
+		sourceColumn: slow_image
+
+		annotation SummarizationSetBy = Automatic
+
+	partition urls = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents("C:\Users\gusta\Desktop\dev\pnp-monitoring\urls\urls.csv"),[Delimiter=",", Columns=3, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true])
+				in
+				    #"Cabeçalhos Promovidos"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

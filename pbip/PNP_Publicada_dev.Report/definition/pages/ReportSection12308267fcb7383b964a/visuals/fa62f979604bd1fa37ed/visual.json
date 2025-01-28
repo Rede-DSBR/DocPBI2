@@ -1,0 +1,61 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.2.0/schema.json",
+  "name": "fa62f979604bd1fa37ed",
+  "position": {
+    "x": 88,
+    "y": 64,
+    "z": 2000,
+    "height": 32,
+    "width": 512,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Micael Pereira dos Santos Aguiar ",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "8pt",
+                      "color": "#a2bfbc"
+                    }
+                  },
+                  {
+                    "value": " | Aluno de Mecânica Industrial da Rede Federal EPCT",
+                    "textStyle": {
+                      "fontSize": "8pt",
+                      "color": "#a2bfbc"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "100D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "isHidden": true
+}

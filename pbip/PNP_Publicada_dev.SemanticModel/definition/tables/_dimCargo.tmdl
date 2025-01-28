@@ -1,0 +1,61 @@
+/// @description A tabela contém informações sobre os cargos existentes em uma organização.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table _dimCargo
+	lineageTag: 0f587660-2219-4af5-9f95-c755d15397a9
+
+	column _dimCargo
+		lineageTag: 1879eea5-77aa-4c3b-9e7a-f572f28c0cda
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: '_dimCargo Pedido'
+
+		relatedColumnDetails
+			groupByColumn: '_dimCargo Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column '_dimCargo Campos'
+		isHidden
+		lineageTag: 372d26bc-f1f0-4ef5-afb7-2b6937a7d367
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: '_dimCargo Pedido'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "kind": 2,
+				  "version": 3
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column '_dimCargo Pedido'
+		isHidden
+		formatString: 0
+		lineageTag: 8e829983-ccbd-4bd4-8120-12fa7af92f12
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _dimCargo-f04386bb-4058-41ef-af89-a574fb20d23a = calculated
+		mode: import
+		source =
+				{
+				    ("Instituição", NAMEOF(d_IES[Sigla]), 0),
+				    ("Cargo Efetivo", NAMEOF('dimCargos'[Cargo]), 1),
+				    ("Carreira", NAMEOF(dimCarreiras[CarreiraDescricao]), 2),
+				    ("Regime Juridico", NAMEOF('dimCargos'[RegimeJuridico]), 3),
+				    /* ("Regime", NAMEOF('dimSitFuncional'[Regime]), 4), */
+				    ("Situação Funcional", NAMEOF('dimSitFuncional'[GrupoSituacao]), 5),
+				    ("Escolaridade", NAMEOF('dimEscolaridade'[NivelEscolaridade]), 6),
+				    ("Tempo de serviço", NAMEOF('dimTempoServico'[TempoServico]), 7),
+				    ("Jornada de Trabalho", NAMEOF('dimJornada'[DescricaoJornada]), 8),
+				    ("Sexo", NAMEOF('dimSexoIdade'[Sexo]), 9),
+				    ("Faixa Etária", NAMEOF('dimSexoIdade'[FaixaEtaria]), 10)
+				}
+
+	annotation PBI_Id = 63433a03c2974d7196f71857dc87b197
+

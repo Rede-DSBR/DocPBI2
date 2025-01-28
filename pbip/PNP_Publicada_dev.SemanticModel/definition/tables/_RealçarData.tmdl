@@ -1,0 +1,51 @@
+/// @description Tabela para parâmetro de campos referente a visualização de datas
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table _RealçarData
+	lineageTag: e73a5bf4-4251-414c-a59e-9a956e855a94
+
+	column RealçarData
+		lineageTag: e997d8f7-17ee-488a-a4b4-6e1af220f1a4
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'RealçarData Pedido'
+
+		relatedColumnDetails
+			groupByColumn: 'RealçarData Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'RealçarData Campos'
+		isHidden
+		lineageTag: 1ec8bf1a-8ec3-4cee-9a1c-aaaa337f8c95
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'RealçarData Pedido'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "kind": 2,
+				  "version": 3
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'RealçarData Pedido'
+		isHidden
+		formatString: 0
+		lineageTag: 7a3f700b-9f29-4ca4-8a96-527c21a6913c
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _RealçarData-0f638e71-6a4c-49e2-a7e5-736f6f130e4c = calculated
+		mode: import
+		source =
+				{
+				    ("Name", NAMEOF('dCalendInterval'[Name]), 0)
+				}
+
+	annotation PBI_Id = 97cec27116bd4e5288075b5a75ec1819
+

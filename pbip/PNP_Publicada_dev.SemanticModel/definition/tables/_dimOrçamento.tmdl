@@ -1,0 +1,65 @@
+/// @description A tabela possui informações que são úteis para análise e gerenciamento de orçamentos, permitindo que os usuários identifiquem facilmente o contexto e os detalhes específicos de cada orçamento, bem como o número de pedidos relacionados a cada contexto.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table _dimOrçamento
+	lineageTag: 60917214-0c7c-4e82-bcdb-8c3a8e4b9fed
+
+	column _ContextoOrçamentário
+		lineageTag: a8c810fa-d012-499e-9c91-1aa409d68076
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: '_ContextoOrçamentário Pedido'
+
+		relatedColumnDetails
+			groupByColumn: '_ContextoOrçamentário Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column '_ContextoOrçamentário Campos'
+		isHidden
+		lineageTag: d9706622-fb90-46b9-9bb1-63bd0a53d4ff
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: '_ContextoOrçamentário Pedido'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "kind": 2,
+				  "version": 3
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column '_ContextoOrçamentário Pedido'
+		isHidden
+		formatString: 0
+		lineageTag: de960400-5516-4d32-851f-8c3b93ad9315
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _dimOrçamento-a1051665-4bac-4143-b177-75e06336dd8a = calculated
+		mode: import
+		source =
+				{
+				    ("Sem detalhamento", NAMEOF([EmBranco]), 0),
+				    ("Instituição", NAMEOF(d_IES[Sigla]), 1),
+				    ("Região", NAMEOF(d_IES[Região]), 2),
+				    ("Estado", NAMEOF(d_IES[Estado]), 3),
+				    ("Identificador de Resultado (RP)", NAMEOF(ResultadoPrimario[Resultado Primário (Cidadã)]), 4),
+				    ("Unidade Orçamentária", NAMEOF(UnidadeOrgao[Cód_UO]), 5),
+				    ("Programa Orçamentário", NAMEOF(PTRES[Cód_Programa]), 6),
+				    ("Ação Orçamentária", NAMEOF(PTRES[Cód_Ação]), 7),
+				    ("Plano Orçamentário", NAMEOF(PTRES[Cód_PlanoOrçamentário]), 8),
+				    ("Fonte de Recursos", NAMEOF(Fonte[Cód_Fonte]), 9),
+				    ("Grupo de Despesas (GND)", NAMEOF(NaturezaDespesa[GrupoNatDespesa]), 10),
+				    ("Elemento de Despesa", NAMEOF(NaturezaDespesa[Cód_ElementoDespesa]), 11),
+				    ("Natureza de Despesa Detalhada", NAMEOF(NaturezaDespesa[Cód_NaturezaDespesaDetalhada]), 12),
+				    ("Item de Despesa", NAMEOF(NaturezaDespesa[ItemDespesa]), 13),
+				    ("Organização Acadêmica", NAMEOF(d_IES[Organização Acadêmica Sigla PNP]), 14)
+				}
+
+	annotation PBI_Id = bcac06af458641dcae3f7937671f6f0a
+

@@ -1,0 +1,112 @@
+/// @description A tabela é utilizada para armazenar informações sobre o acompanhamento de indicadores orçamentários, incluindo o nome do indicador, o indicador de acompanhamento utilizado, o valor do indicador de acompanhamento, o contexto orçamentário e a ordem de monitoramento.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table _fIndAcompOrc
+	lineageTag: 14277964-9834-4f3f-bf22-a7ccd533a255
+
+	measure _fIndAcompOrc =
+			
+			VAR Selection =
+			SELECTEDVALUE ( '_fIndAcompOrc'[fIndAcompOrc Pedido], "Tudo" )
+			RETURN
+			SWITCH (
+			TRUE (),
+			Selection = 0, [Dotação Atualizada vs. Projeto de Lei],
+			Selection = 1, [Dotação Atualizada vs. Dotação Inicial],
+			Selection = 2, [Despesa Empenhada vs. Dotação Atualizada],
+			Selection = 3, [Despesa Liquidada vs. Dotação Atualizada],
+			Selection = 4, [Despesa Paga vs. Dotação Atualizada],
+			Selection = 5, [Despesa Liquidada vs. Despesa Empenhada],
+			Selection = 6, [Despesa Paga vs. Despesa Liquidada],
+			Selection = 7, [RAP Não Proc. a liquidar vs. RAP Inscritos],
+			Selection = 8, [RAP Pago vs. RAP Inscritos],
+			Selection = 9, [RAP Cancelados vs. Rap Inscritos],
+			Selection = 10, [RAP Bloqueados vs. Rap Inscritos],
+			[Despesa Empenhada vs. Dotação Atualizada]
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: b97e4f74-cb24-41bf-afc9-9c69ff40f3e4
+
+		changedProperty = FormatString
+
+	/// @description Indicador Orçamentário
+	column 'Indicador Orçamentário'
+		lineageTag: 577d5900-d1bb-4b31-81c2-ee190d8d26b3
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'fIndAcompOrc Pedido'
+
+		relatedColumnDetails
+			groupByColumn: 'Indicador de Acompanhamento'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Indicador de Acompanhamento'
+		isHidden
+		lineageTag: 2ae2a92f-2f1c-4389-8d0b-f2ca91210654
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'fIndAcompOrc Pedido'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "kind": 2,
+				  "version": 3
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'fIndAcompOrc Pedido'
+		isHidden
+		formatString: 0
+		lineageTag: f0f98829-89e9-42b9-aa81-df738fd55aef
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Nomes dos contextos, exemplo: 1, "Programação Orçamentária",
+	/// 2, "Execução do Exercício", 3, "Restos a pagar", 4, "Descentralizações", 5, "Exercício e RP"
+	column 'Contexto Orçamentário'
+		lineageTag: fc1e081c-9896-403a-9ef2-c7722815c596
+		summarizeBy: none
+		sourceColumn: [Value4]
+		sortByColumn: Ordem
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Número de ordem de cada campo
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Dados Gerais; Curso, matrícula e oferta; Situação de matrícula; Classificação Racial, Renda e Sexo; Faixa Etária
+	column Ordem
+		formatString: 0
+		lineageTag: 87b6924a-1843-4b4e-a9b0-a354f9c1539e
+		summarizeBy: sum
+		sourceColumn: [Value5]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _fIndAcompOrc-4a4899d6-e9bf-467c-8dc8-216be0a393c8 = calculated
+		mode: import
+		source =
+				{
+				    ("Dotação Atualizada vs. Projeto de Lei", NAMEOF('IndicAcompOrc'[Dotação Atualizada vs. Projeto de Lei]), 0, "Programação Orçamentária", 1),
+				    ("Dotação Atualizada vs. Dotação Inicial", NAMEOF('IndicAcompOrc'[Dotação Atualizada vs. Dotação Inicial]), 1, "Programação Orçamentária", 1),
+				    ("Despesa Empenhada vs. Dotação Atualizada", NAMEOF('IndicAcompOrc'[Despesa Empenhada vs. Dotação Atualizada]), 2, "Execução do Exercício", 2),
+				    ("Despesa Liquidada vs. Dotação Atualizada", NAMEOF('IndicAcompOrc'[Despesa Liquidada vs. Dotação Atualizada]), 3, "Execução do Exercício", 2),
+				    ("Despesa Paga vs. Dotação Atualizada", NAMEOF('IndicAcompOrc'[Despesa Paga vs. Dotação Atualizada]), 4, "Execução do Exercício", 2),
+				    ("Despesa Liquidada vs. Despesa Empenhada", NAMEOF('IndicAcompOrc'[Despesa Liquidada vs. Despesa Empenhada]), 5, "Execução do Exercício", 2),
+				    ("Despesa Paga vs. Despesa Liquidada", NAMEOF('IndicAcompOrc'[Despesa Paga vs. Despesa Liquidada]), 6, "Execução do Exercício", 2),
+				    ("RAP Não Proc. a liquidar vs. RAP Inscritos", NAMEOF('IndicAcompOrc'[RAP Não Proc. a liquidar vs. RAP Inscritos]), 7, "Restos a Pagar", 3),
+				    ("RAP Pago vs. RAP Inscritos", NAMEOF('IndicAcompOrc'[RAP Pago vs. RAP Inscritos]), 8, "Restos a Pagar", 3),
+				    ("RAP Cancelados vs. Rap Inscritos", NAMEOF('IndicAcompOrc'[RAP Cancelados vs. Rap Inscritos]), 9, "Restos a Pagar", 3),
+				    ("RAP Bloqueados vs. Rap Inscritos", NAMEOF('IndicAcompOrc'[RAP Bloqueados vs. Rap Inscritos]), 10, "Restos a Pagar", 3)
+				}
+
+	annotation PBI_Id = 4819ce20552847b586ddd0a7abaf04bb
+

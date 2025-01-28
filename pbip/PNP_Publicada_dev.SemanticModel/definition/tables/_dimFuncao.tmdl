@@ -1,0 +1,61 @@
+/// @description Essa tabela é usada para fornecer informações sobre as diferentes funções ou cargos dentro de uma organização.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table _dimFuncao
+	lineageTag: 61b13bee-d12e-4e6f-abd1-f8c904e6a4a5
+
+	column _dimFuncao
+		lineageTag: 5faef99b-ae28-4a05-b9f1-8f718d476bee
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: '_dimFuncao Pedido'
+
+		relatedColumnDetails
+			groupByColumn: '_dimFuncao Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column '_dimFuncao Campos'
+		isHidden
+		lineageTag: 5f29d339-56f6-4cc2-be6f-aa10a420a687
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: '_dimFuncao Pedido'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "kind": 2,
+				  "version": 3
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column '_dimFuncao Pedido'
+		isHidden
+		formatString: 0
+		lineageTag: 092a2780-2506-46ea-8405-2ced557a9d6f
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _dimFuncao-db9433f0-766d-44c7-a489-c712b2b87a33 = calculated
+		mode: import
+		source =
+				{
+				    ("Sigla", NAMEOF('d_IES'[Sigla]), 0),
+				    ("Descrição da Função", NAMEOF('dimFuncao'[DescricaoFuncao]), 1),
+				    ("Nome do Cargo", NAMEOF('dimFuncao'[Nome do Cargo]), 2),
+				    ("Cargo ou Função", NAMEOF('dimFuncao'[FuncaoCompleto]), 3),
+				    ("Tipo de Cargo", NAMEOF('dimFuncao'[CargoFuncao]), 4),
+				    ("Escolaridade", NAMEOF('dimEscolaridade'[NivelEscolaridade]), 5),
+				    ("Tempo de serviço", NAMEOF('dimTempoServico'[TempoServico]), 6),
+				    ("Sexo", NAMEOF('dimSexoIdade'[Sexo]), 7),
+				    ("Faixa Etária", NAMEOF('dimSexoIdade'[FaixaEtaria]), 8),
+				    ("Carreira", NAMEOF(dimCarreiras[CarreiraDescricao]), 9),
+				    ("Cargo Efetivo", NAMEOF('dimCargos'[Cargo]), 10)
+				    }
+
+	annotation PBI_Id = ab250fc7c1364f71b3452402ab8072e6
+

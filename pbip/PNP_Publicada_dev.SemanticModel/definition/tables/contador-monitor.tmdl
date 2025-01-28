@@ -1,0 +1,44 @@
+/// @description Essa tabela é utilizada para armazenar informações sobre a aparência do contador-monitor, permitindo que o sistema exiba a imagem correta de acordo com o seu estado atual. A imagem completa é exibida quando o contador está funcionando normalmente, enquanto a imagem lenta é exibida quando há algum problema ou lentidão no funcionamento do contador.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table contador-monitor
+	lineageTag: d4e450c4-99be-429c-ba43-4830b0b25d10
+
+	column Plataforma_Nilo_Pecanha
+		dataType: string
+		lineageTag: cdb4a9b7-147e-4784-a014-d38560e48cf2
+		summarizeBy: none
+		sourceColumn: Plataforma_Nilo_Pecanha
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'http://34.95.238.198:8000/v0_1/full_image/Plataforma_Nilo_Pecanha'
+		dataType: string
+		lineageTag: b3619a66-5114-4fd9-a4c5-31e81f555ebf
+		summarizeBy: none
+		sourceColumn: http://34.95.238.198:8000/v0_1/full_image/Plataforma_Nilo_Pecanha
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'http://34.95.238.198:8000/v0_1/slow_image/Plataforma_Nilo_Pecanha'
+		dataType: string
+		lineageTag: dc523550-71a6-4090-b8c2-dbd83db9af85
+		summarizeBy: none
+		sourceColumn: http://34.95.238.198:8000/v0_1/slow_image/Plataforma_Nilo_Pecanha
+
+		annotation SummarizationSetBy = Automatic
+
+	partition contador-monitor-4afaf7a4-e8b6-4cbc-b9f8-4a915e9dc8e5 = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("tZjfT9swEID/lz5X6W/W7m0r0CGNEkHFC0Knm+uCpSSuHKer9tfvkiAIEMdNbF6KsJzv/Dlnn52Hh14YocadVDHCWkQSQs4wecZev/es9f77YDCZBotZMJ7Mg9Fi/n0+HA4HhyGMBrssikDE+MQHnRlpJP9aGI/9h94ogFu+5XBJPwojAPjJYziIZCtbjdOJUxlrE6d+vEtMUKRAbUsZZ4lgyNB17B2ZjR71zHqna9xj3nOjMEmFu08HXqPLZ17uMQ7gWjAlt7iVKYTrkHqGmEiFcbukdwNVRt4IMg15FIwA6XcCy0ylsk+2WgmWRdgHrlngrOIewKJoDWBWn8Kd0Fmemm8PeRDuhrVq1mLNcjNYRpimYlcuPrhFJjDqU3YnWwQOd/zYbqV9ZRir/ElhzJNxBpcojggXGpXw8Y7bAq2CH4C5yjSg9SsSHpX7aKKVjDh1vlEMY57kHdu9QT/AispJwFxlZuj4NhGtRHzgKhon4EypNQtGSGcMxcg2y0veb/5Ef5wzrDPXkmgmboPfH1pkKVeHogje4xN6setCtbvVUBvMWNkF1lJnKvHj1Z5pt/rENDuNaQKiYoe8SlKmhJbpwNc7c2BbHc1ss+sENngs3vTFAdOW50ZfSKvZJ6RZaEryW8F40ZkqneAJVTn4wXDLYyp8HgTdQ1iFrSHME3D2drJJYS8VhErueJpK5UHdBW6VboCbdKd0cF1hSpkOWuriuoTF3cPZ1YFsETWTTZY0N9/KR6iyKkVlhxfz4+/A7SGCxdoewZzS88pquOdK0wKIxL/W13b/cGtKN8DNuovX3e6GZXtPml2gVr0aaK41CWAVVA+w2PVi70iqCDSTjKM+5xqj56Kl3VvwQLON/h3NaHDHleDwS9DKU23rnx+gzeMjsFgZu5qEG9PO+VoTeFkj6Kij6Urf+pvX1wSorpguAUybwoSe23CWCEZNuI1FQrOlUIuDLCFrceCR8zbhK4xl4zgxjHmHnMGGZqw8657L/B7mXvA7Uq17ZB3VZHZGE3Ne/H+1vsgbrlZLGA9HC2c7B7LF0Ew2W47Lskht+SKg8rGT+XmAHzWnu1nOKFHL0Ju+/5DWeWkd8uWD1YqnmpKFHgjzfYIOw/Aywyuu2n4Y8cJ7/7nKynt8/A8=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [tab_name = _t, full_image = _t, slow_image = _t]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])
+				in
+				    #"Cabeçalhos Promovidos"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+

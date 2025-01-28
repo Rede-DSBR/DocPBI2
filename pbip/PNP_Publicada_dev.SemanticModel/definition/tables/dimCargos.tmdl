@@ -1,0 +1,98 @@
+/// @description Essa tabela fornece informações que são importantes para a gestão de recursos humanos de uma organização, pois permitem a identificação e classificação dos cargos, além de auxiliar na definição da remuneração e na gestão de carreiras.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table dimCargos
+	lineageTag: 5a2630b9-09d5-4cad-89b8-1f8283d0d802
+
+	column skCargo
+		dataType: int64
+		formatString: 0
+		lineageTag: 23a285ab-a9b5-4052-a548-dcd51b1490ac
+		summarizeBy: none
+		sourceColumn: skCargo
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Regime Jurídico do enquadramento funcional do servidor. ANS – Anistiado; CDT – Contrato Temporário; CLT – Celetista; EST – Estatutário; ETG – Estagiário; NES – Cargos de Natureza Especial ou Não Informado
+	/// @author dsbr;
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Cargos da carreira
+	column RegimeJuridico
+		dataType: string
+		lineageTag: cb58572a-a0cd-431f-b157-df7d0e86a4b8
+		summarizeBy: none
+		sourceColumn: RegimeJuridico
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código do Cargo
+	column codCargo
+		dataType: string
+		lineageTag: 517ee60e-5af6-4ed1-a8c4-135dd8becd7e
+		summarizeBy: none
+		sourceColumn: codCargo
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Descrição do cargo ocupado pelo servidor
+	/// @author dsbr;
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Cargos da carreira; Cargos e funções gratificadas
+	column Cargo
+		dataType: string
+		lineageTag: 816489e7-bc48-4c0d-ac00-bf0c56d2ff9b
+		summarizeBy: none
+		sourceColumn: Cargo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Classe
+		dataType: string
+		lineageTag: 46f8f4f4-4d45-4405-94f2-4339abd05788
+		summarizeBy: none
+		sourceColumn: Classe
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nivel
+		dataType: string
+		lineageTag: 38d77ca8-d408-4203-b7bf-897ad97c743d
+		summarizeBy: none
+		sourceColumn: Nivel
+
+		annotation SummarizationSetBy = Automatic
+
+	column Padrao
+		dataType: string
+		lineageTag: a16313ba-f16b-499a-a6d0-4a13a407746a
+		summarizeBy: none
+		sourceColumn: Padrao
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Chave da tabela de referência de carreira (Siape)
+	column skCarreira
+		dataType: string
+		lineageTag: 96ebcc40-0502-446a-90a9-a168444a36ea
+		summarizeBy: none
+		sourceColumn: skCarreira
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dimCargos-d230bf0b-7593-4a67-9857-3edd72a187fc = m
+		mode: import
+		queryGroup: 'Modelo Gestão de Pessoas\Dimensões'
+		source =
+				let
+				    Fonte = Csv.Document(Binary.Decompress(Web.Contents(AWS&"dimCargos.csv.gz"),Compression.GZip),[Delimiter=",", Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Valor Substituído" = Table.ReplaceValue(#"Cabeçalhos Promovidos","#N/A","Não Informado",Replacer.ReplaceValue,{"Cargo"}),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Valor Substituído",{{"skCargo", Int64.Type}, {"RegimeJuridico", type text}, {"codCargo", type text}, {"Cargo", type text}, {"Classe", type text}, {"Nivel", type text}, {"Padrao", type text}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_ResultType = Table
+

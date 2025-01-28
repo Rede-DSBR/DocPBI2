@@ -329,7 +329,7 @@
                 
                 <li class="column-info">
                     <strong>project</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
@@ -471,14 +471,14 @@
                 
                 <li class="column-info">
                     <strong>Ordem</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: sum<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Contexto</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
@@ -502,7 +502,7 @@
                 
                 <li class="column-info">
                     <strong>Value</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
@@ -523,49 +523,49 @@
                 
                 <li class="column-info">
                     <strong>Date</strong><br>
-                    <em>Type: dateTime</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Ano = YEAR([Date])</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>MonthNo = MONTH([Date])</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Mês = FORMAT([Date], &#34;MMMM&#34;)</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>QuarterNo = INT(([MonthNo] + 2) / 3)</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Trimestre = &#34;Trim &#34; &amp; [QuarterNo]</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Dia = DAY([Date])</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
@@ -702,7 +702,7 @@
                 
                 <li class="column-info">
                     <strong>Ano_Publicacao =</strong><br>
-                    <em>Type: double</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: sum<br>
                     Description: N/A
                 </li>
@@ -1066,14 +1066,14 @@
                 
                 <li class="column-info">
                     <strong>CHMR =</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: sum<br>
                     Description: @description Carga horária mínima regulamentada do curso
                 </li>
                 
                 <li class="column-info">
                     <strong>FECH =</strong><br>
-                    <em>Type: double</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: sum<br>
                     Description: @description Fator de Equiparação de Carga Horária - Permite a equiparação de cursos com durações distintas, sendo calculado pela divisão da carga horária anual do curso por oitocentas horas. A carga  horária anual do curso deve considerar a carga horária mínima  regulamentada e a duração do ciclo do curso, em anos, definido no projeto pedagógico
                 </li>
@@ -1956,7 +1956,7 @@
                 
                 <li class="column-info">
                     <strong>&#39;Instituição | Unidade&#39; = dimUnidade[Instituicao]&amp;&#34; • &#34;&amp;dimUnidade[nomeUnidadeRecenteRed]</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: @description Nome da unidade de ensino, conforme última edição disponível, atrelado ao nome da instituição
                 </li>
@@ -1970,7 +1970,7 @@
                 
                 <li class="column-info">
                     <strong>&#39;Sigla | Instituição&#39; = dimUnidade[Instituicao]&amp;&#34; - &#34;&amp;dimUnidade[Instituição (Nome)]</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: @description Sigla que representa a Instituição de Ensino Superior
                 </li>
@@ -2302,14 +2302,14 @@
                 
                 <li class="column-info">
                     <strong>OrgAcadPNP = d_IES[Organização Acadêmica Sigla PNP]&amp;&#34; • &#34;&amp;d_IES[Organização Acadêmica PNP]</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: @description Agrupamento da sigla e nome da organização acadêmica das instituições no âmbito da PNP
                 </li>
                 
                 <li class="column-info">
                     <strong>SiglaNome = d_IES[Sigla]&amp;&#34; - &#34;&amp;(d_IES[Instituição (Nome)])</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: @description Agrupamento da sigla e nome da instituição
                 </li>
@@ -2744,112 +2744,112 @@
                 
                 <li class="column-info">
                     <strong>&#39;gNP_CPC Contínuo&#39; =</strong><br>
-                    <em>Type: double</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>gNP_Enade =</strong><br>
-                    <em>Type: double</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>gNP_DocentesDoutores =</strong><br>
-                    <em>Type: double</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>gNP_DocentesMestres =</strong><br>
-                    <em>Type: double</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>gNP_IDD =</strong><br>
-                    <em>Type: double</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>gNP_Infraestrutura =</strong><br>
-                    <em>Type: double</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>gNP_OrgDidaticoPedagogica =</strong><br>
-                    <em>Type: double</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>gNP_OportunidadesAmpliacaoFormacao =</strong><br>
-                    <em>Type: double</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>gNP_RegimeTrabalho =</strong><br>
-                    <em>Type: double</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>gNB_DocentesDoutores =</strong><br>
-                    <em>Type: double</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>gNB_DocentesMestres =</strong><br>
-                    <em>Type: double</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>gNB_IDD =</strong><br>
-                    <em>Type: double</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>gNB_Infraestrutura =</strong><br>
-                    <em>Type: double</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>gNB_OrgDidaticoPedagogica =</strong><br>
-                    <em>Type: double</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>gNB_OportunidadesAmpliacaoFormacao =</strong><br>
-                    <em>Type: double</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>gNB_RegimeTrabalho =</strong><br>
-                    <em>Type: double</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
@@ -3260,7 +3260,7 @@
                 
                 <li class="column-info">
                     <strong>g_Alfa =</strong><br>
-                    <em>Type: double</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: @description Proporção de matrículas na graduação
 @author dsbr
@@ -3270,7 +3270,7 @@
                 
                 <li class="column-info">
                     <strong>g_Beta =</strong><br>
-                    <em>Type: double</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: @description Proporção de matrículas nos cursos de mestrado da IES.
 @author dsbr
@@ -3280,7 +3280,7 @@
                 
                 <li class="column-info">
                     <strong>g_Gama =</strong><br>
-                    <em>Type: double</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: @description Proporção de matrículas nos cursos de doutorado da IES.
 @author dsbr
@@ -3290,7 +3290,7 @@
                 
                 <li class="column-info">
                     <strong>&#39;g_Conceito Médio de Graduação&#39; =</strong><br>
-                    <em>Type: double</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: @description Média ponderada das notas contínuas de Conceitos Preliminares de Curso (NCPCc) dos cursos de graduação
 @author dsbr
@@ -3300,7 +3300,7 @@
                 
                 <li class="column-info">
                     <strong>&#39;g_Conceito Médio de Mestrado&#39; =</strong><br>
-                    <em>Type: double</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: @description Conceito de Mestrado atribuído pela Capes.
 @author dsbr
@@ -3310,7 +3310,7 @@
                 
                 <li class="column-info">
                     <strong>&#39;g_Conceito Médio do Doutorado&#39; =</strong><br>
-                    <em>Type: double</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: @description Conceito de Doutorado atribuído pela Capes
 @author dsbr
@@ -3320,14 +3320,14 @@
                 
                 <li class="column-info">
                     <strong>&#39;g_IGC (Contínuo)&#39; =</strong><br>
-                    <em>Type: double</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>&#39;g_IGC (Faixa)&#39; =</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: @description O Índice Geral de Cursos resulta da avaliação das instituições de educação superior. É uma média ponderada, a partir da distribuição dos estudantes nos níveis de ensino, que envolve as notas contínuas do CPC e das notas de avaliação dos cursos de programas de pós graduação stricto sensu, atribuídos pela Coordenação de Aperfeiçoamento de Pessoal de Nível Superior (CAPES), convertido em faixas conforme parâmetros de conversão definidos na nota técnica referente à versão do cálculo do indicador.
 @author dsbr
@@ -3337,7 +3337,7 @@
                 
                 <li class="column-info">
                     <strong>&#39;g_Cursos com CPC no triênio&#39; =</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: @description Número de cursos com CPC no triênio de referência para cálculo do IGC.
 @author dsbr
@@ -3427,14 +3427,14 @@
                 
                 <li class="column-info">
                     <strong>Comentários = &#34;🗨️ &#34; &amp; fInstagram[comments_count]</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: @description Número de comentários com o balão
                 </li>
                 
                 <li class="column-info">
                     <strong>Curtidas = &#34;❤️ &#34;&amp;fInstagram[like_count]</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: @description Número de curtidas com o coração
                 </li>
@@ -3518,7 +3518,7 @@
                 
                 <li class="column-info">
                     <strong>Cód_Fonte = Fonte[CodFonteRecursos]&amp;&#34; - &#34;&amp;Fonte[FonteRecursos]</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
@@ -3542,7 +3542,7 @@
                 
                 <li class="column-info">
                     <strong>_fOrçamentoComparar</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: @description Retorna o nome de medidas do contexto do orçamento (excluindo execução do exercício e restos a pagar).
 @author dsbr
@@ -3553,28 +3553,28 @@
                 
                 <li class="column-info">
                     <strong>&#39;_fOrçamentoComparar Campos&#39;</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>&#39;_fOrçamentoComparar Pedido&#39;</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: sum<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Contexto</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>OrdemContexto</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: sum<br>
                     Description: N/A
                 </li>
@@ -4162,14 +4162,14 @@
                 
                 <li class="column-info">
                     <strong>Ordem</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: sum<br>
                     Description: @description Número de ordem de cada campo
                 </li>
                 
                 <li class="column-info">
                     <strong>Ind</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: @description Referência de período de apuração (ano anterior ou mesmo período do ano anterior).
 @author dsbr
@@ -4488,49 +4488,49 @@
                 
                 <li class="column-info">
                     <strong>Date</strong><br>
-                    <em>Type: dateTime</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Ano = YEAR([Date])</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>MonthNo = MONTH([Date])</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Mês = FORMAT([Date], &#34;MMMM&#34;)</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>QuarterNo = INT(([MonthNo] + 2) / 3)</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Trimestre = &#34;Trim &#34; &amp; [QuarterNo]</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Dia = DAY([Date])</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
@@ -4551,49 +4551,49 @@
                 
                 <li class="column-info">
                     <strong>Date</strong><br>
-                    <em>Type: dateTime</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Ano = YEAR([Date])</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>MonthNo = MONTH([Date])</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Mês = FORMAT([Date], &#34;MMMM&#34;)</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>QuarterNo = INT(([MonthNo] + 2) / 3)</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Trimestre = &#34;Trim &#34; &amp; [QuarterNo]</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Dia = DAY([Date])</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
@@ -4614,49 +4614,49 @@
                 
                 <li class="column-info">
                     <strong>Date</strong><br>
-                    <em>Type: dateTime</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Ano = YEAR([Date])</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>MonthNo = MONTH([Date])</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Mês = FORMAT([Date], &#34;MMMM&#34;)</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>QuarterNo = INT(([MonthNo] + 2) / 3)</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Trimestre = &#34;Trim &#34; &amp; [QuarterNo]</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Dia = DAY([Date])</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
@@ -4677,49 +4677,49 @@
                 
                 <li class="column-info">
                     <strong>Date</strong><br>
-                    <em>Type: dateTime</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Ano = YEAR([Date])</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>MonthNo = MONTH([Date])</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Mês = FORMAT([Date], &#34;MMMM&#34;)</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>QuarterNo = INT(([MonthNo] + 2) / 3)</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Trimestre = &#34;Trim &#34; &amp; [QuarterNo]</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Dia = DAY([Date])</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
@@ -4740,49 +4740,49 @@
                 
                 <li class="column-info">
                     <strong>Date</strong><br>
-                    <em>Type: dateTime</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Ano = YEAR([Date])</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>MonthNo = MONTH([Date])</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Mês = FORMAT([Date], &#34;MMMM&#34;)</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>QuarterNo = INT(([MonthNo] + 2) / 3)</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Trimestre = &#34;Trim &#34; &amp; [QuarterNo]</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Dia = DAY([Date])</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
@@ -4803,49 +4803,49 @@
                 
                 <li class="column-info">
                     <strong>Date</strong><br>
-                    <em>Type: dateTime</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Ano = YEAR([Date])</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>MonthNo = MONTH([Date])</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Mês = FORMAT([Date], &#34;MMMM&#34;)</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>QuarterNo = INT(([MonthNo] + 2) / 3)</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Trimestre = &#34;Trim &#34; &amp; [QuarterNo]</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Dia = DAY([Date])</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
@@ -4866,49 +4866,49 @@
                 
                 <li class="column-info">
                     <strong>Date</strong><br>
-                    <em>Type: dateTime</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Ano = YEAR([Date])</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>MonthNo = MONTH([Date])</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Mês = FORMAT([Date], &#34;MMMM&#34;)</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>QuarterNo = INT(([MonthNo] + 2) / 3)</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Trimestre = &#34;Trim &#34; &amp; [QuarterNo]</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Dia = DAY([Date])</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
@@ -4929,49 +4929,49 @@
                 
                 <li class="column-info">
                     <strong>Date</strong><br>
-                    <em>Type: dateTime</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Ano = YEAR([Date])</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>MonthNo = MONTH([Date])</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Mês = FORMAT([Date], &#34;MMMM&#34;)</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>QuarterNo = INT(([MonthNo] + 2) / 3)</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Trimestre = &#34;Trim &#34; &amp; [QuarterNo]</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Dia = DAY([Date])</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
@@ -5150,7 +5150,7 @@
                 
                 <li class="column-info">
                     <strong>Cód_NaturezaDespesaDetalhada = NaturezaDespesa[CodND]&amp;&#34; - &#34;&amp;NaturezaDespesa[NDD]</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: @description Código da natureza da despesa detalhada
 @author dsbr
@@ -5161,7 +5161,7 @@
                 
                 <li class="column-info">
                     <strong>Cód_ElementoDespesa = NaturezaDespesa[CodElementoDespesa]&amp;&#34; - &#34;&amp;NaturezaDespesa[ElementoDespesa]</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: @description Código do elemento da despesa
 @author dsbr
@@ -5172,7 +5172,7 @@
                 
                 <li class="column-info">
                     <strong>Cód_GrupoNatDespesa = NaturezaDespesa[CodGrupoNatDespesa]&amp;&#34; - &#34;&amp;NaturezaDespesa[GrupoNatDespesa]</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: @description Código da Classificação de Grupo de Natureza de Despesa
                 </li>
@@ -5308,7 +5308,7 @@
                 
                 <li class="column-info">
                     <strong>Cód_Ação = PTRES[CodAcao]&amp;&#34; - &#34;&amp;PTRES[Acao]</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: @description Código da ação
 @author dsbr
@@ -5319,14 +5319,14 @@
                 
                 <li class="column-info">
                     <strong>Cód_PlanoOrçamentário = PTRES[CodPlanoOrcamentario]&amp;&#34; - &#34;&amp;PTRES[PlanoOrcamentario]</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Cód_Programa = PTRES[CodPrograma]&amp;&#34; - &#34;&amp;PTRES[Programa]</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: @description Código do Programa
 @author dsbr
@@ -5337,14 +5337,14 @@
                 
                 <li class="column-info">
                     <strong>Cód_Função = PTRES[CodFuncao]&amp;&#34; - &#34;&amp;PTRES[Funcao]</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Cód_SubFunção = PTRES[CodSubfuncao]&amp;&#34; - &#34;&amp;PTRES[Subfuncao]</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
@@ -5640,14 +5640,14 @@
                 
                 <li class="column-info">
                     <strong>Cód_Órgão =</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: @description Código do Órgão
                 </li>
                 
                 <li class="column-info">
                     <strong>Cód_UO =</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: @description Código da Unidade Orçamentária
 
@@ -5707,21 +5707,21 @@
                 
                 <li class="column-info">
                     <strong>Value1</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Value2</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Value3</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: sum<br>
                     Description: N/A
                 </li>
@@ -5745,21 +5745,21 @@
                 
                 <li class="column-info">
                     <strong>_dimCargo</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>&#39;_dimCargo Campos&#39;</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>&#39;_dimCargo Pedido&#39;</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: sum<br>
                     Description: N/A
                 </li>
@@ -5783,21 +5783,21 @@
                 
                 <li class="column-info">
                     <strong>_dimFuncao</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>&#39;_dimFuncao Campos&#39;</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>&#39;_dimFuncao Pedido&#39;</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: sum<br>
                     Description: N/A
                 </li>
@@ -5821,21 +5821,21 @@
                 
                 <li class="column-info">
                     <strong>_ContextoOrçamentário</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>&#39;_ContextoOrçamentário Campos&#39;</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>&#39;_ContextoOrçamentário Pedido&#39;</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: sum<br>
                     Description: N/A
                 </li>
@@ -5859,21 +5859,21 @@
                 
                 <li class="column-info">
                     <strong>DetalhaInstuições</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>&#39;Contexto Instituições Campos&#39;</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>&#39;Contexto Instituições Pedido&#39;</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: sum<br>
                     Description: N/A
                 </li>
@@ -5897,21 +5897,21 @@
                 
                 <li class="column-info">
                     <strong>_DInstituiçõesINEP</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>&#39;_DInstituiçõesINEP Campos&#39;</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>&#39;_DInstituiçõesINEP Pedido&#39;</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: sum<br>
                     Description: N/A
                 </li>
@@ -5935,21 +5935,21 @@
                 
                 <li class="column-info">
                     <strong>DetalhaMicrodados</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>&#39;Ação Afirmativa Campos&#39;</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>&#39;Ação Afirmativa Pedido&#39;</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: sum<br>
                     Description: N/A
                 </li>
@@ -5973,21 +5973,21 @@
                 
                 <li class="column-info">
                     <strong>_dServidores</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>&#39;_dServidores Campos&#39;</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>&#39;_dServidores Pedido&#39;</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: sum<br>
                     Description: N/A
                 </li>
@@ -6011,21 +6011,21 @@
                 
                 <li class="column-info">
                     <strong>_dServidores</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>&#39;_dServidores Campos&#39;</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>&#39;_dServidores Pedido&#39;</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: sum<br>
                     Description: N/A
                 </li>
@@ -6130,28 +6130,28 @@
                 
                 <li class="column-info">
                     <strong>_fCPC</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>dNotaCPC</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>&#39;_fCPC campo&#39;</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: sum<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Tipo</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
@@ -6175,28 +6175,28 @@
                 
                 <li class="column-info">
                     <strong>_fEficiênciaAcadêmica</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>&#39;_fEficiênciaAcadêmica Campos&#39;</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>&#39;_fEficiênciaAcadêmica Pedido&#39;</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: sum<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Valor</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: @description Valor
 @author dsbr
@@ -6221,21 +6221,21 @@
                 
                 <li class="column-info">
                     <strong>_fIGC</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>&#39;_fIGC Campos&#39;</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>&#39;_fIGC Pedido&#39;</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: sum<br>
                     Description: N/A
                 </li>
@@ -6259,28 +6259,28 @@
                 
                 <li class="column-info">
                     <strong>&#39;Indicador Orçamentário&#39;</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: @description Indicador Orçamentário
                 </li>
                 
                 <li class="column-info">
                     <strong>&#39;Indicador de Acompanhamento&#39;</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>&#39;fIndAcompOrc Pedido&#39;</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: sum<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>&#39;Contexto Orçamentário&#39;</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: @description Nomes dos contextos, exemplo: 1, &#34;Programação Orçamentária&#34;,
 2, &#34;Execução do Exercício&#34;, 3, &#34;Restos a pagar&#34;, 4, &#34;Descentralizações&#34;, 5, &#34;Exercício e RP&#34;
@@ -6288,7 +6288,7 @@
                 
                 <li class="column-info">
                     <strong>Ordem</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: sum<br>
                     Description: @description Número de ordem de cada campo
 @author dsbr
@@ -6316,28 +6316,28 @@
                 
                 <li class="column-info">
                     <strong>&#39;Indicadores Matrículas&#39;</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>&#39;Indicadores Matrículas Campos&#39;</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>&#39;Indicadores Matrículas Pedido&#39;</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: sum<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>&#39;_fMatrícula | Valor&#39;</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
@@ -6368,28 +6368,28 @@
                 
                 <li class="column-info">
                     <strong>Medidas</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: @description Medidas financeiras
                 </li>
                 
                 <li class="column-info">
                     <strong>&#39;fOrçamento Pedido&#39;</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: sum<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Contexto</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>Valor</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: sum<br>
                     Description: @description Valor
                 </li>
@@ -6413,21 +6413,21 @@
                 
                 <li class="column-info">
                     <strong>_GraficoIV</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>&#39;_GraficoIV Campos&#39;</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>&#39;_GraficoIV Pedido&#39;</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: sum<br>
                     Description: N/A
                 </li>
@@ -6451,21 +6451,21 @@
                 
                 <li class="column-info">
                     <strong>RealçarData</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>&#39;RealçarData Campos&#39;</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>&#39;RealçarData Pedido&#39;</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: sum<br>
                     Description: N/A
                 </li>
@@ -6489,21 +6489,21 @@
                 
                 <li class="column-info">
                     <strong>_TabelaIV</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>&#39;_TabelaIV Campos&#39;</strong><br>
-                    <em>Type: string</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: none<br>
                     Description: N/A
                 </li>
                 
                 <li class="column-info">
                     <strong>&#39;_TabelaIV Pedido&#39;</strong><br>
-                    <em>Type: int64</em><br>
+                    <em>Type: N/A</em><br>
                     Summarize By: sum<br>
                     Description: N/A
                 </li>

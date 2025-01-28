@@ -1,0 +1,35 @@
+/// @description A tabela MedidasFinanceiras é utilizada para armazenar as medidas financeiras e a ordem em que elas devem ser apresentadas em uma análise financeira.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table MedidasFinanceiras
+	lineageTag: 475d6303-0abb-427f-bb59-9e8091b377a2
+
+	calculationGroup
+		precedence: 1
+
+		calculationItem 'Despesa Empenhada' = [Despesa Empenhada]
+
+		calculationItem 'Despesa Liquidada' = [Despesa Liquidada]
+
+		calculationItem 'Despesa Paga' = [Despesa Paga]
+
+	/// @description Medidas financeiras
+	column Medidas
+		dataType: string
+		lineageTag: ca3b15f6-c033-4917-8be6-27958f7e134d
+		summarizeBy: none
+		sourceColumn: Name
+		sortByColumn: Ordinal
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ordinal
+		dataType: int64
+		isHidden
+		lineageTag: d743c0f4-0d06-4324-b8ca-fd861081c2a2
+		summarizeBy: sum
+		sourceColumn: Ordinal
+
+		annotation SummarizationSetBy = Automatic
+

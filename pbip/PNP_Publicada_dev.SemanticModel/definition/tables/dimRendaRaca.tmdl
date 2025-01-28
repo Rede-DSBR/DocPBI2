@@ -1,0 +1,98 @@
+/// @description Essa tabela é utilizada para armazenar informações sobre a renda e a cor/raça das pessoas, permitindo a análise desses dados de forma mais organizada e estruturada. As colunas codRendaRaca e ordemRendaFamiliar são úteis para ordenar e identificar os registros, enquanto as colunas CorRaca e RendaFamiliar permitem a categorização dos dados. As colunas RendaFamiliarDeclarada e CorRacaDeclarada podem ser utilizadas para verificar se as informações declaradas pelas pessoas correspondem às categorias pré-definidas na tabela. A coluna ordemCorRaca é útil para ordenar as informações de acordo com a ordem das categorias de cor/raça.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table dimRendaRaca
+	lineageTag: ae32b327-62c8-4919-91d8-31ac80427107
+
+	column codRendaRaca
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d18525c8-f662-4c81-8258-30774997676e
+		summarizeBy: none
+		sourceColumn: codRendaRaca
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Cor/Raça do aluno declarado na PNP pela instituição. Opções: Amarela, Branca, Indígena, Parda, Preta e Não Declarada.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Classificação Racial, Renda e Sexo; Faixa Etária; Dados Gerais; Curso, matrícula e oferta; Situação de matrícula; Percentuais Legais;  Oferta de vagas noturnas; Relação inscritos/vagas; Taxa de evasão; Eficiência Acadêmica; Titulação Docente
+	column CorRaca
+		dataType: string
+		lineageTag: 0581846a-c604-4147-91ea-24732245cfdf
+		summarizeBy: none
+		sourceColumn: CorRaca
+		sortByColumn: ordemCorRaca
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Faixa de renda per capita familiar do aluno, declara na PNP pela instituição (Opções: 0<RFP<=0,5; 0,5<RFP<=1; 1<RFP<=1,5; 1,5<RFP<=2,5; 2,5<RFP<=3,5; RFP>3,5; Não declarada).
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Classificação Racial, Renda e Sexo; Faixa Etária; Dados Gerais; Curso, matrícula e oferta; Situação de matrícula; Percentuais Legais;  Oferta de vagas noturnas; Relação inscritos/vagas; Taxa de evasão; Eficiência Acadêmica; Titulação Docente
+	column RendaFamiliar
+		dataType: string
+		lineageTag: bf446eb4-d1bc-4b8a-a8a0-f7902672bd2c
+		summarizeBy: none
+		sourceColumn: RendaFamiliar
+		sortByColumn: ordemRendaFamiliar
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column RendaFamiliarDeclarada
+		dataType: string
+		lineageTag: 454206ba-01e0-4ba0-b106-1947d8198c3e
+		summarizeBy: none
+		sourceColumn: RendaFamiliarDeclarada
+
+		annotation SummarizationSetBy = Automatic
+
+	column CorRacaDeclarada
+		dataType: string
+		lineageTag: 3114b76e-9383-468c-9e0b-0405234ff6c0
+		summarizeBy: none
+		sourceColumn: CorRacaDeclarada
+
+		annotation SummarizationSetBy = Automatic
+
+	column ordemRendaFamiliar
+		dataType: int64
+		formatString: 0
+		lineageTag: 5102e554-be45-42ec-b18a-c0b1315ef061
+		summarizeBy: sum
+		sourceColumn: ordemRendaFamiliar
+
+		annotation SummarizationSetBy = Automatic
+
+	column ordemCorRaca
+		dataType: string
+		lineageTag: f7f2b048-728f-4418-b806-b0879d6d4cad
+		summarizeBy: none
+		sourceColumn: ordemCorRaca
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dimRendaRaca-fac553d9-1ad5-47fd-8b5a-c6251ff84b1d = m
+		mode: import
+		queryGroup: 'Modelo PNP\Dimensões'
+		source =
+				let
+				    Fonte = Csv.Document(Binary.Decompress(Web.Contents(AWS&"dimRendaRaca.csv.gz"),Compression.GZip),[Delimiter=";", Columns=7, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Colocar Cada Palavra Em Maiúscula" = Table.TransformColumns(#"Cabeçalhos Promovidos",{{"CorRaca", Text.Proper, type text}}),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Colocar Cada Palavra Em Maiúscula",{{"codRendaRaca", Int64.Type}, {"CorRaca", type text}, {"RendaFamiliar", type text}, {"ordemRendaFamiliar", Int64.Type}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_ResultType = Table
+

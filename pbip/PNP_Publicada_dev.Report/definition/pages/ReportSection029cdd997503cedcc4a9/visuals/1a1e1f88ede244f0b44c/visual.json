@@ -1,0 +1,149 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.2.0/schema.json",
+  "name": "1a1e1f88ede244f0b44c",
+  "position": {
+    "x": 584.9246231155779,
+    "y": 37.386934673366831,
+    "z": 7000,
+    "height": 47.035175879396981,
+    "width": 568.0402010050251,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "SmartFilterProByOKViz00000000000000000000000000000000",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fInstagram"
+                    }
+                  },
+                  "Property": "caption"
+                }
+              },
+              "queryRef": "fInstagram.caption",
+              "displayName": "Pesquise Notícias"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "internal": [
+        {
+          "properties": {
+            "instanceId": {
+              "expr": {
+                "Literal": {
+                  "Value": "'4e1b20fe-5800-5a36-cd6a-763021c9dd2b'"
+                }
+              }
+            },
+            "check": {
+              "expr": {
+                "Literal": {
+                  "Value": "1711589390434D"
+                }
+              }
+            },
+            "cache": {
+              "expr": {
+                "Literal": {
+                  "Value": "'{\"sk\":\"706BF8D6-5F5E-703B-79F3-041D0AD8828A\",\"sig\":\"61c6dea324d1860b923d8c5c7a870693f603dab4563918badcc2b31cab7755fd8c22845e46ec8e85440dc132e111e87c3b41b017c9bb1667e46142648b1fe971\",\"token\":\"s=2021-07-16&te=&ge=2024-06-16&e=2024-04-17\"}'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "about": [
+        {
+          "properties": {
+            "user": {
+              "expr": {
+                "Literal": {
+                  "Value": "'João Carlos Matos - joao.oliveira@ufob.edu.br'"
+                }
+              }
+            },
+            "key": {
+              "expr": {
+                "Literal": {
+                  "Value": "'706BF8D6-5F5E-703B-79F3-041D0AD8828A'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "labels": [
+        {
+          "properties": {
+            "label": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Pesquise Notícias'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "fInstagram.caption"
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {}
+        }
+      ],
+      "mode": [
+        {
+          "properties": {
+            "mode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'filter'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

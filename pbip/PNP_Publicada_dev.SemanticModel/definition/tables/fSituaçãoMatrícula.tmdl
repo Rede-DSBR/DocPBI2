@@ -1,0 +1,1460 @@
+/// @description Essa tabela é utilizada para armazenar informações sobre as matrículas realizadas pelos alunos em uma instituição de ensino, permitindo a análise de diversos aspectos relacionados à situação acadêmica dos alunos. As colunas representam informações como a unidade onde a matrícula foi realizada, o curso em que o aluno está matriculado, a situação da matrícula e a data em que a matrícula foi realizada ou atualizada.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table fSituaçãoMatrícula
+	lineageTag: a4ef8472-8627-4cdb-812d-a05ec6228690
+
+	/// @description Somatório correspondente aos alunos que estiveram com sua matrícula ativa em pelo menos um dia no ano de referência. Um aluno pode ter mais de uma matrícula nesse período, caso tenha se matriculado em mais de um curso.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panelCurso, matrícula e oferta; Situação de matrícula; Classificação Racial, Renda e Sexo; Faixa Etária; Taxa de evasão; Eficiência Acadêmica
+	measure 'Número de Matrículas' =
+			
+			/*
+			@description Somatório correspondente aos alunos que estiveram com sua matrícula ativa em pelo menos um dia no ano de referência. Um aluno pode ter mais de uma matrícula nesse período, caso tenha se matriculado em mais de um curso.
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panelCurso, matrícula e oferta; Situação de matrícula; Classificação Racial, Renda e Sexo; Faixa Etária; Taxa de evasão; Eficiência Acadêmica
+			*/
+			
+			SUM('fSituaçãoMatrícula'[numMatriculas])
+		formatString: #,0
+		lineageTag: 8c1d569d-8222-4ec0-956f-baa8eb437458
+
+		changedProperty = FormatString
+
+	/// @description É o somatório dos cursos pertencentes às instituições da Rede Federal de EPCT.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panelDados Gerais; Curso, matrícula e oferta; Situação de matrícula; Classificação Racial, Renda e Sexo; Faixa Etária
+	measure 'Número de cursos' = ```
+			
+			 
+			/*
+			@description É o somatório dos cursos pertencentes às instituições da Rede Federal de EPCT.
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panelDados Gerais; Curso, matrícula e oferta; Situação de matrícula; Classificação Racial, Renda e Sexo; Faixa Etária
+			*/
+			DISTINCTCOUNT('fSituaçãoMatrícula'[CodCurso])
+			```
+		formatString: #,0
+		lineageTag: 2478d355-779e-4db6-a214-9215e8925291
+
+		changedProperty = FormatString
+
+	/// @description Somatório correspondente às vagas disponibilizadas para a fase inicial de um curso, por meio de processo seletivo, vestibular, sorteio, SISU ou outras formas de ingresso, no ano de referência.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Curso, matrícula e oferta; Classificação Racial, Renda e Sexo; Faixa Etária; Relação inscritos/vagas; Situação de matrícula
+	measure 'Número de vagas' = ```
+			
+			/*
+			@description Somatório correspondente às vagas disponibilizadas para a fase inicial de um curso, por meio de processo seletivo, vestibular, sorteio, SISU ou outras formas de ingresso, no ano de referência.
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Curso, matrícula e oferta; Classificação Racial, Renda e Sexo; Faixa Etária; Relação inscritos/vagas; Situação de matrícula
+			*/  
+			CALCULATE(
+			    [BaseVagas],
+			    dimVagas[nomeVaga]="Vagas Ofertadas"
+			    )
+			```
+		formatString: #,0
+		lineageTag: b9e072f5-b05d-450b-a8d4-0a9866371b93
+
+		changedProperty = FormatString
+
+	/// @description É o somatório dos alunos Formados com os Integralizados em Fase Escolar, no ano de referência
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Curso, matrícula e oferta; Classificação Racial, Renda e Sexo; Faixa Etária; Situação de matrícula
+	measure 'Número de concluintes' = ```
+			
+			/*
+			@description É o somatório dos alunos Formados com os Integralizados em Fase Escolar, no ano de referência
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Curso, matrícula e oferta; Classificação Racial, Renda e Sexo; Faixa Etária; Situação de matrícula
+			*/  
+			CALCULATE([Número de Matrículas],dimSituacao[categoriaSituacao]="Concluintes")
+			```
+		formatString: #,0
+		lineageTag: 6fac9f49-bbf6-4518-85db-c024587a1935
+
+		changedProperty = FormatString
+
+	/// @description Somatório correspondente aos alunos que ingressaram em um curso no ano de referência.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Dados Gerais; Curso, matrícula e oferta; Classificação Racial, Renda e Sexo; Faixa Etária; Situação de matrícula
+	measure 'Número de ingressantes' = ```
+			
+			/*
+			@description Somatório correspondente aos alunos que ingressaram em um curso no ano de referência.
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Dados Gerais; Curso, matrícula e oferta; Classificação Racial, Renda e Sexo; Faixa Etária; Situação de matrícula
+			*/  
+			
+			VAR ano = VALUE(MAX('dCalendário'[Ano]))
+			RETURN
+			CALCULATE(
+			    [Número de Matrículas],
+			    FILTER(
+			        'fSituaçãoMatrícula',
+			        YEAR('fSituaçãoMatrícula'[dataMatricula])=ano
+			    )
+			)
+			```
+		formatString: #,0
+		lineageTag: 8599bcb1-31e9-4bbd-9df5-caad9a3f5865
+
+		changedProperty = FormatString
+
+	/// @description Corresponde aos candidatos que concorreram às vagas disponibilizadas para a fase inicial de um curso, em suas diversas formas de ingresso.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Curso, matrícula e oferta; Relação inscritos/vagas; Situação de matrícula; Classificação Racial, Renda e Sexo; Faixa Etária
+	measure 'Número de inscritos' = ```
+			
+			/*
+			@description Corresponde aos candidatos que concorreram às vagas disponibilizadas para a fase inicial de um curso, em suas diversas formas de ingresso.
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Curso, matrícula e oferta; Relação inscritos/vagas; Situação de matrícula; Classificação Racial, Renda e Sexo; Faixa Etária
+			*/ 
+			
+			VAR ano = 
+			VALUE(MAX('dCalendário'[Ano]))
+			RETURN
+			CALCULATE(SUM(dimCicloMatricula[Inscritos]),dimCicloMatricula[anoInicioCiclo]=ano)
+			```
+		formatString: #,0
+		lineageTag: 84a7a9e3-d802-482d-b101-59b0ccf17446
+
+		changedProperty = FormatString
+
+	/// @description Total de Número de matrículas no Ano
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'Total de Número de matrículas para Ano' =
+			
+			
+			/*
+			@description Total de Número de matrículas no Ano
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			CALCULATE([Número de Matrículas], ALLSELECTED('dCalendário'[Ano]))
+		formatString: #,0
+		lineageTag: 0c439da2-ae5c-4d0f-8cfe-e99f35ce6052
+
+		extendedProperty MeasureTemplate =
+				{
+				  "daxTemplateName": "TotalForSelectedCategory",
+				  "version": 0
+				}
+
+		changedProperty = FormatString
+
+	/// @description Matrícula atendida
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'Matrícula atendida' =
+			
+			/*
+			@description Matrícula atendida
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			
+			VAR ano =
+			    VALUE ( MAX ( 'dCalendário'[Ano] ) )
+			RETURN
+			CALCULATE (
+			                [Número de Matrículas],
+			                YEAR ( 'fSituaçãoMatrícula'[dataMatricula] ) <= ano,
+			                dimSituacao[nomeSituacao] = "Em curso"
+			            )
+			                + CALCULATE (
+			                    [Número de Matrículas],
+			                    YEAR ( 'fSituaçãoMatrícula'[dataMatricula] ) <= ano,
+			                    dimSituacao[nomeSituacao] <> "Em curso",
+			                    YEAR ( 'fSituaçãoMatrícula'[dataSituacao] ) >= ano
+			                )
+		formatString: #,0
+		lineageTag: 2cc10cf3-8c4a-4406-84f3-22021209c015
+
+		changedProperty = FormatString
+
+	/// @description Corresponde à matrícula ponderada pelos fatores de: - Fator de Equiparação de carga horária; - Fator de Esforço de curso.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'Matrícula Equivalente Apresentada Geral' =
+			
+			/*
+			@description Corresponde à matrícula ponderada pelos fatores de: - Fator de Equiparação de carga horária; - Fator de Esforço de curso.
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			
+			VAR ano =
+			    VALUE ( MAX ( 'dCalendário'[Ano] ) )
+			VAR tabela =
+			    SUMMARIZE (
+			        dimCurso,
+			        dimCurso[FECH],
+			        dimCurso[fatorEsforcoCurso],
+			        "matr_atend",'fSituaçãoMatrícula'[Matrícula atendida]
+			    )
+			RETURN
+			    SUMX ( tabela, [FECH] * [fatorEsforcoCurso] * [matr_atend] )
+		formatString: #,0
+		lineageTag: e9d00777-3258-4c7a-b47a-00a587580725
+
+		changedProperty = FormatString
+
+	/// @description Número de ciclos
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'Número de ciclos' =
+			
+			/*
+			@description Número de ciclos
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			COUNTROWS(dimCicloMatricula)
+		formatString: 0
+		lineageTag: 816d45b9-b0a8-47d1-abef-54042178a3eb
+
+	/// @description Oferta de Cursos
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure Oferta_Cursos =
+			
+			/*
+			@description Oferta de Cursos
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			
+			/* VAR ANO  = VALUE(MAX('dCalendário'[Ano Base]))
+			RETURN */
+			CALCULATE( [Número de vagas],
+			  dimFinanciamento[nomeFonteFinanciamentoCorrigido] ="Sem Programa Associado",
+			  dimCurso[ModalidadeEnsino]="Educação Presencial",
+			  TipoCurso[Nível Curso] = "Graduação")
+			//  dimCicloMatricula[anoInicioCiclo]=ANO)
+		formatString: #,0
+		lineageTag: f5edc813-1aca-474e-a3fa-f88a761316f6
+
+		changedProperty = FormatString
+
+	/// @description Oferta de Vagas de Curso Noturno
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Oferta de vagas noturnas
+	measure 'Oferta de Vagas | Curso Noturno' =
+			
+			/*
+			@description Oferta de Vagas de Curso Noturno
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Oferta de vagas noturnas
+			*/
+			CALCULATE([Número de vagas], dimCurso[turnoCurso] = "Noturno")
+		formatString: #,0
+		lineageTag: f21cf119-3ce7-4e35-a39a-47c58037f6c8
+
+		changedProperty = FormatString
+
+	/// @description Percentual de Oferta de Vagas de Curso Noturno
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Oferta de vagas noturnas
+	measure 'Oferta de Vagas | Curso Noturno %' = ```
+			
+			 /*
+			@description Percentual de Oferta de Vagas de Curso Noturno
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Oferta de vagas noturnas
+			*/
+			DIVIDE([Oferta de Vagas | Curso Noturno], [Número de vagas])
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: bbffbd99-0d9b-45d0-a39a-965596552220
+
+		changedProperty = FormatString
+
+	/// @description Relação de Inscrito por Vaga
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Relação inscritos/vagas
+	measure 'Relação Inscrito Vaga' = ```
+			
+			/*
+			@description Relação de Inscrito por Vaga
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Relação inscritos/vagas
+			*/ 
+			 DIVIDE([Número de inscritos] , [Número de vagas])
+			```
+		formatString: #,0.00
+		lineageTag: 3203b4ef-8291-4d92-ae1e-2f2514cb2aab
+
+		changedProperty = FormatString
+
+	/// @description Percentual de Taxa de Evasão de matrículas
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Taxa de evasão
+	measure 'Matrículas | Taxa de Evasão %' = ```
+			
+			/*
+			@description Percentual de Taxa de Evasão de matrículas
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Taxa de evasão
+			*/ 
+			 CALCULATE('fSituaçãoMatrícula'[Número de Matrículas], dimSituacao[categoriaSituacao] = "Evadidos") / 'fSituaçãoMatrícula'[Número de Matrículas]
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 970c5e8e-d556-4cb8-9a03-9fb5d8c3ed07
+
+		changedProperty = FormatString
+
+	/// @description Meta de indicador (0.1)
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure target2 = ```
+			
+			 /*
+			@description Meta de indicador (0.1)
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/ 
+			 0.1
+			```
+		lineageTag: a4126cf6-767f-4be3-b149-564caede294f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Percentual de CONCLUINTES, em relação às matrículas vinculadas aos ciclos concluídos no ano anterior ao ano de referência.
+	/// @author dsbr
+	/// @version 1
+	/// @date 29/05/2023
+	/// @panel Eficiência Acadêmica
+	measure 'Eficiência Acadêmica | Concluídos %' = ```
+			
+			/*
+			@description Percentual de CONCLUINTES, em relação às matrículas vinculadas aos ciclos concluídos no ano anterior ao ano de referência.
+			@author dsbr
+			@version 1
+			@date 29/05/2023
+			@panel Eficiência Acadêmica
+			
+			*/ 
+			divide([Eficiência Acadêmica | Concluídos], [Eficiência Acadêmica | Número de Matrículas])
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 67e6d377-2551-48b0-8067-9dfde6a8ee65
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Percentual de EVADIDOS, em relação às matrículas vinculadas aos ciclos concluídos no ano anterior ao ano de referência.
+	/// @author dsbr
+	/// @version 1
+	/// @date 29/05/2023
+	/// @panel Eficiência Acadêmica
+	measure 'Eficiência Acadêmica | Taxa de Evasão %' = ```
+			
+			 /*
+			@description Percentual de EVADIDOS, em relação às matrículas vinculadas aos ciclos concluídos no ano anterior ao ano de referência.
+			@author dsbr
+			@version 1
+			@date 29/05/2023
+			@panel Eficiência Acadêmica
+			*/ 
+			 Divide([Eficiência Acadêmica | Número de Evadidos], [Eficiência Acadêmica | Número de Matrículas])
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: d8a6952b-52c8-428a-b3f4-c95148f982c6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Percentual de matriculados que são classificados como RETIDOS por terem ultrapassado o período previsto para integralização do curso (acrescido de um ano) em relação às matrículas vinculadas aos ciclos concluídos no ano anterior ao ano de referência.
+	/// @author dsbr
+	/// @version 1
+	/// @date 29/05/2023
+	/// @panel Eficiência Acadêmica
+	measure 'Eficiência Acadêmica | Retidos %' = ```
+			
+			/*
+			@description Percentual de matriculados que são classificados como RETIDOS por terem ultrapassado o período previsto para integralização do curso (acrescido de um ano) em relação às matrículas vinculadas aos ciclos concluídos no ano anterior ao ano de referência.
+			@author dsbr
+			@version 1
+			@date 29/05/2023
+			@panel Eficiência Acadêmica
+			*/ 
+			Divide('fSituaçãoMatrícula'[Eficiência Acadêmica | Retidos], [Eficiência Acadêmica | Número de Matrículas])
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 27634624-69a8-44d5-a90e-2a2cc8c6961a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Número de CONCLUINTES, em relação às matrículas vinculadas aos ciclos concluídos no ano anterior ao ano de referência.
+	/// @author dsbr
+	/// @version 1
+	/// @date 29/05/2023
+	/// @panel Eficiência Acadêmica
+	measure 'Eficiência Acadêmica | Concluídos' = ```
+			
+			 /*
+			@description Número de CONCLUINTES, em relação às matrículas vinculadas aos ciclos concluídos no ano anterior ao ano de referência.
+			@author dsbr
+			@version 1
+			@date 29/05/2023
+			@panel Eficiência Acadêmica
+			*/ 
+			 CALCULATE(fEficienciaAcademica[Eficiência Acadêmica | Número de Matrículas], dimSituacao[categoriaSituacao] = "Concluintes")
+			 
+			```
+		formatString: #,0
+		lineageTag: f8ed4508-291d-4a1c-92c9-05b502dbacc5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Este indicador mede o percentual de alunos que concluíram o curso com êxito dentro do período previsto (+ 1 ano), acrescido de um percentual (projeção) dos alunos retidos no ano de referência que poderão concluir o curso. São considerados apenas os alunos matriculados em ciclos de matrícula com término previsto para o ano anterior ao Ano de Referência, sendo que para este cálculo é empregado o conceito de matrícula e não de matrícula equivalente.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'Eficiência Acadêmica | Índice de Eficiência Acadêmica %' = ```
+			
+			/*
+			@description Este indicador mede o percentual de alunos que concluíram o curso com êxito dentro do período previsto (+ 1 ano), acrescido de um percentual (projeção) dos alunos retidos no ano de referência que poderão concluir o curso. São considerados apenas os alunos matriculados em ciclos de matrícula com término previsto para o ano anterior ao Ano de Referência, sendo que para este cálculo é empregado o conceito de matrícula e não de matrícula equivalente.
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/ 
+			
+			[Eficiência Acadêmica | Concluídos %] +
+			DIVIDE(
+			    ([Eficiência Acadêmica | Retidos %]*[Eficiência Acadêmica | Concluídos %]),
+			    ([Eficiência Acadêmica | Concluídos %]+[Eficiência Acadêmica | Taxa de Evasão %])
+			    )
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: f7924975-2ad5-4186-aa1d-a35f9f648bad
+
+		changedProperty = FormatString
+
+	/// @description Número de EVADIDOS em relação às matrículas vinculadas aos ciclos concluídos no ano anterior ao ano de referência.
+	/// @author dsbr
+	/// @version 1
+	/// @date 29/05/2023
+	/// @panel Eficiência Acadêmica
+	measure 'Eficiência Acadêmica | Número de Evadidos' = ```
+			
+			 /*
+			@description Número de EVADIDOS em relação às matrículas vinculadas aos ciclos concluídos no ano anterior ao ano de referência.
+			@author dsbr
+			@version 1
+			@date 29/05/2023
+			@panel Eficiência Acadêmica
+			*/
+			 CALCULATE(fEficienciaAcademica[Eficiência Acadêmica | Número de Matrículas], dimSituacao[categoriaSituacao] = "Evadidos")
+			```
+		formatString: #,0
+		lineageTag: 8452e41e-2fda-4682-a7fe-8a0e92fa2510
+
+		changedProperty = FormatString
+
+	/// @description Número de matriculados que são classificados como RETIDOS por terem ultrapassado o período previsto para integralização do curso (acrescido de um ano) em relação às matrículas vinculadas aos ciclos concluídos no anterior ao Ano de referência.
+	/// @author dsbr
+	/// @version 1
+	/// @date 29/05/2023
+	/// @panel Eficiência Acadêmica
+	measure 'Eficiência Acadêmica | Retidos' =
+			
+			/*
+			@description Número de matriculados que são classificados como RETIDOS por terem ultrapassado o período previsto para integralização do curso (acrescido de um ano) em relação às matrículas vinculadas aos ciclos concluídos no anterior ao Ano de referência.
+			@author dsbr
+			@version 1
+			@date 29/05/2023
+			@panel Eficiência Acadêmica
+			*/
+			CALCULATE(SUM(fEficienciaAcademica[numMatriculas]), dimSituacao[FluxoRetido] = "Retido")
+		formatString: #,0
+		lineageTag: 999c81a8-d50a-4c68-a935-4eff51a88dfd
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Meta de indicador (1)
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure target = ```
+			
+			 /*
+			@description Meta de indicador (1)
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			 1
+			```
+		lineageTag: 6be3c033-a48a-4487-ba0b-c84ace8cbebf
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Oferta de Vagas de Graduação
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Oferta de vagas noturnas
+	measure 'Oferta de Vagas | Graduação' =
+			
+			/*
+			@description Oferta de Vagas de Graduação
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Oferta de vagas noturnas
+			*/
+			CALCULATE([Número de vagas], TipoCurso[Nível Curso] = "Graduação")
+		formatString: #,0
+		lineageTag: 7ac363f2-6feb-4045-88f8-434c65be64be
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	/// @description Matriculas (Ciclos Vigentes)
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Taxa de ocupação
+	measure 'Taxa de Ocupação | Matriculas Ciclos Vigentes' =
+			
+			
+			/*
+			@description Matriculas (Ciclos Vigentes)
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Taxa de ocupação
+			*/
+			CALCULATE(
+			    'fSituaçãoMatrícula'[Número de Matrículas],
+			    SELECTEDVALUE('dCalendário'[Ano])<=2020 || dimFinanciamento[nomeFonteFinanciamentoCorrigido]="Sem Programa Associado",
+			    dimCurso[NivelCurso]<>"Básico propedêutico" && dimCurso[NivelCurso]<>"Qualificação Profissional (FIC)")
+		formatString: #,0
+		lineageTag: df7b05cd-a7ad-42b7-b671-34a473cb2b09
+
+		changedProperty = FormatString
+
+	/// @description Vagas (Ciclos Vigentes)
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Taxa de ocupação
+	measure 'Taxa de Ocupação | Vagas Ciclos Vigentes' =
+			
+			
+			/*
+			@description Vagas (Ciclos Vigentes)
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Taxa de ocupação
+			*/
+			VAR ano =
+			    VALUE ( MAX ( 'dCalendário'[Ano] ) )
+			VAR tabela =
+			    CALCULATETABLE (
+			        SUMMARIZE (
+			            'fSituaçãoMatrícula',
+			            'fSituaçãoMatrícula'[codCicloMatricula],
+			            "Vagas", MAX ( fVagas[numVagas] )
+			        ),
+			        dimCicloMatricula[anoInicioCiclo] <= ano,
+			        dimCicloMatricula[anoFimCiclo] >= ano,
+			        dimVagas[nomeVaga]="Vagas Ofertadas",
+			        SELECTEDVALUE('dCalendário'[Ano])<=2020 || dimFinanciamento[nomeFonteFinanciamentoCorrigido]="Sem Programa Associado",
+			        dimCurso[NivelCurso] <> "Básico propedêutico",
+			        dimCurso[NivelCurso] <> "Qualificação Profissional (FIC)"
+			    )
+			RETURN
+			    SUMX(tabela,[Vagas])
+		formatString: #,0
+		lineageTag: eef0019f-da3e-43f3-bd1a-418636ff5311
+
+		changedProperty = FormatString
+
+	/// @description Oferta de Vagas de Curso Noturno
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Oferta de vagas noturnas
+	measure 'Oferta de Vagas | Curso Noturno Ref.' =
+			
+			/*
+			@description Oferta de Vagas de Curso Noturno
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Oferta de vagas noturnas
+			*/
+			0.3333
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: de91ebd6-eb5d-4d9a-ae4f-4d643080cf2a
+
+		changedProperty = FormatString
+
+	/// @description Número de Evadidos
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Taxa de evasão
+	measure 'Matrículas | Número de Evadidos' =
+			
+			/*
+			@description Número de Evadidos
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Taxa de evasão
+			*/
+			CALCULATE([Número de Matrículas], dimSituacao[categoriaSituacao] = "Evadidos")
+		formatString: #,0
+		lineageTag: 8951703f-c222-45df-8f43-bfdb41ce20a5
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	/// @description Quantidade de matrículas que estiveram ativas em pelo menos um dia no ano de referência, ponderada pelos fatores de equivalência previstos.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel RAP
+	measure 'RAP | Matrículas RAP' =
+			
+			/*
+			@description Quantidade de matrículas que estiveram ativas em pelo menos um dia no ano de referência, ponderada pelos fatores de equivalência previstos.
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel RAP
+			*/
+			CALCULATE (
+			[Matrícula Equivalente],
+			dimFinanciamento[nomeFonteFinanciamentoCorrigido] IN {"Sem Programa Associado", "MedioTec"},
+			dimCurso[tipoCurso] = "Bacharelado"
+			|| dimCurso[tipoCurso] = "Licenciatura"
+			|| dimCurso[tipoCurso] = "Tecnologia"
+			) * ( 20 / 18 )
+			    + CALCULATE (
+			[Matrícula Equivalente],
+			dimFinanciamento[nomeFonteFinanciamentoCorrigido] IN {"Sem Programa Associado", "MedioTec"},
+			dimCurso[tipoCurso] <> "Bacharelado",
+			dimCurso[tipoCurso] <> "Licenciatura",
+			dimCurso[tipoCurso] <> "Tecnologia"
+			)
+		formatString: #,0.00
+		lineageTag: 58f109c8-df12-4fc5-8ff5-c51437e001de
+
+		changedProperty = FormatString
+
+	/// @description Quantidade professores efetivos que atuam no Regime de Trabalho (RT) 20h multiplicado por 0,5, somado à quantidade de professores efetivos que atuam nos RT 40h e RDE.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel RAP
+	measure 'RAP | Professor Equivalente' =
+			
+			/*
+			@description Quantidade professores efetivos que atuam no Regime de Trabalho (RT) 20h multiplicado por 0,5, somado à quantidade de professores efetivos que atuam nos RT 40h e RDE.
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel RAP
+			*/
+			CALCULATE (
+			SUM ('fServidores | Microdados'[fatorProfEquivalente]),
+			'fServidores | Microdados'[Vinculo_Professor] = "Sim",
+			'fServidores | Microdados'[Vinculo_Contrato] = "Efetivo"
+			)
+		formatString: #,0.00
+		lineageTag: bf6ab436-c977-4045-88d9-c01333925573
+
+		changedProperty = FormatString
+
+	/// @description Este indicador mede a relação entre a quantidade de matrículas equivalentes e a quantidade de docentes efetivos ponderados pelo tipo de Regime de Trabalho. Em que pese as grandezas empregadas no cálculo, será mantido o acrônimo “RAP – Relação Aluno Professor” por entender que tal nomenclatura já está consagrada em toda a Rede Federal.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel RAP
+	measure 'RAP | RAP' =
+			
+			/*
+			@description Este indicador mede a relação entre a quantidade de matrículas equivalentes e a quantidade de docentes efetivos ponderados pelo tipo de Regime de Trabalho. Em que pese as grandezas empregadas no cálculo, será mantido o acrônimo “RAP – Relação Aluno Professor” por entender que tal nomenclatura já está consagrada em toda a Rede Federal.
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel RAP
+			*/
+			DIVIDE(
+			    [RAP | Matrículas RAP],
+			    [RAP | Professor Equivalente]
+			)
+		formatString: #,0.00
+		lineageTag: 7e8945e9-dfac-4618-8e3f-684ac1698fe2
+
+		changedProperty = FormatString
+
+	/// @description Meta de Relação Aluno Professor
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel RAP
+	measure 'RAP | Meta' =
+			
+			/*
+			@description Meta de Relação Aluno Professor
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel RAP
+			*/
+			20
+		formatString: #,0.00
+		lineageTag: 212e397e-d6e0-4914-ab83-c3efb8a5bd2f
+
+	/// @description Este indicador mede o percentual de vagas ocupadas no ano de referência em relação às vagas disponibilizadas em cada tipo curso, excetuando-se os cursos de Qualificação Profissional.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Taxa de ocupação
+	measure 'Taxa de Ocupação | Taxa de Ocupação' =
+			
+			/*
+			@description Este indicador mede o percentual de vagas ocupadas no ano de referência em relação às vagas disponibilizadas em cada tipo curso, excetuando-se os cursos de Qualificação Profissional.
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Taxa de ocupação
+			*/
+			DIVIDE([Taxa de Ocupação | Matriculas Ciclos Vigentes], [Taxa de Ocupação | Vagas Ciclos Vigentes])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 9aebc556-f02c-4c25-83b3-95de0400fbba
+
+		changedProperty = FormatString
+
+	/// % [Número de Matrículas]
+	measure '% de Número de Matrículas' =
+			
+			/*
+			@description Percentual do Número de Matrículas em relação ao universo do matrículas.
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Curso, matrícula e oferta; Situação de matrícula; Classificação Racial, Renda e Sexo; Faixa Etária
+			*/
+			DIVIDE([Número de Matrículas],CALCULATE([Número de Matrículas],ALLSELECTED()))
+		formatString: 0.00%
+		lineageTag: 4074e6d3-a173-46fa-b821-0b2f0056df6b
+
+	/// % [Número de cursos]
+	measure '% de Número de cursos' = ```
+			
+			/*
+			@description Percentual do Número de cursos em relação ao universo de cursos.
+			@author dsbr
+			@version 1
+			@date 29/05/2023
+			@panel Curso, matrícula e oferta; Situação de matrícula; Classificação Racial, Renda e Sexo; Faixa Etária
+			*/
+			DIVIDE([Número de cursos],CALCULATE([Número de cursos],ALLSELECTED()))
+			
+			```
+		formatString: 0.00%
+		lineageTag: c00a9c15-fcae-483c-8151-90e72c61993c
+
+	/// % [Número de vagas]
+	measure '% de Número de vagas' = ```
+			
+			/*
+			@description Percentual do Número de vagas em relação ao universo de vagas
+			@author dsbr
+			@version 1
+			@date 29/05/2023
+			@panel Curso, matrícula e oferta; Situação de matrícula; Classificação Racial, Renda e Sexo; Faixa Etária
+			*/
+			DIVIDE([Número de vagas],CALCULATE([Número de vagas],ALLSELECTED()))
+			
+			```
+		formatString: 0.00%
+		lineageTag: 60abb340-dc0f-48b9-8bb6-2eca6c448a7b
+
+	/// % [Número de concluintes]
+	measure '% de Número de concluintes' = ```
+			
+			/*
+			@description Percentual do Número de concluintes em relação ao universo de concluintes.
+			@author dsbr
+			@version 1
+			@date 29/05/2023
+			@panel Curso, matrícula e oferta; Situação de matrícula; Classificação Racial, Renda e Sexo; Faixa Etária
+			*/
+			DIVIDE([Número de concluintes],CALCULATE([Número de concluintes],ALLSELECTED()))
+			
+			```
+		formatString: 0.00%
+		lineageTag: a468ea67-0376-41be-b63f-7291006027bc
+
+	/// % [Número de ingressantes]
+	measure '% de Número de ingressantes' = ```
+			
+			/*
+			@description Percentual do Número de ingressantes em relação ao universo de ingressantes.
+			@author dsbr
+			@version 1
+			@date 29/05/2023
+			@panel Curso, matrícula e oferta; Situação de matrícula; Classificação Racial, Renda e Sexo; Faixa Etária
+			
+			*/
+			DIVIDE([Número de ingressantes],CALCULATE([Número de ingressantes],ALLSELECTED()))
+			
+			```
+		formatString: 0.00%
+		lineageTag: d4002c8d-6dc2-44e5-971e-66b0b8185772
+
+	/// % [Número de inscritos]
+	measure '% de Número de inscritos' =
+			
+			/*
+			@description Percentual do Número de inscritos em relação ao universo de inscritos.
+			@author dsbr
+			@version 1
+			@date 29/05/2023
+			@panel Curso, matrícula e oferta; Situação de matrícula; Classificação Racial, Renda e Sexo; Faixa Etária
+			*/
+			DIVIDE([Número de inscritos],CALCULATE([Número de inscritos],ALLSELECTED()))
+		formatString: 0.00%
+		lineageTag: 21d947eb-3be6-4edf-bdaf-d89e692c2f6b
+
+	/// @description Quantidade de Matrículas com Raça Não Declarada
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'Matrículas | Raça Não Declarada' =
+			
+			/*
+			@description Quantidade de Matrículas com Raça Não Declarada
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			CALCULATE([Número de Matrículas], dimRendaRaca[CorRaca] = "Não Declarada")
+		lineageTag: 1ed50ccb-ee32-42b5-a62f-a9ea58455ae9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Quantidade de Matrículas com Raça Declarada
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'Matrículas | Raça Declarada' = ```
+			
+			/*
+			@description Quantidade de Matrículas com Raça Declarada
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			CALCULATE([Número de Matrículas], dimRendaRaca[CorRaca] <> "Não Declarada")
+			
+			```
+		lineageTag: a6d6e61a-93da-4d0a-9a37-f30b1aa60904
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Quantidade de Matrículas com Renda Declarada
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'Matrículas | Renda Declarada' =
+			
+			/*
+			@description Quantidade de Matrículas com Renda Declarada
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			CALCULATE([Número de Matrículas], dimRendaRaca[RendaFamiliar] <> "Não Declarada")
+		lineageTag: 479278d5-8c50-4409-9461-47b8c1767e34
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Quantidade de Matrículas com Renda Não Declarada
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'Matrículas | Renda Não Declarada' =
+			
+			/*
+			@description Quantidade de Matrículas com Renda Não Declarada
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			CALCULATE([Número de Matrículas], dimRendaRaca[RendaFamiliar] = "Não Declarada")
+		lineageTag: cf5220eb-f3a7-4da1-a3e1-2183c3cfa906
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// % [Matrículas | Raça Não Declarada]
+	measure '% de Matrículas | Raça Não Declarada' =
+			
+			/*
+			@description % de Matrículas com Raça Não Declarada
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Classificação Racial, Renda e Sexo
+			*/
+			DIVIDE([Matrículas | Raça Não Declarada],[Número de Matrículas])
+		formatString: 0.00%
+		lineageTag: 240bab0d-54f2-4a00-b213-ae37c69bcaf4
+
+	/// % [Matrículas | Raça Declarada]
+	measure '% de Matrículas | Raça Declarada' =
+			
+			/*
+			@description % de Matrículas com Raça Declarada
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Classificação Racial, Renda e Sexo
+			*/
+			DIVIDE([Matrículas | Raça Declarada],[Número de Matrículas])
+		formatString: 0.00%
+		lineageTag: 41599e33-62d1-4229-9cf8-dec6d1133e04
+
+	/// % [Matrículas | Renda Declarada]
+	measure '% de Matrículas | Renda Declarada' =
+			
+			/*
+			@description % de Matrículas com Renda Declarada
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Classificação Racial, Renda e Sexo
+			*/
+			DIVIDE([Matrículas | Renda Declarada],[Número de Matrículas])
+		formatString: 0.00%
+		lineageTag: f06ed631-f7b1-4788-8e7a-541d10a4a5f1
+
+	/// % [Matrículas | Renda Não Declarada]
+	measure '% de Matrículas | Renda Não Declarada' =
+			
+			/*
+			@description % de Matrículas com Renda Não Declarada
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Classificação Racial, Renda e Sexo
+			*/
+			DIVIDE([Matrículas | Renda Não Declarada],[Número de Matrículas])
+		formatString: 0.00%
+		lineageTag: 5c527a74-f0c5-442a-9cce-e85be232b049
+
+	/// @description Oferta de Cursos Noturnos
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Oferta de vagas noturnas
+	measure 'Oferta de Curso | Curso Noturno' = ```
+			
+			 /*
+			@description Oferta de Cursos Noturnos
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Oferta de vagas noturnas
+			*/
+			 CALCULATE([Número de cursos], dimCurso[turnoCurso] = "Noturno")
+			```
+		lineageTag: 67e08972-cdd4-49de-a874-d5e131e66615
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Total de Vagas de Ingresso ofertadas em cursos Técnicos, considerando os cursos Integrados, Subsequentes e Concomitantes.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Índice de Verticalização
+	measure 'Índice de Verticalização | Vagas - CT' =
+			
+			
+			/*
+			@description Total de Vagas de Ingresso ofertadas em cursos Técnicos, considerando os cursos Integrados, Subsequentes e Concomitantes.
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Indice de Verticalização
+			*/
+			VAR ano=SELECTEDVALUE('dCalendário'[Ano])
+			RETURN
+			CALCULATE(SUM(fCiclos[Vagas_Ofertadas]), fCiclos[anoInicioCiclo]=ano, fCiclos[tipoCurso] = "Técnico")
+		formatString: #,0
+		lineageTag: b29a6ff6-07a5-4ea9-9557-f4d83cffa47e
+
+		changedProperty = FormatString
+
+	/// @description Total de Vagas de Ingresso ofertadas em cursos de Pós-Graduação, considerando cursos de Especialização, Mestrados e Doutorados.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Índice de Verticalização
+	measure 'Índice de Verticalização | Vagas - PG' =
+			
+			
+			/*
+			@description Total de Vagas de Ingresso ofertadas em cursos de Pós-Graduação, considerando cursos de Especialização, Mestrados e Doutorados.
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Indice de Verticalização
+			*/
+			VAR ano=SELECTEDVALUE('dCalendário'[Ano])
+			RETURN
+			CALCULATE(SUM(fCiclos[Vagas_Ofertadas]), fCiclos[anoInicioCiclo]=ano, fCiclos[tipoCurso]="Mestrado" || fCiclos[tipoCurso]="Doutorado" || fCiclos[tipoCurso]="Especialização (Lato Sensu)" || fCiclos[tipoCurso]="Mestrado Profissional" || fCiclos[tipoCurso]="Doutorado Profissional")
+		formatString: #,0
+		lineageTag: 3337988e-90a7-4241-89a6-bf7d3cf86f7d
+
+		changedProperty = FormatString
+
+	/// @description Total de Vagas de Ingresso ofertadas em cursos de Qualificação Profissional.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Índice de Verticalização
+	measure 'Índice de Verticalização | Vagas - QP' =
+			
+			
+			/*
+			@description Total de Vagas de Ingresso ofertadas em cursos de Qualificação Profissional.
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Índice de Verticalização
+			*/
+			VAR ano=SELECTEDVALUE('dCalendário'[Ano])
+			RETURN
+			CALCULATE(SUM(fCiclos[Vagas_Ofertadas]), fCiclos[anoInicioCiclo]=ano, fCiclos[tipoCurso] = "Qualificação Profissional (FIC)")
+		formatString: #,0
+		lineageTag: 80ace1ca-9834-4bb6-94d6-0c65ac685fc5
+
+		changedProperty = FormatString
+
+	/// @description Índice de Verticalização Geral
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'Índice de Verticalização | Índice Geral' = ```
+			
+			
+			/*
+			@description Índice de Verticalização Geral
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			    VAR QP_CT = DIVIDE([Índice de Verticalização | Vagas - QP], [Índice de Verticalização | Vagas - CT], 0)
+			    VAR CT_CG = DIVIDE([Índice de Verticalização | Vagas - CT], [Índice de Verticalização | Vagas - CG], 0)
+			    VAR CG_PG = DIVIDE([Índice de Verticalização | Vagas - CG], [Índice de Verticalização | Vagas - PG], 0)
+			    VAR CT_PG = DIVIDE([Índice de Verticalização | Vagas - CT], [Índice de Verticalização | Vagas - PG], 0)
+			    VAR QP_CG = DIVIDE([Índice de Verticalização | Vagas - QP], [Índice de Verticalização | Vagas - CG], 0)
+			    VAR QP_PG = DIVIDE([Índice de Verticalização | Vagas - QP], [Índice de Verticalização | Vagas - PG], 0)
+			    VAR IV =
+			        IF(QP_CT>1, 39.7, ROUND(QP_CT*39.7, 2)) +
+			        IF(CT_CG>1, 36.5, ROUND(CT_CG*36.5, 2)) +
+			        IF(CG_PG>1, 9.5, ROUND(CG_PG*9.5, 2)) +
+			        IF(CT_PG>1, 2.8, ROUND(CT_PG*2.8, 2)) +
+			        IF(QP_CG>1, 8.9, ROUND(QP_CG*8.9, 2)) +
+			        IF(QP_PG>1, 2.6, ROUND(QP_PG*2.6, 2))
+			    RETURN 
+			    IF(IV, IV, 0)
+			```
+		lineageTag: dd01ff60-f9ab-4c7b-871d-38eab88dc3e0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Índice de Verticalização | Unidade de Ensino
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Índice de Verticalização
+	measure 'Índice de Verticalização | Unidade de Ensino' = ```
+			
+			
+			/*
+			@description Índice de Verticalização | Unidade de Ensino
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Indice de Verticalização
+			*/
+			VAR tabela = 
+			SUMMARIZE(fCiclos, dimUnidade[Instituicao], fCiclos[codUnidade], "indice",  [Índice de Verticalização | Eixo Tecnológico])
+			
+			RETURN
+			AVERAGEX(tabela,  [indice])
+			```
+		lineageTag: 9c5d5b94-5dc4-4f05-b394-3d36b3e76045
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Este indicador busca verificar a condição de verticalização dos cursos oferecidos por uma mesma unidade acadêmica em um mesmo eixo tecnológico, considerando vagas de ingresso ofertadas em 04 categorias possíveis: Curso de Qualificação Profissional (QP); Curso Técnico (CT); Curso de Graduação (CG) e Curso de Pós-Graduação (PG).
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'Índice de Verticalização | Eixo Tecnológico' = ```
+			
+			
+			/*
+			@description Este indicador busca verificar a condição de verticalização dos cursos oferecidos por uma mesma unidade acadêmica em um mesmo eixo tecnológico, considerando vagas de ingresso ofertadas em 04 categorias possíveis: Curso de Qualificação Profissional (QP); Curso Técnico (CT); Curso de Graduação (CG) e Curso de Pós-Graduação (PG).
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			VAR tabela = 
+			SUMMARIZE(fCiclos, dimUnidade[Instituicao], fCiclos[codUnidade], fCiclos[tipoEixoTecnologico], "indice",  [Índice de Verticalização | Índice Geral])
+			
+			RETURN
+			AVERAGEX(tabela,  [indice])
+			```
+		lineageTag: 3843d97d-a842-4695-ab78-3b1ca7a07617
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Total de Vagas de Ingresso ofertadas em cursos de Graduação, considerando os cursos de Graduação Tecnológica, Bacharelados e Licenciaturas.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'Índice de Verticalização | Vagas - CG' =
+			
+			
+			/*
+			@description Total de Vagas de Ingresso ofertadas em cursos de Graduação, considerando os cursos de Graduação Tecnológica, Bacharelados e Licenciaturas.
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			VAR ano=SELECTEDVALUE('dCalendário'[Ano])
+			RETURN
+			CALCULATE(SUM(fCiclos[Vagas_Ofertadas]), fCiclos[anoInicioCiclo]=ano, fCiclos[tipoCurso]="Licenciatura" || fCiclos[tipoCurso]="Tecnologia" || fCiclos[tipoCurso]="Bacharelado")
+		formatString: #,0
+		lineageTag: cdfa59d6-e3de-4a5e-b3e8-153a5c6c5fec
+
+		changedProperty = FormatString
+
+	/// @description Índice de Verticalização da Instituição
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Índice de Verticalização
+	measure 'Índice de Verticalização | Instituição' = ```
+			
+			
+			/*
+			@description Índice de Verticalização da Instituição
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Indice de Verticalização
+			*/
+			VAR tabela = 
+			SUMMARIZE(fCiclos, dimUnidade[Instituicao], "indice",  [Índice de Verticalização | Unidade de Ensino])
+			
+			RETURN
+			AVERAGEX(tabela,  [indice])
+			```
+		formatString: 0.00
+		lineageTag: 472dd0e8-3cb3-4dd5-a9d1-e694060d92a5
+
+		changedProperty = FormatString
+
+	/// @description Código UO
+	column UO
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 4b2a4c02-20c7-4344-b6aa-8ff9e866cbd8
+		summarizeBy: sum
+		sourceColumn: UO
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código da unidade utilizado internamente na disseminação
+	column codUnidade
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 7b67565b-6d04-4e66-8ec4-d47194251623
+		summarizeBy: sum
+		sourceColumn: codUnidade
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column codCicloMatricula
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 92ddf3c8-a835-483b-ab47-d1e0bb0c22bd
+		summarizeBy: sum
+		sourceColumn: codCicloMatricula
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código de Sexo e Idade.
+	/// @author Mariana Farias
+	/// @version 1
+	/// @date 24/05/2023
+	/// 
+	column codSexoIdade
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 8c978ce0-48b7-43a6-a98e-cfdd17e9a505
+		summarizeBy: none
+		sourceColumn: codSexoIdade
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column codRendaRaca
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c7434d22-9469-4c63-be1c-7734ee4a81b4
+		summarizeBy: none
+		sourceColumn: codRendaRaca
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código do Financiamento
+	column codFinanciamento
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 2ef3ad3d-ffbf-4da6-affb-3869304f8111
+		summarizeBy: none
+		sourceColumn: codFinanciamento
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código que representa a situação da matrícula (aprovado, reprovado, trancado, etc.).
+	/// @author Mariana Farias
+	/// @version 1
+	/// @date 24/05/2023
+	column codSituacao
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 3b359bb3-0baa-4ce2-ad8e-f41ca3b16e68
+		summarizeBy: none
+		sourceColumn: codSituacao
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Data em que a matrícula foi realizada.
+	/// @author Mariana Farias
+	/// @version 1
+	/// @date 24/05/2023
+	column dataMatricula
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: 92364e87-c68e-4948-9550-ff024c09bde5
+		summarizeBy: none
+		sourceColumn: dataMatricula
+
+		variation Variation
+			isDefault
+			relationship: c9ab7036-d304-40c6-a51e-d86b077fd884
+			defaultHierarchy: LocalDateTable_4a1789ab-0489-48f2-8eb5-4a6e6b784b36.'Hierarquia de datas'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// @description Data em que a situação da matrícula foi atualizada.
+	/// @author Mariana Farias
+	/// @version 1
+	/// @date 24/05/2023
+	column dataSituacao
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: 388949ce-4380-42c4-befb-377d6a8b30a2
+		summarizeBy: none
+		sourceColumn: dataSituacao
+
+		variation Variation
+			isDefault
+			relationship: 7377c9b2-712c-4eb3-bd63-e6baf8ff43cd
+			defaultHierarchy: LocalDateTable_f5e2a210-6d1b-45f5-8792-d3b0bcd3380f.'Hierarquia de datas'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// @description Número de matrículas
+	column numMatriculas
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 5a8216a2-0dfc-44c4-b141-45f71e5bcb9d
+		summarizeBy: sum
+		sourceColumn: numMatriculas
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column numRegistros
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 52337a4d-e691-4be9-b972-bea2924a12a7
+		summarizeBy: sum
+		sourceColumn: numRegistros
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Ano
+	column Ano
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 9531ed7c-32f5-4a8d-871d-9cf96db4c76b
+		summarizeBy: none
+		sourceColumn: Ano
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column skCursoMatricula
+		dataType: int64
+		formatString: 0
+		lineageTag: 3d1a82b0-90a5-48c5-98f1-368019d1dabc
+		summarizeBy: none
+		sourceColumn: skCursoMatricula
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código do curso em que a matrícula foi realizada.
+	/// @author Mariana Farias
+	/// @version 1
+	/// @date 24/05/2023
+	column codCurso
+		dataType: int64
+		formatString: 0
+		lineageTag: f1fecba1-fbb9-4d0f-b4d4-e61419f06e89
+		summarizeBy: sum
+		sourceColumn: codCurso
+
+		annotation SummarizationSetBy = Automatic
+
+	column skUnidade
+		dataType: int64
+		formatString: 0
+		lineageTag: 4526b8c9-b555-43ef-bc22-f7c93437570c
+		summarizeBy: none
+		sourceColumn: skUnidade
+
+		annotation SummarizationSetBy = Automatic
+
+	column skCicloMatricula
+		dataType: string
+		lineageTag: 10785d02-5e60-4ba0-876f-c0a096e3940b
+		summarizeBy: none
+		sourceColumn: skCicloMatricula
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fSituaçãoMatrícula-486cc4d1-503d-41d8-b6ca-2e7c8a1ffdea = m
+		mode: import
+		queryGroup: 'Modelo PNP\Fatos'
+		source =
+				let
+				    Fonte = Csv.Document(Binary.Decompress(Web.Contents(AWS&"fCursoSituacaoMatricula.csv.gz"),Compression.GZip),[Delimiter=";", Columns=16, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Ano", type date}, {"UO", Int64.Type}, {"skCursoMatricula", Int64.Type}, {"codCurso", Int64.Type}, {"skUnidade", Int64.Type}, {"codUnidade", Int64.Type}, {"codCicloMatricula", Int64.Type}, {"codSexoIdade", Int64.Type}, {"codRendaRaca", Int64.Type}, {"codFinanciamento", Int64.Type}, {"codSituacao", Int64.Type}, {"dataMatricula", type date}, {"dataSituacao", type date}, {"numMatriculas", Int64.Type}, {"numRegistros", Int64.Type}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_ResultType = Table
+

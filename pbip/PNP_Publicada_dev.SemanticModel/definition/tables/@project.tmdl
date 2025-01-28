@@ -1,0 +1,27 @@
+/// @title Plataforma Nilo Peçanha
+/// @description A Plataforma Nilo Peçanha (PNP) é um ambiente virtual de coleta, validação e disseminação das estatísticas oficiais da Rede Federal de Educação Profissional, Científica e Tecnológica (Rede Federal). Tem como objetivo reunir dados relativos ao corpo docente, discente, técnico-administrativo e de gastos financeiros das unidades da Rede Federal, para fins de cálculo dos indicadores de gestão monitorados pela Secretaria de Educação Profissional e Tecnológica do Ministério da Educação (SETEC/MEC).
+/// @equipe dsbr
+table @project
+	lineageTag: 450fd81d-957d-4cf4-9be2-55b7434c5b6d
+
+	column project
+		lineageTag: cc2b2ebd-19a4-4a44-b40a-0361648a49aa
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [project]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition @project-3f7c17ef-c0cb-4f6b-8e0c-f3d4200c1a24 = calculated
+		mode: import
+		source = ```
+				
+				
+				SUMMARIZECOLUMNS (
+				    "project","PNP"
+				    
+				)
+				```
+
+	annotation PBI_Id = 78afd32bcd3e4a8f84a551ff7ad475ef
+

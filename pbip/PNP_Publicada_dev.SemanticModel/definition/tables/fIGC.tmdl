@@ -1,0 +1,648 @@
+/// @description A tabela fIGC possui informações sobre as Instituições de Ensino Superior (IES) do Brasil e é utilizada para calcular o Índice Geral de Cursos (IGC), que é um indicador de qualidade do ensino superior no país.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table fIGC
+	lineageTag: 5b31446f-4b51-4f4b-a597-0b7bbae429b2
+
+	/// @description Número de instituições com cursos avaliados no ano de referência
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel IGC
+	measure 'Número de instituições (IGC)' =
+			
+			/*
+			@description Número de instituições com cursos avaliados no ano de referência
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel IGC
+			*/
+			DISTINCTCOUNT('fIGC'[ Código da IES])
+		lineageTag: 4bc195a2-e645-44b0-9869-fee8a7a95a64
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Ano
+	column Ano
+		dataType: string
+		lineageTag: c1eae8ee-43dc-48ba-853e-a87c84c20f65
+		summarizeBy: none
+		sourceColumn: Ano
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código da IES
+	column ' Código da IES'
+		dataType: int64
+		formatString: 0
+		lineageTag: 166d4139-beb8-44e9-ae8b-c62207c8b850
+		summarizeBy: none
+		sourceColumn: " Código da IES"
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Nome da IES
+	column ' Nome da IES'
+		dataType: string
+		lineageTag: 20261f7c-bf4c-40ef-812a-31b33aa01a16
+		summarizeBy: none
+		sourceColumn: " Nome da IES"
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Sigla da IES
+	column ' Sigla da IES'
+		dataType: string
+		lineageTag: 86bc6eb3-2746-4cdb-b977-b073c0180792
+		summarizeBy: none
+		sourceColumn: " Sigla da IES"
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Se é Universidade, Instituto ou CEFET
+	column ' Organização Acadêmica'
+		dataType: string
+		lineageTag: 82c6b989-edc5-451b-a81b-de23c1e3ac45
+		summarizeBy: none
+		sourceColumn: " Organização Acadêmica"
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Tipo de Categoria Administrativa da IES (detalhado)
+	column ' Categoria Administrativa'
+		dataType: string
+		lineageTag: ada49c68-a919-4525-b3f9-6f72dbdf253b
+		summarizeBy: none
+		sourceColumn: " Categoria Administrativa"
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Sigla da UF da IES
+	column ' Sigla da UF'
+		dataType: string
+		lineageTag: 6bb7544c-5acd-46f8-a985-8a4b613935dd
+		summarizeBy: none
+		sourceColumn: " Sigla da UF"
+
+		annotation SummarizationSetBy = Automatic
+
+	column TX_OBS
+		dataType: string
+		lineageTag: 1fe4cfb6-5e5a-4df7-9c75-270b19c70b62
+		summarizeBy: none
+		sourceColumn: TX_OBS
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Número de cursos com CPC no triênio de referência para cálculo do IGC.
+	column 'Nº de Cursos com CPC no triênio'
+		dataType: int64
+		formatString: 0
+		lineageTag: fb3e558f-d4da-4c45-9c4f-2bcacc6af37e
+		summarizeBy: sum
+		sourceColumn: Nº de Cursos com CPC no triênio
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"fIGC","TableItemName":"g_Cursos com CPC no triênio","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	/// @description Proporção de matrículas na graduação
+	column 'Alfa (Proporção de Graduação)'
+		dataType: double
+		lineageTag: da147b6d-1c62-4182-b155-ca16f746b1f2
+		summarizeBy: sum
+		sourceColumn: Alfa (Proporção de Graduação)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"fIGC","TableItemName":"g_Alfa","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	/// @description Média ponderada das notas contínuas de Conceitos Preliminares de Curso (NCPCc) dos cursos de graduação
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	column 'Conceito Médio de Graduação'
+		dataType: double
+		lineageTag: 5d1dc7db-ca45-4681-934a-3145e30cc71a
+		summarizeBy: sum
+		sourceColumn: Conceito Médio de Graduação
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"fIGC","TableItemName":"g_Conceito Médio de Graduação","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	/// @description Proporção de matrículas nos cursos de mestrado da IES
+	column 'Beta (Proporção de Mestrado - Equivalente)'
+		dataType: double
+		lineageTag: 50d255b8-e64f-41bf-862c-5b8279f511ab
+		summarizeBy: sum
+		sourceColumn: Beta (Proporção de Mestrado - Equivalente)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"fIGC","TableItemName":"g_Beta","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	/// @description Conceito de Mestrado atribuído pela Capes
+	column 'Conceito Médio de Mestrado'
+		dataType: double
+		lineageTag: ab5a982a-2224-4826-8fc2-6e30221380d9
+		summarizeBy: sum
+		sourceColumn: Conceito Médio de Mestrado
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"fIGC","TableItemName":"g_Conceito Médio de Mestrado","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	/// @description Proporção de matrículas nos cursos de doutorado da IES
+	column 'Gama (Proporção de Doutorandos – Equivalente)'
+		dataType: double
+		lineageTag: 8d1c03c6-0405-4690-95c9-2f510f23f049
+		summarizeBy: sum
+		sourceColumn: Gama (Proporção de Doutorandos – Equivalente)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"fIGC","TableItemName":"g_Gama","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	/// @description Conceito de Doutorado atribuído pela Capes
+	column 'Conceito Médio do Doutorado'
+		dataType: double
+		lineageTag: 80c36b76-5ea4-4e3f-8a0b-c844a871ec73
+		summarizeBy: sum
+		sourceColumn: Conceito Médio do Doutorado
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"fIGC","TableItemName":"g_Conceito Médio do Doutorado","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	/// @description O Índice Geral de Cursos resulta da avaliação das instituições de educação superior. É uma média ponderada, a partir da distribuição dos estudantes nos níveis de ensino, que envolve as notas contínuas do CPC e das notas de avaliação dos cursos de programas de pós graduação stricto sensu, atribuídos pela Coordenação de Aperfeiçoamento de Pessoal de Nível Superior (CAPES).
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel IGC
+	column 'IGC (Contínuo)'
+		dataType: double
+		lineageTag: 07de82c7-ee48-477c-8266-3f57183c4f94
+		summarizeBy: sum
+		sourceColumn: IGC (Contínuo)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"fIGC","TableItemName":"g_IGC (Contínuo)","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	/// @description O Índice Geral de Cursos resulta da avaliação das instituições de educação superior. É uma média ponderada, a partir da distribuição dos estudantes nos níveis de ensino, que envolve as notas contínuas do CPC e das notas de avaliação dos cursos de programas de pós graduação stricto sensu, atribuídos pela Coordenação de Aperfeiçoamento de Pessoal de Nível Superior (CAPES), convertido em faixas conforme parâmetros de conversão definidos na nota técnica referente à versão do cálculo do indicador.
+	column 'IGC (Faixa)'
+		dataType: int64
+		formatString: 0
+		lineageTag: 090bc016-d5aa-4ea7-a4b0-eea3cd536b2c
+		summarizeBy: sum
+		sourceColumn: IGC (Faixa)
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"fIGC","TableItemName":"g_IGC (Faixa)","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	/// @description Proporção de matrículas na graduação
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	column g_Alfa =
+			IF(
+			  ISBLANK('fIGC'[Alfa (Proporção de Graduação)]),
+			  BLANK(),
+			  IF(
+			    'fIGC'[Alfa (Proporção de Graduação)] >= 0,
+			    ROUNDDOWN('fIGC'[Alfa (Proporção de Graduação)] / 0.05, 0) * 0.05,
+			    ROUNDUP('fIGC'[Alfa (Proporção de Graduação)] / 0.05, 0) * 0.05
+			  )
+			)
+		displayFolder: _Grupos
+		lineageTag: 0989f4ec-f958-4975-92fd-45890a8e4c93
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "binningMetadata": {
+				    "binSize": {
+				      "unit": 0,
+				      "value": 0.05
+				    }
+				  },
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "fIGC"
+				          }
+				        },
+				        "Property": "Alfa (Proporção de Graduação)"
+				      }
+				    }
+				  ],
+				  "version": 0
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"f","Entity":"fIGC"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"Alfa (Proporção de Graduação)"}}],"BinItem":{"Expression":{"Floor":{"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"Alfa (Proporção de Graduação)"}},"Size":0.05}}}}
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Proporção de matrículas nos cursos de mestrado da IES.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	column g_Beta =
+			IF(
+			  ISBLANK('fIGC'[Beta (Proporção de Mestrado - Equivalente)]),
+			  BLANK(),
+			  IF(
+			    'fIGC'[Beta (Proporção de Mestrado - Equivalente)] >= 0,
+			    ROUNDDOWN('fIGC'[Beta (Proporção de Mestrado - Equivalente)] / 0.05, 0) * 0.05,
+			    ROUNDUP('fIGC'[Beta (Proporção de Mestrado - Equivalente)] / 0.05, 0) * 0.05
+			  )
+			)
+		displayFolder: _Grupos
+		lineageTag: 971ef6b8-4188-4ffc-a1e6-94c988dd106c
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "binningMetadata": {
+				    "binSize": {
+				      "unit": 0,
+				      "value": 0.05
+				    }
+				  },
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "fIGC"
+				          }
+				        },
+				        "Property": "Beta (Proporção de Mestrado - Equivalente)"
+				      }
+				    }
+				  ],
+				  "version": 0
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"f","Entity":"fIGC"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"Beta (Proporção de Mestrado - Equivalente)"}}],"BinItem":{"Expression":{"Floor":{"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"Beta (Proporção de Mestrado - Equivalente)"}},"Size":0.05}}}}
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Proporção de matrículas nos cursos de doutorado da IES.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	column g_Gama =
+			IF(
+			  ISBLANK('fIGC'[Gama (Proporção de Doutorandos – Equivalente)]),
+			  BLANK(),
+			  IF(
+			    'fIGC'[Gama (Proporção de Doutorandos – Equivalente)] >= 0,
+			    ROUNDDOWN('fIGC'[Gama (Proporção de Doutorandos – Equivalente)] / 0.05, 0) * 0.05,
+			    ROUNDUP('fIGC'[Gama (Proporção de Doutorandos – Equivalente)] / 0.05, 0) * 0.05
+			  )
+			)
+		displayFolder: _Grupos
+		lineageTag: 2682e576-73c3-4258-b251-e3562a7deacb
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "binningMetadata": {
+				    "binSize": {
+				      "unit": 0,
+				      "value": 0.05
+				    }
+				  },
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "fIGC"
+				          }
+				        },
+				        "Property": "Gama (Proporção de Doutorandos – Equivalente)"
+				      }
+				    }
+				  ],
+				  "version": 0
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"f","Entity":"fIGC"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"Gama (Proporção de Doutorandos – Equivalente)"}}],"BinItem":{"Expression":{"Floor":{"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"Gama (Proporção de Doutorandos – Equivalente)"}},"Size":0.05}}}}
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Média ponderada das notas contínuas de Conceitos Preliminares de Curso (NCPCc) dos cursos de graduação
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	column 'g_Conceito Médio de Graduação' =
+			IF(
+			  ISBLANK('fIGC'[Conceito Médio de Graduação]),
+			  BLANK(),
+			  IF(
+			    'fIGC'[Conceito Médio de Graduação] >= 0,
+			    ROUNDDOWN('fIGC'[Conceito Médio de Graduação] / 0.25, 0) * 0.25,
+			    ROUNDUP('fIGC'[Conceito Médio de Graduação] / 0.25, 0) * 0.25
+			  )
+			)
+		displayFolder: _Grupos
+		lineageTag: 61e906e8-82e3-4740-9bc8-ccd4f531d5ac
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "binningMetadata": {
+				    "binSize": {
+				      "unit": 0,
+				      "value": 0.25
+				    }
+				  },
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "fIGC"
+				          }
+				        },
+				        "Property": "Conceito Médio de Graduação"
+				      }
+				    }
+				  ],
+				  "version": 0
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"f","Entity":"fIGC"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"Conceito Médio de Graduação"}}],"BinItem":{"Expression":{"Floor":{"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"Conceito Médio de Graduação"}},"Size":0.25}}}}
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Conceito de Mestrado atribuído pela Capes.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	column 'g_Conceito Médio de Mestrado' =
+			IF(
+			  ISBLANK('fIGC'[Conceito Médio de Mestrado]),
+			  BLANK(),
+			  IF(
+			    'fIGC'[Conceito Médio de Mestrado] >= 0,
+			    ROUNDDOWN('fIGC'[Conceito Médio de Mestrado] / 0.1, 0) * 0.1,
+			    ROUNDUP('fIGC'[Conceito Médio de Mestrado] / 0.1, 0) * 0.1
+			  )
+			)
+		displayFolder: _Grupos
+		lineageTag: 359207e5-c356-4686-aed0-71ddc0010f63
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "binningMetadata": {
+				    "binSize": {
+				      "unit": 0,
+				      "value": 0.1
+				    }
+				  },
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "fIGC"
+				          }
+				        },
+				        "Property": "Conceito Médio de Mestrado"
+				      }
+				    }
+				  ],
+				  "version": 0
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"f","Entity":"fIGC"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"Conceito Médio de Mestrado"}}],"BinItem":{"Expression":{"Floor":{"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"Conceito Médio de Mestrado"}},"Size":0.1}}}}
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Conceito de Doutorado atribuído pela Capes
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	column 'g_Conceito Médio do Doutorado' =
+			IF(
+			  ISBLANK('fIGC'[Conceito Médio do Doutorado]),
+			  BLANK(),
+			  IF(
+			    'fIGC'[Conceito Médio do Doutorado] >= 0,
+			    ROUNDDOWN('fIGC'[Conceito Médio do Doutorado] / 0.25, 0) * 0.25,
+			    ROUNDUP('fIGC'[Conceito Médio do Doutorado] / 0.25, 0) * 0.25
+			  )
+			)
+		displayFolder: _Grupos
+		lineageTag: 1ea74cee-8033-491e-b375-07a1b4c6433b
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "binningMetadata": {
+				    "binSize": {
+				      "unit": 0,
+				      "value": 0.25
+				    }
+				  },
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "fIGC"
+				          }
+				        },
+				        "Property": "Conceito Médio do Doutorado"
+				      }
+				    }
+				  ],
+				  "version": 0
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"f","Entity":"fIGC"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"Conceito Médio do Doutorado"}}],"BinItem":{"Expression":{"Floor":{"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"Conceito Médio do Doutorado"}},"Size":0.25}}}}
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'g_IGC (Contínuo)' =
+			IF(
+			  ISBLANK('fIGC'[IGC (Contínuo)]),
+			  BLANK(),
+			  IF(
+			    'fIGC'[IGC (Contínuo)] >= 0,
+			    ROUNDDOWN('fIGC'[IGC (Contínuo)] / 0.25, 0) * 0.25,
+			    ROUNDUP('fIGC'[IGC (Contínuo)] / 0.25, 0) * 0.25
+			  )
+			)
+		displayFolder: _Grupos
+		lineageTag: 788f376c-1891-43aa-8dd2-a09cdf6d7260
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "binningMetadata": {
+				    "binSize": {
+				      "unit": 0,
+				      "value": 0.25
+				    }
+				  },
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "fIGC"
+				          }
+				        },
+				        "Property": "IGC (Contínuo)"
+				      }
+				    }
+				  ],
+				  "version": 0
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"f","Entity":"fIGC"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"IGC (Contínuo)"}}],"BinItem":{"Expression":{"Floor":{"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"IGC (Contínuo)"}},"Size":0.25}}}}
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description O Índice Geral de Cursos resulta da avaliação das instituições de educação superior. É uma média ponderada, a partir da distribuição dos estudantes nos níveis de ensino, que envolve as notas contínuas do CPC e das notas de avaliação dos cursos de programas de pós graduação stricto sensu, atribuídos pela Coordenação de Aperfeiçoamento de Pessoal de Nível Superior (CAPES), convertido em faixas conforme parâmetros de conversão definidos na nota técnica referente à versão do cálculo do indicador.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	column 'g_IGC (Faixa)' =
+			IF(
+			  ISBLANK('fIGC'[IGC (Faixa)]),
+			  BLANK(),
+			  INT('fIGC'[IGC (Faixa)])
+			)
+		formatString: 0
+		displayFolder: _Grupos
+		lineageTag: fd39ca81-6bea-4ffc-8c01-647ce7834f02
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "binningMetadata": {
+				    "binSize": {
+				      "unit": 0,
+				      "value": 1.0
+				    }
+				  },
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "fIGC"
+				          }
+				        },
+				        "Property": "IGC (Faixa)"
+				      }
+				    }
+				  ],
+				  "version": 0
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"f","Entity":"fIGC"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"IGC (Faixa)"}}],"BinItem":{"Expression":{"Floor":{"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"IGC (Faixa)"}},"Size":1.0}}}}
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Número de cursos com CPC no triênio de referência para cálculo do IGC.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	column 'g_Cursos com CPC no triênio' =
+			IF(
+			  ISBLANK('fIGC'[Nº de Cursos com CPC no triênio]),
+			  BLANK(),
+			  INT('fIGC'[Nº de Cursos com CPC no triênio] / 10) * 10
+			)
+		formatString: 0
+		displayFolder: _Grupos
+		lineageTag: 3790c977-38c8-4254-a353-aad54dbcfc18
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "binningMetadata": {
+				    "binSize": {
+				      "unit": 0,
+				      "value": 10.0
+				    }
+				  },
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "fIGC"
+				          }
+				        },
+				        "Property": "Nº de Cursos com CPC no triênio"
+				      }
+				    }
+				  ],
+				  "version": 0
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"f","Entity":"fIGC"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"Nº de Cursos com CPC no triênio"}}],"BinItem":{"Expression":{"Floor":{"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"Nº de Cursos com CPC no triênio"}},"Size":10.0}}}}
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fIGC-934a18b4-ad72-46aa-a303-d43b366b9223 = m
+		mode: import
+		queryGroup: 'Modelo PNP\Fatos'
+		source =
+				let
+				    Fonte = Csv.Document(Binary.Decompress(Web.Contents(AWS&"fIGC.csv.gz"),Compression.GZip),[Delimiter=";", Columns=17, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{" Código da IES", Int64.Type}}),
+				    #"Consultas Mescladas" = Table.NestedJoin(#"Tipo Alterado", {" Código da IES"}, d_IES, {"CO_IES"}, "d_IES", JoinKind.LeftOuter),
+				    #"d_IES Expandido" = Table.ExpandTableColumn(#"Consultas Mescladas", "d_IES", {"CO_IES"}, {"d_IES.CO_IES"}),
+				    #"Linhas Filtradas" = Table.SelectRows(#"d_IES Expandido", each ([d_IES.CO_IES] <> null)),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Linhas Filtradas",{"d_IES.CO_IES"}),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Colunas Removidas",{{" IGC (Contínuo)", type number}, {" Conceito Médio do doutorado", type number}, {" Gama (Proporção de Doutorandos – Equivalente)", type number}, {" Conceito Médio de Mestrado", type number}, {" Beta (Proporção de Mestrado - Equivalente)", type number}, {" Conceito Médio de Graduação", type number}, {" Alfa (Proporção de Graduação)", type number}, {" Nº de Cursos com CPC no triênio", Int64.Type}, {" IGC (Faixa)", Int64.Type}}),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Tipo Alterado1",{{" Alfa (Proporção de Graduação)", "Alfa (Proporção de Graduação)"}, {" Beta (Proporção de Mestrado - Equivalente)", "Beta (Proporção de Mestrado - Equivalente)"}, {" Conceito Médio de Graduação", "Conceito Médio de Graduação"}, {" Conceito Médio de Mestrado", "Conceito Médio de Mestrado"}, {" Conceito Médio do doutorado", "Conceito Médio do Doutorado"}, {" Gama (Proporção de Doutorandos – Equivalente)", "Gama (Proporção de Doutorandos – Equivalente)"}, {" IGC (Contínuo)", "IGC (Contínuo)"}, {" IGC (Faixa)", "IGC (Faixa)"}, {" Nº de Cursos com CPC no triênio", "Nº de Cursos com CPC no triênio"}, {" Ano", "Ano"}})
+				in
+				    #"Colunas Renomeadas"
+
+	annotation PBI_ResultType = Table
+

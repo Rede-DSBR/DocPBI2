@@ -1,0 +1,206 @@
+/// @description Essa tabela apresenta informações importantes sobre a alocação de recursos públicos em diferentes áreas e programas governamentais.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table PTRES
+	lineageTag: 17e1b296-b221-42b5-8ec7-297a75d26d93
+
+	column PTRES
+		dataType: string
+		lineageTag: 7a39b74a-bde5-4a4b-8476-474e5ad402d3
+		summarizeBy: none
+		sourceColumn: PTRES
+
+		annotation SummarizationSetBy = Automatic
+
+	column Funcional
+		dataType: string
+		lineageTag: aaddb910-d4aa-4386-9a26-fd1c469d845b
+		summarizeBy: none
+		sourceColumn: Funcional
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProgramaticaUO
+		dataType: string
+		lineageTag: a6e072bf-b588-401f-9c40-15459bcf8262
+		summarizeBy: none
+		sourceColumn: ProgramaticaUO
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código da Função
+	column CodFuncao
+		dataType: string
+		lineageTag: 406daaad-d9e7-415c-8a08-0d20e583e62d
+		summarizeBy: none
+		sourceColumn: CodFuncao
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Maior nível de agregação das diversas áreas de atuação do setor público. Está relacionada com a missão institucional fundamental do órgão executor, por exemplo, cultura, educação, saúde ou defesa.
+	column Funcao
+		dataType: string
+		lineageTag: 48f68389-cc6b-4109-a667-f258b17df9db
+		summarizeBy: none
+		sourceColumn: Funcao
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código da SubFunção
+	column CodSubfuncao
+		dataType: string
+		lineageTag: 5e72b434-7d0b-455b-b7fb-1e56b951bd26
+		summarizeBy: none
+		sourceColumn: CodSubfuncao
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Nível de agregação imediatamente inferior à função que evidencia a natureza da atuação governamental.
+	column Subfuncao
+		dataType: string
+		lineageTag: ff07a346-981f-46ee-8356-3ccd2e1c5439
+		summarizeBy: none
+		sourceColumn: Subfuncao
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código da Unidade Orçamentária
+	column CodUnidadeOrcamentaria
+		dataType: string
+		lineageTag: 4a4193de-bf60-4285-8b64-338cd6167364
+		summarizeBy: none
+		sourceColumn: CodUnidadeOrcamentaria
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código do Programa
+	column CodPrograma
+		dataType: string
+		lineageTag: 1bcf39af-a736-4fcd-93cd-11900dfb4803
+		summarizeBy: none
+		sourceColumn: CodPrograma
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Instrumento de organização da atuação governamental. Articula um conjunto de ações que concorrem à concretização dos objetivos pretendidos, sendo mensurado por indicadores estabelecidos no plano plurianual.
+	column Programa
+		dataType: string
+		lineageTag: 47dfcaf4-113c-41cc-9f1f-5a936b1d1ca6
+		summarizeBy: none
+		sourceColumn: Programa
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código da Ação
+	column CodAcao
+		dataType: string
+		lineageTag: 47cc4e3d-88d2-44d1-9ec5-0524c4105022
+		summarizeBy: none
+		sourceColumn: CodAcao
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Nome da Ação
+	column Acao
+		dataType: string
+		lineageTag: 8fb8a5db-cab2-4dbc-b346-2fb82ef9ce15
+		summarizeBy: none
+		sourceColumn: Acao
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código do Subtítulo
+	column CodSubtitulo
+		dataType: string
+		lineageTag: dc31fec5-0552-41ae-bf79-d090e681909d
+		summarizeBy: none
+		sourceColumn: CodSubtitulo
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Menor nível da classificação programática, sendo utilizado especialmente para especificar a localização física integral ou parcial das ações orçamentárias.
+	column Subtitulo
+		dataType: string
+		lineageTag: 4bd7057c-bef4-44e5-8727-57dbe3a97cd6
+		summarizeBy: none
+		sourceColumn: Subtitulo
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código do Plano Orçamentário (Identificação orçamentária parcial ou total de uma ação).
+	column CodPlanoOrcamentario
+		dataType: string
+		lineageTag: 1574c1ee-c337-42b9-9d34-c928359705a7
+		summarizeBy: none
+		sourceColumn: CodPlanoOrcamentario
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Identificação orçamentária parcial ou total de uma ação, de caráter gerencial – ou seja, não constante na LOA –, informada na etapa de execução orçamentária e vinculada à ação orçamentária, que tem por finalidade permitir que tanto a elaboração do orçamento quanto o acompanhamento físico e financeiro da execução ocorram num nível mais detalhado do que o do subtítulo (localizador de gasto) da ação.
+	column PlanoOrcamentario
+		dataType: string
+		lineageTag: 64644ff0-0a1f-4a6e-9f3b-f81a17b083fd
+		summarizeBy: none
+		sourceColumn: PlanoOrcamentario
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código da ação
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Panorama Orçamentário; Explorar Dados; Serie Histórica; Ind Orçamentário
+	column Cód_Ação = PTRES[CodAcao]&" - "&PTRES[Acao]
+		lineageTag: aefeb67b-1fc0-487c-be4c-cec9e9091781
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cód_PlanoOrçamentário = PTRES[CodPlanoOrcamentario]&" - "&PTRES[PlanoOrcamentario]
+		lineageTag: f3af0782-184c-411b-8fae-dedd2d5bc098
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código do Programa
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Panorama Orçamentário; Explorar Dados; Serie Histórica; Ind Orçamentário
+	column Cód_Programa = PTRES[CodPrograma]&" - "&PTRES[Programa]
+		lineageTag: baea1d1f-d50a-44fa-91b7-e82730f61f19
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cód_Função = PTRES[CodFuncao]&" - "&PTRES[Funcao]
+		lineageTag: 9c8d7f92-f272-4296-b7c0-fec15097b16a
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cód_SubFunção = PTRES[CodSubfuncao]&" - "&PTRES[Subfuncao]
+		lineageTag: 87822bc3-6c67-49f9-81a6-c44b7432a899
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition PTRES-b9c38743-0960-402e-b76b-650df08ff0c3 = m
+		mode: import
+		queryGroup: 'Modelo Orçamentário\Orçamento TG'
+		source =
+				let
+				    Fonte = Csv.Document(Binary.Decompress(Web.Contents(
+				        EndTG&TG&"/PTRES.csv.gz"
+				        ),Compression.GZip),[Delimiter="	", Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Consultas Mescladas" = Table.NestedJoin(#"Cabeçalhos Promovidos", {"Funcional"}, SiopFuncional, {"Funcional"}, "SiopFuncional", JoinKind.LeftOuter),
+				    #"SiopFuncional Expandido" = Table.ExpandTableColumn(#"Consultas Mescladas", "SiopFuncional", {"CodFuncao", "Funcao", "CodSubfuncao", "Subfuncao"}, {"CodFuncao", "Funcao", "CodSubfuncao", "Subfuncao"}),
+				    #"Consultas Mescladas1" = Table.NestedJoin(#"SiopFuncional Expandido", {"ProgramaticaUO"}, SiopProgramaticaUO, {"ProgramaticaUO"}, "SiopProgramaticaUO", JoinKind.LeftOuter),
+				    #"SiopProgramaticaUO Expandido" = Table.ExpandTableColumn(#"Consultas Mescladas1", "SiopProgramaticaUO", {"CodUnidadeOrcamentaria", "CodPrograma", "Programa", "CodAcao", "Acao", "CodSubtitulo", "Subtitulo", "CodPlanoOrcamentario", "PlanoOrcamentario"}, {"CodUnidadeOrcamentaria", "CodPrograma", "Programa", "CodAcao", "Acao", "CodSubtitulo", "Subtitulo", "CodPlanoOrcamentario", "PlanoOrcamentario"})
+				in
+				    #"SiopProgramaticaUO Expandido"
+
+	annotation PBI_ResultType = Table
+

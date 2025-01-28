@@ -1,0 +1,50 @@
+/// @description A tabela _dGraficoIV é uma tabela genérica que pode ser utilizada para armazenar informações de diferentes tipos, sendo que as colunas Value1 e Value2 armazenam informações de texto e a coluna Value3 armazena informações numéricas inteiras.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table _dGraficoIV
+	lineageTag: 493056ed-7481-423e-bc06-1a2ae45caf9c
+
+	column Value1
+		lineageTag: c2caa07b-1aba-4786-ab61-04cb187ea5d7
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value1]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value2
+		lineageTag: 99c3309c-abf7-46ed-9a02-ba213eb965da
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value2]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value3
+		formatString: 0
+		lineageTag: 3af1f86a-1a17-476f-a8f8-7f9c3e304890
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _dGraficoIV-01b1ae8f-1c86-4898-b004-8eb8ef8a5077 = calculated
+		mode: import
+		source =
+				{
+				    ("Sem detalhamento", '_ExpTítulos'[EmBranco], 0),
+				    ("Instituição", NAMEOF('dimUnidade'[Instituicao]), 1),
+				    ("Sigla | Unidade", NAMEOF('dimUnidade'[Instituição | Unidade]), 2),
+				    ("Unidade", NAMEOF('dimUnidade'[nomeUnidadeRecente]), 3),
+				    ("Eixo Tecnológico", NAMEOF(fCiclos[tipoEixoTecnologico]), 4),
+				    ("Tipo de curso",NAMEOF(fCiclos[tipoCurso]),5),
+				    ("Tipo de Oferta",NAMEOF(fCiclos[tipoOferta]),6),
+				    ("Região", NAMEOF('dimUnidade'[Regiao]), 7),
+				    ("Estado", NAMEOF('dimUnidade'[UF]), 8),
+				    ("Município", NAMEOF('dimUnidade'[Município]), 9)
+				}
+
+	annotation PBI_Id = ed8a972a7937439f8125fe5305260f9e
+

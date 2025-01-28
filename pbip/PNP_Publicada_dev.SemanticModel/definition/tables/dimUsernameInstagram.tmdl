@@ -1,0 +1,144 @@
+/// @description A tabela dimUsernameInstagram é uma tabela de dimensão que contém informações sobre usuários do Instagram.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table dimUsernameInstagram
+	lineageTag: 3d5dea36-a78c-4643-9191-9275fad1689a
+
+	/// @descriptionColuna derivada que concatena o texto Saiba mais em com a URL do perfil do Instagram
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'Saiba mais em 👉' = ```
+			
+			 /*
+			@descriptionColuna derivada que concatena o texto Saiba mais em com a URL do perfil do Instagram
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			 VALUES(fInstagram[URLpermalink])
+			```
+		lineageTag: ed60feb8-d31f-424f-8a7c-451a8b40a354
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Nome do usuário do Instagram
+	column username
+		dataType: string
+		lineageTag: cff973c1-084f-42e5-a70e-9f3eac2b64ef
+		summarizeBy: none
+		sourceColumn: username
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Site
+	column website
+		dataType: string
+		lineageTag: 3923454e-092e-4ea8-be38-295e04e8b879
+		summarizeBy: none
+		sourceColumn: website
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Guarda a expressão Últimos 5 anos
+	column name
+		dataType: string
+		lineageTag: 1e0f032c-0a4b-44e4-9d24-2c934ff82048
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Identificação do perfil
+	column ig_id
+		dataType: string
+		lineageTag: 5f6a89c2-22a0-469a-957d-3749e349d5cf
+		summarizeBy: none
+		sourceColumn: ig_id
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Identificação
+	column id
+		dataType: string
+		lineageTag: 461af1a5-2c8b-4525-94ae-96314a4042a9
+		summarizeBy: none
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description URL da foto de perfil
+	column profile_picture_url
+		dataType: string
+		lineageTag: 852f4cef-7468-4e79-a6d2-284bbf6d8564
+		dataCategory: ImageUrl
+		summarizeBy: none
+		sourceColumn: profile_picture_url
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Texto de biografia
+	column biography
+		dataType: string
+		lineageTag: c61bc9b6-ef76-43eb-bf64-919bac441fe0
+		summarizeBy: none
+		sourceColumn: biography
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Número de pessoas que segue
+	column follows_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 7ac637dd-ee96-4e4b-8c97-101dadd43a79
+		summarizeBy: none
+		sourceColumn: follows_count
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Número de seguidores
+	column followers_count
+		dataType: int64
+		formatString: 0
+		lineageTag: c70b0eed-3fcb-465d-b384-671a3444ddd7
+		summarizeBy: none
+		sourceColumn: followers_count
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Número de publicações
+	column media_count
+		dataType: int64
+		formatString: 0
+		lineageTag: d1ac9348-7afb-45a6-85c1-2f796e5cf213
+		summarizeBy: none
+		sourceColumn: media_count
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código UO
+	column UO
+		dataType: string
+		lineageTag: e6c4e88e-937f-44e1-bbf1-7894af9a71d7
+		summarizeBy: none
+		sourceColumn: UO
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dimUsernameInstagram-47653417-1c2a-4a4b-83c0-93a1cb2e3eb7 = m
+		mode: import
+		queryGroup: Instagram
+		source =
+				let
+				    Source = Csv.Document(Web.Contents(GCS&"instagram/pnp_instagram_user_data.csv"),[Delimiter=";", Columns=10, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Linhas em Branco Removidas" = Table.SelectRows(#"Cabeçalhos Promovidos", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null}))),
+				    #"Consultas Mescladas" = Table.NestedJoin(#"Linhas em Branco Removidas", {"username"}, auxInstagramUsuarios, {"username"}, "auxInstagramUsuarios", JoinKind.LeftOuter),
+				    #"auxInstagramUsuarios Expandido" = Table.ExpandTableColumn(#"Consultas Mescladas", "auxInstagramUsuarios", {"UO"}, {"UO"}),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"auxInstagramUsuarios Expandido",{{"UO", type text}, {"media_count", Int64.Type}, {"followers_count", Int64.Type}, {"follows_count", Int64.Type}, {"username", type text}, {"website", type text}, {"name", type text}, {"ig_id", type text}, {"id", type text}, {"profile_picture_url", type text}, {"biography", type text}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_ResultType = Table
+

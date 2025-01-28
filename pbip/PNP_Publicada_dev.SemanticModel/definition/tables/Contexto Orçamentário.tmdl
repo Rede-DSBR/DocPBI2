@@ -1,0 +1,38 @@
+table 'Contexto Orçamentário'
+	lineageTag: fc3c746c-9ade-4e64-bf3a-30799624f5e4
+
+	column Ordem
+		formatString: 0
+		lineageTag: 8f619184-80f0-4c82-9208-5a5c71151041
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Ordem]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Contexto
+		lineageTag: 3a7bcc85-d28d-4b25-94e6-b4cfff8f6e75
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Contexto]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Contexto Orçamentário-c74a9c61-4412-4b5b-ae1d-7092d9656f44' = calculated
+		mode: import
+		source =
+				
+				DATATABLE (
+				    "Ordem", INTEGER,
+				    "Contexto", STRING,
+				    {
+				        { 1, "Programação Orçamentária"},
+				        { 2, "Execução do Exercício"},
+				        { 3, "Restos a Pagar"},
+				        { 4, "Exercício e RP"},
+				        { 5, "Descentralizações"}
+				    }
+				)
+
+	annotation PBI_Id = 41f8de89d00044048c942ea22a620db1
+

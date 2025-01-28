@@ -1,0 +1,61 @@
+/// @description Tabela para parâmetro de campos referente a Servidores
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table _dServidores
+	lineageTag: 657108a3-7075-47ed-a5e7-0b5827b19091
+
+	column _dServidores
+		lineageTag: 9c1c7dbd-04f7-4373-abc0-d60c1ef03a43
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: '_dServidores Pedido'
+
+		relatedColumnDetails
+			groupByColumn: '_dServidores Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column '_dServidores Campos'
+		isHidden
+		lineageTag: 9065a0b1-0e77-4aa8-9ad6-1a391c2c3a8e
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: '_dServidores Pedido'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "kind": 2,
+				  "version": 3
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column '_dServidores Pedido'
+		isHidden
+		formatString: 0
+		lineageTag: 93b7c9bf-d6e2-4720-8ae4-e41d31da67bf
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _dServidores-99d2dc43-9abc-48c4-a840-3b8fc141373e = calculated
+		mode: import
+		source =
+				{
+				    ("Insituição",NAMEOF(dimUnidade[Instituicao]),0),
+				    ("Região", NAMEOF('d_IES'[Região]), 1),
+				    ("Estado", NAMEOF('d_IES'[Estado]), 2),
+				    ("Situação de Vínculo", NAMEOF(dimSitFuncional[Situacao]), 3),
+				    ("Sexo", NAMEOF('dimSexoIdade'[Sexo]), 4),
+				    ("Faixa Etária", NAMEOF('dimSexoIdade'[FaixaEtaria]), 5),
+				    ("Jornada de Trabalho", NAMEOF('dimJornada'[DescricaoJornada]), 6),
+				    ("Carreira", NAMEOF(dimCarreiras[CarreiraDescricao]), 7),
+				    ("Escolaridade", NAMEOF('dimEscolaridade'[NivelEscolaridade]), 8),
+				    ("Funcao", NAMEOF('dimFuncao'[FuncaoCompleto]), 9),
+				    ("Função (Completo)", NAMEOF('dimFuncao'[FuncaoCompleto]), 10)
+				}
+
+	annotation PBI_Id = 2462c5e9f22445b1aa76934df1a19cf9
+

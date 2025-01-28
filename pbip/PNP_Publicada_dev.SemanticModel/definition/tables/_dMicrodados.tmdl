@@ -1,0 +1,70 @@
+/// @description Tabela para parâmetro de campos referente aos Microdados
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table _dMicrodados
+	lineageTag: 92ab47c9-04bc-4084-8355-88fbd738fd1e
+
+	column DetalhaMicrodados
+		lineageTag: f687200c-8aeb-4550-bad2-fca95f1e01aa
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Ação Afirmativa Pedido'
+
+		relatedColumnDetails
+			groupByColumn: 'Ação Afirmativa Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ação Afirmativa Campos'
+		isHidden
+		lineageTag: 5bdf8d57-bd67-4bc3-9645-bc8992bf68e9
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Ação Afirmativa Pedido'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "kind": 2,
+				  "version": 3
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ação Afirmativa Pedido'
+		isHidden
+		formatString: 0
+		lineageTag: 1ee6d9d9-ee92-4b8b-9067-b1520b0f3f79
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _dMicrodados-f8ff429b-ee1b-4a7f-b24e-f7aaab22dea7 = calculated
+		mode: import
+		source =
+				{
+				    ("Sem detalhe", NAMEOF([EmBranco]), 0),
+				    ("Classificação Racial", NAMEOF('dimRendaRaca'[CorRaca]), 01),
+				    ("Renda Familiar", NAMEOF('dimRendaRaca'[RendaFamiliar]), 02),
+				    ("Sexo", NAMEOF('dimSexoIdade'[Sexo]), 03),
+				    ("Faixa Etária", NAMEOF('dimSexoIdade'[FaixaEtaria]), 04),
+				    ("Instituição", NAMEOF('dimUnidade'[Instituicao]), 05),
+				    ("Unidade", NAMEOF('dimUnidade'[nomeUnidadeRecente]), 06),
+				    ("Região", NAMEOF('d_IES'[Região]), 07),
+				    ("Estado", NAMEOF('d_IES'[Estado]), 08),
+				    ("Município", NAMEOF('dimUnidade'[Município]), 09),
+				    ("Organização Acadêmica", NAMEOF(d_IES[Organização Acadêmica PNP]), 10),
+				    ("Organização Acadêmica PNP", NAMEOF(d_IES[Organização Acadêmica Sigla PNP]), 11),
+				    ("Eixo Tecnológico", NAMEOF(dimCurso[tipoEixoTecnologico]), 12),
+				    ("Subeixo Tecnológico", NAMEOF(dimCurso[SubeixoTecnologico]), 14),
+				    ("Tipo de Curso", NAMEOF(dimCurso[tipoCurso]), 15),
+				    ("Nome do Curso", NAMEOF(dimCurso[nomeCurso]), 16),
+				    ("Tipo de Oferta", NAMEOF(dimCurso[tipoOferta]), 17),
+				    ("Modalidade de Ensino", NAMEOF(dimCurso[ModalidadeEnsino]), 18),
+				    ("Fonte de Financiamento", NAMEOF(dimFinanciamento[nomeFonteFinanciamento]), 19),
+				    ("Turno do Curso", NAMEOF(dimCurso[turnoCurso]), 20)
+				}
+
+	annotation PBI_Id = b74e91272f81456192e36c8717dcbb8c
+

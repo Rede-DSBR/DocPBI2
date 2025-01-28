@@ -1,0 +1,95 @@
+/// @description Essa tabela é utilizada para armazenar informações sobre as unidades orçamentárias e os órgãos aos quais elas estão vinculadas. As unidades orçamentárias são responsáveis pela execução do orçamento e estão vinculadas a um órgão específico. O código da unidade orçamentária é utilizado para identificá-la de forma única, assim como o código do órgão. O campo CodUOResponsavel indica qual unidade orçamentária é responsável pela execução do orçamento.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table UnidadeOrgao
+	lineageTag: abeddd6b-1f18-4016-a285-88e6b71b113d
+
+	/// @description Menor nível da classificação institucional. É a destinatária das dotações do orçamento da União. Corresponde a entidades da administração direta ou indireta na maioria dos casos, podendo servir também para identificar fundos especiais, transferências a Estados e Municípios, encargos financeiros da União, operações oficiais de crédito, refinanciamento da dívida pública mobiliária federal e reserva de contingência.
+	column UnidadeOrcamentaria
+		dataType: string
+		lineageTag: 29606bf0-c801-49d1-b9e9-21fa9f8bc4e9
+		summarizeBy: none
+		sourceColumn: UnidadeOrcamentaria
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Nome da Unidade Orçamentária
+	column NomeUnidadeOrcamentaria
+		dataType: string
+		lineageTag: c081010b-6ebf-4a5a-ba6d-5c339028880a
+		summarizeBy: none
+		sourceColumn: NomeUnidadeOrcamentaria
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código do Órgão
+	column Orgao
+		dataType: string
+		lineageTag: 2e8f5c9d-dc60-4565-a0b0-fdd0ef8e017a
+		summarizeBy: none
+		sourceColumn: Orgao
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Nome do Órgão
+	column NomeOrgao
+		dataType: string
+		lineageTag: e0038fca-a733-4e6c-96a8-a2a9b30c7412
+		summarizeBy: none
+		sourceColumn: NomeOrgao
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código da Unidade Orçamentária Responsável
+	column CodUOResponsavel
+		dataType: string
+		lineageTag: 7ff3fd06-b790-4a2d-9e12-a441bf9431f4
+		summarizeBy: none
+		sourceColumn: CodUOResponsavel
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código do Órgão
+	column Cód_Órgão =
+			
+			/*@description Código do Órgão
+			@author dsbr
+			@version 1
+			@date 03/11/2022*/
+			UnidadeOrgao[Orgao]&" - "&UnidadeOrgao[NomeOrgao]
+		lineageTag: a5a0925b-a8b2-4209-a520-606e0452e567
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código da Unidade Orçamentária
+	/// 
+	column Cód_UO =
+			
+			/*@description Código da Unidade Orçamentária
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Panorama Orçamentário; Explorar Dados; Serie Histórica; Ind Orçamentário
+			*/
+			
+			UnidadeOrgao[CodUOResponsavel]&" - "&UnidadeOrgao[NomeUnidadeOrcamentaria]
+		lineageTag: 81718936-fc1d-4089-a21e-3704b37eecc6
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition UnidadeOrgao-557145bc-1cef-48f5-88eb-a4216a929ec5 = m
+		mode: import
+		queryGroup: 'Modelo Orçamentário\Orçamento TG'
+		source =
+				let
+				    Fonte = Excel.Workbook(Web.Contents(#"AWS TG"&"OrgaoUO.xlsx"), null, true),
+				    OrgaoUO_Table = Fonte{[Item="OrgaoUO",Kind="Table"]}[Data],
+				    #"Tipo Alterado" = Table.TransformColumnTypes(OrgaoUO_Table,{{"UnidadeOrcamentaria", type text}, {"NomeUnidadeOrcamentaria", type text}, {"Orgao", type text}, {"NomeOrgao", type text}, {"CodUOResponsavel", type text}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_ResultType = Table
+

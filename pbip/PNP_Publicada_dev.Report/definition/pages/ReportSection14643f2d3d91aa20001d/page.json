@@ -1,0 +1,238 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/1.2.0/schema.json",
+  "name": "ReportSection14643f2d3d91aa20001d",
+  "displayName": "3. G. Orçamentária | Indicadores Orçamentários",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "Filter000e7be0d00cab32d969",
+        "ordinal": 0,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "d_IES"
+              }
+            },
+            "Property": "Org. Administrativa"
+          }
+        },
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "d",
+              "Entity": "d_IES",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "d"
+                          }
+                        },
+                        "Property": "Org. Administrativa"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Cefet'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Colégio'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Institutos'"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User"
+      },
+      {
+        "name": "Filter4f69329971619c0bb4b4",
+        "ordinal": 1,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "RelacaoOrgao"
+              }
+            },
+            "Property": "Relação do Órgão"
+          }
+        },
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "r",
+              "Entity": "RelacaoOrgao",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "r"
+                          }
+                        },
+                        "Property": "Relação do Órgão"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Órgão da UO'"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User"
+      }
+    ],
+    "filterSortOrder": "Custom"
+  },
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "image": {
+            "image": {
+              "name": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'BG GERAL INTERNO PNP v10 ICONES.png'"
+                  }
+                }
+              },
+              "url": {
+                "expr": {
+                  "ResourcePackageItem": {
+                    "PackageName": "RegisteredResources",
+                    "PackageType": 1,
+                    "ItemName": "BG_GERAL_INTERNO_PNP_v10_ICONE8302573083267561.png"
+                  }
+                }
+              },
+              "scaling": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'Fill'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "width": {
+            "expr": {
+              "Literal": {
+                "Value": "272L"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visibility": "HiddenInViewMode",
+  "visualInteractions": [
+    {
+      "source": "67e58c8803238185a200",
+      "target": "b11e0b60306d5ad61283",
+      "type": "DataFilter"
+    },
+    {
+      "source": "67e58c8803238185a200",
+      "target": "e4ed2f4527684ab25d43",
+      "type": "NoFilter"
+    },
+    {
+      "source": "e4ed2f4527684ab25d43",
+      "target": "67e58c8803238185a200",
+      "type": "NoFilter"
+    },
+    {
+      "source": "e4ed2f4527684ab25d43",
+      "target": "b11e0b60306d5ad61283",
+      "type": "NoFilter"
+    },
+    {
+      "source": "b85c94c00c943e019ae8",
+      "target": "c1be6c9d310a7d1a0530",
+      "type": "DataFilter"
+    },
+    {
+      "source": "b11e0b60306d5ad61283",
+      "target": "67e58c8803238185a200",
+      "type": "DataFilter"
+    },
+    {
+      "source": "b11e0b60306d5ad61283",
+      "target": "e4ed2f4527684ab25d43",
+      "type": "DataFilter"
+    },
+    {
+      "source": "b11e0b60306d5ad61283",
+      "target": "c1be6c9d310a7d1a0530",
+      "type": "NoFilter"
+    },
+    {
+      "source": "b85c94c00c943e019ae8",
+      "target": "e4ed2f4527684ab25d43",
+      "type": "DataFilter"
+    }
+  ]
+}

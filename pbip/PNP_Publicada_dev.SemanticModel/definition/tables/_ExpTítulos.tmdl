@@ -1,0 +1,1108 @@
+/// @description Essas colunas são utilizadas para organizar e apresentar as páginas do Power BI de forma clara e intuitiva para os usuários. O título, ícone e subtítulo ajudam a identificar a página, enquanto a aba e agrupamento em área de serviço ajudam a categorizá-la. A ordem e subordem definem a posição da página na lista de páginas e dentro do agrupamento, respectivamente.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table _ExpTítulos
+	lineageTag: 08e3126a-6768-4510-adde-2187d9b43836
+
+	/// @description Exibe o código de cor quando um filtro está selecionado
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure Cor_Filtro_Selecionado =
+			
+			/*
+			@description Exibe o código de cor quando um filtro está selecionado
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			IF([TemFiltroSelecionado], "#A8337D", "#FEFEFE" )
+		lineageTag: 063be652-cd57-4797-8b86-a6c2aa308fb7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Define o que é um espaço em branco
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Técnicos-administrativos por Nível; Professores por Instituição; Titulação Docente; Dados Gerais; Curso, matrícula e oferta; Situação de matrícula; Classificação Racial, Renda e Sexo; Faixa Etária; Percentuais Legais; Oferta de vagas noturnas; Relação inscritos/vagas; Taxa de evasão; Eficiência Acadêmica
+	measure EmBranco = ```
+			" "
+			/* 
+			@description Define o que é um espaço em branco
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Técnicos-administrativos por Nível; Professores por Instituição; Titulação Docente; Dados Gerais; Curso, matrícula e oferta; Situação de matrícula; Classificação Racial, Renda e Sexo; Faixa Etária; Percentuais Legais; Oferta de vagas noturnas; Relação inscritos/vagas; Taxa de evasão; Eficiência Acadêmica
+			
+			 */
+			```
+		lineageTag: 3f2e5abb-eeb5-4c0b-85b5-793b3c4d1c21
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Fonte e atualização de dados
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'Fonte|Atualização (TG)' =
+			
+			/*
+			@description Fonte e atualização de dados
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			
+			"Fonte: Tesouro Gerencial | Atualizado em "& DATEVALUE([Última atualização orçamento])
+		lineageTag: 2d08dc9e-6056-4ad2-b802-904b57c04bf5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Variável lógica de identificação de seleção de filtro
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure TemFiltroSelecionado = ```
+			
+			/*
+			@description Variável lógica de identificação de seleção de filtro
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			Calculate(( ISCROSSFILTERED('fSituaçãoMatrícula' )),ALL('dCalendário'))
+			
+			```
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 9d2e8fc2-9766-4c02-a290-0c2ba323e725
+
+	/// @description Variável lógica de identificação de seleção de filtro
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure Texto_Filtro_Selecionado =
+			
+			/*
+			@description Variável lógica de identificação de seleção de filtro
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			IF([TemFiltroSelecionado], "Filtro Selecionado", "Pesquisar Contextos" )
+		lineageTag: 635765e3-de5c-414b-bde9-9b958a514097
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Texto para limpar filtro
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure TextoLimparFiltro = ```
+			
+			 /*@description Texto para limpar filtro
+			@author dsbr
+			@version 1
+			@date 03/11/2022*/
+			CALCULATE (
+			    IF ( ISCROSSFILTERED ( ItemDespesa ), "️️🗑️", "" ),
+			    ALL ( UnidadeOrgao[UnidadeOrcamentaria] ),
+			    ALL ( 'dCalendário' )
+			)
+			```
+		lineageTag: ba16c312-fc43-4e68-95eb-e42453a2f527
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Verifica os preenchimentos de filtros e apresenta o texto em branco
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure TextoBranco = ```
+			
+			 /*@description Verifica os preenchimentos de filtros e apresenta o texto em branco
+			@author dsbr
+			@version 1
+			@date 03/11/2022*/
+			CALCULATE (
+			    IF ( ISCROSSFILTERED ( d_IES[Sigla] ), "️️🗑️️️️️️", "" ),
+			    ALL ( d_IES[Sigla] )
+			)
+			```
+		lineageTag: 96fee4c1-7f01-4fe0-91f7-5dcd10184f7d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Se tem brasão
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Titulação Docente; Técnicos-administrativos por Nível
+	measure HasOneBrasao = ```
+			
+			 /*
+			 @description Se tem brasão
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Titulação Docente; Técnicos-administrativos por Nível
+			*/
+			SELECTEDVALUE (
+			    Brasao[Base64_Brasao],
+			    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAMSURBVBhXY/j//z8ABf4C/qc1gYQAAAAASUVORK5CYII="
+			)
+			```
+		lineageTag: e5aed2c9-5981-4a20-811e-ffb161f1a04b
+		dataCategory: ImageUrl
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Título das opções do painel, exemplo: Orçamento
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure ExpTitulo = ```
+			
+			 /*@description Título das opções do painel, exemplo: Orçamento
+			@author dsbr
+			@version 1
+			@date 03/11/2022*/
+			IF ( ( HASONEVALUE ( d_IES[Sigla] ) ), VALUES(d_IES[Sigla]), VALUES('_ExpTítulos'[Título]))
+			
+			```
+		lineageTag: 4372ffe0-70d1-4a37-9509-24c1a33abaf9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Sub título das opções do painel (são hierárquicas).
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Titulação Docente; Técnicos-administrativos por Nível
+	measure ExpSubTitulo = ```
+			
+			 /*
+			 @description Sub título das opções do painel (são hierárquicas).
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Titulação Docente; Técnicos-administrativos por Nível
+			*/
+			
+			IF(HASONEVALUE(d_IES[Sigla]), " | "&VALUES(d_IES[Sigla])," | "&VALUES('_ExpTítulos'[Subtítulo]))
+			```
+		lineageTag: 0cff26a6-72ac-4c79-89bb-333556ade244
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Mensagem Pressione a tecla CTRL para selecionar mais de uma instituição
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure PressCTRL = ```
+			
+			 /*
+			 @description Mensagem Pressione a tecla CTRL para selecionar mais de uma instituição
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			IF(ISFILTERED(d_IES[Sigla]), "Pressione a tecla CTRL para selecionar mais de uma instituição", "")
+			```
+		lineageTag: 8d5ae299-02de-49ac-be0b-c480213d699b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Coluna derivada que verifica se tem perfil no instagram
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure HasOneProfile = ```
+			
+			 /*@description Coluna derivada que verifica se tem perfil no instagram
+			@author dsbr
+			@version 1
+			@date 03/11/2022*/
+			SELECTEDVALUE (
+			    dimUsernameInstagram[profile_picture_url],
+			    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAMSURBVBhXY/j//z8ABf4C/qc1gYQAAAAASUVORK5CYII="
+			)
+			```
+		lineageTag: ec57a23b-55b5-4ace-a4cc-77810b38842c
+		dataCategory: ImageUrl
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Exibe o nome da página da seleção
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure Navegação = ```
+			
+			/*
+			@description Exibe o nome da página da seleção
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			VALUES('_ExpTítulos'[Página PNP_Publicada.PBIX])
+			
+			```
+		lineageTag: 24fea8e1-eafa-4cc0-a792-b8b66616dcf3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Texto de apresentação da plataforma Nilo Peçanha
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'texto de apresentação' =
+			
+			/*
+			@description Texto de apresentação da plataforma Nilo Peçanha
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			"Esta é a Plataforma Nilo Peçanha (PNP). Nela, a população pode ter acesso aos dados de governança e transparência de toda Rede Federal EPCT. Esperamos apoiar todos os interessados e grupos de gestão, informação e pesquisa que estão envolvidos direta ou indiretamente com a Rede. Desejamos uma boa navegação."
+		lineageTag: 3db1bbe7-bf06-4ce7-8e13-a974e302b457
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Exibe data da última atualização dos dados do Siape
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'Fonte|Atualização (Siape)' =
+			
+			/*
+			@description Exibe data da última atualização dos dados do Siape
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			CALCULATE("Fonte: Extração Siape | Últimos dados disponíveis referente a "& MONTH(DATEVALUE(MAX(fServidoresSiape[AnoMes])))&"/"&YEAR(DATEVALUE(MAX(fServidoresSiape[AnoMes]))),ALL(fServidoresSiape))
+		lineageTag: 5c371103-e75e-49d6-8a04-01eebf463b2a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Exibe o ano da edição da PNP selecionada
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure Ano_PNP =
+			
+			/*
+			@description Exibe o ano da edição da PNP selecionada
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			"📘 Fonte: PNP | Edição "&VALUES('dCalendário'[Ano_Publicacao])
+		lineageTag: 146c032a-4428-4125-8573-92701b771728
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Tipos de filtros de orçamento
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure FiltrosOrçamento = ```
+			
+			  /*@description Tipos de filtros de orçamento
+			@author dsbr
+			@version 1
+			@date 03/11/2022*/
+			
+			VAR MaxFilters =
+			
+			 3
+			RETURN
+			
+			/*%%%%% d_IES %%%%%*/
+			
+			IF ( 
+			    ISFILTERED ( d_IES[SiglaNome] ), 
+			    VAR ___f = FILTERS ( d_IES[SiglaNome] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, d_IES[SiglaNome] )
+			    VAR ___d = CONCATENATEX ( ___t, d_IES[SiglaNome], ", " )
+			    VAR ___x = "🏛️ " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			
+			/* &IF ( 
+			    ISFILTERED ( d_IES[Sigla] ), 
+			    VAR ___f = FILTERS ( d_IES[Sigla] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, d_IES[Sigla] )
+			    VAR ___d = CONCATENATEX ( ___t, d_IES[Sigla], ", " )
+			    VAR ___x = "🏛️ " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			) */
+			
+			& IF ( 
+			    ISFILTERED ( d_IES[Região] ), 
+			    VAR ___f = FILTERS ( d_IES[Região] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, d_IES[Região] )
+			    VAR ___d = CONCATENATEX ( ___t, d_IES[Região], ", " )
+			    VAR ___x = "[Região] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			
+			& IF ( 
+			    ISFILTERED ( d_IES[Estado] ), 
+			    VAR ___f = FILTERS ( d_IES[Estado] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, d_IES[Estado] )
+			    VAR ___d = CONCATENATEX ( ___t, d_IES[Estado], ", " )
+			    VAR ___x = "[Estado] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			
+			/*%%%%% Fonte %%%%%*/
+			
+			& IF ( 
+			    ISFILTERED ( Fonte[Cód_Fonte] ), 
+			    VAR ___f = FILTERS ( Fonte[Cód_Fonte] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, Fonte[Cód_Fonte] )
+			    VAR ___d = CONCATENATEX ( ___t, Fonte[Cód_Fonte], ", " )
+			    VAR ___x = "[Fonte] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			
+			/*%%%%% Natureza de Despesas %%%%%*/
+			
+			 & IF ( 
+			    ISFILTERED ( NaturezaDespesa[CodCategoriaEconomica] ), 
+			    VAR ___f = FILTERS ( NaturezaDespesa[CodCategoriaEconomica] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, NaturezaDespesa[CodCategoriaEconomica] )
+			    VAR ___d = CONCATENATEX ( ___t, NaturezaDespesa[CodCategoriaEconomica], ", " )
+			    VAR ___x = "NaturezaDespesa[Cód_CategoriaEconômica] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			 & IF ( 
+			    ISFILTERED ( NaturezaDespesa[Cód_ElementoDespesa] ), 
+			    VAR ___f = FILTERS ( NaturezaDespesa[Cód_ElementoDespesa] )
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, NaturezaDespesa[Cód_ElementoDespesa] )
+			    VAR ___d = CONCATENATEX ( ___t, NaturezaDespesa[Cód_ElementoDespesa], ", " )
+			    VAR ___x = "[Elemento] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			 & IF ( 
+			    ISFILTERED ( NaturezaDespesa[Cód_GrupoNatDespesa] ), 
+			    VAR ___f = FILTERS ( NaturezaDespesa[Cód_GrupoNatDespesa] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, NaturezaDespesa[Cód_GrupoNatDespesa] )
+			    VAR ___d = CONCATENATEX ( ___t, NaturezaDespesa[Cód_GrupoNatDespesa], ", " )
+			    VAR ___x = "[GND] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			
+			 & IF ( 
+			    ISFILTERED (NaturezaDespesa[Cód_NaturezaDespesaDetalhada]), 
+			    VAR ___f = FILTERS (NaturezaDespesa[Cód_NaturezaDespesaDetalhada]) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, NaturezaDespesa[Cód_NaturezaDespesaDetalhada])
+			    VAR ___d = CONCATENATEX ( ___t, NaturezaDespesa[Cód_NaturezaDespesaDetalhada], ", " )
+			    VAR ___x = "[NDD] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			
+			 & IF ( 
+			    ISFILTERED ( NaturezaDespesa[CodModalidadeAplicacao] ), 
+			    VAR ___f = FILTERS ( NaturezaDespesa[CodModalidadeAplicacao] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, NaturezaDespesa[CodModalidadeAplicacao] )
+			    VAR ___d = CONCATENATEX ( ___t, NaturezaDespesa[CodModalidadeAplicacao], ", " )
+			    VAR ___x = "[Modalidade] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			
+			/*%%%%% PI %%%%%*/
+			& IF ( 
+			    ISFILTERED (NaturezaDespesa[ItemDespesa]), 
+			    VAR ___f = FILTERS (NaturezaDespesa[ItemDespesa]) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, NaturezaDespesa[ItemDespesa])
+			    VAR ___d = CONCATENATEX ( ___t, NaturezaDespesa[ItemDespesa], ", " )
+			    VAR ___x = "[Item de Despesa] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			
+			/* & IF ( 
+			    ISFILTERED ( 'PI'[Categoria]), 
+			    VAR ___f = FILTERS ( 'PI'[Categoria]) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, 'PI'[Categoria])
+			    VAR ___d = CONCATENATEX ( ___t, 'PI'[Categoria], ", " )
+			    VAR ___x = "[Categoria de Despesa] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			
+			& IF ( 
+			    ISFILTERED ( 'PI'[SubCategoria]), 
+			    VAR ___f = FILTERS ( 'PI'[SubCategoria]) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, 'PI'[SubCategoria])
+			    VAR ___d = CONCATENATEX ( ___t, 'PI'[SubCategoria], ", " )
+			    VAR ___x = "[Subcategoria de Despesa] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			) */
+			/*%%%%% PTRES %%%%%*/
+			
+			& IF ( 
+			    ISFILTERED ( PTRES[Cód_Ação] ), 
+			    VAR ___f = FILTERS ( PTRES[Cód_Ação]) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, PTRES[Cód_Ação] )
+			    VAR ___d = CONCATENATEX ( ___t, PTRES[Cód_Ação], ", " )
+			    VAR ___x = "[Ação] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			 & IF ( 
+			    ISFILTERED ( PTRES[Cód_Função] ), 
+			    VAR ___f = FILTERS ( PTRES[Cód_Função] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, PTRES[Cód_Função] )
+			    VAR ___d = CONCATENATEX ( ___t, PTRES[Cód_Função], ", " )
+			    VAR ___x = "[Função] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			 & IF ( 
+			    ISFILTERED ( PTRES[Cód_PlanoOrçamentário] ), 
+			    VAR ___f = FILTERS ( PTRES[Cód_PlanoOrçamentário] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, PTRES[Cód_PlanoOrçamentário] )
+			    VAR ___d = CONCATENATEX ( ___t, PTRES[Cód_PlanoOrçamentário], ", " )
+			    VAR ___x = "[PO] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			 & IF ( 
+			    ISFILTERED ( PTRES[Cód_Programa] ), 
+			    VAR ___f = FILTERS ( PTRES[Cód_Programa] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, PTRES[Cód_Programa] )
+			    VAR ___d = CONCATENATEX ( ___t, PTRES[Cód_Programa], ", " )
+			    VAR ___x = "[Programa] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			 & IF ( 
+			    ISFILTERED ( PTRES[Cód_SubFunção] ), 
+			    VAR ___f = FILTERS ( PTRES[Cód_SubFunção] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, PTRES[Cód_SubFunção] )
+			    VAR ___d = CONCATENATEX ( ___t, PTRES[Cód_SubFunção], ", " )
+			    VAR ___x = "[SubFuncão] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			 /*%%%%% Resultado Primário %%%%%*/
+			
+			& IF ( 
+			    ISFILTERED ( ResultadoPrimario[Cód_ResultadoPrimario] ), 
+			    VAR ___f = FILTERS ( ResultadoPrimario[Cód_ResultadoPrimario] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, ResultadoPrimario[Cód_ResultadoPrimario] )
+			    VAR ___d = CONCATENATEX ( ___t, ResultadoPrimario[Cód_ResultadoPrimario], ", " )
+			    VAR ___x = "[RP] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			
+			/*  & IF ( 
+			    ISFILTERED ( ResultadoPrimario[ResultadoPrimarioCid] ), 
+			    VAR ___f = FILTERS (ResultadoPrimario[ResultadoPrimarioCid]) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, ResultadoPrimario[ResultadoPrimarioCid])
+			    VAR ___d = CONCATENATEX ( ___t, ResultadoPrimario[ResultadoPrimarioCid], ", " )
+			    VAR ___x = "[RP] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			) */
+			
+			/*%%%%% UGE %%%%%*/
+			
+			& IF ( 
+			    ISFILTERED (UGE[CodUGExecutora]), 
+			    VAR ___f = FILTERS ( UGE[CodUGExecutora]) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, UGE[CodUGExecutora])
+			    VAR ___d = CONCATENATEX ( ___t, UGE[CodUGExecutora], ", " )
+			    VAR ___x = "[UGExecutora] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			
+			/*%%%%% UGR %%%%%*/
+			
+			/* & IF ( 
+			    ISFILTERED ( Cód_), 
+			    VAR ___f = FILTERS ( UGR[Cód_UGR]) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, UGR[Cód_UGR])
+			    VAR ___d = CONCATENATEX ( ___t, UGR[Cód_UGR], ", " )
+			    VAR ___x = "[UGR] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			 */
+			/*%%%%% Unidade Órgão %%%%%*/
+			
+			& IF ( 
+			    ISFILTERED ( UnidadeOrgao[Cód_Órgão] ), 
+			    VAR ___f = FILTERS ( UnidadeOrgao[Cód_Órgão] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, UnidadeOrgao[Cód_Órgão] )
+			    VAR ___d = CONCATENATEX ( ___t, UnidadeOrgao[Cód_Órgão], ", " )
+			    VAR ___x = "[Órgão] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			) 
+			
+			 & IF ( 
+			    ISFILTERED ( UnidadeOrgao[Cód_UO] ), 
+			    VAR ___f = FILTERS ( UnidadeOrgao[Cód_UO] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, UnidadeOrgao[Cód_UO] )
+			    VAR ___d = CONCATENATEX ( ___t, UnidadeOrgao[Cód_UO], ", " )
+			    VAR ___x = "[UO] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			```
+		displayFolder: _FIltro Aplicado
+		lineageTag: 45d5d5bb-b579-491c-a956-ad746099b827
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Cor do botão de acionamento de filtro de orçamento
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure CorFiltroOrçamento = ```
+			
+			 /*@description Cor do botão de acionamento de filtro de orçamento
+			@author dsbr
+			@version 1
+			@date 03/11/2022*/
+			IF([FiltrosOrçamento]<>BLANK(), "#E35144", "#5A7B9A")
+			```
+		displayFolder: _FIltro Aplicado
+		lineageTag: aee1d04e-d842-4827-b850-e20190c9dfa9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Junção de duas colunas - coluna derivada
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'Filtro | TítuloOrçamento' =
+			
+			/*@description Junção de duas colunas - coluna derivada
+			@author dsbr
+			@version 1
+			@date 03/11/2022*/
+			 [FiltrosAplicadosFuncoes]&" "&[FiltrosOrçamento] &" 🔄 Atualizado em "&DATEVALUE([Última atualização orçamento])&";"
+		displayFolder: _FIltro Aplicado
+		lineageTag: fe5e64bf-005f-4674-964c-4c539df73f5d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Verifica os filtros aplicados e faz as junções de colunas apropriadas
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure FiltrosAplicadosFuncoes = ```
+			
+			 /*@description Verifica os filtros aplicados e faz as junções de colunas apropriadas
+			@author dsbr
+			@version 1
+			@date 03/11/2022*/
+			VAR MaxFilters = 3
+			RETURN
+			
+			/*%%%%% _IndOrçamentário %%%%%*/
+			
+			 IF ( 
+			    ISFILTERED ('_fOrçamento'[Descrição] ), 
+			    VAR ___f = FILTERS ( '_fOrçamento'[Descrição]) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, '_fOrçamento'[Descrição])
+			    VAR ___d = CONCATENATEX ( ___t, '_fOrçamento'[Descrição], ", " )
+			    VAR ___x = "💰 " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			
+			/*%%%%% Relação Órgão %%%%%*/
+			
+			& IF ( 
+			    ISFILTERED (RelacaoOrgao[Relação do Órgão]), 
+			    VAR ___f = FILTERS (RelacaoOrgao[Relação do Órgão]) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, RelacaoOrgao[Relação do Órgão])
+			    VAR ___d = CONCATENATEX ( ___t, RelacaoOrgao[Relação do Órgão], ", " )
+			    VAR ___x = "⚜️ " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			
+			/*%%%%% d_Calendário %%%%%*/
+			
+			& IF ( 
+			    ISFILTERED ( 'dCalendário'[Ano] ), 
+			    VAR ___f = FILTERS ( 'dCalendário'[Ano] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, 'dCalendário'[Ano] )
+			    VAR ___d = CONCATENATEX ( ___t, 'dCalendário'[Ano], ", " )
+			    VAR ___x = " 📅 " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			```
+		displayFolder: _FIltro Aplicado
+		lineageTag: 4ae6f84c-d44d-4d79-909b-e1a94cf86dd7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure FiltrosPNP = ```
+			
+			VAR MaxFilters = 3
+			RETURN
+			
+			/*%%%%% d_IES %%%%%*/
+			COALESCE(
+			IF ( 
+			    ISFILTERED ( d_IES[SiglaNome] ), 
+			    VAR ___f = FILTERS ( d_IES[SiglaNome] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, d_IES[SiglaNome] )
+			    VAR ___d = CONCATENATEX ( ___t, d_IES[SiglaNome], ", " )
+			    VAR ___x = "🏛️ " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			
+			 &IF ( 
+			    ISFILTERED ( d_IES[Sigla] ), 
+			    VAR ___f = FILTERS ( d_IES[Sigla] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, d_IES[Sigla] )
+			    VAR ___d = CONCATENATEX ( ___t, d_IES[Sigla], ", " )
+			    VAR ___x = "🏛️ " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			) 
+			
+			& IF ( 
+			    ISFILTERED (d_IES[OrgAcadPNP]), 
+			    VAR ___f = FILTERS (d_IES[OrgAcadPNP]) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, d_IES[OrgAcadPNP])
+			    VAR ___d = CONCATENATEX ( ___t, d_IES[OrgAcadPNP] , ", " )
+			    VAR ___x = "[Organização Acadêmica] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			
+			/*%%%%% dimUnidade | Unidades da Rede EPCT %%%%%*/
+			
+			& IF ( 
+			    ISFILTERED (dimUnidade[Sigla | Instituição]), 
+			    VAR ___f = FILTERS (dimUnidade[Sigla | Instituição]) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, dimUnidade[Sigla | Instituição])
+			    VAR ___d = CONCATENATEX ( ___t, dimUnidade[Sigla | Instituição] , ", " )
+			    VAR ___x = "[Instituição] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			
+			& IF ( 
+			    ISFILTERED (dimUnidade[nomeUnidadeRecente]), 
+			    VAR ___f = FILTERS (dimUnidade[nomeUnidadeRecente]) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, dimUnidade[nomeUnidadeRecente])
+			    VAR ___d = CONCATENATEX ( ___t, dimUnidade[nomeUnidadeRecente] , ", " )
+			    VAR ___x = "[Unidade] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			
+			 & IF ( 
+			    ISFILTERED (dimUnidade[Regiao]), 
+			    VAR ___f = FILTERS (dimUnidade[Regiao]) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, dimUnidade[Regiao])
+			    VAR ___d = CONCATENATEX ( ___t, dimUnidade[Regiao] , ", " )
+			    VAR ___x = "[Região] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			 
+			& IF ( 
+			    ISFILTERED (dimUnidade[UF]), 
+			    VAR ___f = FILTERS (dimUnidade[UF]) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, dimUnidade[UF])
+			    VAR ___d = CONCATENATEX ( ___t, dimUnidade[UF] , ", " )
+			    VAR ___x = "[Estado] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			
+			/*%%%%% dimCurso | Organização Acadêmica %%%%%*/
+			
+			& IF ( 
+			    ISFILTERED (dimCurso[tipoEixoTecnologico]), 
+			    VAR ___f = FILTERS (dimCurso[tipoEixoTecnologico]) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, dimCurso[tipoEixoTecnologico])
+			    VAR ___d = CONCATENATEX ( ___t, dimCurso[tipoEixoTecnologico] , ", " )
+			    VAR ___x = "[Eixo Tecnológico] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			
+			& IF ( 
+			    ISFILTERED (dimCurso[SubeixoTecnologico]), 
+			    VAR ___f = FILTERS (dimCurso[SubeixoTecnologico]) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, dimCurso[SubeixoTecnologico])
+			    VAR ___d = CONCATENATEX ( ___t, dimCurso[SubeixoTecnologico] , ", " )
+			    VAR ___x = "[Subeixo Tecnológico] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			
+			& IF ( 
+			    ISFILTERED (dimCurso[ModalidadeEnsino]), 
+			    VAR ___f = FILTERS (dimCurso[ModalidadeEnsino]) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, dimCurso[ModalidadeEnsino])
+			    VAR ___d = CONCATENATEX ( ___t, dimCurso[ModalidadeEnsino] , ", " )
+			    VAR ___x = "[Modalidade de Ensino] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			
+			& IF ( 
+			    ISFILTERED (dimCurso[turnoCurso]), 
+			    VAR ___f = FILTERS (dimCurso[turnoCurso]) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, dimCurso[turnoCurso])
+			    VAR ___d = CONCATENATEX ( ___t, dimCurso[turnoCurso] , ", " )
+			    VAR ___x = "[Turno do Curso] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			
+			& IF ( 
+			    ISFILTERED (dimCurso[tipoCurso]), 
+			    VAR ___f = FILTERS (dimCurso[tipoCurso]) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, dimCurso[tipoCurso])
+			    VAR ___d = CONCATENATEX ( ___t, dimCurso[tipoCurso] , ", " )
+			    VAR ___x = "[Tipo de Curso] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			
+			& IF ( 
+			    ISFILTERED (dimCurso[nomeCurso]), 
+			    VAR ___f = FILTERS (dimCurso[nomeCurso]) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, dimCurso[nomeCurso])
+			    VAR ___d = CONCATENATEX ( ___t, dimCurso[nomeCurso] , ", " )
+			    VAR ___x = "[Nome de Curso] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			
+			& IF ( 
+			    ISFILTERED (dimCurso[tipoOferta]), 
+			    VAR ___f = FILTERS (dimCurso[tipoOferta]) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, dimCurso[tipoOferta])
+			    VAR ___d = CONCATENATEX ( ___t, dimCurso[tipoOferta] , ", " )
+			    VAR ___x = "[Tipo de Oferta] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			
+			/*%%%%% dimFinanciamento | Fonte de Financiamento %%%%%*/
+			
+			& IF ( 
+			    ISFILTERED (dimFinanciamento[nomeFonteFinanciamentoCorrigido]), 
+			    VAR ___f = FILTERS (dimFinanciamento[nomeFonteFinanciamentoCorrigido]) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, dimFinanciamento[nomeFonteFinanciamentoCorrigido])
+			    VAR ___d = CONCATENATEX ( ___t, dimFinanciamento[nomeFonteFinanciamentoCorrigido] , ", " )
+			    VAR ___x = "[Fonte de Financiamento] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			
+			 ,"📘 Fonte: Plataforma Nilo Peçanha " &[FiltrosAno|AnoBase] )
+			```
+		displayFolder: _FIltro Aplicado
+		lineageTag: 42dc048c-36ed-42db-a788-b2e2ae4cb600
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure CorFiltroGraduação = IF([FiltrosPNP]<>"📘 Fonte: Censo da Educação Superior 2009-2019 | Plataforma E-MEC. ", "#E35144", "#FFFFFF00")
+		displayFolder: _FIltro Aplicado
+		lineageTag: 2e0cfb5e-ff90-415d-9311-3194cee5f3e7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure FiltrosPósGraduação = ```
+			
+			VAR MaxFilters = 3
+			RETURN
+			
+			/*%%%%% d_IES %%%%%*/
+			
+			IF ( 
+			    ISFILTERED ( d_IES[Sigla|Nome IES] ), 
+			    VAR ___f = FILTERS ( d_IES[Sigla|Nome IES] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, d_IES[Sigla|Nome IES] )
+			    VAR ___d = CONCATENATEX ( ___t, d_IES[Sigla|Nome IES], ", " )
+			    VAR ___x = "🏛️ " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			
+			 &IF ( 
+			    ISFILTERED ( d_IES[Sigla] ), 
+			    VAR ___f = FILTERS ( d_IES[Sigla] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, d_IES[Sigla] )
+			    VAR ___d = CONCATENATEX ( ___t, d_IES[Sigla], ", " )
+			    VAR ___x = "🏛️ " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			) 
+			
+			& IF ( 
+			    ISFILTERED ( d_IES[Região] ), 
+			    VAR ___f = FILTERS ( d_IES[Região] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, d_IES[Região] )
+			    VAR ___d = CONCATENATEX ( ___t, d_IES[Região], ", " )
+			    VAR ___x = "[Região] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			
+			& IF ( 
+			    ISFILTERED ( d_IES[Estado] ), 
+			    VAR ___f = FILTERS ( d_IES[Estado] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, d_IES[Estado] )
+			    VAR ___d = CONCATENATEX ( ___t, d_IES[Estado], ", " )
+			    VAR ___x = "[Estado] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			
+			/*%%%%% dimProgramasPG %%%%%*/
+			
+			& IF ( 
+			    ISFILTERED ( dimProgramasPG[NomePrograma] ), 
+			    VAR ___f = FILTERS ( dimProgramasPG[NomePrograma] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, dimProgramasPG[NomePrograma]  )
+			    VAR ___d = CONCATENATEX ( ___t, dimProgramasPG[NomePrograma] , ", " )
+			    VAR ___x = "[Nome do Programa] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			
+			& IF ( 
+			    ISFILTERED ( dimProgramasPG[GrauPrograma] ), 
+			    VAR ___f = FILTERS ( dimProgramasPG[GrauPrograma] ) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, dimProgramasPG[GrauPrograma]  )
+			    VAR ___d = CONCATENATEX ( ___t, dimProgramasPG[GrauPrograma] , ", " )
+			    VAR ___x = "[Grau do Programa] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			
+			& IF ( 
+			    ISFILTERED ( fSituacaoMatriculaPosG[GrauAcademico]), 
+			    VAR ___f = FILTERS ( fSituacaoMatriculaPosG[GrauAcademico]) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, fSituacaoMatriculaPosG[GrauAcademico])
+			    VAR ___d = CONCATENATEX ( ___t, fSituacaoMatriculaPosG[GrauAcademico] , ", " )
+			    VAR ___x = "[Grau Acadêmico] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			
+			& IF ( 
+			    ISFILTERED (dimProgramasPG[AreaBasica]), 
+			    VAR ___f = FILTERS (dimProgramasPG[AreaBasica]) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, dimProgramasPG[AreaBasica])
+			    VAR ___d = CONCATENATEX ( ___t, dimProgramasPG[AreaBasica] , ", " )
+			    VAR ___x = "[Área Básica] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			
+			 & IF ( 
+			    ISFILTERED (dimProgramasPG[AreaConhecimento]), 
+			    VAR ___f = FILTERS (dimProgramasPG[AreaConhecimento]) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, dimProgramasPG[AreaConhecimento])
+			    VAR ___d = CONCATENATEX ( ___t, dimProgramasPG[AreaConhecimento] , ", " )
+			    VAR ___x = "[Área do Conhecimento] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			
+			 
+			 & IF ( 
+			    ISFILTERED (dimProgramasPG[SubAreaConhecimento]), 
+			    VAR ___f = FILTERS (dimProgramasPG[SubAreaConhecimento]) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, dimProgramasPG[SubAreaConhecimento])
+			    VAR ___d = CONCATENATEX ( ___t, dimProgramasPG[SubAreaConhecimento] , ", " )
+			    VAR ___x = "[Subárea do Conhecimento] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			 
+			 & IF ( 
+			    ISFILTERED (dimProgramasPG[CodConceitoPrograma]), 
+			    VAR ___f = FILTERS (dimProgramasPG[CodConceitoPrograma]) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, dimProgramasPG[CodConceitoPrograma])
+			    VAR ___d = CONCATENATEX ( ___t, dimProgramasPG[CodConceitoPrograma] , ", " )
+			    VAR ___x = "[Conceito do Programa] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			    RETURN ___x & UNICHAR(13) & UNICHAR(10)
+			)
+			```
+		displayFolder: _FIltro Aplicado
+		lineageTag: 12ab4843-9d78-4e80-84af-539e3a58b52b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure CorFiltroPósGraduação = IF([FiltrosPósGraduação]<>BLANK(), "#E35144", "#FFFFFF00")
+		displayFolder: _FIltro Aplicado
+		lineageTag: ca0ed375-5695-4087-bac6-78b396498f10
+
+	measure CorFiltroPNP = IF([FiltrosPNP]<>"📘 Fonte: Plataforma Nilo Peçanha " &[FiltrosAno|AnoBase], "#E35144", "#5A7B9A")
+		lineageTag: 1973e7e8-08d9-4ee1-b4e5-f00485af2044
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure FiltrosAno|AnoBase = ```
+			
+			VAR MaxFilters = 3
+			RETURN
+			
+			/*%%%%% d_IES %%%%%*/
+			IF ( 
+			
+			/* Ano Base */
+			
+			    ISFILTERED ('dCalendário'[Ano]), 
+			    VAR ___f = FILTERS ('dCalendário'[Ano]) 
+			    VAR ___r = COUNTROWS ( ___f ) 
+			    VAR ___t = TOPN ( MaxFilters, ___f, 'dCalendário'[Ano])
+			    VAR ___d = CONCATENATEX ( ___t, 'dCalendário'[Ano],  ", " )
+			    VAR ___x = "[Ano Base] = " & ___d & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			
+			/* Edição */
+			
+			    VAR ___d1 = CONCATENATEX ( ___t, 'dCalendário'[Ano]+1, ", " )
+			    VAR ___x1 = "[Edição] = " & ___d1 & IF(___r > MaxFilters, ", ... [" & ___r & " seleções]") & "; " 
+			
+			/* Ano Base | Edição */
+			
+			    RETURN ___x & ___x1 & UNICHAR(13) & UNICHAR(10)
+			)
+			```
+		lineageTag: d27ccfb6-926b-46f4-b40f-438233052b35
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure CorFiltroPNP_Noturno = ```
+			
+			IF(CALCULATE([FiltrosPNP], 
+			        ALL(dimCurso[ModalidadeEnsino]) ,
+			        ALL(dimFinanciamento[nomeFonteFinanciamentoCorrigido])
+			                    )
+			                    <>"📘 Fonte: Plataforma Nilo Peçanha " &[FiltrosAno|AnoBase], "#E35144", "#5A7B9A")
+			 
+			```
+		lineageTag: b872b6c9-a528-4214-a817-dd35dc81f456
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Página PNP_Publicada.PBIX'
+		dataType: string
+		lineageTag: 85c703f4-bd75-436d-b660-057d54697413
+		summarizeBy: none
+		sourceColumn: Página PNP_Publicada.PBIX
+		sortByColumn: Ordem
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @descrition Título
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Titulação Docente; Panorama; Técnicos-administrativos por Nível
+	column Título
+		dataType: string
+		lineageTag: 7dfc5d7d-b84d-43f3-b7a9-8bf1a2eb497d
+		summarizeBy: none
+		sourceColumn: Título
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ícone
+		dataType: string
+		lineageTag: 40d74513-73e1-4da3-9f33-82b9aba32e42
+		summarizeBy: none
+		sourceColumn: Ícone
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Subtítulo
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Titulação Docente; Técnicos-administrativos por Nível
+	column Subtítulo
+		dataType: string
+		lineageTag: feee2d38-1dd4-4215-a5d5-80f8cfd40cdb
+		summarizeBy: none
+		sourceColumn: Subtítulo
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Aba e Agrupamento em Área de Serviço'
+		dataType: string
+		lineageTag: 1f59134c-9b0a-4c0f-9fb1-e64c27687130
+		summarizeBy: none
+		sourceColumn: Aba e Agrupamento em Área de Serviço
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Página PNP'
+		dataType: string
+		lineageTag: 422fffa8-f4ee-4566-91a9-5741823457cb
+		summarizeBy: none
+		sourceColumn: Página PNP
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Número de ordem de cada campo
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	column Ordem
+		dataType: string
+		lineageTag: bb243fb9-5dbb-4f7e-b670-12d78583614a
+		summarizeBy: none
+		sourceColumn: Ordem
+
+		annotation SummarizationSetBy = Automatic
+
+	column SubOrdem
+		dataType: string
+		lineageTag: dac80116-ada0-4b77-b923-13bf2d0cb6d4
+		summarizeBy: none
+		sourceColumn: SubOrdem
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _ExpTítulos-d7427685-988b-4742-af71-992d0ca7b7b3 = m
+		mode: import
+		source =
+				let
+				    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("tVjLbuM2FP0VwqsZwFHjh5zJMnU8roGOIzhuNsEsGIl2CEikQVKGUfQX+hGDLoIZIKvZdasf6yUlW7ItyrKMLmxAFHnuuYePc6nn55YXYoUXXEQYTWnIkUeSN8xecatd9WpGAoJG3nBe3e2RRAgvRbzCS8IUh5YpX2PkJd+WlOkO1+b3tf3c6jjIgH6GP4FD9Bf6lURXa8oCPWzI2auGPQi9N0I3B7GPk7fkH2Ah+IJKSTnDYRv5FOIn7wvqY0SQIj7jYfJzCY91WHbMr5zlEDNMpQ4+5FHMaBbfztk+oBaProXHF7zCGnQuMJP0BIfyzrXi90z8roO+UF/wAAdcIm/qAQMPMy5wpDtOWAB5BVwQk+iYSJWGsL64N0BjSIbK3eMddE1+RNTnuq3jdNEwFpLLNmSrRPLuxyGGhwlbAp7ETBF4gpT9MKbpwxNeYgkzPmHSF1QB5ooLNKcrbiZAo8Hb7fPDggiFjcjtVt+aaMfpIAz/vRSgyKaNiPKdRgpkWNEOC4jxLaFyPXr/kx4juuFonm8SnkniVkjSR49Uxdnmy+k0kqKABO17YOVC9AudTEYyR9gTdBHGkBqRPg+xQB9gwactPEaCKArYH7NcBxW5umgIQku62G5eNMM+1efMjLBAx3kkm8oM7augHnC5DLV56QRvKhIcoM+YbjAaqeSboM0m8RChnPJxJM3tk5VbF/aePtphfZuQerJhMSuY7905dj7XMxE93ReHmuwpOm30B6OQADH2BIct43o2ljQi2QH8gsNXvemekncGq5Qjn8MxjO6CiDIqldj6WfLvS5j6lVbo1qpQDyjNk+8+0xpf4R2Moutsu0+T9zUJGwnVDDjXqy65NpxJCrZspuGepKDVkaaZKp1rqyx9iDzGUh95iivjwNh4aCMd6iKZbtpMKqIb4h0rcdfpgAcT4YMnx3rk72SZmmSDdV4GU9poj2rodqvovkBmkoi1KTGM4zQiWwJio1oa0RC1lyswzM/8cMpVLFhDmkcQNpIl0QxFe6HhQsUzI9kuyD37l0s0PUIzu+6EwNU0TBb22sCFOmWON2ZuRmssmx7S1Rj7xlIe0xC1G7sLdUTyt8ZMTxawUZr8YOCgOXozLzwX9TCZerxMenZbd6E+KJyq6J7rqW52/tXCyY99HbqQQXF0wKFCFasijMnDXgK4UDQU6l2zfncefOGuuAtjxnM09GF25308MTmDwuao4mXSsvu269ykFqH1EFoKg3BhKX0u4taw6rDRCXXtjus6n4qT/gRXGQgV0j9x80KtPt7hLJ3iYpKpcuHb3YHy4MMVuXkOJ2EOqVsiG8Z2Ix5AyZHW3JPpyENXaDIeou41rMBLhB9vP7WkN89dXa9j6FtTRVDD1+7HR0OH3gV89a2XgEvBDiQhhTITrntb1seku+gAaMH1iicbRcCpdRpHlEw2qXX3HDR20INI3nCkPzPpi8z+95Dduzz2XncjZKH/yS8xPR3drYp+TxRcLHZBazE4GFOPxaCKxWPyXVCCfoMiP/kpUpuqRaVsYD0+N1V8itN8HLQWs2qIehxTc+s72wWbu6XUU7f/Ley4Tyv/XlbxKht+klFfM7qtwShbHgFvzmoPohaz3nUls7J1ci61RmvNcAO/+Pof", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Página PNP_Publicada.PBIX" = _t, Título = _t, Ícone = _t, Subtítulo = _t, #"Aba e Agrupamento em Área de Serviço" = _t, #"Página PNP" = _t, Ordem = _t, SubOrdem = _t])
+				in
+				    Fonte
+
+	annotation PBI_ResultType = Table
+

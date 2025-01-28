@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.2.0/schema.json",
+  "name": "aacfaa02428d19bad4a1",
+  "position": {
+    "x": 86,
+    "y": 146,
+    "z": 10000,
+    "height": 48,
+    "width": 416,
+    "tabOrder": 9000
+  },
+  "visualGroup": {
+    "displayName": "Barra Colateral",
+    "groupMode": "ScaleMode"
+  }
+}

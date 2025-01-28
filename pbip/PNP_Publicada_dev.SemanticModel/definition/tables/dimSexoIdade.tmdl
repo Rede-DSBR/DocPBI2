@@ -1,0 +1,147 @@
+/// @description Essa tabela é útil para análises que envolvam a relação entre sexo e faixa etária, permitindo agrupar e comparar dados de diferentes grupos demográficos. As colunas ordemFaixaEtaria e ordemSexo são úteis para ordenar os registros de acordo com a faixa etária e o sexo, respectivamente. As colunas FaixaEtariaDeclarada e SexoDeclarada permitem verificar se há discrepâncias entre as informações declaradas pelos usuários e as informações registradas na tabela.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table dimSexoIdade
+	lineageTag: fac5a163-b7fb-4b18-aa1f-f14e65131856
+
+	/// @description Se é masculino
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Faixa Etária
+	measure Masculino =
+			
+			/*
+			@description Se é masculino
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Faixa Etária
+			*/
+			
+			DIVIDE(CALCULATE([Número de Matrículas], dimSexoIdade[Sexo] = "Masculino"),CALCULATE([Número de Matrículas], ALL(dimSexoIdade)),BLANK())
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: dd6c2893-eaa6-4ab0-94b8-e5c498a89274
+
+		changedProperty = FormatString
+
+	/// @description Se é feminino
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Faixa Etária
+	measure Feminino = ```
+			
+			 /*
+			 @description Se é feminino
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Faixa Etária
+			*/
+			 DIVIDE(CALCULATE([Número de Matrículas], dimSexoIdade[Sexo] = "Feminino"),CALCULATE([Número de Matrículas], ALL(dimSexoIdade)),BLANK())
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 4956374a-7bda-4d8e-a612-82b9bba29020
+
+		changedProperty = FormatString
+
+	/// @description Código de Sexo e Idade
+	column codSexoIdade
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 522dbb03-bad1-4093-a114-12dde990aabf
+		summarizeBy: none
+		sourceColumn: codSexoIdade
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Faixa Etária
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Classificação Racial, Renda e Sexo; Faixa Etária; Cargos da carreira; Cargos e funções gratificadas; Dados Gerais; Curso, matrícula e oferta; Situação de matrícula; Classificação Racial, Renda e Sexo; Percentuais Legais;  Oferta de vagas noturnas; Relação inscritos/vagas; Taxa de evasão; Eficiência Acadêmica; Titulação Docente; Professores por Instituição
+	column FaixaEtaria
+		dataType: string
+		lineageTag: 20c42049-27c2-43e1-b39d-54268c214bc0
+		summarizeBy: none
+		sourceColumn: FaixaEtaria
+		sortByColumn: ordemFaixaEtaria
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Sexo
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Faixa Etária; Cargos da carreira; Cargos e funções gratificadas; Dados Gerais; Curso, matrícula e oferta; Situação de matrícula; Classificação Racial, Renda e Sexo; Percentuais Legais;  Oferta de vagas noturnas; Relação inscritos/vagas; Taxa de evasão; Eficiência Acadêmica; Titulação Docente; Professores por Instituição
+	column Sexo
+		dataType: string
+		lineageTag: f01643ec-ae29-464d-ac4b-6de055f5cd19
+		summarizeBy: none
+		sourceColumn: Sexo
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Faixas etárias de acordo com o sexo
+	column ordemFaixaEtaria
+		dataType: int64
+		formatString: 0
+		lineageTag: be82c128-cdc8-488d-b788-5e476bccbca0
+		summarizeBy: sum
+		sourceColumn: ordemFaixaEtaria
+
+		annotation SummarizationSetBy = Automatic
+
+	column ordemSexo
+		dataType: int64
+		formatString: 0
+		lineageTag: 7257708b-41f9-4ca1-ad77-f4b1e1cb0cc1
+		summarizeBy: sum
+		sourceColumn: ordemSexo
+
+		annotation SummarizationSetBy = Automatic
+
+	column FaixaEtariaDeclarada
+		dataType: string
+		lineageTag: 138b14d3-08b3-4b5d-b9c8-0e5594ea2ead
+		summarizeBy: none
+		sourceColumn: FaixaEtariaDeclarada
+
+		annotation SummarizationSetBy = Automatic
+
+	column SexoDeclarada
+		dataType: string
+		lineageTag: 1dd29f2f-e94a-425a-9ab0-7c2467c009c7
+		summarizeBy: none
+		sourceColumn: SexoDeclarada
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dimSexoIdade-07f3cf86-8d31-469c-acb5-1c3fe692cb2e = m
+		mode: import
+		queryGroup: 'Modelo PNP\Dimensões'
+		source =
+				let
+				    Fonte = Csv.Document(Binary.Decompress(Web.Contents(AWS&"dimSexoIdade.csv.gz"),Compression.GZip),[Delimiter=";", Columns=7, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"codSexoIdade", Int64.Type}, {"FaixaEtaria", type text}, {"Sexo", type text}}),
+				    #"Valor Substituído" = Table.ReplaceValue(#"Tipo Alterado","M","Masculino",Replacer.ReplaceText,{"Sexo"}),
+				    #"Valor Substituído1" = Table.ReplaceValue(#"Valor Substituído","F","Feminino",Replacer.ReplaceText,{"Sexo"}),
+				    #"Valor Substituído2" = Table.ReplaceValue(#"Valor Substituído1","anos","",Replacer.ReplaceText,{"FaixaEtaria"}),
+				    #"Valor Substituído3" = Table.ReplaceValue(#"Valor Substituído2","Menor de","<",Replacer.ReplaceText,{"FaixaEtaria"}),
+				    #"Valor Substituído4" = Table.ReplaceValue(#"Valor Substituído3","Maior de",">",Replacer.ReplaceText,{"FaixaEtaria"}),
+				    #"Texto Limpo" = Table.TransformColumns(#"Valor Substituído4",{{"FaixaEtaria", Text.Clean, type text}}),
+				    #"Texto Aparado" = Table.TransformColumns(#"Texto Limpo",{{"FaixaEtaria", Text.Trim, type text}}),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Texto Aparado",{{"ordemFaixaEtaria", Int64.Type}, {"ordemSexo", Int64.Type}})
+				in
+				    #"Tipo Alterado1"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,86 @@
+/// @description A tabela "Atualizacao" armazena informações sobre a data e hora da última atualização de diferentes tipos de dados no sistema.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table Atualizacao
+	lineageTag: cacfe4d6-8c75-4c31-baa0-1ee6da0d1e42
+
+	measure 'Matrícula Equivalente (Denominador) Percentuais Legais'
+		isHidden
+		lineageTag: 958d072b-59bb-401e-8104-1255bcc21926
+
+		changedProperty = IsHidden
+
+	/// @description Data da atualização dos dados
+	column Atualizacao
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: bc274c2d-65a7-4045-9c17-ca8fb2aafe03
+		summarizeBy: none
+		sourceColumn: Atualizacao
+
+		variation Variation
+			isDefault
+			relationship: b96d1dae-6c0f-4454-94ad-128c9b56aae8
+			defaultHierarchy: LocalDateTable_04d17d01-8b38-4bb8-81c0-1aa7c0876e11.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Data de atualização dos dados do arquivo PBIX
+	column Atualizacao_DH
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 60440798-2c3f-496e-acbf-86342e690df0
+		summarizeBy: none
+		sourceColumn: Atualizacao_DH
+
+		variation Variation
+			isDefault
+			relationship: 32a5389f-7b9f-460b-b9ed-82dd52b12be4
+			defaultHierarchy: LocalDateTable_c5b4e80a-a5bc-43dd-a019-3d28daeb97e2.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// @description Data de atualização das informações orçamentárias, obtida pela última data de lançamento da tabela Item Despesa extraída do Tesouro Gerencial.
+	column Atualizacao_TG
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b92fe9a2-9414-4d1b-8a1f-e16860963ac0
+		summarizeBy: none
+		sourceColumn: Atualizacao_TG
+
+		variation Variation
+			isDefault
+			relationship: 159a5c37-6d69-4d4f-be37-f73a3f59b7d1
+			defaultHierarchy: LocalDateTable_96eb3fcb-e263-4fe0-8abf-af7ef63b17f7.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition Atualizacao-0e2278a5-8e77-41bf-861e-667b509bd34b = m
+		mode: import
+		source =
+				let
+				    Fonte = Table.FromRecords({[Atualizacao=DateTimeZone.ToText(DateTimeZone.SwitchZone(DateTimeZone.FixedUtcNow(),-3))]}),
+				    #"Texto Extraído Antes do Delimitador" = Table.TransformColumns(Fonte, {{"Atualizacao", each Text.BeforeDelimiter(_, " ", {0, RelativePosition.FromEnd}), type text}}),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Texto Extraído Antes do Delimitador",{{"Atualizacao", type datetime}}),
+				    #"Coluna Duplicada" = Table.DuplicateColumn(#"Tipo Alterado", "Atualizacao", "Atualizacao_DH"),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Coluna Duplicada",{{"Atualizacao_DH", type date}}),
+				    #"Personalização Adicionada" = Table.AddColumn(#"Tipo Alterado1", "Atualizacao_TG", each let
+				    Fonte = Csv.Document(Web.Contents(
+				        #"EndTG"&#"TG"&"/ItemDespesa_lastdate.csv"
+				        ),[Delimiter="	", Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado com Localidade" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos", {{"Dia Atualização Lançamento", type date}}, "en-ZA"),
+				    #"Dia Atualização Lançamento" = #"Tipo Alterado com Localidade"{0}[Dia Atualização Lançamento]
+				in
+				    #"Dia Atualização Lançamento"),
+				    #"Tipo Alterado2" = Table.TransformColumnTypes(#"Personalização Adicionada",{{"Atualizacao_TG", type date}})
+				in
+				    #"Tipo Alterado2"
+
+	annotation PBI_ResultType = Table
+

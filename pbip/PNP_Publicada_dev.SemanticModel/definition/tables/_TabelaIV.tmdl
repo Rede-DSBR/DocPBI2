@@ -1,0 +1,59 @@
+/// @description Tabela para parâmetro de campos referente a visualização de tabelas
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table _TabelaIV
+	lineageTag: e23c754b-a814-4fc3-823d-0af6e8bbd505
+
+	column _TabelaIV
+		lineageTag: 08382b40-9ec7-41a7-b835-533aafcfd4c3
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: '_TabelaIV Pedido'
+
+		relatedColumnDetails
+			groupByColumn: '_TabelaIV Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column '_TabelaIV Campos'
+		isHidden
+		lineageTag: af6a16ed-bb96-4239-9f12-2dcc0c0be78f
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: '_TabelaIV Pedido'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "kind": 2,
+				  "version": 3
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column '_TabelaIV Pedido'
+		isHidden
+		formatString: 0
+		lineageTag: ebd74d41-f45c-4f6e-934f-c66fdd86a4fa
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _TabelaIV-b9c4a6fb-be00-46eb-a078-b503d610ac61 = calculated
+		mode: import
+		source =
+				{
+				    ("Sem detalhamento", NAMEOF('_ExpTítulos'[EmBranco]), 0),
+				    ("Instituicao", NAMEOF('dimUnidade'[Instituicao]), 1),
+				    ("Sigla | Unidade", NAMEOF('dimUnidade'[Instituição | Unidade]), 2),
+				    ("Unidade", NAMEOF('dimUnidade'[nomeUnidadeRecente]), 3),
+				    ("Eixo Tecnológico", NAMEOF('fCiclos'[tipoEixoTecnologico]), 4),
+				    ("Tipo de Curso", NAMEOF('fCiclos'[tipoCurso]), 5),
+				    ("Tipo de Oferta", NAMEOF('fCiclos'[tipoOferta]), 6),
+				    ("Região", NAMEOF('d_IES'[Região]), 7),
+				    ("Estado", NAMEOF('d_IES'[Estado]), 8)
+				}
+
+	annotation PBI_Id = aa32c2e58010484ca7e372de6bb78da7
+

@@ -1,0 +1,267 @@
+/// @description A tabela dimCurso possui informações sobre os cursos oferecidos por uma instituição de ensino.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table dimCurso
+	lineageTag: e6e8bb82-8093-4629-9276-4f9d480108e8
+
+	/// @description Corresponde à matrícula ponderada pelos fatores de: - Fator de Equiparação de carga horária; - Fator de Esforço de curso.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'Matrícula Equivalente' =
+			
+			/*@description Corresponde à matrícula ponderada pelos fatores de: - Fator de Equiparação de carga horária; - Fator de Esforço de curso.
+			@author dsbr
+			@version 1
+			@date 03/11/2022*/
+			
+			
+			CALCULATE
+			([Matrícula Equivalente Apresentada Geral], dimFinanciamento[nomeFonteFinanciamentoCorrigido] IN {"Sem Programa Associado", "MedioTec"})
+		formatString: 0.000
+		lineageTag: d67dd037-af45-4c8c-b957-a21e69aedb2b
+
+		changedProperty = FormatString
+
+	/// @description Chave técnica do curso
+	column codCurso
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b60cedce-2e16-448a-aae8-9357ae50a21c
+		summarizeBy: sum
+		sourceColumn: codCurso
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código da unidade utilizado internamente na disseminação
+	column codUnidade
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 7171ce63-0635-40c4-83c1-6f200adfb676
+		summarizeBy: sum
+		sourceColumn: codUnidade
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description É o agrupamento de ações e das aplicações científicas às atividades humanas de mesma natureza, possuindo um núcleo de saberes comuns, embasados nas mesmas ciências e metodologias. São aplicados na classificação dos cursos da educação profissional, constante dos Catálogos Nacionais. Conforme definidos pelo CNE, são treze: - Ambiente e Saúde; - Controle e Processos industriais; - Desenvolvimento Educacional e Social; - Gestão e Negócios; - Informação e Comunicação; - Infraestrutura; - Militar; - Produção Alimentícia; - Produção Cultural e Design; - Produção Industrial; - Recursos Naturais; - Segurança; - Turismo, - Hospitalidade e lazer. Os Tipos de Curso que não contam com catálogos nacionais foram agregados, por similaridade, aos Eixos Tecnológicos existentes. Para efeito da Plataforma Nilo Peçanha, os cursos de Educação Básica, não profissionais, foram agregados ao Eixo Propedêutico.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Faixa Etária; Indice de Verticalização; Dados Gerais; Curso, matrícula e oferta; Situação de matrícula; Classificação Racial, Renda e Sexo; Percentuais Legais;  Oferta de vagas noturnas; Relação inscritos/vagas; Taxa de evasão; Eficiência Acadêmica; Titulação Docente
+	column tipoEixoTecnologico
+		dataType: string
+		lineageTag: d565de8c-699b-497f-a414-fb7fcbc1a4df
+		summarizeBy: none
+		sourceColumn: tipoEixoTecnologico
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Modo de desenvolvimento do curso quanto ao acompanhamento das atividades acadêmicas, podendo ser presencial ou a distância.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Faixa Etária; Oferta de vagas noturnas; Dados Gerais; Curso, matrícula e oferta; Situação de matrícula; Classificação Racial, Renda e Sexo; Percentuais Legais; Relação inscritos/vagas; Taxa de evasão; Eficiência Acadêmica; Titulação Docente
+	column ModalidadeEnsino
+		dataType: string
+		lineageTag: 1a64db48-1f1c-41e6-915f-1582fb1553f7
+		summarizeBy: none
+		sourceColumn: ModalidadeEnsino
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Nome do Conjunto de atividades educativas formais que constroem um perfil de formação, composto por componentes curriculares, agrupados em períodos letivos. Considera-se a diferenciação entre cursos de uma mesma Unidade de Ensino, com mesma denominação, e Tipo de Curso, Tipo de oferta, Modalidade de Ensino e Turno distintos.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Faixa Etária; Técnicos-administrativos por Nível
+	column nomeCurso
+		dataType: string
+		lineageTag: a25e0cde-c793-4aef-b615-8028251af7b9
+		summarizeBy: none
+		sourceColumn: nomeCurso
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Categorização própria da Plataforma Nilo Peçanha, criada para distinguir cursos de um mesmo Eixo Tecnológico em suas diferentes áreas de concentração.
+	/// 
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Faixa Etária; Dados Gerais; Curso, matrícula e oferta; Situação de matrícula; Classificação Racial, Renda e Sexo; Percentuais Legais;  Oferta de vagas noturnas; Relação inscritos/vagas; Taxa de evasão; Eficiência Acadêmica; Titulação Docente
+	column SubeixoTecnologico
+		dataType: string
+		lineageTag: e30e9720-b8d2-4be8-bf05-5b93283daf22
+		summarizeBy: none
+		sourceColumn: SubeixoTecnologico
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Refere-se ao tipo dos cursos pertencentes às instituições da Rede Federal de EPCT, podendo ser: Bacharelado, Mestrado Profissional, Qualificação Profissional (FIC), Técnico, Especialização (Lato Sensu), Doutorado, Licenciatura, Mestrado, Tecnologia, Ensino Médio, Ensino Fundamental II, Ensino Fundamental I, Educação Infantil e Doutorado Profissional.
+	/// 
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Faixa Etária; Técnicos-administrativos por Nível; Dados Gerais; Curso, matrícula e oferta; Situação de matrícula; Classificação Racial, Renda e Sexo; Percentuais Legais;  Oferta de vagas noturnas; Relação inscritos/vagas; Taxa de evasão; Eficiência Acadêmica; Titulação Docente
+	column tipoCurso
+		dataType: string
+		lineageTag: a75c085c-9712-4a09-a940-66a7417cca6f
+		summarizeBy: none
+		sourceColumn: tipoCurso
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Categorização transversal utilizada para diferenciar as formas de ofertas dos Cursos Técnicos e de Qualificação Profissional (FIC). Estão previstas as seguintes categorias: Integrado, Subsequente, Concomitante, PROEJA – Concomitante e PROEJA – Integrado.
+	/// 
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Faixa Etária
+	column tipoOferta
+		dataType: string
+		lineageTag: 9d171d7c-d76c-46e9-a437-5aef0ceb983b
+		summarizeBy: none
+		sourceColumn: tipoOferta
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Período do dia ou da noite em que o aluno cursa a maior parte das aulas, podendo ser matutino, vespertino, noturno ou integral. Não se aplica aos cursos com Modalidade de Ensino a distância.
+	/// 
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Dados Gerais; Curso, matrícula e oferta; Situação de matrícula; Classificação Racial, Renda e Sexo; Faixa Etária; Percentuais Legais;  Oferta de vagas noturnas; Relação inscritos/vagas; Taxa de evasão; Eficiência Acadêmica; Titulação Docente
+	column turnoCurso
+		dataType: string
+		lineageTag: 838346a3-e7dc-4d83-b0f7-706d9482ebec
+		summarizeBy: none
+		sourceColumn: turnoCurso
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Ajusta a carga horária do curso em função da quantidade de aulas práticas que, tecnicamente, demandem menor Relação Matrícula por Professor.
+	column fatorEsforcoCurso
+		dataType: double
+		lineageTag: d042b0b9-3a59-4dfc-a28e-f0b30c1ca7ef
+		summarizeBy: sum
+		sourceColumn: fatorEsforcoCurso
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Carga horária mínima do curso de acordo com o art. 5º, §2º, da Portaria SETEC nº 51, de 21 de novembro de 2018.
+	column CHMinimaCurso
+		dataType: int64
+		formatString: 0
+		lineageTag: 91c2f9d2-c3a5-44b1-b376-98e5e55d7cf6
+		summarizeBy: sum
+		sourceColumn: CHMinimaCurso
+
+		annotation SummarizationSetBy = Automatic
+
+	column skCursoMatricula
+		dataType: int64
+		formatString: 0
+		lineageTag: 275d1c37-5e9a-47e7-b392-ede4fff38847
+		summarizeBy: none
+		sourceColumn: skCursoMatricula
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Carga horária do ciclo de matrícula declarada no SISTEC e validada na PNP pela instituição.
+	column CH
+		dataType: int64
+		formatString: 0
+		lineageTag: 347e19f1-4286-469f-a740-61a2a4c6439e
+		summarizeBy: sum
+		sourceColumn: CH
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Carga horária mínima regulamentada do curso
+	column CHMR =
+			
+			SWITCH (
+			    [tipoCurso],
+			    "Técnico",
+			        IF (
+			            [tipoOferta] = "PROEJA - Integrado",
+			            2400,
+			            IF (
+			                [tipoOferta] = "Integrado",
+			                SWITCH (
+			                    [CHMinimaCurso],
+			                    800, 3000,
+			                    1000, 3100,
+			                    1200, 3200
+			                ),
+			                [CHMinimaCurso]
+			            )
+			        ),
+			    "Qualificação Profissional (FIC)", [CH],
+			    "Ensino Fundamental I", 4000,
+			    "Ensino Fundamental II", 3200,
+			    "Educação Infantil", 2400,
+			    [CHMinimaCurso]
+			)
+		formatString: 0
+		displayFolder: Percentuais Legais
+		lineageTag: 8a1b00fc-d957-43cd-b399-4457e986c04a
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Fator de Equiparação de Carga Horária - Permite a equiparação de cursos com durações distintas, sendo calculado pela divisão da carga horária anual do curso por oitocentas horas. A carga  horária anual do curso deve considerar a carga horária mínima  regulamentada e a duração do ciclo do curso, em anos, definido no projeto pedagógico
+	column FECH =
+			
+			IF (
+			    [tipoCurso] = "Qualificação Profissional (FIC)",
+			    [CHMR] / 800,
+			    1
+			)
+		displayFolder: Percentuais Legais
+		lineageTag: 39fc567a-4807-4331-b8a7-2c19b90914f0
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Nível do curso. Agregação de tipo de curso (exemplo: básico, técnico, etc.)
+	column NivelCurso
+		dataType: string
+		lineageTag: 99a01132-a402-44b7-90e4-0d3d1b30d726
+		summarizeBy: none
+		sourceColumn: NivelCurso
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Campo de ordenação do nível de curso
+	column OrdemNivelCurso
+		dataType: string
+		lineageTag: a0b433d7-d74e-48fb-a2f2-4fbc27472450
+		summarizeBy: none
+		sourceColumn: OrdemNivelCurso
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dimCurso-9656090d-95e9-402e-a238-20bb37c17853 = m
+		mode: import
+		queryGroup: 'Modelo PNP\Dimensões'
+		source =
+				let
+					Fonte = Csv.Document(Binary.Decompress(Web.Contents(AWS&"dimCurso.csv.gz"),Compression.GZip),[Delimiter=";", Columns=15, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+					#"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+					#"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"codCurso", Int64.Type}, {"codUnidade", Int64.Type}, {"tipoEixoTecnologico", type text}, {"ModalidadeEnsino", type text}, {"nomeCurso", type text}, {"SubeixoTecnologico", type text}, {"tipoCurso", type text}, {"tipoOferta", type text}, {"turnoCurso", type text}, {"CHMinimaCurso", Int64.Type}, {"fatorEsforcoCurso", type number}, {"skCursoMatricula", Int64.Type}, {"CH", Int64.Type}})
+				in
+					#"Tipo Alterado"
+
+	annotation PBI_ResultType = Table
+

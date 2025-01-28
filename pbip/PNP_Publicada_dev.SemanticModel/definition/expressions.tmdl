@@ -1,0 +1,278 @@
+expression AWS = "https://d236w85zd3t8iw.cloudfront.net/pnp/" meta [IsParameterQuery=true, Type="Any", IsParameterQueryRequired=true]
+	lineageTag: d98320ad-9f43-4081-9b55-4ca7aa745010
+	queryGroup: Parâmetros
+
+	annotation PBI_ResultType = Text
+
+expression geradCalendario = ```
+		//DI = Data Início
+		//DF = Data Fim
+		
+		let dCalendario =(DI as date, DF as date) as table =>
+		
+		let
+		//Contar número de dias entre a data de início e fim
+		 Dias = Duration.Days(DF - DI) +1,
+		//Criando uma lista de datas
+		 Datas = List.Dates(DI, Dias, 
+		 #duration(1,0,0,0)),
+		//Converter Lista em Tabela
+		 ListaparaTabela = Table.FromList(Datas, 
+		 Splitter.SplitByNothing(), {"Data"}, null, ExtraValues.Error ),
+		AlterarTipo = Table.TransformColumnTypes(ListaparaTabela,{{"Data", type date}}),
+		//Criando Colunas adicionais
+		 //Coluna Ano
+		 Ano = Table.AddColumn(AlterarTipo, "Ano", 
+		 each Date.Year([Data]), Int64.Type),
+		//Criando Trimestre
+		 Trimestre = Table.AddColumn(Ano , "Trimestre", 
+		 each "Trim " & Number.ToText(Date.QuarterOfYear([Data])), type text),
+		//Número da Semana
+		 NumeroSemana = Table.AddColumn(Trimestre , "Número Semana", 
+		 each Date.WeekOfYear([Data]), Int64.Type),
+		//Numero Mês
+		 MesNumero = Table.AddColumn(NumeroSemana, "Número Mês", 
+		 each Date.Month([Data]), Int64.Type),
+		 DataINT = Table.AddColumn(MesNumero, "DateInt", each [Ano]*100 + [Número Mês], Int64.Type),
+		//Nome do Mes
+		 NomeMes = Table.AddColumn(DataINT , "Mês", 
+		 each Date.ToText([Data],"MMM"), type text),
+		 MesMaiusculo = Table.TransformColumns(NomeMes,{{"Mês", Text.Proper, type text}}),
+		//Dia da Semana
+		 DiaDaSemana = Table.AddColumn(MesMaiusculo , "Dia da Semana", 
+		 each Date.ToText([Data],"dddd"), type text),
+		//Mês-Ano
+		 #"MesAno" = Table.AddColumn(DiaDaSemana, "Mês Ano", each Text.Combine({Text.From([Número Mês], "pt-BR"), Text.From([Ano], "pt-BR")}, "-"), type text)
+		
+		
+		in
+		 MesAno
+		
+		in dCalendario
+		```
+	lineageTag: e158c643-65f4-45c1-90d0-9cc8810c405e
+	queryGroup: 'Modelo PNP\Dimensões'
+
+	annotation PBI_NavigationStepName = Navegação
+
+expression 'AWS TG' = "https://d236w85zd3t8iw.cloudfront.net/360/" meta [IsParameterQuery=true, Type="Any", IsParameterQueryRequired=true]
+	lineageTag: cc16b183-1b58-4d28-a702-7d76685e4704
+	queryGroup: Parâmetros
+
+	annotation PBI_ResultType = Text
+
+expression EndTG = "https://d236w85zd3t8iw.cloudfront.net/tg-setec-staging/" meta [IsParameterQuery=true, Type="Any", IsParameterQueryRequired=true]
+	lineageTag: 30ef663f-4783-4657-aea6-b95aefa02896
+	queryGroup: Parâmetros
+
+	annotation PBI_ResultType = Text
+
+expression TG = "full" meta [IsParameterQuery=true, Type="Any", IsParameterQueryRequired=true]
+	lineageTag: 70062974-d287-4dda-bf91-ff44283ade5c
+	queryGroup: Parâmetros
+
+	annotation PBI_ResultType = Text
+
+expression URLBase = "https://vps3574.publiccloud.com.br/poty/cloud/360/" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 9e4696c7-3834-4947-a277-a99d1c9ca17a
+	queryGroup: Parâmetros
+
+	annotation PBI_ResultType = Text
+
+expression Siop = "siop/full" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 0e6faa85-bda5-4b0d-9ea4-9c15ac7d5874
+	queryGroup: Parâmetros
+
+	annotation PBI_ResultType = Text
+
+expression GCS = "https://storage.googleapis.com/power-bi-static-assets-mec-dsbr/" meta [IsParameterQuery=true, Type="Any", IsParameterQueryRequired=true]
+	lineageTag: 7f8071d7-0de8-42dc-b763-cec5e9be8b5c
+	queryGroup: Parâmetros
+
+	annotation PBI_ResultType = Text
+
+expression SiopFonte =
+		let
+		    Fonte = Csv.Document(Binary.Decompress(Web.Contents(
+		        URLBase&"../../../"&Siop&"/Fonte.csv.gz"
+		        ),Compression.GZip),[Delimiter="	", Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+		    Personalizar1 = Table.InsertRows(#"Cabeçalhos Promovidos",0,{[Fonte="-9",CodIdentificadorUso="-9",IdentificadorUso="[Sem informação]",CodFonteRecursos="-9",FonteRecursos="[Sem informação]"],[Fonte="-8",CodIdentificadorUso="-8",IdentificadorUso="[Não se aplica]",CodFonteRecursos="-8",FonteRecursos="[Não se aplica]"]}),
+		    #"Tipo Alterado" = Table.TransformColumnTypes(Personalizar1,{{"Fonte", type text}, {"CodIdentificadorUso", type text}, {"IdentificadorUso", type text}, {"CodFonteRecursos", type text}, {"FonteRecursos", type text}})
+		in
+		    #"Tipo Alterado"
+	lineageTag: b592d707-f13d-4c9d-ae37-236bc14e93d7
+	queryGroup: 'Modelo Orçamentário\Orçamento - Siop'
+
+	annotation PBI_NavigationStepName = Navegação
+
+expression SiopFuncional =
+		let
+		    Fonte = Csv.Document(Binary.Decompress(Web.Contents(
+		        URLBase&"../../../"&Siop&"/Funcional.csv.gz"
+		        ),Compression.GZip),[Delimiter="	", Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+		    Personalizar1 = Table.InsertRows(#"Cabeçalhos Promovidos",0,{[Funcional="-9", CodFuncao="-9", Funcao="[Sem informação]", CodSubfuncao="-9", Subfuncao="[Sem informação]"],[Funcional="-8", CodFuncao="-8", Funcao="[Não se aplica]", CodSubfuncao="-8", Subfuncao="[Não se aplica]"]}),
+		    #"Tipo Alterado" = Table.TransformColumnTypes(Personalizar1,{{"Funcional", type text}, {"CodFuncao", type text}, {"Funcao", type text}, {"CodSubfuncao", type text}, {"Subfuncao", type text}})
+		in
+		    #"Tipo Alterado"
+	lineageTag: eff1afec-045b-41de-b723-d9ea633cdac1
+	queryGroup: 'Modelo Orçamentário\Orçamento - Siop'
+
+	annotation PBI_NavigationStepName = Navegação
+
+expression SiopProgramaticaUO =
+		let
+		    Fonte = Csv.Document(Binary.Decompress(Web.Contents(
+		        URLBase&"../../../"&Siop&"/ProgramaticaUO.csv.gz"
+		        ),Compression.GZip),[Delimiter="	", Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+		    Personalizar1 = Table.InsertRows(#"Cabeçalhos Promovidos",0,{[ProgramaticaUO="-9", CodUnidadeOrcamentaria="-9", CodPrograma="-9", Programa="[Sem informação]", CodAcao="-9", Acao="[Sem informação]", CodSubtitulo="-9", Subtitulo="[Sem informação]", CodPlanoOrcamentario="-9", PlanoOrcamentario="[Sem informação]"],[ProgramaticaUO="-8", CodUnidadeOrcamentaria="-8", CodPrograma="-8", Programa="[Não se aplica]", CodAcao="-8", Acao="[Não se aplica]", CodSubtitulo="-8", Subtitulo="[Não se aplica]", CodPlanoOrcamentario="-8", PlanoOrcamentario="[Não se aplica]"]}),
+		    #"Tipo Alterado" = Table.TransformColumnTypes(Personalizar1,{{"ProgramaticaUO", type text}, {"CodUnidadeOrcamentaria", type text}, {"CodPrograma", type text}, {"Programa", type text}, {"CodAcao", type text}, {"Acao", type text}, {"CodSubtitulo", type text}, {"Subtitulo", type text}, {"CodPlanoOrcamentario", type text}, {"PlanoOrcamentario", type text}})
+		in
+		    #"Tipo Alterado"
+	lineageTag: b401edb0-06b7-40c4-a5cb-aa33312f68df
+	queryGroup: 'Modelo Orçamentário\Orçamento - Siop'
+
+	annotation PBI_NavigationStepName = Navegação
+
+expression SiopOrgaoUO =
+		let
+		    Fonte = Csv.Document(Binary.Decompress(Web.Contents(
+		        URLBase&"../../../"&Siop&"/OrgaoUO.csv.gz"
+		        ),Compression.GZip),[Delimiter="	", Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+		    Personalizar1 = Table.InsertRows(#"Cabeçalhos Promovidos",0,{[CodUO="-9", UO="[Sem informação]", CodOrgao="-9", Orgao="[Sem informação]"],[CodUO="-8", UO="[Não se aplica]", CodOrgao="-8", Orgao="[Não se aplica]"]}),
+		    #"Tipo Alterado" = Table.TransformColumnTypes(Personalizar1,{{"CodUO", type text}, {"UO", type text}, {"CodOrgao", type text}, {"Orgao", type text}}),
+		    #"Colunas Renomeadas" = Table.RenameColumns(#"Tipo Alterado",{{"CodUO", "UnidadeOrcamentaria"}, {"UO", "NomeUnidadeOrcamentaria"}, {"Orgao", "NomeOrgao"}, {"CodOrgao", "Orgao"}})
+		in
+		    #"Colunas Renomeadas"
+	lineageTag: 4269905f-7a1a-4e70-aab2-c7bf0de7e38d
+	queryGroup: 'Modelo Orçamentário\Orçamento - Siop'
+
+	annotation PBI_NavigationStepName = Navegação
+
+expression SiopNaturezaDespesa =
+		let
+		    Fonte = Csv.Document(Binary.Decompress(Web.Contents(
+		        URLBase&"../../../"&Siop&"/NaturezaDespesa.csv.gz"
+		        ),Compression.GZip),[Delimiter="	", Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+		    Personalizar1 = Table.InsertRows(#"Cabeçalhos Promovidos",0,{[NaturezaDespesa="-9", CodCategoriaEconomica="-9", CategoriaEconomica="[Sem informação]", CodGrupoNatDespesa="-9", GrupoNatDespesa="[Sem informação]", CodModalidadeAplicacao="-9", ModalidadeAplicacao="[Sem informação]", CodElementoDespesa="-9", ElementoDespesa="[Sem informação]"],[NaturezaDespesa="-8", CodCategoriaEconomica="-8", CategoriaEconomica="[Não se aplica]", CodGrupoNatDespesa="-8", GrupoNatDespesa="[Não se aplica]", CodModalidadeAplicacao="-8", ModalidadeAplicacao="[Não se aplica]", CodElementoDespesa="-8", ElementoDespesa="[Não se aplica]"]}),
+		    #"Tipo Alterado" = Table.TransformColumnTypes(Personalizar1,{{"NaturezaDespesa", type text}, {"CodCategoriaEconomica", type text}, {"CategoriaEconomica", type text}, {"CodGrupoNatDespesa", type text}, {"GrupoNatDespesa", type text}, {"CodModalidadeAplicacao", type text}, {"ModalidadeAplicacao", type text}, {"CodElementoDespesa", type text}, {"ElementoDespesa", type text}}),
+		    #"Valor Substituído" = Table.ReplaceValue(#"Tipo Alterado","Outras Despesas Correntes","Custeio",Replacer.ReplaceText,{"GrupoNatDespesa"}),
+		    #"Valor Substituído1" = Table.ReplaceValue(#"Valor Substituído","Pessoal e Encargos Sociais","Pessoal e Encargos",Replacer.ReplaceText,{"GrupoNatDespesa"})
+		in
+		    #"Valor Substituído1"
+	lineageTag: 8e8c87c4-6bcb-4c4a-89ad-9de91aeff3cb
+	queryGroup: 'Modelo Orçamentário\Orçamento - Siop'
+
+	annotation PBI_NavigationStepName = Navegação
+
+expression ResultadoCid =
+		let
+		    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("nZLLasMwEEV/ZfDagTwgj2XqNBAoiXGWxgtFUsOALQXJLv2d0EXpoqt+gn+sI5k8nELSZCXNzB2de43TNOgGYTBHxRSXaNh5oalI4i504KyVhWnQo0FssKj3BhnojcEtK+sfKkLgWlkU0jDBQGng9T7nVa5BaEhi2lud1M37PXq/1XSEfosg0HKDHLXy9W3IrLXQcPrEuew71OA6Kp5Gt3mJ5JWxvia9xw0Id9F2tOF1mpBcGyNVKekKspBKMAuoBL6hqBja216e/RIsDju5tzMkO38nztHoEUd03dAf4TxIWzL32L+d0e5Ts+udjU7OzibO2fhBZ1wXaG39oWEnTcFUI9GwntMSg2gGsi2js2QX4mh5T6Do8JaPNG5FOs1cqI5LlS4d1kpguxw5y3xrejycbvJgeCNzVmrT2ZLt3P95L6tpCPKd51X97USNThshCyjrL67IwT1Zk4bgk05aSQ8Tn9MFSNfEQPWq6cvWn5TZR1wvjkeW/QI=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Resultado Primário (Cód.)" = _t, #"Resultado Primário (Nome)" = _t, #"Resultado Primário (Cidadã)" = _t, #"Identificador de Resultado" = _t])
+		in
+		    Fonte
+	lineageTag: 092fa62a-2860-4c1c-a4e3-331042f977e2
+	queryGroup: 'Modelo Orçamentário\Orçamento - Siop'
+
+	annotation PBI_NavigationStepName = Navegação
+
+expression 'Unidades Orçamentárias' =
+		let
+		    Fonte = Excel.Workbook(Web.Contents(EndTG&"../tg-staging/LinguagemCid.xlsx"), null, true),
+		    #"Unidades Orçamentárias_Sheet" = Fonte{[Item="Unidades Orçamentárias",Kind="Sheet"]}[Data],
+		    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"Unidades Orçamentárias_Sheet", [PromoteAllScalars=true]),
+		    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"CodUnidadeOrcamentaria", type text}, {"NomeOrgao", type text}, {"NomeUnidadeOrcamentaria", type text}, {"Orgao", type text}, {"GrupoUO", type text}})
+		in
+		    #"Tipo Alterado"
+	lineageTag: 4a2bf850-cb9b-4279-b662-3eec3e742999
+	queryGroup: 'Modelo Orçamentário\Orçamento TG'
+
+	annotation PBI_NavigationStepName = Navegação
+
+expression 'LISTAGEM (Pessoal+Custeio)' =
+		let
+		    Fonte = Csv.Document(Web.Contents(#"AWS TG"&"ItensDespesa (BTS).csv"),[Delimiter=";", Columns=14, Encoding=1250, QuoteStyle=QuoteStyle.Csv]),
+		    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+		    #"Linhas em Branco Removidas" = Table.SelectRows(#"Cabeçalhos Promovidos", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null}))),
+		    #"Outras Colunas Removidas" = Table.SelectColumns(#"Linhas em Branco Removidas",{"CodNaturezaDespesa", "ItemDespesa", "Măo de obra Terceirizada(Sim=1)"}),
+		    #"Texto Limpo" = Table.TransformColumns(#"Outras Colunas Removidas",{{"CodNaturezaDespesa", Text.Clean, type text}, {"Măo de obra Terceirizada(Sim=1)", Text.Clean, type text}, {"ItemDespesa", Text.Clean, type text}}),
+		    #"Texto Aparado" = Table.TransformColumns(#"Texto Limpo",{{"CodNaturezaDespesa", Text.Trim, type text}, {"Măo de obra Terceirizada(Sim=1)", Text.Trim, type text}, {"ItemDespesa", Text.Trim, type text}})
+		in
+		    #"Texto Aparado"
+	lineageTag: 78299f3c-0fc0-446d-9f3b-66af2b9c512a
+	queryGroup: 'Modelo Orçamentário\Orçamento TG'
+
+expression auxInstagramUsuarios =
+		let
+		    Source = Csv.Document(Web.Contents(GCS&"instagram/pnp_usuarios.csv"),[Delimiter=";", Columns=2, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+		    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])
+		in
+		    #"Cabeçalhos Promovidos"
+	lineageTag: cdc1eb41-d3f9-4c47-9884-acaa911fe9a2
+	queryGroup: Instagram
+
+	annotation PBI_NavigationStepName = Navegação
+
+expression OrgaoUO =
+		let
+		    Fonte = Csv.Document(Binary.Decompress(Web.Contents(AWS&"OrgaoUO.csv.gz"),Compression.GZip),[Delimiter=";", Columns=5, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+		    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Cod_Orgão_(Servidores)", Int64.Type}, {"CodUO", Int64.Type}})
+		in
+		    #"Tipo Alterado"
+	lineageTag: ff4935c2-9537-442c-9616-0b93b0fdfba5
+	queryGroup: 'Modelo Gestão de Pessoas\Auxiliares'
+
+	annotation PBI_NavigationStepName = Navegação
+
+expression CargoCarreira =
+		let
+		    Fonte = Csv.Document(Binary.Decompress(Web.Contents(AWS&"CargoCarreira.csv.gz"),Compression.GZip),[Delimiter=";", Columns=8, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+		    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"skCargo", Int64.Type}})
+		in
+		    #"Tipo Alterado"
+	lineageTag: 2fdf2cd9-4d93-4b4a-91c8-b8fa22039c6f
+	queryGroup: 'Modelo Gestão de Pessoas\Auxiliares'
+
+	annotation PBI_NavigationStepName = Navegação
+
+expression EscolaridadeNivel =
+		let
+		    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("nZbNctowEMdfZYdTMo0HLGw+jhRIykz4KEl7yeSgGEE0Yyxi2ZlOXqeHTM99BF6sWssGG8sO6Slk9f+t1vtfyX54aLQaV43Z/reASbAW4ZauRDnwePXQsFV4EFB/TZ9YhJpxIHkg4DoOVnTLgoj6ivDEdufjOiIEEQ3wN5BN8OJQCgkh28T+WRnaSmUL2ITAAw8ssClQcChIlkTOyuGc5NA4Z5CozkrhnqRwsYze58roHHIkYZUlTVBdRsJ11RLJ9s4SVqp7B7XeRcQQMQ92oVhzKY/cdP9nxXVhfRW9i3eqJcK8R05rt7T4mP2ZPoHPNup52cvrkckSaiqZHRVYM+6JpFxxjOzfs1CixaEZyx3zOPX5G/WoKAb272o2tRSnY8pkFOqhPfxMFtH2kYgjka4efyfLaOlifgc3y8Hox2A4mOP/+7/S2ihNnN8FjVt8G5VToDO3k5/LMYzmw/FsOBlggL+GDEbCY4EqWAvRlIWQ1qq6nH4ZNeYiaMA98wLVSJjxV5iyFQxTyy7uL42uEUP/M1gzRitI2YoiZXSFoCs3SRMzAAdG11iosDAjxKmoUanqanTNNR4oc42d3LhoXWF4SDfvkBYUDSOZp/WqfnIDRurOG8soXqm/F8vp5BLSJ8qv6PuuZehCATE1oW2Xm5CHjD1oo7vXeMGfyudxFGb1oJmD+Bf3OQ1hxGAcrJlCNmxb1jrJyOphjeKQwsJnAS3r3BNdWdFJm3sYo7rnQK++Uu+Zhsyvni+nVe6RBTNak9kxHZsjY7TCMZyZj7Zp/8c2zue3wbaro8H89Gqoui2cjvH1UpCfvnacXnroYf5lKT1rcnHLuE26XdK0SY0p/ZzRGTqB24yseha3lZ1YljIKYhxyXOE8u+jkED8+4HusXlUL9TqEKQ/A7rWea9rskgqOuPVcu4Jrd+o558AN6a6pWQQ/qtPNOHWdvMR8Z928WLiXuopkDddP3v1N/NAzfPQ9/gM=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [codEscolaridade = _t, Escolaridade = _t, NivelEscolaridade = _t]),
+		    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"codEscolaridade", Int64.Type}, {"NivelEscolaridade", type text}, {"Escolaridade", type text}})
+		in
+		    #"Tipo Alterado"
+	lineageTag: fd6b2a89-b378-4924-8f0c-e028afd4fb8d
+	queryGroup: 'Modelo Gestão de Pessoas\Auxiliares'
+
+	annotation PBI_NavigationStepName = Navegação
+
+expression SexoIdadeSiapeOrdem =
+		let
+		    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("jZXNasJAEIBfJXi2NPub7L0EPNhLj9ZDUAtCVbD4RH2Uvlg30504s7s4PURkHT8+zXy62SyewmK5eHtezY9w8PrzfWlW54/L9TTuL/FAxcvgCy+H3ed4HfdjebBdbmD2/da2ZtcoG5+vx6/d7fN4Bo6bDuKlE5SyOAYmXDM2KmQQ3SaIESEGxiNE5yYaTawIsTA+QXITgyZOhDgYjxCTmxg08SLEw/gEyU0smnQipIPxCLG5iUWTXoT0MD5BchOHJkGEBBiPEJebODRRrUiBETe5uNzFo4tSMmbe20Pz9z66t+1MkjcXRoqEKA4iWyeQ+m9XJgtrOJyOZ9LVkLrSj+0sC4tAoKshdSVAHAuLQtDEyhDPwiIQgyZOhnQsLApBEy9DehYWgVg06WRIYGFRCJr0IgTuwT0sAnFoEmSIYmFRCJpANAJFs64IxaMKNCNQ5q1NWdGtbWeQvLewaEVVhAZRDSmoOUEhKlhXGlX51+dqpzpl8sDXs85KQls7NTK3Y+mV3Kqvlbk9q7E0q/o6mRtYoCW36utFLvjcmy0/cdW3k7mKZVxyq769zNWs7PKbrPoGmWtY7CW36gv9C2DL+i9vUVVYKRk8N5d+Eip29WOhuu0v", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [codSexoIdade = _t, FaixaEtaria = _t, Sexo = _t, IdadeReferencia = _t, SexoReferencia = _t, ordemFaixaEtaria = _t, ordemSexo = _t, FaixaEtariaDeclarada = _t, SexoDeclarada = _t])
+		in
+		    Fonte
+	lineageTag: b305c313-e7b1-4ea1-ae79-1187aa8e0489
+	queryGroup: 'Modelo Gestão de Pessoas\Auxiliares'
+
+	annotation PBI_NavigationStepName = Navegação
+
+expression fMunicipios =
+		let
+		    Fonte = Json.Document(Binary.Decompress(Web.Contents(AWS&"Municipios.json.gz"),Compression.GZip)),
+		    #"Convertido para Tabela" = Table.FromList(Fonte, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+		    #"Column1 Expandido" = Table.ExpandRecordColumn(#"Convertido para Tabela", "Column1", {"codigo_ibge", "nome", "latitude", "longitude", "capital", "codigo_uf"}, {"codigo_ibge", "nome", "latitude", "longitude", "capital", "codigo_uf"}),
+		    #"Colunas Renomeadas1" = Table.RenameColumns(#"Column1 Expandido",{{"nome", "Município"}}),
+		    #"Primeiros Caracteres Inseridos" = Table.AddColumn(#"Colunas Renomeadas1", "cod_ibge6c", each Text.Start(Text.From([codigo_ibge], "pt-BR"), 6), type text),
+		    #"Tipo Alterado" = Table.TransformColumnTypes(#"Primeiros Caracteres Inseridos",{{"latitude", type number}, {"longitude", type number}, {"codigo_ibge", type text}, {"cod_ibge6c", type text}})
+		in
+		    #"Tipo Alterado"
+	lineageTag: 85206032-7570-44f5-a30f-0fe2bae726ec
+	queryGroup: 'Modelo PNP\Fatos'
+
+	annotation PBI_NavigationStepName = Navegação
+

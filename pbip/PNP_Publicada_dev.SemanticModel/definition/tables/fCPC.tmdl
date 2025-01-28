@@ -1,0 +1,1228 @@
+/// @description A tabela fCPC possui informações sobre o Conceito Preliminar de Curso (CPC) de instituições de ensino superior no Brasil.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table fCPC
+	lineageTag: e3eab79b-409a-4dac-8c9e-92049340dc40
+
+	measure 'NP_CPC Faixa' = SELECTEDVALUE(fCPC[CPCFaixa])
+		displayFolder: _Medidas
+		lineageTag: 3944a040-a8c8-44aa-aed7-853816f087e5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Indicador de qualidade que combina, em uma única medida, diferentes aspectos relativos aos cursos de graduação (Contínuo).
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel CPC
+	measure 'NP_CPC Contínuo' = AVERAGE(fCPC[CPCContinuo])
+		displayFolder: _Medidas
+		lineageTag: 6ab62586-69f0-46b7-be63-8ec297a42597
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Número de cursos considerados para o cálculo do CPC.
+	/// @author dsbr
+	/// @version 1
+	/// @date 14/06/2023
+	measure Cursos = DISTINCTCOUNT(fCPC[codCurso])
+		displayFolder: _Medidas
+		lineageTag: 3d4abc95-c72d-4f20-8a41-189b4482c52c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure NP_Enade = AVERAGE(fCPC[NP-Enade])
+		displayFolder: _Medidas
+		lineageTag: 198e220d-344f-408a-a193-8fa384f59f7f
+
+	measure NP_IDD = AVERAGE(fCPC[NP-IDD])
+		displayFolder: _Medidas
+		lineageTag: 2f7e7908-f550-429f-994f-977f89ca81bb
+
+	measure NP_DocentesMestres = AVERAGE(fCPC[NP-Mestres])
+		displayFolder: _Medidas
+		lineageTag: 2a9eefdb-a577-4da0-bb4b-9ae3fd5532c8
+
+	measure NP_DocentesDoutores = AVERAGE(fCPC[NP-Doutores])
+		displayFolder: _Medidas
+		lineageTag: 6e677007-b3ee-4da3-b124-d3a9f1358598
+
+	measure NP_RegimeTrabalho = AVERAGE(fCPC[NP-RegimeTrabalho])
+		displayFolder: _Medidas
+		lineageTag: cc0ef506-2b0f-4ca3-9d70-01b7694b774a
+
+	measure NP_OrgDidaticoPedagogica = AVERAGE(fCPC[NP-OrgDidaticoPedagogica])
+		displayFolder: _Medidas
+		lineageTag: b5fb86fa-32af-49ef-ade0-743651eeb092
+
+	measure NP_Infraestrutura = AVERAGE(fCPC[NP-Infraestrutura])
+		displayFolder: _Medidas
+		lineageTag: c31ba510-3983-4cdd-b44c-0029fcd4cff3
+
+	measure NP_OportunidadesAmpliacaoFormacao = AVERAGE(fCPC[NP-OportunidadesAmpliacaoFormacao])
+		displayFolder: _Medidas
+		lineageTag: c1a617be-d9a0-4223-a610-0c5aedecbc2f
+
+	/// @description Ano
+	column Ano
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 5c78858a-2ff3-4b62-8c70-29ad2ea8965e
+		summarizeBy: none
+		sourceColumn: Ano
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// @description Código da IES
+	column codIES
+		dataType: string
+		lineageTag: 5d2447cb-6afb-4ef1-9966-bf62f6932753
+		summarizeBy: none
+		sourceColumn: codIES
+
+		annotation SummarizationSetBy = Automatic
+
+	column nomeIES
+		dataType: string
+		lineageTag: 4c45ddd7-2147-4ae0-a7a4-6deeeec6016f
+		summarizeBy: none
+		sourceColumn: nomeIES
+
+		annotation SummarizationSetBy = Automatic
+
+	column siglaIES
+		dataType: string
+		lineageTag: c33a8a87-58c5-473f-a1ed-fb8c577b1c78
+		summarizeBy: none
+		sourceColumn: siglaIES
+
+		annotation SummarizationSetBy = Automatic
+
+	column orgAcademica
+		dataType: string
+		lineageTag: 4e25faec-159f-489d-ae2c-be3011d58744
+		summarizeBy: none
+		sourceColumn: orgAcademica
+
+		annotation SummarizationSetBy = Automatic
+
+	column categoriaAdministrativa
+		dataType: string
+		lineageTag: 9a24d36f-6777-4a00-bbe6-d487fa86fa4d
+		summarizeBy: none
+		sourceColumn: categoriaAdministrativa
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código único de identificação do curso
+	column codCurso
+		dataType: string
+		lineageTag: 41887bed-f58b-4d1e-9df9-b059922b178c
+		summarizeBy: none
+		sourceColumn: codCurso
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código da Área de Avaliação
+	column codArea
+		dataType: string
+		lineageTag: 22bd2996-e151-4a4c-8295-b363dd240b1c
+		summarizeBy: none
+		sourceColumn: codArea
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Área de Avaliação
+	/// @description Percentual do total de unidades
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panelTécnicos-administrativos por Nível; Professores por Instituição; Titulação Docente
+	column nomeArea
+		dataType: string
+		lineageTag: 99e89a3a-5210-45d5-b687-f3a6491fcd6b
+		summarizeBy: none
+		sourceColumn: nomeArea
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Modalidade de ensino do curso
+	column modalidadeEnsino
+		dataType: string
+		lineageTag: 848d0911-1f84-43b0-a692-a5ba66584ec9
+		summarizeBy: none
+		sourceColumn: modalidadeEnsino
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código do Município da Sede da IES
+	column codMunicipio
+		dataType: string
+		lineageTag: cec579a3-a48b-44d1-890b-0fb62722fbe6
+		summarizeBy: none
+		sourceColumn: codMunicipio
+
+		annotation SummarizationSetBy = Automatic
+
+	column nomeMunicipio
+		dataType: string
+		lineageTag: a1206c5f-ff4e-462b-aea0-c4b10b8b24f2
+		summarizeBy: none
+		sourceColumn: nomeMunicipio
+
+		annotation SummarizationSetBy = Automatic
+
+	column siglaUF
+		dataType: string
+		lineageTag: a056cac9-9954-45fb-8b28-c68ad043c028
+		summarizeBy: none
+		sourceColumn: siglaUF
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Nº de Concluintes inscritos pela IES no Enade
+	column concluintesInscritos
+		dataType: int64
+		formatString: 0
+		lineageTag: 6027c438-9d5c-42aa-a92c-53d43a01e8ba
+		summarizeBy: sum
+		sourceColumn: concluintesInscritos
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Nº de Concluintes Participantes pela IES no Enade
+	column concluintesParticipantes
+		dataType: int64
+		formatString: 0
+		lineageTag: b7a8bd46-cc8d-49d0-bc0c-f3ec081f56dc
+		summarizeBy: sum
+		sourceColumn: concluintesParticipantes
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Nota Bruta em Formação Geral
+	column NB-FG
+		dataType: double
+		lineageTag: 09c3ffd3-3a42-4b29-8d1d-86d9a91976ed
+		summarizeBy: sum
+		sourceColumn: NB-FG
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Nota Bruta em Componente Específico
+	column NB-CE
+		dataType: double
+		lineageTag: 3beede3a-cacc-460a-96fe-b6610f8e9e94
+		summarizeBy: sum
+		sourceColumn: NB-CE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// 
+	/// @description Indicador de qualidade que avalia os cursos de graduação a partir dos resultados obtidos pelos estudantes no Exame Nacional de Desempenho dos Estudantes (Enade)
+	column NP-Enade
+		dataType: double
+		lineageTag: 19681ad7-2624-4d38-8b67-615b6f48ed5e
+		summarizeBy: sum
+		sourceColumn: NP-Enade
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"fCPC","TableItemName":"gNP_Enade","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	column numConcluintesEnem
+		dataType: int64
+		formatString: 0
+		lineageTag: b294e0f2-d548-4698-871c-101c9359173e
+		summarizeBy: sum
+		sourceColumn: numConcluintesEnem
+
+		annotation SummarizationSetBy = Automatic
+
+	column percentualConcluintesEnem
+		dataType: double
+		lineageTag: 2b2d9586-86c4-4ffa-beda-38c083ab6c2e
+		summarizeBy: sum
+		sourceColumn: percentualConcluintesEnem
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Indicador de Diferença entre os Desempenhos Observado e Esperado (Nota Bruta)
+	column NB-IDD
+		dataType: double
+		lineageTag: d29c66a6-99cd-4a9b-88a2-7cee450d5d1c
+		summarizeBy: sum
+		sourceColumn: NB-IDD
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"fCPC","TableItemName":"gNB_IDD","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	/// @description Indicador de Diferença entre os Desempenhos Observado e Esperado (Nota Padronizada)
+	column NP-IDD
+		dataType: double
+		lineageTag: ac02e201-b71e-49a0-ab04-82e83488688d
+		summarizeBy: sum
+		sourceColumn: NP-IDD
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"fCPC","TableItemName":"gNP_IDD","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	/// @descriptionMédia das respostas do Questionário do Estudante referentes à organização didático-pedagógica (Nota Bruta)
+	column NB-OrgDidaticoPedagogica
+		dataType: double
+		lineageTag: 90079b5e-8943-450c-9477-e050623e0b74
+		summarizeBy: sum
+		sourceColumn: NB-OrgDidaticoPedagogica
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"fCPC","TableItemName":"gNB_OrgDidaticoPedagogica","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	/// @description Média das respostas do Questionário do Estudante referentes à organização didático-pedagógica (Nota Padronizada)
+	column NP-OrgDidaticoPedagogica
+		dataType: double
+		lineageTag: bd3b8f6f-502c-4882-a31e-622b733cae06
+		summarizeBy: sum
+		sourceColumn: NP-OrgDidaticoPedagogica
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"fCPC","TableItemName":"gNP_OrgDidaticoPedagogica","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	/// @description Média das respostas do Questionário do Estudante referentes à infraestrutura e às instalações físicas (Nota Bruta)
+	column NB-Infraestrutura
+		dataType: double
+		lineageTag: 092dd4fb-1521-44ac-96d0-58dc35353836
+		summarizeBy: sum
+		sourceColumn: NB-Infraestrutura
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"fCPC","TableItemName":"gNB_Infraestrutura","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	/// @description Média das respostas do Questionário do Estudante referentes à infraestrutura e às instalações físicas (Nota Padronizada)
+	column NP-Infraestrutura
+		dataType: double
+		lineageTag: 0f7a5653-09ab-492a-a13a-188ae1cd026b
+		summarizeBy: sum
+		sourceColumn: NP-Infraestrutura
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"fCPC","TableItemName":"gNP_Infraestrutura","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	/// @descriptionMédia das respostas do Questionário do Estudante referentes às oportunidades de ampliação da formação acadêmica e profissional (Nota Bruta)
+	column NB-OportunidadesAmpliacaoFormacao
+		dataType: double
+		lineageTag: bf28fcfa-fb00-4abf-8616-03c66ff83305
+		summarizeBy: sum
+		sourceColumn: NB-OportunidadesAmpliacaoFormacao
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"fCPC","TableItemName":"gNB_OportunidadesAmpliacaoFormacao","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	/// @description Média das respostas do Questionário do Estudante referentes às oportunidades de ampliação da formação acadêmica e profissional (Nota Padronizada)
+	column NP-OportunidadesAmpliacaoFormacao
+		dataType: double
+		lineageTag: d9ad617c-2ad9-4896-9dfc-c91f3f625f53
+		summarizeBy: sum
+		sourceColumn: NP-OportunidadesAmpliacaoFormacao
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"fCPC","TableItemName":"gNP_OportunidadesAmpliacaoFormacao","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	column numDocentes
+		dataType: int64
+		formatString: 0
+		lineageTag: 7b9b2273-657e-4a3f-a2cb-b75591a9523b
+		summarizeBy: sum
+		sourceColumn: numDocentes
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Proporção de professores mestres (Nota Bruta)
+	column NB-Mestres
+		dataType: double
+		lineageTag: 3f34ba46-402b-4119-b249-5b1273b13a04
+		summarizeBy: sum
+		sourceColumn: NB-Mestres
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"fCPC","TableItemName":"gNB_DocentesMestres","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	/// @description Proporção de professores mestres (Nota Padronizada)
+	column NP-Mestres
+		dataType: double
+		lineageTag: d5b97a7a-8f55-4237-a5b2-1d03db60a356
+		summarizeBy: sum
+		sourceColumn: NP-Mestres
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"fCPC","TableItemName":"gNP_DocentesMestres","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	/// @description Proporção de professores doutores (Nota Bruta)
+	column NB-Doutores
+		dataType: double
+		lineageTag: 553b03c6-3e65-4e88-a1f0-666cc58d9f70
+		summarizeBy: sum
+		sourceColumn: NB-Doutores
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"fCPC","TableItemName":"gNB_DocentesDoutores","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	/// @description Proporção de professores doutores (Nota Padronizada)
+	column NP-Doutores
+		dataType: double
+		lineageTag: 41ec4edf-f467-4b60-9245-8fc8d82d6ddc
+		summarizeBy: sum
+		sourceColumn: NP-Doutores
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"fCPC","TableItemName":"gNP_DocentesDoutores","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	/// @description Proporção de professores em regime de trabalho parcial ou integral (Nota Bruta)
+	column NB-RegimeTrabalho
+		dataType: double
+		lineageTag: 318963e4-ad20-4e43-b8f0-c00a66e402e1
+		summarizeBy: sum
+		sourceColumn: NB-RegimeTrabalho
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"fCPC","TableItemName":"gNB_RegimeTrabalho","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	/// @description Proporção de professores em regime de trabalho parcial ou integral (Nota Padronizada)
+	column NP-RegimeTrabalho
+		dataType: double
+		lineageTag: 0aa3c17b-68ed-4b43-a6c3-e3378f205e4b
+		summarizeBy: sum
+		sourceColumn: NP-RegimeTrabalho
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"fCPC","TableItemName":"gNP_RegimeTrabalho","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	/// @description Indicador de qualidade que combina, em uma única medida, diferentes aspectos relativos aos cursos de graduação (Contínuo)
+	column CPCContinuo
+		dataType: double
+		lineageTag: 35533343-8687-47a2-a9d7-c3074bc3ec93
+		summarizeBy: sum
+		sourceColumn: CPCContinuo
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"fCPC","TableItemName":"gNP_CPC Contínuo","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	/// @description Indicador de qualidade que combina, em uma única medida, diferentes aspectos relativos aos cursos de graduação (Faixa)
+	column CPCFaixa
+		dataType: string
+		lineageTag: 1980e0ea-f8f4-4df6-8373-89d08c41ba68
+		summarizeBy: none
+		sourceColumn: CPCFaixa
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Observação
+	column Observacao
+		dataType: string
+		lineageTag: 408c430b-0468-4297-a108-3b980ed5f756
+		summarizeBy: none
+		sourceColumn: Observacao
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Código do Endereço'
+		dataType: string
+		lineageTag: 34dacf77-9a65-498f-b8b8-15e04f5e0482
+		summarizeBy: none
+		sourceColumn: Código do Endereço
+
+		annotation SummarizationSetBy = Automatic
+
+	column skUnidade
+		dataType: string
+		lineageTag: 383218d3-40f3-4257-bc54-311707a93df0
+		summarizeBy: none
+		sourceColumn: skUnidade
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'gNP_CPC Contínuo' =
+			IF(
+			  ISBLANK('fCPC'[CPCContinuo]),
+			  BLANK(),
+			  IF(
+			    'fCPC'[CPCContinuo] >= 0,
+			    ROUNDDOWN('fCPC'[CPCContinuo] / 0.1, 0) * 0.1,
+			    ROUNDUP('fCPC'[CPCContinuo] / 0.1, 0) * 0.1
+			  )
+			)
+		formatString: #,0.00
+		displayFolder: _Grupos
+		lineageTag: ff1a68d1-744a-4026-82b8-0c1cbbbb67a8
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "binningMetadata": {
+				    "binSize": {
+				      "unit": 0,
+				      "value": 0.1
+				    }
+				  },
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "fCPC"
+				          }
+				        },
+				        "Property": "CPCContinuo"
+				      }
+				    }
+				  ],
+				  "version": 0
+				}
+
+		changedProperty = FormatString
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"f","Entity":"fCPC"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"CPCContinuo"}}],"BinItem":{"Expression":{"Floor":{"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"CPCContinuo"}},"Size":0.1}}}}
+
+		annotation SummarizationSetBy = Automatic
+
+	column gNP_Enade =
+			IF(
+			  ISBLANK('fCPC'[NP-Enade]),
+			  BLANK(),
+			  IF(
+			    'fCPC'[NP-Enade] >= 0,
+			    ROUNDDOWN('fCPC'[NP-Enade] / 0.1, 0) * 0.1,
+			    ROUNDUP('fCPC'[NP-Enade] / 0.1, 0) * 0.1
+			  )
+			)
+		displayFolder: _Grupos
+		lineageTag: 9db4d494-b590-4e1e-b29e-9f28dcef5a25
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "binningMetadata": {
+				    "binSize": {
+				      "unit": 0,
+				      "value": 0.1
+				    }
+				  },
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "fCPC"
+				          }
+				        },
+				        "Property": "NP-Enade"
+				      }
+				    }
+				  ],
+				  "version": 0
+				}
+
+		changedProperty = FormatString
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"f","Entity":"fCPC"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"NP-Enade"}}],"BinItem":{"Expression":{"Floor":{"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"NP-Enade"}},"Size":0.1}}}}
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column gNP_DocentesDoutores =
+			IF(
+			  ISBLANK('fCPC'[NP-Doutores]),
+			  BLANK(),
+			  IF(
+			    'fCPC'[NP-Doutores] >= 0,
+			    ROUNDDOWN('fCPC'[NP-Doutores] / 0.2, 0) * 0.2,
+			    ROUNDUP('fCPC'[NP-Doutores] / 0.2, 0) * 0.2
+			  )
+			)
+		displayFolder: _Grupos
+		lineageTag: 1caab959-f94f-416b-9f01-12c751d5ab36
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "binningMetadata": {
+				    "binSize": {
+				      "unit": 0,
+				      "value": 0.2
+				    }
+				  },
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "fCPC"
+				          }
+				        },
+				        "Property": "NP-Doutores"
+				      }
+				    }
+				  ],
+				  "version": 0
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"f","Entity":"fCPC"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"NP-Doutores"}}],"BinItem":{"Expression":{"Floor":{"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"NP-Doutores"}},"Size":0.2}}}}
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column gNP_DocentesMestres =
+			IF(
+			  ISBLANK('fCPC'[NP-Mestres]),
+			  BLANK(),
+			  IF(
+			    'fCPC'[NP-Mestres] >= 0,
+			    ROUNDDOWN('fCPC'[NP-Mestres] / 0.2, 0) * 0.2,
+			    ROUNDUP('fCPC'[NP-Mestres] / 0.2, 0) * 0.2
+			  )
+			)
+		displayFolder: _Grupos
+		lineageTag: 9fb551ab-ca68-4a9f-8bda-34e3381cfeda
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "binningMetadata": {
+				    "binSize": {
+				      "unit": 0,
+				      "value": 0.2
+				    }
+				  },
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "fCPC"
+				          }
+				        },
+				        "Property": "NP-Mestres"
+				      }
+				    }
+				  ],
+				  "version": 0
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"f","Entity":"fCPC"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"NP-Mestres"}}],"BinItem":{"Expression":{"Floor":{"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"NP-Mestres"}},"Size":0.2}}}}
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column gNP_IDD =
+			IF(
+			  ISBLANK('fCPC'[NP-IDD]),
+			  BLANK(),
+			  IF(
+			    'fCPC'[NP-IDD] >= 0,
+			    ROUNDDOWN('fCPC'[NP-IDD] / 0.1, 0) * 0.1,
+			    ROUNDUP('fCPC'[NP-IDD] / 0.1, 0) * 0.1
+			  )
+			)
+		displayFolder: _Grupos
+		lineageTag: e3173b52-b043-4116-9c14-dc5f91bae2e3
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "binningMetadata": {
+				    "binSize": {
+				      "unit": 0,
+				      "value": 0.1
+				    }
+				  },
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "fCPC"
+				          }
+				        },
+				        "Property": "NP-IDD"
+				      }
+				    }
+				  ],
+				  "version": 0
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"f","Entity":"fCPC"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"NP-IDD"}}],"BinItem":{"Expression":{"Floor":{"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"NP-IDD"}},"Size":0.1}}}}
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column gNP_Infraestrutura =
+			IF(
+			  ISBLANK('fCPC'[NP-Infraestrutura]),
+			  BLANK(),
+			  IF(
+			    'fCPC'[NP-Infraestrutura] >= 0,
+			    ROUNDDOWN('fCPC'[NP-Infraestrutura] / 0.2, 0) * 0.2,
+			    ROUNDUP('fCPC'[NP-Infraestrutura] / 0.2, 0) * 0.2
+			  )
+			)
+		displayFolder: _Grupos
+		lineageTag: df9abe3a-fbd6-4b1f-b36a-89331b341fb9
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "binningMetadata": {
+				    "binSize": {
+				      "unit": 0,
+				      "value": 0.2
+				    }
+				  },
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "fCPC"
+				          }
+				        },
+				        "Property": "NP-Infraestrutura"
+				      }
+				    }
+				  ],
+				  "version": 0
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"f","Entity":"fCPC"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"NP-Infraestrutura"}}],"BinItem":{"Expression":{"Floor":{"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"NP-Infraestrutura"}},"Size":0.2}}}}
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column gNP_OrgDidaticoPedagogica =
+			IF(
+			  ISBLANK('fCPC'[NP-OrgDidaticoPedagogica]),
+			  BLANK(),
+			  IF(
+			    'fCPC'[NP-OrgDidaticoPedagogica] >= 0,
+			    ROUNDDOWN('fCPC'[NP-OrgDidaticoPedagogica] / 0.1, 0) * 0.1,
+			    ROUNDUP('fCPC'[NP-OrgDidaticoPedagogica] / 0.1, 0) * 0.1
+			  )
+			)
+		displayFolder: _Grupos
+		lineageTag: 192a1a84-bd70-41b8-8940-47cf1f5d0c63
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "binningMetadata": {
+				    "binSize": {
+				      "unit": 0,
+				      "value": 0.1
+				    }
+				  },
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "fCPC"
+				          }
+				        },
+				        "Property": "NP-OrgDidaticoPedagogica"
+				      }
+				    }
+				  ],
+				  "version": 0
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"f","Entity":"fCPC"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"NP-OrgDidaticoPedagogica"}}],"BinItem":{"Expression":{"Floor":{"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"NP-OrgDidaticoPedagogica"}},"Size":0.1}}}}
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column gNP_OportunidadesAmpliacaoFormacao =
+			IF(
+			  ISBLANK('fCPC'[NP-OportunidadesAmpliacaoFormacao]),
+			  BLANK(),
+			  IF(
+			    'fCPC'[NP-OportunidadesAmpliacaoFormacao] >= 0,
+			    ROUNDDOWN('fCPC'[NP-OportunidadesAmpliacaoFormacao] / 0.1, 0) * 0.1,
+			    ROUNDUP('fCPC'[NP-OportunidadesAmpliacaoFormacao] / 0.1, 0) * 0.1
+			  )
+			)
+		displayFolder: _Grupos
+		lineageTag: eba3c273-39e3-4fd8-bbfa-68f0f3a3c8bb
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "binningMetadata": {
+				    "binSize": {
+				      "unit": 0,
+				      "value": 0.1
+				    }
+				  },
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "fCPC"
+				          }
+				        },
+				        "Property": "NP-OportunidadesAmpliacaoFormacao"
+				      }
+				    }
+				  ],
+				  "version": 0
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"f","Entity":"fCPC"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"NP-OportunidadesAmpliacaoFormacao"}}],"BinItem":{"Expression":{"Floor":{"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"NP-OportunidadesAmpliacaoFormacao"}},"Size":0.1}}}}
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column gNP_RegimeTrabalho =
+			IF(
+			  ISBLANK('fCPC'[NP-RegimeTrabalho]),
+			  BLANK(),
+			  IF(
+			    'fCPC'[NP-RegimeTrabalho] >= 0,
+			    ROUNDDOWN('fCPC'[NP-RegimeTrabalho] / 0.1, 0) * 0.1,
+			    ROUNDUP('fCPC'[NP-RegimeTrabalho] / 0.1, 0) * 0.1
+			  )
+			)
+		displayFolder: _Grupos
+		lineageTag: 79ac831c-aa03-484d-ae01-277583cd8bed
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "binningMetadata": {
+				    "binSize": {
+				      "unit": 0,
+				      "value": 0.1
+				    }
+				  },
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "fCPC"
+				          }
+				        },
+				        "Property": "NP-RegimeTrabalho"
+				      }
+				    }
+				  ],
+				  "version": 0
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"f","Entity":"fCPC"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"NP-RegimeTrabalho"}}],"BinItem":{"Expression":{"Floor":{"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"NP-RegimeTrabalho"}},"Size":0.1}}}}
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column gNB_DocentesDoutores =
+			IF(
+			  ISBLANK('fCPC'[NB-Doutores]),
+			  BLANK(),
+			  IF(
+			    'fCPC'[NB-Doutores] >= 0,
+			    ROUNDDOWN('fCPC'[NB-Doutores] / 0.05, 0) * 0.05,
+			    ROUNDUP('fCPC'[NB-Doutores] / 0.05, 0) * 0.05
+			  )
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: _Grupos
+		lineageTag: 698887fe-bce8-4710-9609-d01671fc9c24
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "binningMetadata": {
+				    "binSize": {
+				      "unit": 0,
+				      "value": 0.05
+				    }
+				  },
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "fCPC"
+				          }
+				        },
+				        "Property": "NB-Doutores"
+				      }
+				    }
+				  ],
+				  "version": 0
+				}
+
+		changedProperty = FormatString
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"f","Entity":"fCPC"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"NB-Doutores"}}],"BinItem":{"Expression":{"Floor":{"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"NB-Doutores"}},"Size":0.05}}}}
+
+		annotation SummarizationSetBy = Automatic
+
+	column gNB_DocentesMestres =
+			IF(
+			  ISBLANK('fCPC'[NB-Mestres]),
+			  BLANK(),
+			  IF(
+			    'fCPC'[NB-Mestres] >= 0,
+			    ROUNDDOWN('fCPC'[NB-Mestres] / 0.02, 0) * 0.02,
+			    ROUNDUP('fCPC'[NB-Mestres] / 0.02, 0) * 0.02
+			  )
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: _Grupos
+		lineageTag: c32b24f3-7dab-4567-abd8-b216a763cd05
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "binningMetadata": {
+				    "binSize": {
+				      "unit": 0,
+				      "value": 0.02
+				    }
+				  },
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "fCPC"
+				          }
+				        },
+				        "Property": "NB-Mestres"
+				      }
+				    }
+				  ],
+				  "version": 0
+				}
+
+		changedProperty = FormatString
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"f","Entity":"fCPC"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"NB-Mestres"}}],"BinItem":{"Expression":{"Floor":{"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"NB-Mestres"}},"Size":0.02}}}}
+
+		annotation SummarizationSetBy = Automatic
+
+	column gNB_IDD =
+			IF(
+			  ISBLANK('fCPC'[NB-IDD]),
+			  BLANK(),
+			  IF(
+			    'fCPC'[NB-IDD] >= 0,
+			    ROUNDDOWN('fCPC'[NB-IDD] / 0.5, 0) * 0.5,
+			    ROUNDUP('fCPC'[NB-IDD] / 0.5, 0) * 0.5
+			  )
+			)
+		displayFolder: _Grupos
+		lineageTag: 2db8a10e-ce65-4634-837b-177de8c9abe2
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "binningMetadata": {
+				    "binSize": {
+				      "unit": 0,
+				      "value": 0.5
+				    }
+				  },
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "fCPC"
+				          }
+				        },
+				        "Property": "NB-IDD"
+				      }
+				    }
+				  ],
+				  "version": 0
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"f","Entity":"fCPC"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"NB-IDD"}}],"BinItem":{"Expression":{"Floor":{"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"NB-IDD"}},"Size":0.5}}}}
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column gNB_Infraestrutura =
+			IF(
+			  ISBLANK('fCPC'[NB-Infraestrutura]),
+			  BLANK(),
+			  IF(
+			    'fCPC'[NB-Infraestrutura] >= 0,
+			    ROUNDDOWN('fCPC'[NB-Infraestrutura] / 0.1, 0) * 0.1,
+			    ROUNDUP('fCPC'[NB-Infraestrutura] / 0.1, 0) * 0.1
+			  )
+			)
+		displayFolder: _Grupos
+		lineageTag: 27431770-262c-446b-8e05-34227ed2fbf8
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "binningMetadata": {
+				    "binSize": {
+				      "unit": 0,
+				      "value": 0.1
+				    }
+				  },
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "fCPC"
+				          }
+				        },
+				        "Property": "NB-Infraestrutura"
+				      }
+				    }
+				  ],
+				  "version": 0
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"f","Entity":"fCPC"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"NB-Infraestrutura"}}],"BinItem":{"Expression":{"Floor":{"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"NB-Infraestrutura"}},"Size":0.1}}}}
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column gNB_OrgDidaticoPedagogica =
+			IF(
+			  ISBLANK('fCPC'[NB-OrgDidaticoPedagogica]),
+			  BLANK(),
+			  IF(
+			    'fCPC'[NB-OrgDidaticoPedagogica] >= 0,
+			    ROUNDDOWN('fCPC'[NB-OrgDidaticoPedagogica] / 0.2, 0) * 0.2,
+			    ROUNDUP('fCPC'[NB-OrgDidaticoPedagogica] / 0.2, 0) * 0.2
+			  )
+			)
+		displayFolder: _Grupos
+		lineageTag: 70aec87d-df51-4ce9-afaf-4854b4617994
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "binningMetadata": {
+				    "binSize": {
+				      "unit": 0,
+				      "value": 0.2
+				    }
+				  },
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "fCPC"
+				          }
+				        },
+				        "Property": "NB-OrgDidaticoPedagogica"
+				      }
+				    }
+				  ],
+				  "version": 0
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"f","Entity":"fCPC"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"NB-OrgDidaticoPedagogica"}}],"BinItem":{"Expression":{"Floor":{"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"NB-OrgDidaticoPedagogica"}},"Size":0.2}}}}
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column gNB_OportunidadesAmpliacaoFormacao =
+			IF(
+			  ISBLANK('fCPC'[NB-OportunidadesAmpliacaoFormacao]),
+			  BLANK(),
+			  IF(
+			    'fCPC'[NB-OportunidadesAmpliacaoFormacao] >= 0,
+			    ROUNDDOWN('fCPC'[NB-OportunidadesAmpliacaoFormacao] / 0.2, 0) * 0.2,
+			    ROUNDUP('fCPC'[NB-OportunidadesAmpliacaoFormacao] / 0.2, 0) * 0.2
+			  )
+			)
+		displayFolder: _Grupos
+		lineageTag: d97b502e-3af9-4fba-9db9-2cf42be2d5c4
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "binningMetadata": {
+				    "binSize": {
+				      "unit": 0,
+				      "value": 0.2
+				    }
+				  },
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "fCPC"
+				          }
+				        },
+				        "Property": "NB-OportunidadesAmpliacaoFormacao"
+				      }
+				    }
+				  ],
+				  "version": 0
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"f","Entity":"fCPC"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"NB-OportunidadesAmpliacaoFormacao"}}],"BinItem":{"Expression":{"Floor":{"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"NB-OportunidadesAmpliacaoFormacao"}},"Size":0.2}}}}
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column gNB_RegimeTrabalho =
+			IF(
+			  ISBLANK('fCPC'[NB-RegimeTrabalho]),
+			  BLANK(),
+			  IF(
+			    'fCPC'[NB-RegimeTrabalho] >= 0,
+			    ROUNDDOWN('fCPC'[NB-RegimeTrabalho] / 0.1, 0) * 0.1,
+			    ROUNDUP('fCPC'[NB-RegimeTrabalho] / 0.1, 0) * 0.1
+			  )
+			)
+		displayFolder: _Grupos
+		lineageTag: e85ef109-6c49-4bd9-a3d8-d32e28efc9d0
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "binningMetadata": {
+				    "binSize": {
+				      "unit": 0,
+				      "value": 0.1
+				    }
+				  },
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "fCPC"
+				          }
+				        },
+				        "Property": "NB-RegimeTrabalho"
+				      }
+				    }
+				  ],
+				  "version": 0
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"f","Entity":"fCPC"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"NB-RegimeTrabalho"}}],"BinItem":{"Expression":{"Floor":{"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"f"}},"Property":"NB-RegimeTrabalho"}},"Size":0.1}}}}
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Nome do Curso'
+		dataType: string
+		lineageTag: f9d6f61e-77b2-4f2d-928a-13b1ac3f4897
+		summarizeBy: none
+		sourceColumn: Nome do Curso
+
+		annotation SummarizationSetBy = Automatic
+
+	column codUnidade
+		dataType: string
+		lineageTag: 978402f6-0b20-4c5e-b663-6257e708e3b2
+		summarizeBy: none
+		sourceColumn: codUnidade
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fCPC-939feaf0-ac31-4e84-b199-71367442678f = m
+		mode: import
+		queryGroup: 'Modelo PNP\Fatos'
+		source =
+				let
+				    Fonte = Csv.Document(Binary.Decompress(Web.Contents(AWS&"fCPC.csv.gz"),Compression.GZip),[Delimiter=";", Columns=42, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Valor Substituído" = Table.ReplaceValue(#"Cabeçalhos Promovidos","-",null,Replacer.ReplaceValue,{"concluintesInscritos", "concluintesParticipantes", "NB-FG", "NB-CE", "NP-Enade", "numConcluintesEnem", "percentualConcluintesEnem", "NB-IDD", "NP-IDD", "NB-OrgDidaticoPedagogica", "NP-OrgDidaticoPedagogica", "NB-Infraestrutura", "NP-Infraestrutura", "NB-OportunidadesAmpliacaoFormacao", "NP-OportunidadesAmpliacaoFormacao", "numDocentes", "NB-Mestres", "NP-Mestres", "NB-Doutores", "NP-Doutores", "NB-RegimeTrabalho", "NP-RegimeTrabalho", "CPCContinuo"}),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Valor Substituído",{{"concluintesInscritos", Int64.Type}, {"concluintesParticipantes", Int64.Type}, {"numConcluintesEnem", Int64.Type}, {"numDocentes", Int64.Type}, {"NB-FG", type number}, {"NB-CE", type number}, {"NP-Enade", type number}, {"percentualConcluintesEnem", type number}, {"NB-IDD", type number}, {"NP-IDD", type number}, {"NB-OrgDidaticoPedagogica", type number}, {"NP-OrgDidaticoPedagogica", type number}, {"NB-Infraestrutura", type number}, {"NP-Infraestrutura", type number}, {"NB-OportunidadesAmpliacaoFormacao", type number}, {"NP-OportunidadesAmpliacaoFormacao", type number}, {"NB-Mestres", type number}, {"NP-Mestres", type number}, {"NB-Doutores", type number}, {"NP-Doutores", type number}, {"NB-RegimeTrabalho", type number}, {"NP-RegimeTrabalho", type number}, {"CPCContinuo", type number}, {"Ano", type date}}),
+				    #"Colocar Cada Palavra Em Maiúscula" = Table.TransformColumns(#"Tipo Alterado",{{"nomeArea", Text.Proper, type text}}),
+				    #"Valor Substituído1" = Table.ReplaceValue(#"Colocar Cada Palavra Em Maiúscula"," Em "," em ",Replacer.ReplaceText,{"nomeArea"}),
+				    #"Valor Substituído2" = Table.ReplaceValue(#"Valor Substituído1"," De "," de ",Replacer.ReplaceText,{"nomeArea"}),
+				    #"Valor Substituído3" = Table.ReplaceValue(#"Valor Substituído2"," Da "," da ",Replacer.ReplaceText,{"nomeArea"}),
+				    #"Valor Substituído4" = Table.ReplaceValue(#"Valor Substituído3"," E "," e ",Replacer.ReplaceText,{"nomeArea"}),
+				    #"Valor Substituído5" = Table.ReplaceValue(#"Valor Substituído4"," No "," no ",Replacer.ReplaceText,{"nomeArea"}),
+				    Personalizar1 = #"Valor Substituído5"
+				in
+				    Personalizar1
+
+	annotation PBI_ResultType = Table
+

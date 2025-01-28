@@ -1,0 +1,160 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/1.2.0/schema.json",
+  "name": "ReportSection31e9055d25d9868560f0",
+  "displayName": "2. Microdados PNP | 5.1a Percentuais Legais",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "Filter6aebe6820d6566d24141",
+        "ordinal": 0,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "d_IES"
+              }
+            },
+            "Property": "Org. Administrativa"
+          }
+        },
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "d",
+              "Entity": "d_IES",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "d"
+                          }
+                        },
+                        "Property": "Org. Administrativa"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Institutos'"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User"
+      }
+    ],
+    "filterSortOrder": "Custom"
+  },
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "image": {
+            "image": {
+              "name": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'POSIÇÃO 1 C4 ABAS.png'"
+                  }
+                }
+              },
+              "url": {
+                "expr": {
+                  "ResourcePackageItem": {
+                    "PackageName": "RegisteredResources",
+                    "PackageType": 1,
+                    "ItemName": "POSI__O_1_C4_ABAS2646102083383972.png"
+                  }
+                }
+              },
+              "scaling": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'Fill'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "width": {
+            "expr": {
+              "Literal": {
+                "Value": "339L"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visibility": "HiddenInViewMode",
+  "visualInteractions": [
+    {
+      "source": "aad4c036eac8106f3045",
+      "target": "70eb236bf6815337c0c0",
+      "type": "NoFilter"
+    },
+    {
+      "source": "aad4c036eac8106f3045",
+      "target": "2cc2b0a931085d40a952",
+      "type": "NoFilter"
+    },
+    {
+      "source": "aad4c036eac8106f3045",
+      "target": "6a7aafaabb160ad75f26",
+      "type": "NoFilter"
+    },
+    {
+      "source": "aad4c036eac8106f3045",
+      "target": "b759b6c29f9f2acc6939",
+      "type": "NoFilter"
+    },
+    {
+      "source": "aad4c036eac8106f3045",
+      "target": "c627f57bc21ed08992a6",
+      "type": "NoFilter"
+    },
+    {
+      "source": "b759b6c29f9f2acc6939",
+      "target": "aad4c036eac8106f3045",
+      "type": "DataFilter"
+    },
+    {
+      "source": "dab1ae2e57915d66c46a",
+      "target": "aad4c036eac8106f3045",
+      "type": "NoFilter"
+    }
+  ]
+}

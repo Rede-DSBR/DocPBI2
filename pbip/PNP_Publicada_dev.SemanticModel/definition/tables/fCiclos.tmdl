@@ -1,0 +1,126 @@
+/// @description Essa tabela representa informações relevantes sobre os ciclos de matrícula realizados em uma determinada instituição de ensino, incluindo dados sobre as unidades organizacionais, cursos, vagas oferecidas e outros detalhes importantes para a gestão acadêmica.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table fCiclos
+	lineageTag: d21024a3-1794-4d57-9f85-e6518d59cd56
+
+	/// @description Ano
+	column Ano
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b47e1ab3-4ab8-441a-b5ba-e118b95a52f7
+		summarizeBy: none
+		sourceColumn: Ano
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	/// @description Código UO
+	column UO
+		dataType: int64
+		formatString: 0
+		lineageTag: a0609129-e2c8-4b11-9df3-3935ce098814
+		summarizeBy: sum
+		sourceColumn: UO
+
+		annotation SummarizationSetBy = Automatic
+
+	column skUnidade
+		dataType: int64
+		formatString: 0
+		lineageTag: db87fd82-54af-446d-8766-4489b0d31017
+		summarizeBy: none
+		sourceColumn: skUnidade
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código da unidade utilizado internamente na disseminação
+	column codUnidade
+		dataType: int64
+		formatString: 0
+		lineageTag: 9b3f83b3-9083-4f11-9952-a0b5c9c39760
+		summarizeBy: sum
+		sourceColumn: codUnidade
+
+		annotation SummarizationSetBy = Automatic
+
+	column codCicloMatricula
+		dataType: int64
+		formatString: 0
+		lineageTag: c26540fd-4a05-47b6-9b7c-fba0404554f6
+		summarizeBy: sum
+		sourceColumn: codCicloMatricula
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Categorização transversal utilizada para diferenciar os cursos da EPCT em seus diferentes níveis e graus. Opções: Educação Infantil, Ensino Fundamental I, Ensino Fundamental II, Ensino Médio, Qualificação Profissional (FIC), Técnico, Tecnologia, Licenciatura, Bacharelado, Especialização (Lato Sensu), Mestrado Profissional, Mestrado, Doutorado Profissional e Doutorado.
+	column tipoCurso
+		dataType: string
+		lineageTag: edb71494-7e34-4fcf-b6a3-0107914492fc
+		summarizeBy: none
+		sourceColumn: tipoCurso
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Categorização transversal utilizada para diferenciar as formas de oferta dos Cursos Técnicos e de Qualificação Profissional (FIC). Opções: Integrado, Subsequente, Concomitante, PROEJA – Concomitante e PROEJA – Integrado.
+	column tipoOferta
+		dataType: string
+		lineageTag: bb1307f7-2a13-4c0c-a28e-86ead89f5471
+		summarizeBy: none
+		sourceColumn: tipoOferta
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Agregação de eixos tecnológicos
+	column tipoEixoTecnologico
+		dataType: string
+		lineageTag: 2ef0eeac-87e7-4b7c-845a-672c3026dd6e
+		summarizeBy: none
+		sourceColumn: tipoEixoTecnologico
+
+		annotation SummarizationSetBy = Automatic
+
+	column Vagas_Ofertadas
+		dataType: int64
+		formatString: 0
+		lineageTag: c51ddb09-eb14-4713-8d0d-4665dc2e6087
+		summarizeBy: sum
+		sourceColumn: Vagas_Ofertadas
+
+		annotation SummarizationSetBy = Automatic
+
+	column anoInicioCiclo
+		dataType: int64
+		formatString: 0
+		lineageTag: 06795a96-ea30-4ca9-83cd-ba4687798b46
+		summarizeBy: sum
+		sourceColumn: anoInicioCiclo
+
+		annotation SummarizationSetBy = Automatic
+
+	column skCicloMatricula
+		dataType: string
+		lineageTag: ae29cef5-350e-492d-b627-3450140d5b8a
+		summarizeBy: none
+		sourceColumn: skCicloMatricula
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fCiclos-e1870f3c-3713-44e8-921c-133140a85d38 = m
+		mode: import
+		queryGroup: 'Modelo PNP\Fatos'
+		source =
+				let
+				    Fonte = Csv.Document(Binary.Decompress(Web.Contents(AWS&"fCiclos.csv.gz"),Compression.GZip),[Delimiter=";", Columns=12, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Ano", type date}, {"UO", Int64.Type}, {"skUnidade", Int64.Type}, {"codUnidade", Int64.Type}, {"codCicloMatricula", Int64.Type}, {"Vagas_Ofertadas", Int64.Type}, {"dataInicioCiclo", type date}, {"dataFimCiclo", type date}}),
+				    #"Ano Inserido" = Table.AddColumn(#"Tipo Alterado", "Ano.1", each Date.Year([dataInicioCiclo]), Int64.Type),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Ano Inserido",{{"Ano.1", "anoInicioCiclo"}}),
+				    #"Colunas Removidas1" = Table.RemoveColumns(#"Colunas Renomeadas",{"dataInicioCiclo", "dataFimCiclo"})
+				in
+				    #"Colunas Removidas1"
+
+	annotation PBI_ResultType = Table
+

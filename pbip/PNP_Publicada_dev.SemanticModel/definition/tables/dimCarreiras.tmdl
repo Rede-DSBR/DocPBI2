@@ -1,0 +1,80 @@
+/// @description A tabela dimCarreiras é uma tabela de dimensão que contém informações sobre as carreiras existentes na organização.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table dimCarreiras
+	lineageTag: 82b29472-a756-4112-ac18-1f3bb2719959
+
+	column skDimCarreira
+		dataType: string
+		lineageTag: 9633a559-8cac-4d68-b1ad-6a17cc20e110
+		summarizeBy: none
+		sourceColumn: skDimCarreira
+
+		annotation SummarizationSetBy = Automatic
+
+	column skCarreira
+		dataType: string
+		lineageTag: 474a816c-e686-4241-9b5a-112883e0195b
+		summarizeBy: none
+		sourceColumn: skCarreira
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Descrição da carreira relativa ao cargo ocupado pelo servidor.
+	/// @author dsbr;
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Cargos da carreira; Cargos e funções gratificadas; Professores por Instituição
+	column CarreiraDescricao
+		dataType: string
+		lineageTag: 8c59e9cc-ee24-4076-aaaf-6abc69bbecbe
+		summarizeBy: none
+		sourceColumn: CarreiraDescricao
+
+		annotation SummarizationSetBy = Automatic
+
+	column CarreiraSigla
+		dataType: string
+		lineageTag: 7be2be8a-89ec-49a3-8069-5a3c8ecfd788
+		summarizeBy: none
+		sourceColumn: CarreiraSigla
+
+		annotation SummarizationSetBy = Automatic
+
+	column lkCargo
+		dataType: string
+		lineageTag: 5c254073-852b-4e9e-bbcc-e926347ef7ce
+		summarizeBy: none
+		sourceColumn: lkCargo
+
+		annotation SummarizationSetBy = Automatic
+
+	column lkRegjur
+		dataType: string
+		lineageTag: 6d52c2f7-fc94-43d0-8bf4-773bdfe857cb
+		summarizeBy: none
+		sourceColumn: lkRegjur
+
+		annotation SummarizationSetBy = Automatic
+
+	column lkSituacao
+		dataType: string
+		lineageTag: 035a9af6-d318-4378-bd07-34ef91b865f5
+		summarizeBy: none
+		sourceColumn: lkSituacao
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dimCarreiras-9cf728d1-bffd-4457-ab80-ed9acfdf7a0c = m
+		mode: import
+		queryGroup: 'Modelo Gestão de Pessoas\Dimensões'
+		source =
+				let
+				    Fonte = Csv.Document(Binary.Decompress(Web.Contents(AWS&"dimCarreiras.csv.gz"),Compression.GZip),[Delimiter=",", Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true])
+				in
+				    #"Cabeçalhos Promovidos"
+
+	annotation PBI_ResultType = Table
+

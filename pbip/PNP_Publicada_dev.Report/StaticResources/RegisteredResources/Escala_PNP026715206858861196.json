@@ -1,0 +1,15 @@
+{
+  "name": "Escala PNP",
+  "dataColors": [
+    "#5A7B9A",
+    "#95AEC7",
+    "#FFD000",
+    "#6A9899",
+    "#A2BFBC",
+    "#3D8CAC",
+    "#D9B300",
+    "#B6A700"
+  ],
+  "good": "#718CA6",
+  "maximum": "#44ADD3"
+}

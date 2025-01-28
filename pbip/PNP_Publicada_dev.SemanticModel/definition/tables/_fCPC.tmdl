@@ -1,0 +1,113 @@
+table _fCPC
+	lineageTag: 1eb68c17-4f47-409c-b408-d978082fb501
+
+	/// @description Medida selecionada dentre as medidas da tabela do Conceito Preliminar de Cursos, sejam elas insumos para cálculo do indicador ou o próprio indicador. Os insumos para cálculo são: a) nota dos concluintes no Enade; b) nota do Indicador de Diferença entre o Desempenho Observado e Esperado; c) proporção de professores mestres; d) proporção de professores doutores; e) proporção de professores em regime de trabalho parcial ou integral; f) média das respostas do Questionário do Estudante referentes à organização didáco-pedagógica; g) média das respostas do Questionário do Estudante referentes à infraestrutura e às instalações físicas; h) média das respostas do Questionário do Estudante referentes às oportunidades de ampliação da formação acadêmica e profissional.
+	/// @author dsbr
+	/// @version 1
+	/// @date 14/06/2023
+	measure 'Medida CPC' =
+			
+			VAR Selection =
+			SELECTEDVALUE( _fCPC[_fCPC campo], "Tudo" )
+			RETURN
+			SWITCH (
+			TRUE (),
+			Selection = 0, AVERAGE(fCPC[CPCContinuo]),
+			Selection = 1, AVERAGE(fCPC[NP-Enade]),
+			Selection = 2, AVERAGE(fCPC[NP-Doutores]),
+			Selection = 3, AVERAGE(fCPC[NP-Mestres]),
+			Selection = 4, AVERAGE(fCPC[NP-IDD]),
+			Selection = 5, AVERAGE(fCPC[NP-Infraestrutura]),
+			Selection = 6, AVERAGE(fCPC[NP-OrgDidaticoPedagogica]),
+			Selection = 7, AVERAGE(fCPC[NP-OportunidadesAmpliacaoFormacao]),
+			Selection = 8, AVERAGE(fCPC[NP-RegimeTrabalho]),
+			Selection = 9, AVERAGE(fCPC[NP-Doutores]),
+			Selection = 10, AVERAGE(fCPC[NB-Mestres]),
+			Selection = 11, AVERAGE(fCPC[NB-IDD]),
+			Selection = 12, AVERAGE(fCPC[NB-Infraestrutura]),
+			Selection = 13, AVERAGE(fCPC[NB-OrgDidaticoPedagogica]),
+			Selection = 14, AVERAGE(fCPC[NB-OportunidadesAmpliacaoFormacao]),
+			Selection = 15, AVERAGE(fCPC[NB-RegimeTrabalho]),
+			AVERAGE(fCPC[CPCContinuo])
+			)
+		lineageTag: 4baa5f50-d464-4bf1-b4a2-65a5aee6e9c9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column _fCPC
+		lineageTag: 1250715a-e39a-49e3-b978-90e6684c90c7
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: '_fCPC campo'
+
+		relatedColumnDetails
+			groupByColumn: dNotaCPC
+
+		annotation SummarizationSetBy = Automatic
+
+	column dNotaCPC
+		isHidden
+		lineageTag: bbc59a53-a7c0-4e01-936b-be8c356df362
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: '_fCPC campo'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "kind": 2,
+				  "version": 3
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column '_fCPC campo'
+		isHidden
+		formatString: 0
+		lineageTag: 59f6d9a6-8f3a-494f-9de5-f4a0fa3865ba
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Tipo
+		lineageTag: 7559fdf0-8b97-491c-8dc7-f9c40ff38f4a
+		summarizeBy: none
+		sourceColumn: [Value4]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _fCPC-b6de2e93-c1c3-4ef0-b8e7-76a57c8ad35b = calculated
+		mode: import
+		source = ```
+				
+				    {
+				    
+				    /* ***Nota Padronizada*** */
+				    
+				    ("CPC Contínuo", NAMEOF('fCPC'[gNP_CPC Contínuo]), 0, "Nota Padronizada"),
+				    ("Enade", NAMEOF('fCPC'[gNP_Enade]), 1, "Nota Padronizada"),
+				    ("Docentes doutores", NAMEOF('fCPC'[gNP_DocentesDoutores]), 2, "Nota Padronizada"),
+				    ("Docentes mestres", NAMEOF('fCPC'[gNP_DocentesMestres]), 3, "Nota Padronizada"),
+				    ("Índice IDD", NAMEOF('fCPC'[gNP_IDD]), 4, "Nota Padronizada"),
+				    ("Infraestrutura e instalações", NAMEOF('fCPC'[gNP_Infraestrutura]), 5, "Nota Padronizada"),
+				    ("Oport. ampliação da formação", NAMEOF('fCPC'[gNP_OrgDidaticoPedagogica]), 6, "Nota Padronizada"),
+				    ("Org. didático-pedagógica", NAMEOF('fCPC'[gNP_OportunidadesAmpliacaoFormacao]), 7, "Nota Padronizada"),
+				    ("Regime de trabalho docente", NAMEOF('fCPC'[gNP_RegimeTrabalho]), 8, "Nota Padronizada"),
+				    
+				    
+				   /* ***Nota Bruta*** */
+				    
+				    /* ("CPC Contínuo", NAMEOF('fCPC'[gNB_CPC Contínuo]), 0, "Nota Bruta"),
+				    ("Enade", NAMEOF('fCPC'[gNB_Enade]), 1, "Nota Bruta"), */
+				    ("Docentes doutores", NAMEOF('fCPC'[gNB_DocentesDoutores]), 9, "Nota Bruta"),
+				    ("Docentes mestres", NAMEOF('fCPC'[gNB_DocentesMestres]), 10, "Nota Bruta"),
+				    ("Índice IDD", NAMEOF('fCPC'[gNB_IDD]), 11, "Nota Bruta"),
+				    ("Infraestrutura e instalações", NAMEOF('fCPC'[gNB_Infraestrutura]), 12, "Nota Bruta"),
+				    ("Oport. ampliação da formação", NAMEOF('fCPC'[gNB_OrgDidaticoPedagogica]), 13, "Nota Bruta"),
+				    ("Org. didático-pedagógica", NAMEOF('fCPC'[gNB_OportunidadesAmpliacaoFormacao]), 14, "Nota Bruta"),
+				    ("Regime de trabalho docente", NAMEOF('fCPC'[gNB_RegimeTrabalho]), 15, "Nota Bruta")
+				}
+				```
+
+	annotation PBI_Id = 68db196abad8419b87dd7560714641ae
+

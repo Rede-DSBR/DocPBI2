@@ -1,0 +1,17 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.2.0/schema.json",
+  "name": "b7ced8a78fc908819893",
+  "position": {
+    "x": 123,
+    "y": 90,
+    "z": 500,
+    "height": 482,
+    "width": 1035,
+    "tabOrder": 0
+  },
+  "visualGroup": {
+    "displayName": "FiltrosOrçamento",
+    "groupMode": "ScaleMode"
+  },
+  "isHidden": true
+}

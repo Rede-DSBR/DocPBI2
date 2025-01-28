@@ -1,0 +1,40 @@
+/// @description Dimensão datas relativas para visual
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table dCalendInterval
+	lineageTag: 7b3e169d-16da-444b-8764-c77646abbc01
+
+	calculationGroup
+		precedence: 2
+
+		calculationItem 'Data Atual' = SELECTEDMEASURE ()
+
+		calculationItem 'Ano Anterior' = CALCULATE ( SELECTEDMEASURE (), DATEADD ( 'dCalendário'[Data], -1, YEAR ) )
+
+		calculationItem 'Mês Anterior' = ```
+				CALCULATE ( SELECTEDMEASURE (), DATEADD ( 'dCalendário'[Data], -1, Month ) )
+				
+				
+				```
+
+	column Name
+		dataType: string
+		lineageTag: c0d0294b-c37a-4bad-929b-17fc8455e9cc
+		summarizeBy: none
+		sourceColumn: Name
+		sortByColumn: Ordinal
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ordinal
+		dataType: int64
+		isHidden
+		lineageTag: 6836f991-d67a-4aef-b132-bff1d71a4391
+		summarizeBy: sum
+		sourceColumn: Ordinal
+
+		annotation SummarizationSetBy = Automatic
+

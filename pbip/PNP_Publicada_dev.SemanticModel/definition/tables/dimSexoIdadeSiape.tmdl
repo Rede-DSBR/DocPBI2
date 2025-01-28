@@ -1,0 +1,131 @@
+/// @description Essa tabela é utilizada para armazenar informações sobre a idade e o sexo dos servidores públicos, permitindo a análise de dados relacionados a essas características. As colunas ordemFaixaEtaria e ordemSexo são utilizadas para ordenar as faixas etárias e os sexos na tabela, facilitando a visualização e análise dos dados. As colunas FaixaEtariaDeclarada e SexoDeclarada permitem a identificação de possíveis discrepâncias entre a idade e o sexo declarados pelo servidor público e a idade e o sexo registrados no sistema.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table dimSexoIdadeSiape
+	lineageTag: 03765d92-63dd-48af-82d7-44873a3a128e
+
+	/// @description Se o servidor é do sexo masculino
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'Servidores Masculino' =
+			
+			/*@description Se o servidor é do sexo masculino
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			DIVIDE(CALCULATE([Número de servidores (Siafi)], dimSexoIdadeSiape[Sexo] = "Masculino"),CALCULATE([Número de servidores (Siafi)], ALL(dimSexoIdadeSiape)),BLANK())
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: c65bda2b-6541-4589-b050-fee821bd8bb1
+
+		changedProperty = FormatString
+
+	/// @description Se o servidor é do sexo feminino
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'Servidores Feminino' = ```
+			
+			 /*@description Se o servidor é do sexo feminino
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			 DIVIDE(CALCULATE([Número de servidores (Siafi)], dimSexoIdadeSiape[Sexo] = "Feminino"),CALCULATE([Número de servidores (Siafi)], ALL(dimSexoIdadeSiape)),BLANK())
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: ea523bb9-417b-4220-8292-1c0d0cb458a0
+
+		changedProperty = FormatString
+
+	/// @description Código de Sexo e Idade
+	column codSexoIdade
+		dataType: int64
+		formatString: 0
+		lineageTag: 37c2993f-4c49-46c7-8135-e4355cf8f704
+		summarizeBy: none
+		sourceColumn: codSexoIdade
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Faixa Etária
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Cargos da carreira
+	column FaixaEtaria
+		dataType: string
+		lineageTag: 2e97b33b-8427-4e75-82a3-decfd7c39a5a
+		summarizeBy: none
+		sourceColumn: FaixaEtaria
+		sortByColumn: ordemFaixaEtaria
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Sexo
+	column Sexo
+		dataType: string
+		lineageTag: 51bcf7a8-f99e-4849-9c17-b2364c77f345
+		summarizeBy: none
+		sourceColumn: Sexo
+		sortByColumn: ordemSexo
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Faixas etárias de acordo com o sexo
+	column ordemFaixaEtaria
+		dataType: int64
+		formatString: 0
+		lineageTag: 68d6c9f5-0c26-43b4-8878-dd9e1d2c5a17
+		summarizeBy: none
+		sourceColumn: ordemFaixaEtaria
+
+		annotation SummarizationSetBy = Automatic
+
+	column ordemSexo
+		dataType: int64
+		formatString: 0
+		lineageTag: a99d1e02-4857-4bb9-acb3-69c7c170c4f1
+		summarizeBy: none
+		sourceColumn: ordemSexo
+
+		annotation SummarizationSetBy = Automatic
+
+	column FaixaEtariaDeclarada
+		dataType: string
+		lineageTag: 747a441b-3ccd-4e5c-b6a3-86045753ff06
+		summarizeBy: none
+		sourceColumn: FaixaEtariaDeclarada
+
+		annotation SummarizationSetBy = Automatic
+
+	column SexoDeclarada
+		dataType: string
+		lineageTag: 458a0f10-dd4a-4ebf-84a2-7379567ada8f
+		summarizeBy: none
+		sourceColumn: SexoDeclarada
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dimSexoIdadeSiape-482f8d3a-a0f9-453a-a258-f9562a841797 = m
+		mode: import
+		queryGroup: 'Modelo Gestão de Pessoas\Dimensões'
+		source =
+				let
+				    Fonte = Csv.Document(Binary.Decompress(Web.Contents(AWS&"dimSexoIdadeSiape.csv.gz"),Compression.GZip),[Delimiter=",", Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Cabeçalhos Promovidos",{"IdadeReferencia", "SexoReferencia"}),
+				    #"Consultas Mescladas" = Table.NestedJoin(#"Colunas Removidas", {"codSexoIdade"}, SexoIdadeSiapeOrdem, {"codSexoIdade"}, "SexoIdadeSiapeOrdem", JoinKind.LeftOuter),
+				    #"SexoIdadeSiapeOrdem Expandido" = Table.ExpandTableColumn(#"Consultas Mescladas", "SexoIdadeSiapeOrdem", {"ordemFaixaEtaria", "ordemSexo", "FaixaEtariaDeclarada", "SexoDeclarada"}, {"ordemFaixaEtaria", "ordemSexo", "FaixaEtariaDeclarada", "SexoDeclarada"}),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"SexoIdadeSiapeOrdem Expandido",{{"ordemFaixaEtaria", Int64.Type}, {"ordemSexo", Int64.Type}, {"codSexoIdade", Int64.Type}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_ResultType = Table
+

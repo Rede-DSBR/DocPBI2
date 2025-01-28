@@ -1,0 +1,66 @@
+/// @description A tabela UGE é uma tabela que armazena informações sobre as Unidades Gestoras Executoras (UGE) de um determinado órgão ou entidade.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table UGE
+	lineageTag: cc050a37-1aac-4119-8a45-3f6077b231e3
+
+	/// @description Código da Unidade Gestora Executora
+	column CodUGExecutora
+		dataType: string
+		lineageTag: 11316466-2b11-42db-b542-48ceca57319f
+		summarizeBy: none
+		sourceColumn: CodUGExecutora
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Unidade Gestora Executora
+	column UGExecutora
+		dataType: string
+		lineageTag: 13d10252-bea3-4995-83cd-72656a437704
+		summarizeBy: none
+		sourceColumn: UGExecutora
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código do Órgão da Unidade Executora
+	column CodOrgaoUGE
+		dataType: string
+		lineageTag: 3f21b425-1fa1-4b7c-acaa-9dd66ed1fde5
+		summarizeBy: none
+		sourceColumn: CodOrgaoUGE
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código da Gestão do órgão da unidade executora
+	column CodOrgaoUGEGestao
+		dataType: string
+		lineageTag: 0f6f17be-362c-456e-bada-dba0e8be4f94
+		summarizeBy: none
+		sourceColumn: CodOrgaoUGEGestao
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Gestão do Órgão da Unidade gestora executora
+	column OrgaoUGEGestao
+		dataType: string
+		lineageTag: 095fcb70-157b-4963-b6ad-5605552bbbb5
+		summarizeBy: none
+		sourceColumn: OrgaoUGEGestao
+
+		annotation SummarizationSetBy = Automatic
+
+	partition UGE-e7db2e37-a4a7-455e-ba10-9b18d5cbb2c1 = m
+		mode: import
+		queryGroup: 'Modelo Orçamentário\Orçamento TG'
+		source =
+				let
+				    Fonte = Csv.Document(Binary.Decompress(Web.Contents(
+				        EndTG&TG&"/UGE.csv.gz"
+				        ),Compression.GZip),[Delimiter="	", Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true])
+				in
+				    #"Cabeçalhos Promovidos"
+
+	annotation PBI_ResultType = Table
+

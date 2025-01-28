@@ -1,0 +1,326 @@
+relationship fd95b89a-13f9-4cd5-80e5-21f9c1675722
+	crossFilteringBehavior: bothDirections
+	fromColumn: dimUnidade.UO
+	toColumn: d_IES.UO
+
+relationship c36c5097-c459-4319-8c93-c1872ce836e5
+	isActive: false
+	fromColumn: fSituaçãoMatrícula.UO
+	toColumn: d_IES.UO
+
+relationship b3f01eba-718c-4917-b62a-dbf050690051
+	fromColumn: fSituaçãoMatrícula.codSexoIdade
+	toColumn: dimSexoIdade.codSexoIdade
+
+relationship 9b404a7b-bb7f-457a-9d1d-7f7ba8ad34bf
+	fromColumn: fSituaçãoMatrícula.codFinanciamento
+	toColumn: dimFinanciamento.codFinanciamento
+
+relationship fc4a4a66-8085-4878-a6a2-f8df3dd7b20a
+	fromColumn: fSituaçãoMatrícula.codSituacao
+	toColumn: dimSituacao.codSituacao
+
+relationship 9c39fc71-51a7-48a3-bbe2-652188608ba0
+	fromColumn: fSituaçãoMatrícula.codRendaRaca
+	toColumn: dimRendaRaca.codRendaRaca
+
+relationship 49f7f05a-c1ef-4908-b74e-e6ad7552615c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dimCicloMatricula.dataInicioCiclo
+	toColumn: LocalDateTable_0c25ac4f-c7de-4f80-adac-562b0c6cd747.Date
+
+relationship ed370222-4237-400e-9082-07da8482572d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dimCicloMatricula.dataFimCiclo
+	toColumn: LocalDateTable_a9687e7a-fbed-418f-800c-f88c7842a2a9.Date
+
+relationship 51ad4103-5000-4482-bd02-a97ca1dc78e7
+	fromColumn: fSituaçãoMatrícula.skUnidade
+	toColumn: dimUnidade.skUnidade
+
+relationship 026ca656-0327-48a8-a84e-50706fb129dd
+	crossFilteringBehavior: bothDirections
+	fromColumn: fSituaçãoMatrícula.skCursoMatricula
+	toColumn: dimCurso.skCursoMatricula
+
+relationship 76b850ae-2e41-4875-8462-32540dc13946
+	fromColumn: fVagas.codVaga
+	toColumn: dimVagas.codVaga
+
+relationship c9ab7036-d304-40c6-a51e-d86b077fd884
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fSituaçãoMatrícula.dataMatricula
+	toColumn: LocalDateTable_4a1789ab-0489-48f2-8eb5-4a6e6b784b36.Date
+
+relationship 7377c9b2-712c-4eb3-bd63-e6baf8ff43cd
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fSituaçãoMatrícula.dataSituacao
+	toColumn: LocalDateTable_f5e2a210-6d1b-45f5-8792-d3b0bcd3380f.Date
+
+relationship bce538eb-0b96-41f3-8007-68f81a530000
+	fromColumn: fVagas.skCicloMatricula
+	toColumn: dimCicloMatricula.skCicloMatricula
+
+relationship 9fd14002-f4c3-426c-b79a-88644daf724a
+	crossFilteringBehavior: bothDirections
+	fromColumn: fSituaçãoMatrícula.skCicloMatricula
+	toColumn: dimCicloMatricula.skCicloMatricula
+
+relationship d213788c-9785-4050-bcb7-117eaffdc18b
+	fromColumn: fSituaçãoMatrícula.Ano
+	toColumn: dCalendário.Data
+
+relationship b96d1dae-6c0f-4454-94ad-128c9b56aae8
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Atualizacao.Atualizacao
+	toColumn: LocalDateTable_04d17d01-8b38-4bb8-81c0-1aa7c0876e11.Date
+
+relationship 32a5389f-7b9f-460b-b9ed-82dd52b12be4
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Atualizacao.Atualizacao_DH
+	toColumn: LocalDateTable_c5b4e80a-a5bc-43dd-a019-3d28daeb97e2.Date
+
+relationship 159a5c37-6d69-4d4f-be37-f73a3f59b7d1
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Atualizacao.Atualizacao_TG
+	toColumn: LocalDateTable_96eb3fcb-e263-4fe0-8abf-af7ef63b17f7.Date
+
+relationship 705aa4d5-d4d4-4c85-97f7-6a8f06009aa5
+	fromColumn: ItemDespesa.CodResultadoPrimario
+	toColumn: ResultadoPrimario.CodResultadoPrimario
+
+relationship 6c3f8694-b9e0-44ff-b073-87379bd269f9
+	fromColumn: ItemDespesa.CodFonteDetalhado
+	toColumn: Fonte.CodFonteDetalhado
+
+relationship f4210d81-e475-462c-ba66-03fe44db2f4c
+	crossFilteringBehavior: bothDirections
+	fromColumn: ItemDespesa.PTRES
+	toColumn: PTRES.PTRES
+
+relationship 7fddbe0a-3f06-4b94-be6d-82abc78d1cad
+	fromColumn: ItemDespesa.CodUGExecutora
+	toColumn: UGE.CodUGExecutora
+
+relationship 9c8d1c00-4030-4798-9e59-9c752317df25
+	fromColumn: ItemDespesa.DiaEmissao
+	toColumn: dCalendário.Data
+
+relationship adcaa608-da49-47b1-8fba-5320f7389f38
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: d_IES.UO
+	toColumn: Brasao.UO
+
+relationship 195234a3-22f1-49ed-a421-af906e28fd79
+	fromColumn: PTRES.CodUnidadeOrcamentaria
+	toColumn: UnidadeOrgao.UnidadeOrcamentaria
+
+relationship 76af793a-33f8-491e-b1d5-e6bf0c648dab
+	crossFilteringBehavior: bothDirections
+	fromColumn: ItemDespesa.CodNDD
+	toColumn: NaturezaDespesa.CodNaturezaDespesa
+
+relationship a86cdc61-9a81-4083-ad74-cd84ca0fb43d
+	fromColumn: ItemDespesa.CodEsfera
+	toColumn: Esfera.CodEsfera
+
+relationship 5936dd98-cfdd-416a-ade7-fe024c6967c8
+	fromColumn: UGE.CodOrgaoUGE
+	toColumn: d_IES.UO
+
+relationship 07f84d20-cd2a-49d1-bf8f-2cc12ddd49ee
+	isActive: false
+	fromColumn: UnidadeOrgao.CodUOResponsavel
+	toColumn: d_IES.UO
+
+relationship 676dd38b-1d7f-4f1b-b8c5-0ebaac162e18
+	fromColumn: fVagas.Ano
+	toColumn: dCalendário.Data
+
+relationship 9238b563-ea8b-4152-8386-12cc2982086b
+	fromColumn: fEficienciaAcademica.skCursoMatricula
+	toColumn: dimCurso.skCursoMatricula
+
+relationship bc563e1a-c2d5-4177-8f35-17caccf9dc29
+	fromColumn: fEficienciaAcademica.skUnidade
+	toColumn: dimUnidade.skUnidade
+
+relationship ac763c16-3ab9-460f-bc6e-9d61c7127a00
+	fromColumn: fEficienciaAcademica.codSexoIdade
+	toColumn: dimSexoIdade.codSexoIdade
+
+relationship ebf4483b-e7eb-44f6-946b-7e6fd152015d
+	fromColumn: fEficienciaAcademica.codRendaRaca
+	toColumn: dimRendaRaca.codRendaRaca
+
+relationship e3290907-511b-4208-a0be-db2a70bd82de
+	fromColumn: fEficienciaAcademica.codFinanciamento
+	toColumn: dimFinanciamento.codFinanciamento
+
+relationship 6dcbdd3e-4864-4710-a4a4-d5975535f90c
+	fromColumn: fEficienciaAcademica.codSituacao
+	toColumn: dimSituacao.codSituacao
+
+relationship 74f4f4f6-9aac-4d72-bed0-daa3825969bd
+	fromColumn: fEficienciaAcademica.Ano
+	toColumn: dCalendário.Data
+
+relationship 3e67d67e-620d-4287-bec1-312219faf014
+	fromColumn: dimCurso.tipoCurso
+	toColumn: TipoCurso.'Tipo Curso'
+
+relationship 9c29585d-9914-4a23-baed-78539d87cb69
+	fromColumn: 'fServidores | Microdados'.skUnidade
+	toColumn: dimUnidade.skUnidade
+
+relationship f8b3978a-ebee-4652-af4f-515ee264184a
+	fromColumn: 'fServidores | Microdados'.Data
+	toColumn: dCalendário.Data
+
+relationship d88be6d6-558b-40fc-826e-44bb91bb4067
+	fromColumn: fFinanceiro.Ano
+	toColumn: dCalendário.Data
+
+relationship 8a480d19-4922-4a81-b9b2-3e79dbbc1dff
+	fromColumn: fFinanceiro.UO
+	toColumn: d_IES.UO
+
+relationship fa4d9cb9-f327-426f-a536-1df587a75cea
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fInstagram.timestamp
+	toColumn: LocalDateTable_031d51da-ffa4-4d99-9903-68ebf2059f1b.Date
+
+relationship 372c5b1b-f58d-415c-a1b8-0ab209b6b1c0
+	fromColumn: d_IES.Região
+	toColumn: _UFColor.Região
+
+relationship 6481c5f9-002e-4c3d-9377-d7b8c91d0b93
+	fromColumn: fInstagram.username
+	toColumn: dimUsernameInstagram.username
+
+relationship aa93655a-a54a-4672-b9dd-3d67d7eb9437
+	fromColumn: 'Redes Sociais'.Ordem
+	toColumn: icons.Ordem
+
+relationship fbc19406-608b-45e3-865f-23c172de9e77
+	fromColumn: 'Redes Sociais'.CO_IES
+	toColumn: d_IES.CO_IES
+
+relationship 215cd85c-d365-4ff4-9b72-0021cbc72af3
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: d_IES.UO
+	toColumn: dimUsernameInstagram.UO
+
+relationship 4396178b-5351-4f4c-9e35-ca8c060ceaa9
+	fromColumn: fCiclos.skUnidade
+	toColumn: dimUnidade.skUnidade
+
+relationship de406280-57b1-4063-a26c-159f1a55de5d
+	fromColumn: fCiclos.Ano
+	toColumn: dCalendário.Data
+
+relationship 12a68707-25e3-48ad-b0d1-93135feff1b3
+	fromColumn: fServidoresSiape.codEscolaridade
+	toColumn: dimEscolaridade.codEscolaridade
+
+relationship 9afbaac9-6fcc-46a9-9182-4c3d44a3022e
+	fromColumn: fServidoresSiape.skCargo
+	toColumn: dimCargos.skCargo
+
+relationship 84df7b0f-c7cc-49c3-a4a1-912b7409d5f1
+	fromColumn: fServidoresSiape.codSexoIdade
+	toColumn: dimSexoIdadeSiape.codSexoIdade
+
+relationship c850c81a-b508-4294-ba3a-5770c4dd72db
+	fromColumn: fServidoresSiape.skJornada
+	toColumn: dimJornada.skJornada
+
+relationship f65d84f5-5e8d-4cf2-b113-59a8f018bd71
+	fromColumn: fServidoresSiape.codSexoIdade
+	toColumn: dimSexoIdade.codSexoIdade
+
+relationship ec585f37-3f9a-4f23-a291-1ff0093d39d4
+	fromColumn: fServidoresSiape.skSituacaoFuncional
+	toColumn: dimSitFuncional.skSituacaoFuncional
+
+relationship a903b945-602b-4675-aa0f-9906e7933fcc
+	fromColumn: dimOrgao.CodUO
+	toColumn: d_IES.UO
+
+relationship 5dae32a9-7894-4840-9a83-7d90ef58fabe
+	fromColumn: fFuncoes.codSexoIdade
+	toColumn: dimSexoIdade.codSexoIdade
+
+relationship 171c8ad2-2687-4f90-ba80-1861d36895fc
+	fromColumn: fFuncoes.codEscolaridade
+	toColumn: dimEscolaridade.codEscolaridade
+
+relationship 3b56ac05-f96c-4534-99be-3e9c9c354b23
+	fromColumn: fFuncoes.skCargo
+	toColumn: dimCargos.skCargo
+
+relationship 6224cb87-3c04-427e-8a7a-af31a7710188
+	fromColumn: fFuncoes.skFuncao
+	toColumn: dimFuncao.skFuncao
+
+relationship 6db82047-6520-45c7-9620-d847deeb30dc
+	fromColumn: fServidoresSiape.AnoMes
+	toColumn: dCalendário.Data
+
+relationship fb43bc57-8eaf-4dbf-89ad-8c0ac39c4a29
+	fromColumn: fFuncoes.AnoMes
+	toColumn: dCalendário.Data
+
+relationship 78a02a3b-fcae-4695-a82e-40c5b6a7071e
+	crossFilteringBehavior: bothDirections
+	fromColumn: fIGC.' Código da IES'
+	toColumn: d_IES.CO_IES
+
+relationship 8f62c416-8f44-4023-8b35-9c96ee061902
+	fromColumn: fServidoresSiape.skTempoServico
+	toColumn: dimTempoServico.skTempoServico
+
+relationship c4360f46-2d9e-4f45-8712-9278040e6759
+	fromColumn: fFuncoes.skTempoServico
+	toColumn: dimTempoServico.skTempoServico
+
+relationship 0a30bcd0-8d1f-4d51-9183-671e77135942
+	fromColumn: fCPC.Ano
+	toColumn: dCalendário.Data
+
+relationship c600784b-c624-4723-a672-504447d2a41d
+	fromColumn: fCPC.skUnidade
+	toColumn: dimUnidade.skUnidade
+
+relationship 4224156a-c05f-434e-89d2-5d55c793516c
+	crossFilteringBehavior: bothDirections
+	fromColumn: _fOrçamento.Contexto
+	toColumn: 'Contexto Orçamentário'.Contexto
+
+relationship ed2baff3-b752-4c87-98c2-17d156f1db0a
+	crossFilteringBehavior: bothDirections
+	fromColumn: _fIndAcompOrc.'Contexto Orçamentário'
+	toColumn: 'Contexto Orçamentário'.Contexto
+
+relationship 4a16572c-74b3-46e6-822b-b4d5fb29dbd7
+	fromColumn: fCiclos.skCicloMatricula
+	toColumn: dimCicloMatricula.skCicloMatricula
+
+relationship 8bb3eaed-c627-4834-8cab-5a167100183d
+	fromColumn: fServidoresSiape.skDimCarreira
+	toColumn: dimCarreiras.skDimCarreira
+
+relationship 869f8c44-30e9-4a8f-bc4b-c10b6c9de675
+	fromColumn: fFuncoes.skDimCarreira
+	toColumn: dimCarreiras.skDimCarreira
+
+relationship 04bc49f8-6be3-4d02-8e0a-041c4eff62e1
+	fromColumn: fServidoresSiape.skOrgao
+	toColumn: dimOrgao.skOrgao
+
+relationship 60fca285-b0c5-4bac-bdcc-3f38c330a8ff
+	fromColumn: fFuncoes.skOrgao
+	toColumn: dimOrgao.skOrgao
+

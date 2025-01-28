@@ -1,0 +1,228 @@
+/// @description Tabela para parâmetro de campos referente a fatos do Orçamento
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table _fOrçamento
+	lineageTag: d4250f40-7081-4dfa-aa23-60b5cedcda06
+
+	/// @description Grupo de cálculo para métricas orçamentárias - ano anterior
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'fOrcamento (LY)' =
+			
+			
+			/*
+			@description Grupo de cálculo para métricas orçamentárias - ano anterior
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			IF(
+			    COUNTROWS('ItemDespesa')>0,
+			    CALCULATE(
+			        SELECTEDVALUE('_fOrçamento'[Descrição]),
+			        DATESYTD ( DATEADD ( 'dCalendário'[Data], -1, YEAR ) )
+			        ),
+			        BLANK()
+			        )
+		lineageTag: ce2a8eff-ea4b-4b8f-8335-d7563b33a374
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure IndOrcamento =
+			
+			VAR Selection =
+			SELECTEDVALUE ( '_fOrçamento'[fOrçamento Pedido], "Tudo" )
+			RETURN
+			SWITCH (
+			TRUE (),
+			Selection = 1, [Projeto de Lei],
+			Selection = 2, [Dotação inicial],
+			Selection = 3, [Dotação atualizada],
+			Selection = 4, [Dotação adicional],
+			Selection = 5, [Dotação Cancelada e Remanejada],
+			Selection = 7, [Dotação atualizada],
+			Selection = 8, [Despesa empenhada],
+			Selection = 9, [Despesa liquidada],
+			Selection = 10, [Despesa paga],
+			Selection = 11, [Despesa empenhada a liquidar],
+			Selection = 12, [Crédito Disponível],
+			Selection = 13, [RAP Inscrito e Reinscrito],
+			Selection = 14, [RAP não processados a liquidar],
+			Selection = 15, [RAP a pagar],
+			Selection = 16, [RAP Pago],
+			Selection = 17, [RAP Bloqueado],
+			Selection = 18, [RAP Cancelado],
+			Selection = 19, [Destaque Recebido],
+			Selection = 21, [Despesa empenhada],
+			Selection = 22, [Despesa liquidada],
+			Selection = 23, [Despesa paga],
+			Selection = 24, [Despesa empenhada a liquidar],
+			Selection = 25, [Crédito Disponível],
+			Selection = 26, [Despesa empenhada],
+			Selection = 27, [Despesa liquidada],
+			Selection = 28, [Despesa paga],
+			Selection = 29, [Despesa empenhada a liquidar],
+			Selection = 30, [Despesa liq&RP],
+			Selection = 31, [Pagamento Total],
+			[Despesa empenhada]
+			)
+		formatString: #,0.00
+		lineageTag: ebfd908e-0679-4cef-a448-247cecf8a369
+
+	measure 'IndOrcamento (LY)' =
+			
+			IF(
+			    COUNTROWS('ItemDespesa')>0,
+			    CALCULATE(
+			        [IndOrcamento],
+			        DATESYTD ( DATEADD ( 'dCalendário'[Data], -1, YEAR ) )
+			        ),
+			        BLANK()
+			        )
+		lineageTag: 51fde7e3-04e1-425d-a1f4-5108ea197004
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'IndOrcamento (YOY)' = ```
+			
+			Var ItemInformacao2013 = 
+			CALCULATE([IndOrcamento], FILTER(ALL('dCalendário'), 'dCalendário'[Ano] = 2013))
+			Return
+			DIVIDE([IndOrcamento]-ItemInformacao2013,ItemInformacao2013)
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: d0ed01c0-3ba3-44bf-a700-9d4a6e0c2adf
+
+	measure IndOrcamento_SPLY =
+			VAR __lastDate =
+			    CALCULATE ( MAX ( ItemDespesa[DiaEmissao] ), ALL ( ItemDespesa ) )
+			VAR __currentPeriodAdjusted =
+			    FILTER ( VALUES ( 'dCalendário'[Data] ), 'dCalendário'[Data] <= __lastDate )
+			VAR __result =
+			    CALCULATE (
+			        [IndOrcamento],
+			        DATESYTD ( DATEADD ( __currentPeriodAdjusted, -1, YEAR ) )
+			    )
+			RETURN
+			    __result
+		lineageTag: 937a9bf5-1edb-4a02-877b-8187e992cced
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Descrição
+		dataType: string
+		lineageTag: cfed5a41-6590-4548-9770-0d49e71c1a11
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'fOrçamento Pedido'
+
+		relatedColumnDetails
+			groupByColumn: Medidas
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Medidas financeiras
+	column Medidas
+		isHidden
+		lineageTag: 6e61c404-87f8-4b1e-b08a-5970dfd73a4f
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'fOrçamento Pedido'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "kind": 2,
+				  "version": 3
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'fOrçamento Pedido'
+		isHidden
+		formatString: 0
+		lineageTag: cb58aa8c-a492-4659-a1dd-3d6f0a846064
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Contexto
+		lineageTag: 19f9befd-3e9a-481b-8fd4-3c5358163a83
+		summarizeBy: none
+		sourceColumn: [Value4]
+		sortByColumn: Valor
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Valor
+	column Valor
+		formatString: 0
+		lineageTag: 66f5e160-81c7-4b8e-a72f-8d9e9ea20b6b
+		summarizeBy: sum
+		sourceColumn: [Value5]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _fOrçamento-6601d71f-34df-4588-8340-26ddbe5c91d6 = calculated
+		mode: import
+		source = ```
+				{
+				    /*%%%%% Sem Detalhamento %%%%%*/
+					
+				/*("Sem Detalhamento", NAMEOF([EmBranco]), 0, "Sem Detalhamento", 0),*/
+					
+				/*%%%%% Programação Orçamentária %%%%%*/
+					
+					("Projeto de Lei", NAMEOF([Projeto de Lei]), 1, "Programação Orçamentária", 1),
+					("Dotação Inicial", NAMEOF([Dotação inicial]), 2, "Programação Orçamentária", 1),
+					("Dotação Atualizada", NAMEOF([Dotação atualizada]), 3, "Programação Orçamentária", 1),
+					("Crédito Adicional", NAMEOF([Dotação adicional]), 4, "Programação Orçamentária", 1),
+					("Cancelado e/ou Remanejado", NAMEOF([Dotação Cancelada e Remanejada]), 5, "Programação Orçamentária", 1),
+				
+				    /* %%%%% Execução do Exercício %%%%% */
+					
+					("Dotação Atualizada", NAMEOF([Dotação atualizada]), 7, "Execução do Exercício", 2),
+				    ("Despesa Empenhada", NAMEOF([Despesa empenhada]), 8, "Execução do Exercício", 2),
+					("Despesa Liquidada", NAMEOF([Despesa liquidada]), 9, "Execução do Exercício", 2),
+					("Despesa Paga", NAMEOF([Despesa paga]), 10, "Execução do Exercício", 2),
+					("Empenhado a liquidar", NAMEOF([Despesa empenhada a liquidar]), 11, "Execução do Exercício", 2),
+				    ("Crédito Disponível", NAMEOF([Crédito Disponível]), 12, "Execução do Exercício", 2),
+				
+				    /*%%%%% Restos a pagar %%%%%*/
+					
+					("RAP Inscrito e Reinscrito", NAMEOF([RAP Inscrito e Reinscrito]), 13, "Restos a Pagar", 3),
+					("Não processados a liquidar", NAMEOF([RAP não processados a liquidar]), 14, "Restos a Pagar", 3),
+					("RAP a Pagar", NAMEOF([RAP a pagar]), 15, "Restos a Pagar", 3),
+					("RAP Pago", NAMEOF([RAP Pago]), 16, "Restos a Pagar", 3),
+					("RAP Bloqueado", NAMEOF([RAP Bloqueado]), 17, "Restos a Pagar", 3),
+					("RAP Cancelado", NAMEOF([RAP Cancelado]), 18, "Restos a Pagar", 3),
+				
+				    /*%%%%% Descentralizações %%%%%*/
+					
+				 	("Destaque Recebido", NAMEOF([Destaque Recebido]), 19, "Descentralizações", 4),
+				 /* ("Destaque Concedido", NAMEOF([Destaque Concedido]), 20, "Descentralizações", 4), */
+					("Despesa Empenhada", NAMEOF([Despesa empenhada]),21, "Descentralizações", 4),
+					("Despesa Liquidada", NAMEOF([Despesa liquidada]), 22, "Descentralizações", 4),
+					("Despesa Paga", NAMEOF([Despesa paga]), 23, "Descentralizações", 4),
+					("Empenhado a liquidar", NAMEOF([Despesa empenhada a liquidar]), 24, "Descentralizações", 4),
+					("Crédito Disponível", NAMEOF([Crédito Disponível]), 25,  "Descentralizações", 4),
+					
+				/* %%%%% Exercício e RP%%%%% */
+					
+					("Despesa Empenhada", NAMEOF([Despesa empenhada]), 26, "Exercício e RP", 5),
+					("Despesa Liquidada", NAMEOF([Despesa liquidada]), 27, "Exercício e RP", 5),
+					("Despesa Paga", NAMEOF([Despesa paga]), 28, "Exercício e RP", 5),
+				    ("Empenhado a liquidar", NAMEOF([Despesa empenhada a liquidar]), 29, "Exercício e RP", 5),
+					("Liquidação Total", NAMEOF([Despesa liq&RP]), 30, "Exercício e RP", 5),
+					("Pagamento Total", NAMEOF([Pagamento Total]), 31, "Exercício e RP", 5)
+				}
+				```
+
+	annotation PBI_Id = 5bb26e043e2e48d7845e290ef3a95c55
+

@@ -1,0 +1,40 @@
+/// @description Essa tabela é utilizada para armazenar informações sobre as esferas de atuação de uma organização. As esferas podem ser, por exemplo, financeira, administrativa, operacional, entre outras. O código da esfera é utilizado para identificar de forma única cada uma delas, enquanto o nome da esfera é utilizado para facilitar a compreensão e a comunicação entre os membros da organização.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table Esfera
+	lineageTag: f38c2caf-51d9-49d5-8942-fe359a4f9779
+
+	column CodEsfera
+		dataType: string
+		lineageTag: f80c3c10-9d05-436d-ae1d-d308765a6f80
+		summarizeBy: none
+		sourceColumn: CodEsfera
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Classificação que tem por finalidade identificar se a despesa ou a receita estão inseridas nos orçamentos fiscal, da seguridade social ou de investimento das empresas estatais.
+	column Esfera
+		dataType: string
+		lineageTag: 07772e77-109c-41aa-a75e-8fcebedda237
+		summarizeBy: none
+		sourceColumn: Esfera
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Esfera-b2a63b14-45de-4895-a67a-fa8f2b1b788f = m
+		mode: import
+		queryGroup: 'Modelo Orçamentário\Orçamento - Siop'
+		source =
+				let
+				    Fonte = Csv.Document(Binary.Decompress(Web.Contents(
+				        URLBase&"../../../"&Siop&"/Esfera.csv.gz"
+				        ),Compression.GZip),[Delimiter="	", Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    Personalizar1 = Table.InsertRows(#"Cabeçalhos Promovidos",0,{[CodEsfera="-9",Esfera="[Sem informação]"],[CodEsfera="-8",Esfera="[Não se aplica]"]}),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(Personalizar1,{{"CodEsfera", type text}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_ResultType = Table
+

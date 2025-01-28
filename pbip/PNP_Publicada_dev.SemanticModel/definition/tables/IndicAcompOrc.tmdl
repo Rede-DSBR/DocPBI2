@@ -1,0 +1,124 @@
+/// @description Tabela de medidas de indicadores de acompanhamento orçamento
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table IndicAcompOrc
+	lineageTag: 228e81e6-0d52-46f7-af90-bc511685ee02
+
+	measure 'Dotação Atualizada vs. Projeto de Lei' =
+			if([Projeto de Lei] > 0,
+			DIVIDE(Coalesce([Dotação atualizada], 0),[Projeto de Lei],0))
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: _Medidas
+		lineageTag: 9a4f4e68-0643-45b7-90d7-2f0b9aacf1f9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Despesa Empenhada vs. Dotação Atualizada' =
+			if([Dotação atualizada] > 0,
+			DIVIDE(COALESCE([Despesa empenhada],0), [Dotação atualizada]))
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: _Medidas
+		lineageTag: 0dcf366d-a915-49da-a09d-ccf5f8f1170c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Despesa Liquidada vs. Dotação Atualizada' =
+			if([Dotação atualizada] > 0,
+			DIVIDE(coalesce([Despesa liquidada],0),[Dotação atualizada]))
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: _Medidas
+		lineageTag: 419c4569-faf7-403a-8e36-103bb12d6649
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Despesa Liquidada vs. Despesa Empenhada' =
+			If([Despesa empenhada]>0,
+			    DIVIDE(coalesce([Despesa liquidada],0),[Despesa empenhada]))
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: _Medidas
+		lineageTag: 9ac39796-ab62-40e9-8a96-4472af0bc25f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Despesa Paga vs. Despesa Liquidada' =
+			if([Despesa liquidada] > 0,
+			DIVIDE(coalesce([Despesa paga],0), [Despesa liquidada]))
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: _Medidas
+		lineageTag: 580dd9a3-8ec0-4e0c-8929-385fe57bf797
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Dotação Atualizada vs. Dotação Inicial' =
+			if([Dotação inicial] > 0,
+			DIVIDE(coalesce([Dotação atualizada],0),[Dotação inicial]))
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: _Medidas
+		lineageTag: e0badfc0-e443-46d3-afd4-1cee8714e4f8
+
+		changedProperty = FormatString
+
+	measure 'RAP Pago vs. RAP Inscritos' =
+			if([RAP Inscrito e Reinscrito] > 0,
+			DIVIDE(coalesce([RAP Pago],0), [RAP Inscrito e Reinscrito]))
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: _Medidas
+		lineageTag: 5876fc34-c9a9-44ed-bd6c-22b37c18ebfb
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'RAP Cancelados vs. Rap Inscritos' =
+			if([RAP Inscrito e Reinscrito] > 0,
+			DIVIDE(coalesce([RAP Cancelado],0), [RAP Inscrito e Reinscrito]))
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: _Medidas
+		lineageTag: d59973a0-07b8-40a0-9d08-67537ea5b075
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'RAP Bloqueados vs. Rap Inscritos' =
+			if([RAP Inscrito e Reinscrito] > 0,
+			DIVIDE(coalesce([RAP Bloqueado],0), [RAP Inscrito e Reinscrito]))
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: _Medidas
+		lineageTag: 2b9648c9-de65-42cb-9c84-9fdc44c61fca
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'RAP Não Proc. a liquidar vs. RAP Inscritos' =
+			if([RAP Inscrito e Reinscrito] > 0,
+			DIVIDE(coalesce([RAP não processados a liquidar],0), [RAP Inscrito e Reinscrito]))
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: _Medidas
+		lineageTag: 42337645-b66c-4c33-9682-8ffe369bbe3e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Despesa Paga vs. Dotação Atualizada' =
+			if([Dotação atualizada] > 0,
+			DIVIDE(coalesce([Despesa paga],0),[Dotação atualizada]))
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: _Medidas
+		lineageTag: 40210d57-040b-47d4-aebe-6fb9f97a2886
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Coluna 1'
+		dataType: string
+		lineageTag: a852e37a-b05d-4e26-90e1-f769dd76eb4a
+		summarizeBy: none
+		sourceColumn: Coluna 1
+
+		annotation SummarizationSetBy = Automatic
+
+	partition IndicAcompOrc-5cbb2bba-d50f-454c-9630-8f6f92bd5dbc = m
+		mode: import
+		source =
+				let
+				    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WUlCKjQUA", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Coluna 1" = _t])
+				in
+				    Fonte
+
+	annotation PBI_ResultType = Table
+

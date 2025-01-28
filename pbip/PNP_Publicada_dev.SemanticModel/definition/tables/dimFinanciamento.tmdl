@@ -1,0 +1,67 @@
+/// @description Dimensão financiamento
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table dimFinanciamento
+	lineageTag: 48ce5416-063b-4389-b0ad-92c40c7ac88b
+
+	/// @description Código do Financiamento
+	column codFinanciamento
+		dataType: string
+		isHidden
+		lineageTag: 576368e7-6f4d-4393-8ce2-8f70253513a1
+		summarizeBy: none
+		sourceColumn: codFinanciamento
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Indica a Fonte de Financiamento das matrículas apresentadas na Plataforma Nilo Peçanha. Nesta edição estão disponíveis as fontes:- Recursos Orçamentários (utilizada para o cálculo dos indicadores); - Universidade Aberta do Brasil (UAB).
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Dados Gerais; Curso, matrícula e oferta; Situação de matrícula; Classificação Racial, Renda e Sexo; Faixa Etária; Percentuais Legais;  Oferta de vagas noturnas; Relação inscritos/vagas; Taxa de evasão; Eficiência Acadêmica; Titulação Docente
+	column nomeFonteFinanciamento
+		dataType: string
+		lineageTag: 0fbfec2e-abbc-40e8-90ea-02ff70a561a8
+		summarizeBy: none
+		sourceColumn: nomeFonteFinanciamento
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Representa o nome da fonte de financiamento após ter passado por um processo de padronização.
+	/// @author Mariana Farias
+	/// @version 1
+	/// @date 24/05/2023
+	/// @panel Oferta de vagas noturnas; Indicadores de Gastos
+	column nomeFonteFinanciamentoCorrigido
+		dataType: string
+		lineageTag: 3b993478-0603-49c4-b932-fb5cb7f8fa21
+		summarizeBy: none
+		sourceColumn: nomeFonteFinanciamentoCorrigido
+
+		annotation SummarizationSetBy = Automatic
+
+	column ordemFinanciamento
+		dataType: int64
+		formatString: 0
+		lineageTag: 982a39aa-75e6-48d7-9438-d4b39b0ff9bf
+		summarizeBy: sum
+		sourceColumn: ordemFinanciamento
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dimFinanciamento-ae27b091-5188-4c14-8fdd-6e8ff335a07b = m
+		mode: import
+		queryGroup: 'Modelo PNP\Dimensões'
+		source =
+				let
+				    Fonte = Csv.Document(Binary.Decompress(Web.Contents(AWS&"dimFinanciamento.csv.gz"),Compression.GZip),[Delimiter=";", Columns=4, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"ordemFinanciamento", Int64.Type}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_ResultType = Table
+

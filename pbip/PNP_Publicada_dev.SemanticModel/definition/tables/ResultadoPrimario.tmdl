@@ -1,0 +1,64 @@
+/// @description Em resumo, a tabela ResultadoPrimario armazena informações sobre os resultados primários, incluindo seus nomes, códigos identificadores e descrições detalhadas.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table ResultadoPrimario
+	lineageTag: 6bfdfd59-b987-4b01-93da-282c44f00758
+
+	column CodResultadoPrimario
+		dataType: string
+		lineageTag: 2bade029-0c04-4bc5-afd8-1305d6a5fc58
+		summarizeBy: none
+		sourceColumn: CodResultadoPrimario
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Classificação de Resultado Primário - De caráter indicativo, tem como finalidade auxiliar a apuração do resultado primário previsto para o exercício. Esse resultado é uma meta fiscal que avalia se o governo está gastando mais do que a arrecadação. Basicamente, resultado primário é a diferença entre as despesas e as receitas fiscais. São eles: (0) despesa financeira; (1) despesa primária obrigatória; (2) despesa primária discricionária; (3) despesa relativa ao Projeto Piloto de Investimentos Públicos; (4) despesas constantes do orçamento de investimentos das empresas estatais que não impactam o resultado primário.
+	column ResultadoPrimario
+		dataType: string
+		lineageTag: be04c7b2-879d-412a-adff-8d15c8e11652
+		summarizeBy: none
+		sourceColumn: ResultadoPrimario
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Classificação do Resultado Primário de acordo com a linguagem cidadã.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Panorama Orçamentário; Explorar Dados; Serie Histórica; Ind Orçamentário
+	column 'Resultado Primário (Cidadã)'
+		dataType: string
+		lineageTag: ba136324-b080-4291-b23d-2d79c18d6487
+		summarizeBy: none
+		sourceColumn: Resultado Primário (Cidadã)
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cód_ResultadoPrimario
+		dataType: string
+		lineageTag: bc006426-ec3f-43d4-946f-81cfc88df132
+		summarizeBy: none
+		sourceColumn: Cód_ResultadoPrimario
+
+		annotation SummarizationSetBy = Automatic
+
+	partition ResultadoPrimario-36bfb4ac-145e-4b71-b7bb-429d168ed3d7 = m
+		mode: import
+		queryGroup: 'Modelo Orçamentário\Orçamento - Siop'
+		source =
+				let
+				    Fonte = Csv.Document(Binary.Decompress(Web.Contents(
+				        URLBase&"../../../"&Siop&"/ResultadoPrimario.csv.gz"
+				        ),Compression.GZip),[Delimiter="	", Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    Personalizar1 = Table.InsertRows(#"Cabeçalhos Promovidos",0,{[CodResultadoPrimario="-9", ResultadoPrimario="[Sem informação]"],[CodResultadoPrimario="-8", ResultadoPrimario="[Não se aplica]"]}),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(Personalizar1,{{"CodResultadoPrimario", type text}, {"ResultadoPrimario", type text}}),
+				    #"Consultas Mescladas" = Table.NestedJoin(#"Tipo Alterado", {"CodResultadoPrimario"}, ResultadoCid, {"Resultado Primário (Cód.)"}, "ResultadoCid", JoinKind.LeftOuter),
+				    #"ResultadoCid Expandido" = Table.ExpandTableColumn(#"Consultas Mescladas", "ResultadoCid", {"Resultado Primário (Cidadã)", "Identificador de Resultado"}, {"Resultado Primário (Cidadã)", "Identificador de Resultado"}),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"ResultadoCid Expandido",{{"Identificador de Resultado", "Cód_ResultadoPrimario"}})
+				in
+				    #"Colunas Renomeadas"
+
+	annotation PBI_ResultType = Table
+

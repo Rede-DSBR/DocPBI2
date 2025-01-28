@@ -1,0 +1,119 @@
+/// @description Essa tabela fornece informações que são importantes para que a IES possa gerenciar suas redes sociais de forma organizada e eficiente, permitindo que os usuários encontrem facilmente as páginas oficiais das redes sociais da instituição.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table 'Redes Sociais'
+	lineageTag: 01a12874-87b6-41fa-b3e2-a4fef4c94b0c
+
+	/// @description Coluna derivada que obtem o ícone das instituições nas redes sociais
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'Ícone redes sociais' =
+			
+			/*@description Coluna derivada que obtem o ícone das instituições nas redes sociais
+			@author dsbr
+			@version 1
+			@date 03/11/2022*/
+			
+			IF(HASONEVALUE(d_IES[Sigla]),MIN('Redes Sociais'[Ícone]),CALCULATE(MIN('Redes Sociais'[Ícone]),ALL(d_IES),'Redes Sociais'[Sigla]="MEC"))
+		lineageTag: e6fc3988-a492-4212-9a7d-08adf5ecfe16
+		dataCategory: ImageUrl
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Endereço de URL das instituições nas redes sociais
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'URL redes sociais' =
+			
+			/*@description Endereço de URL das instituições nas redes sociais
+			@author dsbr
+			@version 1
+			@date 03/11/2022*/
+			IF(HASONEVALUE(d_IES[Sigla]),MIN('Redes Sociais'[URL]),CALCULATE(MIN('Redes Sociais'[URL]),ALL(d_IES),'Redes Sociais'[Sigla]="MEC"))
+		lineageTag: 3f1ac36d-6a92-4f90-abd5-2653068aae15
+		dataCategory: WebUrl
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Sigla da Instituição de Ensino Superior
+	column Sigla
+		dataType: string
+		lineageTag: 44f4b9f7-f269-49ca-bd7b-a962a3dfacc6
+		summarizeBy: none
+		sourceColumn: Sigla
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Código único de identificação da IES
+	column CO_IES
+		dataType: int64
+		formatString: 0
+		lineageTag: 95f286be-46e9-4f58-9ff0-0c2292a99d69
+		summarizeBy: none
+		sourceColumn: CO_IES
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Faixa de informação a receber ícone, exemplo: 0-25%
+	column Atributo
+		dataType: string
+		lineageTag: 8fe6a298-9aa4-48f7-9005-75865602e1df
+		summarizeBy: none
+		sourceColumn: Atributo
+		sortByColumn: Ordem
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Endereço do site
+	column URL
+		dataType: string
+		lineageTag: a66e9c2d-d0bf-423b-afb9-c98dd3f26ecc
+		summarizeBy: none
+		sourceColumn: URL
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ícone
+		dataType: string
+		lineageTag: a3406577-64ba-4abc-bbfe-0e414a140b38
+		summarizeBy: none
+		sourceColumn: Ícone
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Número de ordem de cada campo
+	column Ordem
+		dataType: string
+		lineageTag: ff6c019c-3d3d-4b49-b9f9-49c7e72bc8fb
+		summarizeBy: none
+		sourceColumn: Ordem
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Redes Sociais-06d8ca72-a790-4525-b199-6354b088d485' = m
+		mode: import
+		queryGroup: Instagram
+		source =
+				let
+				    Fonte = Excel.Workbook(Web.Contents(#"AWS TG" & "redes_sociais.xlsx"), null, true),
+				    #"redes sociais_Sheet" = Fonte{[Item="redes sociais",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"redes sociais_Sheet", [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Sigla", type text}, {"CO_IES", Int64.Type}, {"Facebook", type text}, {"Youtube", type text}, {"Twitter", type text}, {"Linkedin", type text}, {"Flickr", type text}, {"Instagram", type text}}),
+				    #"Personalização Adicionada" = Table.AddColumn(#"Tipo Alterado", "e-MEC", each "https://emec.mec.gov.br/emec/consulta-cadastro/detalhamento/d96957f455f6405d14c6542552b0f6eb/"&Binary.ToText(Text.ToBinary(Text.From([CO_IES])), 0)),
+				    #"Valor Substituído" = Table.ReplaceValue(#"Personalização Adicionada","https://emec.mec.gov.br/emec/consulta-cadastro/detalhamento/d96957f455f6405d14c6542552b0f6eb/MjYxMDE=","https://emec.mec.gov.br/",Replacer.ReplaceText,{"e-MEC"}),
+				    #"Colunas Não Dinâmicas" = Table.UnpivotOtherColumns(#"Valor Substituído", {"Sigla", "CO_IES"}, "Atributo", "Valor"),
+				    #"Linhas Filtradas" = Table.SelectRows(#"Colunas Não Dinâmicas", each [Valor] <> "null"),
+				    #"Consultas Mescladas" = Table.NestedJoin(#"Linhas Filtradas", {"Atributo"}, icons, {"Rede Social"}, "icons", JoinKind.LeftOuter),
+				    #"icons Expandido" = Table.ExpandTableColumn(#"Consultas Mescladas", "icons", {"base64", "Ordem"}, {"base64", "Ordem"}),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"icons Expandido",{{"Valor", "URL"}, {"base64", "Ícone"}}),
+				    #"Linhas Classificadas" = Table.Sort(#"Colunas Renomeadas",{{"Ordem", Order.Ascending}})
+				in
+				    #"Linhas Classificadas"
+
+	annotation PBI_ResultType = Table
+

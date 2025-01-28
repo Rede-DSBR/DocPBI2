@@ -1,0 +1,59 @@
+/// @description  A tabela _dServidores | Microdados contém informações sobre os servidores utilizados em um sistema ou aplicação, bem como o número de pedidos realizados em cada um deles. As colunas '_dServidores' e '_dServidores Campos' fornecem informações descritivas sobre os servidores, enquanto a coluna '_dServidores Pedido' fornece informações quantitativas sobre o uso desses servidores.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table '_dServidores | Microdados'
+	lineageTag: 4ed58aa0-efb6-4899-8803-f4996a3d9b83
+
+	column _dServidores
+		lineageTag: ef383be7-c899-4670-86cf-e238b802ca43
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: '_dServidores Pedido'
+
+		relatedColumnDetails
+			groupByColumn: '_dServidores Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column '_dServidores Campos'
+		isHidden
+		lineageTag: 99395587-5219-4f92-bf7e-0145315b2870
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: '_dServidores Pedido'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "kind": 2,
+				  "version": 3
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column '_dServidores Pedido'
+		isHidden
+		formatString: 0
+		lineageTag: 123a4dda-f7d1-4c22-b07e-958bcdff0927
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition '_dServidores | Microdados-1e339c90-9878-45e1-b309-d3bb4647381f' = calculated
+		mode: import
+		source = ```
+				{
+				    ("Sem detalhe", NAMEOF('_ExpTítulos'[EmBranco]), 0),
+				    ("Titulação", NAMEOF('fServidores | Microdados'[Titulação]), 1),
+				    ("Jornada de Trabalho", NAMEOF('fServidores | Microdados'[Jornada_de_Trabalho]), 2),
+				    ("Carreira", NAMEOF('fServidores | Microdados'[Vinculo_Carreira]), 3),
+				    ("Classe", NAMEOF('fServidores | Microdados'[Vinculo_Classe]), 4),
+				    ("RSC", NAMEOF('fServidores | Microdados'[Rsc]), 5),
+				    ("Contrato", NAMEOF('fServidores | Microdados'[Vinculo_Contrato]), 6),
+				    ("Vínculo Professor", NAMEOF('fServidores | Microdados'[Vinculo_Professor]), 7)    
+				}
+				```
+
+	annotation PBI_Id = e993c6ea60ac43d092efe65c80e1fd4f
+

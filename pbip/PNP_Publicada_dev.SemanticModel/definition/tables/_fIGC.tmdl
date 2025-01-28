@@ -1,0 +1,81 @@
+table _fIGC
+	lineageTag: 12cab595-3900-4874-9013-53d67673fc8e
+
+	/// @description  Medida selecionada dentre as medidas da tabela do Índice Geral de Cursos, sejam elas insumos para cálculo do indicador ou o próprio indicador. Os insumos para cálculo do indicador são: a) notas contínuas de Conceitos Preliminares de Curso referentes aos cursos de graduação avaliados no triênio de referência, considerando o CPC mais recentemente publicado para cada curso; b) número de matrículas nos cursos de graduação (estudantes cursando ou formandos no ano de referência do CPC), conforme base de dados oficial do Censo da Educação Superior; c) conceitos dos cursos de Mestrado e Doutorado atribuídos pela Capes na última avaliação divulgada oficialmente, para os programas de pós-graduação reconhecidos, incluindo a avaliação dos novos programas recomendados para o ano de referência do IGC, conforme base de dados oficial encaminhada pela Capes ao Inep; e d) número de matrículas nos cursos de Mestrado e Doutorado, conforme base de dados oficial encaminhada pela Capes ao Inep.
+	/// @author dsbr
+	/// @version 1
+	/// @date 14/06/2023
+	measure 'Medida IGC' =
+			
+			VAR Selection =
+			SELECTEDVALUE( _fIGC[_fIGC Pedido], "Tudo" )
+			RETURN
+			SWITCH (
+			TRUE (),
+			Selection = 0, AVERAGE(fIGC[IGC (Faixa)]),
+			Selection = 1, AVERAGE(fIGC[IGC (Contínuo)]),
+			Selection = 2, AVERAGE(fIGC[Nº de Cursos com CPC no triênio]),
+			Selection = 3, AVERAGE(fIGC[Conceito Médio de Graduação]),
+			Selection = 4, AVERAGE(fIGC[Conceito Médio de Mestrado]),
+			Selection = 5, AVERAGE(fIGC[Conceito Médio do Doutorado]),
+			Selection = 6, AVERAGE(fIGC[Alfa (Proporção de Graduação)]),
+			Selection = 7, AVERAGE(fIGC[Beta (Proporção de Mestrado - Equivalente)]),
+			Selection = 8, AVERAGE(fIGC[Gama (Proporção de Doutorandos – Equivalente)]),
+			AVERAGE(fIGC[IGC (Faixa)])
+			)
+		lineageTag: 90b5442a-8db7-4c2d-b754-c4afc3bf7585
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column _fIGC
+		lineageTag: c49f6554-fc62-4232-b036-03aa92dbccb5
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: '_fIGC Pedido'
+
+		relatedColumnDetails
+			groupByColumn: '_fIGC Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column '_fIGC Campos'
+		isHidden
+		lineageTag: db4f65fd-5cc5-4d1d-bf98-7321af1cd65d
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: '_fIGC Pedido'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "kind": 2,
+				  "version": 3
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column '_fIGC Pedido'
+		isHidden
+		formatString: 0
+		lineageTag: c2c170fd-fdf5-41e0-842e-99f94d984789
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _fIGC-6935ed03-ab60-4d12-8ea0-3f37e4f40c17 = calculated
+		mode: import
+		source =
+				{
+				    ("IGC (Faixa)", NAMEOF('fIGC'[g_IGC (Faixa)]), 0),
+				    ("IGC (Contínuo)", NAMEOF('fIGC'[g_IGC (Contínuo)]), 1),
+				    ("Cursos com CPC no triênio", NAMEOF('fIGC'[g_Cursos com CPC no triênio]), 2),
+				    ("Conceito Médio de Graduação", NAMEOF('fIGC'[g_Conceito Médio de Graduação]), 3),
+				    ("Conceito Médio de Mestrado", NAMEOF('fIGC'[g_Conceito Médio de Mestrado]), 4),
+				    ("Conceito Médio do Doutorado", NAMEOF('fIGC'[g_Conceito Médio do Doutorado]), 5),
+				    ("Alfa (Proporção de Graduação)", NAMEOF('fIGC'[g_Alfa]), 6),
+				    ("Beta (Proporção de Mestrado - Equivalente)", NAMEOF('fIGC'[g_Beta]), 7),
+				    ("Gama (Proporção de Doutorandos – Equivalente)", NAMEOF('fIGC'[g_Gama]), 8)
+				}
+
+	annotation PBI_Id = cee23f060cae475797c97e19acdb882c
+

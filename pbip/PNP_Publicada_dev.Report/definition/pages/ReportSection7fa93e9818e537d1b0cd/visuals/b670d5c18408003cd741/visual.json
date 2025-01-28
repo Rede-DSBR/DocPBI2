@@ -1,0 +1,31 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.2.0/schema.json",
+  "name": "b670d5c18408003cd741",
+  "position": {
+    "x": 951,
+    "y": 135,
+    "z": 16000,
+    "height": 60,
+    "width": 90,
+    "tabOrder": 12000
+  },
+  "visualGroup": {
+    "displayName": "Slicer Ano",
+    "groupMode": "ScaleMode",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Selecione o ano de referência para os dados demonstrados nesta página.'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

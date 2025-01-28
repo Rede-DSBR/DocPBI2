@@ -1,0 +1,170 @@
+model Model
+	culture: pt-BR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: pt-BR
+	dataAccessOptions
+		fastCombine
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup Parâmetros
+
+	annotation PBI_QueryGroupOrder = 0
+
+/// Teste de descricao
+queryGroup 'Modelo PNP\Dimensões'
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup 'Modelo PNP\Fatos'
+
+	annotation PBI_QueryGroupOrder = 1
+
+queryGroup 'Modelo Orçamentário'
+
+	annotation PBI_QueryGroupOrder = 3
+
+queryGroup 'Modelo Orçamentário\Orçamento - Siop'
+
+	annotation PBI_QueryGroupOrder = 0
+
+/// Grupo de Consultas do Modelo Orçamentário DSBR
+queryGroup 'Modelo Orçamentário\Orçamento TG'
+
+	annotation PBI_QueryGroupOrder = 1
+
+/// Modelo de Dados Acadêmicos do Rede Revalide/PNP
+queryGroup 'Modelo PNP'
+
+	annotation PBI_QueryGroupOrder = 1
+
+queryGroup Instagram
+
+	annotation PBI_QueryGroupOrder = 4
+
+queryGroup 'Modelo Gestão de Pessoas'
+
+	annotation PBI_QueryGroupOrder = 2
+
+queryGroup 'Modelo Gestão de Pessoas\Fatos'
+
+	annotation PBI_QueryGroupOrder = 2
+
+queryGroup 'Modelo Gestão de Pessoas\Dimensões'
+
+	annotation PBI_QueryGroupOrder = 1
+
+queryGroup 'Modelo Gestão de Pessoas\Auxiliares'
+
+	annotation PBI_QueryGroupOrder = 0
+
+/// Erros nas consultas que foram carregadas em 06/04/2023 15:52:00.
+queryGroup 'Erros na Consulta - 06/04/2023 15:52:00'
+
+	annotation PBI_QueryGroupOrder = 12
+
+/// Erros nas consultas que foram carregadas em 06/04/2023 15:52:02.
+queryGroup 'Erros na Consulta - 06/04/2023 15:52:02'
+
+	annotation PBI_QueryGroupOrder = 13
+
+annotation PBIDesktopVersion = 2.139.1733.0 (24.12)+af51d793b3eacaf90fc70909aa713164bbd22a66
+
+annotation PBI_QueryOrder = ["dimSexoIdade","dimCicloMatricula","dimCurso","dimFinanciamento","dimRendaRaca","dimSituacao","dimUnidade","dimVagas","d_IES","fCiclos","fVagas","AWS","AWS TG","EndTG","TG","URLBase","Siop","GCS","fSituaçãoMatrícula","dCalendário","geradCalendario","Esfera","ResultadoPrimario","SiopFonte","SiopFuncional","SiopProgramaticaUO","SiopOrgaoUO","SiopNaturezaDespesa","ResultadoCid","Fonte","ItemDespesa","NaturezaDespesa","PTRES","UnidadeOrgao","UGE","Unidades Orçamentárias","LISTAGEM (Pessoal+Custeio)","Atualizacao","fEficienciaAcademica","MedidasIndicadores","fServidoresSiape","TipoCurso","fFinanceiro","fServidores | Microdados","fInstagram","Brasao","auxInstagramUsuarios","dimUsernameInstagram","_UFColor","icons","Redes Sociais","_ExpTítulos","fIGC","dimSitFuncional","dimSexoIdadeSiape","dimOrgao","dimJornada","dimEscolaridade","dimCargos","OrgaoUO","CargoCarreira","fFuncoes","dimFuncao","EscolaridadeNivel","SexoIdadeSiapeOrdem","fCPC","fMunicipios","contador-monitor","IndicAcompOrc","dimTempoServico","dimCarreiras","urls"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation __TEdtr = 1
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table DateTableTemplate_efd75c12-63d8-4a48-bff0-810439d01e27
+ref table dimCurso
+ref table dimUnidade
+ref table d_IES
+ref table fVagas
+ref table fSituaçãoMatrícula
+ref table dimSexoIdade
+ref table dimCicloMatricula
+ref table dimFinanciamento
+ref table dimRendaRaca
+ref table dimSituacao
+ref table dimVagas
+ref table LocalDateTable_0c25ac4f-c7de-4f80-adac-562b0c6cd747
+ref table LocalDateTable_a9687e7a-fbed-418f-800c-f88c7842a2a9
+ref table LocalDateTable_4a1789ab-0489-48f2-8eb5-4a6e6b784b36
+ref table LocalDateTable_f5e2a210-6d1b-45f5-8792-d3b0bcd3380f
+ref table dCalendário
+ref table _dMicrodados
+ref table _fMatrículas
+ref table _dInstituições
+ref table Esfera
+ref table ResultadoPrimario
+ref table Fonte
+ref table ItemDespesa
+ref table NaturezaDespesa
+ref table PTRES
+ref table UnidadeOrgao
+ref table UGE
+ref table Brasao
+ref table Atualizacao
+ref table LocalDateTable_04d17d01-8b38-4bb8-81c0-1aa7c0876e11
+ref table LocalDateTable_c5b4e80a-a5bc-43dd-a019-3d28daeb97e2
+ref table LocalDateTable_96eb3fcb-e263-4fe0-8abf-af7ef63b17f7
+ref table 'Controle Empenho'
+ref table FuncFinanceiras
+ref table MedidasFinanceiras
+ref table IndicadorVar
+ref table _fOrçamento
+ref table _dimOrçamento
+ref table dCalendInterval
+ref table _RealçarData
+ref table fEficienciaAcademica
+ref table fOrçamentoComparar
+ref table MedidasIndicadores
+ref table TipoCurso
+ref table fFinanceiro
+ref table 'fServidores | Microdados'
+ref table _fEficiênciaAcadêmica
+ref table '_dServidores | Microdados'
+ref table fInstagram
+ref table LocalDateTable_031d51da-ffa4-4d99-9903-68ebf2059f1b
+ref table dimUsernameInstagram
+ref table _UFColor
+ref table icons
+ref table 'Redes Sociais'
+ref table _ExpTítulos
+ref table fIGC
+ref table fCiclos
+ref table _dGraficoIV
+ref table _TabelaIV
+ref table _GraficoIV
+ref table fServidoresSiape
+ref table dimSitFuncional
+ref table dimSexoIdadeSiape
+ref table dimOrgao
+ref table dimJornada
+ref table dimEscolaridade
+ref table dimCargos
+ref table fFuncoes
+ref table dimFuncao
+ref table _dServidores
+ref table fCPC
+ref table _DInstituiçõesINEP
+ref table contador-monitor
+ref table RelacaoOrgao
+ref table IndicAcompOrc
+ref table _fIndAcompOrc
+ref table dimTempoServico
+ref table _dimCargo
+ref table _dimFuncao
+ref table 'Contexto Orçamentário'
+ref table _fCPC
+ref table dimCarreiras
+ref table _fIGC
+ref table @project
+ref table urls
+
+ref cultureInfo pt-BR
+

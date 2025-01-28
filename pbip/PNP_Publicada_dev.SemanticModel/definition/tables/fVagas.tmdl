@@ -1,0 +1,286 @@
+/// @description Essa tabela armazena informações sobre as vagas disponíveis em cada ciclo de matrícula. O codCicloMatricula e o skCicloMatricula são identificadores para o ciclo de matrícula, enquanto o codVaga é um identificador único para cada vaga. O numVagas indica quantas vagas estão disponíveis para o ciclo de matrícula em questão. A coluna Ano indica a data em que a vaga foi criada.
+/// @author dsbr
+/// @version 1
+/// @date 03/11/2022
+table fVagas
+	lineageTag: 849ba4de-edda-4ce0-a694-9da37fb2bfe4
+
+	/// @description Vagas Regulares
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Reserva de Vagas
+	measure 'Vagas Regulares' =
+			
+			
+			/*
+			@description Vagas Regulares
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Reserva de Vagas
+			*/
+			
+			CALCULATE(
+			
+			    [BaseVagas],
+			    dimVagas[tipoVaga] = "Regular"
+			    )
+		formatString: #,0
+		lineageTag: 2a87dd8f-55dc-41ee-aee8-233d4edf6542
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Vagas de Ampla Concorrência
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Reserva de Vagas
+	measure 'Vagas de Ampla Concorrência' =
+			
+			/*
+			@description Vagas de Ampla Concorrência
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Reserva de Vagas
+			*/
+			CALCULATE([BaseVagas],dimVagas[nomeVaga] = "Vagas Regulares AC")
+		formatString: #,0
+		lineageTag: 34e0b450-3e43-4644-833e-d362214221fd
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	/// @description Vagas de Cotas
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Reserva de Vagas
+	measure 'Vagas de Cotas' =
+			
+			/*
+			@description Vagas de Cotas
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Reserva de Vagas
+			*/
+			[Vagas Regulares] - [Vagas de Ampla Concorrência]
+		formatString: #,0
+		lineageTag: 841c1099-01c6-4544-8bb6-ea2055e39600
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Vagas Regulares | Atendimento Cotas %
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Reserva de Vagas
+	measure 'Vagas Regulares | Atendimento Cotas %' =
+			
+			/*
+			@description Vagas Regulares | Atendimento Cotas %
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Reserva de Vagas
+			*/
+			[Vagas de Cotas] / [Vagas Regulares]
+		formatString: 0.00%;-0.00%;0.00%
+		isHidden
+		lineageTag: 299be8c0-1ea2-4807-b226-d2b353d3b9de
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Vagas Regulares | Ampla Concorrência %
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Reserva de Vagas
+	measure 'Vagas Regulares | Ampla Concorrência %' = ```
+			
+			/*
+			@description Vagas Regulares | Ampla Concorrência %
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Reserva de Vagas
+			*/
+			[Vagas de Ampla Concorrência] / [Vagas Regulares]
+			
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 0e380408-c411-46ac-b017-fff50af539e6
+
+	/// @description Vagas Regulares | Atendimento Cotas Ref.
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Reserva de Vagas
+	measure 'Vagas Regulares | Atendimento Cotas Ref.' =
+			
+			/*
+			@description Vagas Regulares | Atendimento Cotas Ref.
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Reserva de Vagas
+			*/
+			0.5
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 5579e3ae-b8d0-4e87-b402-b97badc607d1
+
+	/// @description BaseVagas
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure BaseVagas =
+			
+			
+			/*
+			@description BaseVagas
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			var ano = VALUE(MAX('dCalendário'[Ano]))
+			RETURN
+			CALCULATE(
+			    SUM(fVagas[numVagas]),
+			    FILTER(dimCicloMatricula,dimCicloMatricula[anoInicioCiclo]=ano)
+			    )
+		lineageTag: f786c79c-3bf8-4df5-8eb5-e7a2c72ab185
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description Vagas Regulares %
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	/// @panel Reserva de Vagas
+	measure 'Vagas Regulares %' =
+			
+			/*
+			@description Vagas Regulares %
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			@panel Reserva de Vagas
+			*/
+			DIVIDE([Vagas Regulares], CALCULATE([Vagas Regulares], ALLSELECTED(dimVagas[tipoReservaVaga])))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 4fa818f1-bdbc-4961-b49d-681b22ce6709
+
+		changedProperty = FormatString
+
+	/// @description Cor Cotas %
+	/// @author dsbr
+	/// @version 1
+	/// @date 03/11/2022
+	measure 'Cor Cotas %' =
+			
+			/*
+			@description Cor Cotas %
+			@author dsbr
+			@version 1
+			@date 03/11/2022
+			*/
+			IF(SELECTEDVALUE(dimVagas[tipoReservaVaga])="Cotas", "#16C375", "#BE1F24")
+		lineageTag: 51ce6102-d2a8-430b-823d-8f877b227c34
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// @description É um identificador único para o ciclo de matrícula ao qual a vaga pertence.
+	/// @author Mariana Farias
+	/// @version 1
+	/// @date 24/05/2023
+	column codCicloMatricula
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: ce4f842d-8618-4bc7-ac20-bd0f41d87d78
+		summarizeBy: sum
+		sourceColumn: codCicloMatricula
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description É um identificador único para a vaga.
+	/// @author Mariana Farias
+	/// @version 1
+	/// @date 24/05/2023
+	column codVaga
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 8cc8094b-7a4a-4e59-bc07-58b0eaa7a439
+		summarizeBy: none
+		sourceColumn: codVaga
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column skCicloMatricula
+		dataType: int64
+		formatString: 0
+		lineageTag: c7dc5554-bb0c-4c9b-9c2b-2128ccab5317
+		summarizeBy: none
+		sourceColumn: skCicloMatricula
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description É o número de vagas disponíveis para o ciclo de matrícula ao qual a vaga pertence.
+	/// @author Mariana Farias
+	/// @version 1
+	/// @date 24/05/2023
+	column numVagas
+		dataType: int64
+		formatString: 0
+		lineageTag: 84aeaa09-5772-41bb-a32f-b8539b24ebc1
+		summarizeBy: sum
+		sourceColumn: numVagas
+
+		annotation SummarizationSetBy = Automatic
+
+	/// @description Ano em que a vaga foi criada.
+	/// @author Mariana Farias
+	/// @version 1
+	/// @date 24/05/2023
+	column Ano
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b91a36c2-ab80-41bb-92a8-fd373e9d5d70
+		summarizeBy: none
+		sourceColumn: Ano
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition fVagas-c2f0d5fe-0263-4c65-8630-f7c4118badee = m
+		mode: import
+		queryGroup: 'Modelo PNP\Fatos'
+		source =
+				let
+				    Fonte = Csv.Document(Binary.Decompress(Web.Contents(AWS&"fVagas.csv.gz"),Compression.GZip),[Delimiter=";", Columns=22, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Valor Substituído" = Table.ReplaceValue(#"Cabeçalhos Promovidos","0",null,Replacer.ReplaceValue,{"Vagas_Extraordinárias_AC", "Vagas_Extraordinárias_l1", "Vagas_Extraordinárias_l10", "Vagas_Extraordinárias_l13", "Vagas_Extraordinárias_l14", "Vagas_Extraordinárias_l2", "Vagas_Extraordinárias_l5", "Vagas_Extraordinárias_l6", "Vagas_Extraordinárias_l9", "Vagas_Ofertadas", "Vagas_Regulares_AC", "Vagas_Regulares_l1", "Vagas_Regulares_l10", "Vagas_Regulares_l13", "Vagas_Regulares_l14", "Vagas_Regulares_l2", "Vagas_Regulares_l5", "Vagas_Regulares_l6", "Vagas_Regulares_l9"}),
+				    #"Colunas Não Dinâmicas" = Table.UnpivotOtherColumns(#"Valor Substituído", {"Ano", "skCicloMatricula", "codCicloMatricula"}, "Atributo", "Valor"),
+				    #"Valor Substituído1" = Table.ReplaceValue(#"Colunas Não Dinâmicas","_"," ",Replacer.ReplaceText,{"Atributo"}),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Valor Substituído1",{{"Valor", "numVagas"}}),
+				    #"Consultas Mescladas" = Table.NestedJoin(#"Colunas Renomeadas", {"Atributo"}, dimVagas, {"nomeVaga"}, "dimVagas", JoinKind.LeftOuter),
+				    #"dimVagas Expandido" = Table.ExpandTableColumn(#"Consultas Mescladas", "dimVagas", {"codVaga"}, {"codVaga"}),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"dimVagas Expandido",{"Atributo"}),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Colunas Removidas",{{"skCicloMatricula", Int64.Type}, {"codCicloMatricula", Int64.Type}, {"numVagas", Int64.Type}, {"codVaga", Int64.Type}, {"Ano", type date}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_ResultType = Table
+
