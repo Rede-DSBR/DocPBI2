@@ -1,6 +1,14 @@
 #  Arquivos do powerbi versionados
 # pbip
-pbip/PNP_Publicada_dev.SemanticMode/.pbi
+pbip/PNP_Publicada_dev.SemanticModel
+pbip/PNP_Publicada_dev.SemanticModel/.pbi
+pbip/**/*.png
+pbip/**/*.jpg
+pbip/**/*.jpeg
+pbip/**/*.gif
+pbip/**/*.bmp
+pbip/**/*.tiff
+pbip/**/*.svg
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
